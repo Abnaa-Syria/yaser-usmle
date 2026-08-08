@@ -1,0 +1,660 @@
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import PageHeader from "../../components/ui/PageHeader";
+import { useAdminPayouts, useProcessPayout } from "../../features/admin/finance/hooks";
+import { getErrorMessage } from "../../api/error";
+import toast from "react-hot-toast";
+import {
+  Check,
+  X,
+  DollarSign,
+  Calendar,
+  TrendingUp,
+  Building2,
+  Smartphone,
+  User,
+  Clock,
+  ArrowUpRight,
+  CheckCircle2,
+  AlertCircle,
+  RefreshCw
+} from "lucide-react";
+
+const PAYOUT_STATUSES = ["PENDING", "APPROVED", "REJECTED", "PAID"];
+
+// Helper: formats currency
+const formatCurrency = (val) => {
+  const num = Number(val) || 0;
+  return `USD ${new Intl.NumberFormat("en-US").format(num)}`;
+};
+
+// Helper: formats dates cleanly in both Arabic and English
+const formatDate = (dateString, isRtl) => {
+  if (!dateString) return "—";
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "—";
+
+    if (isRtl) {
+      const day = date.getDate();
+      const months = [
+        "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+      ];
+      const monthName = months[date.getMonth()];
+      const year = date.getFullYear();
+
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const ampm = hours >= 12 ? "م" : "ص";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const formattedHours = String(hours).padStart(2, "0");
+
+      return `${day} ${monthName} ${year} - ${formattedHours}:${minutes} ${ampm}`;
+    } else {
+      const day = date.getDate();
+      const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+      const monthName = months[date.getMonth()];
+      const year = date.getFullYear();
+
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const formattedHours = String(hours).padStart(2, "0");
+
+      return `${day} ${monthName} ${year} - ${formattedHours}:${minutes} ${ampm}`;
+    }
+  } catch (e) {
+    return dateString;
+  }
+};
+
+// Helper: parses Payout details into beautiful stylized node
+const parsePayoutDetails = (detailsStr, t) => {
+  if (!detailsStr) return "—";
+  let details;
+  try {
+    details = typeof detailsStr === "string" ? JSON.parse(detailsStr) : detailsStr;
+  } catch (e) {
+    return <span className="text-slate-500 text-xs break-all">{detailsStr}</span>;
+  }
+
+  const nameElement = details.name ? (
+    <span className="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1 mt-0.5">
+      <User className="h-3 w-3 text-slate-400 dark:text-slate-500" /> {details.name}
+    </span>
+  ) : null;
+
+  if (details.bank) {
+    const bankKey = String(details.bank).toUpperCase();
+    let bankDisplayName = details.bank;
+    if (bankKey === "CIB" || bankKey === "NBE") {
+      bankDisplayName = t(`adminPages.payouts.banks.${bankKey}`);
+    }
+
+    const accountStr = details.account || details.accountNumber || "";
+    const maskedAccount = accountStr.startsWith("****") ? accountStr : `****${accountStr.slice(-4)}`;
+
+    return (
+      <div className="flex flex-col text-xs md:text-sm">
+        <div className="flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-355">
+          <Building2 className="h-4 w-4 text-slate-450 dark:text-slate-500 shrink-0" />
+          <span>{bankDisplayName} • {t("adminPages.payouts.accountLabel")} {maskedAccount}</span>
+        </div>
+        {nameElement}
+      </div>
+    );
+  }
+
+  if (details.phone || details.mobile || details.wallet) {
+    const phoneNumber = details.phone || details.mobile || details.wallet;
+    let maskedPhone = phoneNumber;
+    let cleanPhone = String(phoneNumber).replace(/^\+2/, "");
+    if (cleanPhone.length >= 10) {
+      maskedPhone = `${cleanPhone.slice(0, 3)}*****${cleanPhone.slice(-2)}`;
+    }
+
+    let providerKey = "vodafone";
+    if (cleanPhone.startsWith("011") || cleanPhone.startsWith("11")) {
+      providerKey = "etisalat";
+    } else if (cleanPhone.startsWith("012") || cleanPhone.startsWith("12")) {
+      providerKey = "orange";
+    } else if (cleanPhone.startsWith("015") || cleanPhone.startsWith("15")) {
+      providerKey = "we";
+    }
+    const providerName = t(`adminPages.payouts.providers.${providerKey}`);
+
+    return (
+      <div className="flex flex-col text-xs md:text-sm">
+        <div className="flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-355">
+          <Smartphone className="h-4 w-4 text-slate-450 dark:text-slate-500 shrink-0" />
+          <span>{providerName} • {maskedPhone}</span>
+        </div>
+        {nameElement}
+      </div>
+    );
+  }
+
+  const summaryStr = Object.entries(details)
+    .map(([key, val]) => `${key}: ${val}`)
+    .join(" · ");
+
+  return (
+    <div className="flex flex-col text-xs md:text-sm">
+      <span className="font-medium text-slate-700 dark:text-slate-300">{summaryStr || "—"}</span>
+      {nameElement}
+    </div>
+  );
+};
+
+function InstructorPayouts() {
+  const { t, i18n } = useTranslation();
+  const dir = i18n.dir();
+  const isRtl = dir === "rtl";
+
+  const [statusFilter, setStatusFilter] = useState("");
+  const [rejectPayoutId, setRejectPayoutId] = useState(null);
+  const [rejectionReason, setRejectionReason] = useState("");
+
+  const [payPayoutId, setPayPayoutId] = useState(null);
+  const [payNotes, setPayNotes] = useState("");
+  const [payReceiptFile, setPayReceiptFile] = useState(null);
+
+  const { data: payouts = [], isLoading, isError, error, refetch, isFetching } = useAdminPayouts({
+    ...(statusFilter ? { status: statusFilter } : {}),
+  });
+
+  const processMutation = useProcessPayout();
+
+  // Liquidity aggregators
+  const paid = useMemo(
+    () => payouts.filter((p) => p.status === "PAID").reduce((acc, p) => acc + Number(p.amount || 0), 0),
+    [payouts]
+  );
+
+  const pendingAmount = useMemo(
+    () => payouts.filter((p) => p.status === "PENDING" || p.status === "APPROVED").reduce((acc, p) => acc + Number(p.amount || 0), 0),
+    [payouts]
+  );
+
+  const nextPending = useMemo(() => {
+    const pend = payouts.filter((p) => p.status === "PENDING" || p.status === "APPROVED");
+    if (!pend.length) return "—";
+    const sorted = [...pend].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    return sorted[0].createdAt ? formatDate(sorted[0].createdAt, isRtl) : "—";
+  }, [payouts, isRtl]);
+
+  const runProcess = async (id, status, notes = undefined) => {
+    try {
+      await processMutation.mutateAsync({ id, body: { status, adminNotes: notes } });
+      toast.success(t("adminPages.payouts.updated", { defaultValue: "Payout updated." }));
+      void refetch();
+    } catch (e) {
+      toast.error(getErrorMessage(e, t("adminPages.payouts.processFailed", { defaultValue: "Could not process payout." })));
+    }
+  };
+
+  const handleConfirmReject = async () => {
+    if (!rejectPayoutId) return;
+    if (!rejectionReason.trim()) {
+      toast.error(t("adminPages.payouts.rejectReasonRequired"));
+      return;
+    }
+    const id = rejectPayoutId;
+    const notes = rejectionReason.trim();
+    setRejectPayoutId(null);
+    setRejectionReason("");
+    await runProcess(id, "REJECTED", notes);
+  };
+
+  const handleConfirmPaid = async () => {
+    if (!payPayoutId) return;
+
+    const formData = new FormData();
+    formData.append("status", "PAID");
+    formData.append("adminNotes", payNotes.trim());
+    if (payReceiptFile) {
+      formData.append("receipt", payReceiptFile);
+    }
+
+    const id = payPayoutId;
+    setPayPayoutId(null);
+    setPayNotes("");
+    setPayReceiptFile(null);
+
+    try {
+      await processMutation.mutateAsync({ id, body: formData });
+      toast.success(t("adminPages.payouts.updated", { defaultValue: "Payout marked as paid." }));
+      void refetch();
+    } catch (e) {
+      toast.error(getErrorMessage(e, t("adminPages.payouts.processFailed", { defaultValue: "Could not process payout." })));
+    }
+  };
+
+  // Dynamic Status Badge Tone
+  const renderStatusBadge = (status) => {
+    const normalized = String(status).toUpperCase();
+    if (normalized === "PAID") {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+          <Check className="h-3.5 w-3.5" />
+          {t("adminPages.payouts.statusPaid")}
+        </span>
+      );
+    }
+    if (normalized === "APPROVED") {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-bold text-blue-600 dark:text-blue-400 border border-blue-500/20">
+          <CheckCircle2 className="h-3.5 w-3.5" />
+          {t("adminPages.payouts.statusApproved")}
+        </span>
+      );
+    }
+    if (normalized === "PENDING") {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-bold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-550 dark:bg-amber-400 animate-pulse" />
+          {t("adminPages.payouts.statusPending")}
+        </span>
+      );
+    }
+    if (normalized === "REJECTED") {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-500/10 px-2.5 py-1 text-xs font-bold text-rose-600 dark:text-rose-400 border border-rose-500/20">
+          <X className="h-3.5 w-3.5" />
+          {t("adminPages.payouts.statusRejected")}
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center rounded-full bg-slate-500/10 px-2.5 py-1 text-xs font-semibold text-slate-500 border border-slate-500/20">
+        {status}
+      </span>
+    );
+  };
+
+  return (
+    <section className="space-y-8 min-h-screen text-slate-900 dark:text-slate-100">
+      <PageHeader title={t("adminPages.payouts.title")} subtitle={t("adminPages.payouts.subtitle")} />
+
+      {/* Glassmorphic Metric Blocks */}
+      <div className="grid gap-6 sm:grid-cols-3">
+        {/* Total Paid Card */}
+        <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900/60 dark:backdrop-blur-md">
+          <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-emerald-500/10 to-transparent blur-xl transition-all duration-500 group-hover:scale-150" />
+          <div className="flex items-start justify-between">
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                {t("adminPages.payouts.totalPaid", { defaultValue: "Total Paid" })}
+              </p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">
+                {formatCurrency(paid)}
+              </h3>
+            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 dark:bg-emerald-500/10">
+              <CheckCircle2 className="h-5 w-5" />
+            </div>
+          </div>
+        </div>
+
+        {/* Pending Payouts Card */}
+        <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900/60 dark:backdrop-blur-md">
+          <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-amber-500/10 to-transparent blur-xl transition-all duration-500 group-hover:scale-150" />
+          <div className="flex items-start justify-between">
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                {t("adminPages.payouts.pending", { defaultValue: "Pending Amount" })}
+              </p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">
+                {formatCurrency(pendingAmount)}
+              </h3>
+            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/10 text-amber-550 dark:bg-amber-500/10">
+              <Clock className="h-5 w-5" />
+            </div>
+          </div>
+        </div>
+
+        {/* Next Scheduled Payout Card */}
+        <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900/60 dark:backdrop-blur-md">
+          <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-[var(--yu-blue-700)]/10 to-transparent blur-xl transition-all duration-500 group-hover:scale-150" />
+          <div className="flex items-start justify-between">
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                {t("adminPages.payouts.nextDate", { defaultValue: "Next Scheduled" })}
+              </p>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white tracking-tight mt-1.5">
+                {nextPending}
+              </h3>
+            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--yu-blue-700)]/10 text-[var(--yu-blue-700)]">
+              <Calendar className="h-5 w-5" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter and Action Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-[#1E293B]">
+        <div className="flex items-center gap-3">
+          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            {t("adminPages.payouts.filterStatus", { defaultValue: "Status Filter" })}
+          </label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="h-10 rounded-xl border border-slate-200 bg-white px-3 text-sm dark:border-white/10 dark:bg-slate-950 dark:text-white outline-none focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)] transition-all"
+          >
+            <option value="">{t("adminPages.payouts.allStatuses", { defaultValue: "All Statuses" })}</option>
+            {PAYOUT_STATUSES.map((s) => (
+              <option key={s} value={s}>
+                {t(`adminPages.payouts.statusLabels.${s}`, { defaultValue: s })}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button
+          type="button"
+          onClick={() => void refetch()}
+          className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-650 hover:bg-slate-50 dark:border-white/10 dark:text-slate-200 dark:hover:bg-slate-800 transition-all"
+        >
+          <RefreshCw className={`h-3.5 w-3.5 ${isFetching ? "animate-spin text-[var(--yu-blue-700)]" : ""}`} />
+          {isFetching ? t("dashboard.common.loading", { defaultValue: "Refreshing…" }) : t("dashboard.common.refresh", { defaultValue: "Refresh" })}
+        </button>
+      </div>
+
+      {/* Loading state */}
+      {isLoading ? (
+        <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-500 dark:border-slate-800 dark:bg-[#1E293B] font-bold flex items-center justify-center gap-2">
+          <RefreshCw className="h-5 w-5 animate-spin text-[var(--yu-blue-700)]" />
+          {t("adminPages.payouts.loading", { defaultValue: "Loading payout records…" })}
+        </div>
+      ) : null}
+
+      {/* Error state */}
+      {isError ? (
+        <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 p-6 text-slate-900 dark:text-red-300">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="h-5 w-5 text-rose-500" />
+            <span className="font-semibold">{getErrorMessage(error, t("adminPages.payouts.loadError", { defaultValue: "Failed to load payouts." }))}</span>
+            <button
+              type="button"
+              onClick={() => void refetch()}
+              className="ms-auto rounded-xl bg-[var(--yu-blue-700)] hover:bg-[var(--yu-blue-600)] px-4 py-2 text-xs font-bold text-white transition-all"
+            >
+              {t("adminPages.payouts.retry", { defaultValue: "Retry" })}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Main Ledger Table */}
+      {!isLoading && !isError ? (
+        <div className="overflow-x-auto rounded-2xl border border-slate-200/80 bg-white shadow-xl dark:border-slate-850 dark:bg-[#1E293B]">
+          <table className="min-w-full divide-y divide-slate-100 dark:divide-slate-800/40 text-sm">
+            <thead className="bg-slate-50/50 dark:bg-slate-950/40">
+              <tr>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.instructor", { defaultValue: "Instructor" })}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.amount", { defaultValue: "Amount" })}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.status", { defaultValue: "Status" })}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.details")}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.date", { defaultValue: "Requested" })}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.notes", { defaultValue: "Admin Notes" })}
+                </th>
+                <th className="px-6 py-4 text-start text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450">
+                  {t("adminPages.payouts.actions")}
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/40 bg-transparent">
+              {payouts.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="px-6 py-12 text-center text-slate-400 dark:text-slate-500">
+                    {t("adminPages.payouts.empty")}
+                  </td>
+                </tr>
+              ) : (
+                payouts.map((r) => {
+                  const busy = processMutation.isPending;
+                  return (
+                    <tr key={r.id} className="transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/25">
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col">
+                          <span className="font-bold text-slate-850 dark:text-white">
+                            {r?.instructor?.fullName || "—"}
+                          </span>
+                          <span className="text-xs text-slate-450 dark:text-slate-500">
+                            {r?.instructor?.email || "—"}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap font-black text-slate-900 dark:text-white">
+                        {formatCurrency(r.amount)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {renderStatusBadge(r.status)}
+                      </td>
+                      <td className="px-6 py-4">
+                        {parsePayoutDetails(r.payoutDetails, t)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-slate-550 dark:text-slate-450">
+                        {formatDate(r.createdAt, isRtl)}
+                      </td>
+                      <td className="px-6 py-4 text-slate-700 dark:text-slate-350 max-w-[220px] truncate">
+                        {r.adminNotes || <span className="text-slate-300 dark:text-slate-600">—</span>}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {(() => {
+                          if (r.status === "PAID") {
+                            return (
+                              <div className="flex flex-col items-start gap-1">
+                                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-450 flex items-center gap-1">
+                                  <Check className="h-4 w-4" />
+                                  {t("adminPages.payouts.paidSuccess")}
+                                </span>
+                                {r.receiptUrl && (
+                                  <a
+                                    href={`${import.meta.env.VITE_API_URL || ""}${r.receiptUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[11px] font-bold text-[var(--yu-blue-700)] hover:underline"
+                                  >
+                                    {t("adminPages.payouts.viewReceipt")}
+                                  </a>
+                                )}
+                              </div>
+                            );
+                          }
+                          if (r.status === "REJECTED") {
+                            return (
+                              <span className="text-xs font-semibold text-rose-600 dark:text-rose-450 flex items-center gap-1">
+                                <X className="h-4 w-4" />
+                                {t("adminPages.payouts.statusRejected")}
+                              </span>
+                            );
+                          }
+                          if (r.status === "PENDING") {
+                            return (
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() => void runProcess(r.id, "APPROVED")}
+                                  className="flex items-center gap-0.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 transition-all duration-200"
+                                >
+                                  {t("adminPages.payouts.approveBtn")}
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={busy}
+                                  onClick={() => {
+                                    setRejectPayoutId(r.id);
+                                    setRejectionReason("");
+                                  }}
+                                  className="flex items-center gap-0.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 px-3 py-1.5 text-xs font-bold text-rose-600 dark:text-rose-450 border border-rose-500/20 transition-all duration-200 animate-fade-in"
+                                >
+                                  {t("adminPages.payouts.rejectBtn")}
+                                </button>
+                              </div>
+                            );
+                          }
+                          if (r.status === "APPROVED") {
+                            return (
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() => {
+                                  setPayPayoutId(r.id);
+                                  setPayNotes("");
+                                  setPayReceiptFile(null);
+                                }}
+                                className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-[var(--yu-blue-700)] to-[var(--yu-blue-700)]/90 hover:from-[var(--yu-blue-600)] hover:to-[var(--yu-blue-700)] px-4 py-2 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all duration-200 transform hover:scale-[1.02]"
+                              >
+                                <DollarSign className="h-3.5 w-3.5" />
+                                {t("adminPages.payouts.markPaid")}
+                              </button>
+                            );
+                          }
+                          return null;
+                        })()}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+
+      {/* Safe Rejection Dialog Modal */}
+      {rejectPayoutId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-955/75 backdrop-blur-xs p-4">
+          <div className="w-full max-w-md rounded-2xl border border-slate-205 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900 dark:text-white">
+            <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 pb-3 dark:border-slate-800">
+              <X className="h-5 w-5 text-rose-500" />
+              {t("adminPages.payouts.rejectModalTitle")}
+            </h3>
+
+            <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
+              {t("adminPages.payouts.rejectModalBody")}
+            </p>
+
+            <div className="mt-4">
+              <label className="text-[10px] font-bold text-slate-550 dark:text-slate-400 uppercase tracking-wider block mb-1.5">
+                {t("adminPages.payouts.rejectReasonLabel")}
+              </label>
+              <textarea
+                value={rejectionReason}
+                onChange={(e) => setRejectionReason(e.target.value)}
+                placeholder={t("adminPages.payouts.rejectReasonPlaceholder")}
+                rows={3}
+                className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm dark:border-white/10 dark:bg-slate-950 dark:text-white focus:border-rose-500 focus:ring-1 focus:ring-rose-500 outline-none transition-all resize-none"
+              />
+            </div>
+
+            <div className="mt-6 flex justify-end gap-2.5 border-t border-slate-105 pt-4 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => setRejectPayoutId(null)}
+                className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-650 hover:bg-slate-50 dark:border-white/10 dark:text-slate-300 dark:hover:bg-slate-800/60 transition-all"
+              >
+                {t("dashboard.common.cancel")}
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmReject}
+                className="rounded-xl bg-rose-650 hover:bg-rose-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-rose-600/20 transition-all duration-200"
+              >
+                {t("adminPages.payouts.confirmReject")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payout Completion Receipt Upload Dialog Modal */}
+      {payPayoutId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-955/75 backdrop-blur-xs p-4">
+          <div className="w-full max-w-md rounded-2xl border border-slate-205 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900 dark:text-white">
+            <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-100 pb-3 dark:border-slate-800">
+              <DollarSign className="h-5 w-5 text-emerald-500" />
+              {t("adminPages.payouts.payModalTitle")}
+            </h3>
+
+            <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
+              {t("adminPages.payouts.payModalBody")}
+            </p>
+
+            <div className="mt-4 space-y-4">
+              <div>
+                <label className="text-[10px] font-bold text-slate-550 dark:text-slate-400 uppercase tracking-wider block mb-1.5">
+                  {t("adminPages.payouts.additionalNotes")}
+                </label>
+                <textarea
+                  value={payNotes}
+                  onChange={(e) => setPayNotes(e.target.value)}
+                  placeholder={t("adminPages.payouts.notesPlaceholder")}
+                  rows={2}
+                  className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm dark:border-white/10 dark:bg-slate-950 dark:text-white focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)] outline-none transition-all resize-none"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold text-slate-550 dark:text-slate-400 uppercase tracking-wider block mb-1.5">
+                  {t("adminPages.payouts.attachReceipt")}
+                </label>
+                <input
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e) => setPayReceiptFile(e.target.files[0] || null)}
+                  className="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[var(--yu-blue-700)]/10 file:text-[var(--yu-blue-700)] hover:file:bg-[var(--yu-blue-700)]/20 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end gap-2.5 border-t border-slate-105 pt-4 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => {
+                  setPayPayoutId(null);
+                  setPayNotes("");
+                  setPayReceiptFile(null);
+                }}
+                className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-650 hover:bg-slate-50 dark:border-white/10 dark:text-slate-300 dark:hover:bg-slate-800/60 transition-all"
+              >
+                {t("dashboard.common.cancel")}
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmPaid}
+                className="rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all duration-200"
+              >
+                {t("adminPages.payouts.confirmPayment")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+export default InstructorPayouts;

@@ -1,0 +1,4467 @@
+{
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "body": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "cta": "تصفح الدورات"
+  },
+  "errorBoundary": {
+    "title": "حدث خطأ ما",
+    "body": "نعتذر — حدث خطأ غير متوقع. يمكنك المحاولة مرة أخرى أو العودة إلى الصفحة الرئيسية.",
+    "retry": "إعادة المحاولة",
+    "home": "الصفحة الرئيسية"
+  },
+  "common": {
+    "previous": "السابق",
+    "next": "التالي",
+    "create": "إنشاء",
+    "delete": "حذف",
+    "save": "حفظ التغييرات",
+    "error": "حدث خطأ ما.",
+    "noAccess": "ليس لديك صلاحية الوصول إلى هذا القسم.",
+    "pending": "يتطلب انتباهًا",
+    "accessDenied": "الوصول مرفوض",
+    "dashboardReadPermissionRequired": "ليس لديك الصلاحية المطلوبة لعرض لوحة الإدارة.",
+    "expandSidebar": "توسيع الشريط الجانبي",
+    "collapseSidebar": "طي الشريط الجانبي",
+    "closeMenu": "إغلاق القائمة",
+    "toggleTheme": "تبديل المظهر",
+    "actions": "الإجراءات",
+    "cancel": "إلغاء",
+    "remove": "إزالة",
+    "noDataYet": "لا بيانات بعد"
+  },
+  "nav": {
+    "overview": "نظرة عامة",
+    "finance": "المالية",
+    "users": "المستخدمون",
+    "instructors": "المحاضرون",
+    "courses": "الكورسات",
+    "enrollments": "التسجيلات",
+    "cms": "إدارة المحتوى",
+    "settings": "الإعدادات"
+  },
+  "sidebar": {
+    "analytics": "التحليلات",
+    "management": "الإدارة",
+    "system": "النظام",
+    "storage": "التخزين",
+    "adminPanel": "لوحة الإدارة"
+  },
+  "sidebarNav": {
+    "sections": {
+      "analytics": "التحليلات",
+      "management": "الإدارة",
+      "content": "المحتوى",
+      "system": "النظام",
+      "instructor": "المحاضر",
+      "academicMatrix": "إدارة المحتوى والتعليم",
+      "liveOps": "الطلاب والتشغيل لايف",
+      "financialsSecurity": "الحساب المالي والأمان",
+      "studentOverview": "لوحة التحكم",
+      "studentLearning": "التعلم",
+      "studentServices": "الحساب والدعم",
+      "studentWebsite": "الموقع"
+    },
+    "items": {
+      "analytics": "التحليلات",
+      "overview": "نظرة عامة",
+      "allUsers": "كل المستخدمين",
+      "finance": "المالية",
+      "students": "الطلاب",
+      "studentsList": "قائمة الطلاب",
+      "addStudent": "إضافة طالب",
+      "instructors": "المحاضرون",
+      "list": "القائمة",
+      "privateSessionRequests": "طلبات الجلسات الفردية",
+      "payouts": "الدفعات",
+      "courses": "الكورسات",
+      "allCourses": "كل الكورسات",
+      "addCourse": "إضافة كورس",
+      "categories": "التصنيفات",
+      "enrollments": "التسجيلات",
+      "history": "السجل",
+      "enrollStudent": "تسجيل طالب",
+      "tickets": "التذاكر",
+      "surveys": "أسئلة الاستبيانات",
+      "events": "الفعاليات والأخبار",
+      "cms": "إدارة المحتوى",
+      "pages": "الصفحات",
+      "siteContent": "الصفحة الرئيسية والأسئلة",
+      "sitePages": "صفحات الموقع",
+      "blogPosts": "المدونات",
+      "mediaLibrary": "مكتبة الوسائط",
+      "banners": "اللافتات",
+      "settings": "الإعدادات",
+      "account": "ملفي الشخصي",
+      "general": "عام",
+      "rolesPerms": "الأدوار والصلاحيات",
+      "emailTemplates": "قوالب البريد",
+      "integrations": "الربط",
+      "freeTrial": "التجربة المجانية",
+      "myClasses": "حصصي",
+      "myCourses": "كورساتي",
+      "qna": "الأسئلة والأجوبة",
+      "performance": "أدائي",
+      "homework": "الاسايمينت والتقييم",
+      "availability": "التوفر والجدولة",
+      "exams": "الاختبارات",
+      "flashcards": "الفلاش كاردز",
+      "studyPlan": "خطة المذاكرة",
+      "instructorApplications": "طلبات المحاضرين",
+      "wallet": "المحفظة",
+      "attendance": "الحضور والغياب",
+      "coupons": "الكوبونات",
+      "certificates": "الشهادات",
+      "cohorts": "الدفعات",
+      "packages": "الباقات",
+      "subscriptions": "الاشتراكات",
+      "resources": "الموارد",
+      "reviews": "التقييمات",
+      "reviewQueue": "مراجعة الكورسات",
+      "auditLogs": "سجل العمليات",
+      "liveSessions": "الحصص المباشرة",
+      "recordings": "التسجيلات",
+      "bookSession": "طلب جلسة",
+      "payments": "المدفوعات",
+      "wishlist": "المفضلة",
+      "progress": "التقدم",
+      "studentHomework": "الاسايمينت",
+      "websiteHome": "الصفحة الرئيسية",
+      "websiteExplore": "استكشاف الكورسات",
+      "websiteInstructors": "تصفح المحاضرين",
+      "websiteAbout": "من نحن",
+      "websiteFaq": "الأسئلة الشائعة",
+      "myCohorts": "كورساتي",
+      "assignment": "تصحيح الواجبات",
+      "studentAssignment": "الاسايمينت"
+    }
+  },
+  "student": {
+    "shell": {
+      "tagline": "مسارك المنظم نحو Step 1"
+    },
+    "overview": {
+      "title": "نظرة عامة",
+      "subtitle": "لوحة تعلمك في لمحة.",
+      "greet": {
+        "morning": "صباح الخير",
+        "afternoon": "مساء النور",
+        "evening": "مساء الخير"
+      },
+      "heroSubtitle": "تابع تقدمك في الكورسات، راجع الاختبارات القادمة، وابنِ زخم مذاكرتك خطوة بخطوة.",
+      "resumeLearning": "متابعة التعلم",
+      "viewExams": "الاختبارات",
+      "overallProgress": "متوسط التقدم",
+      "stats": {
+        "courses": "الكورسات المسجّلة",
+        "coursesHint": "مكتملة ضمن اشتراكك",
+        "avgProgress": "متوسط التقدم",
+        "avgProgressHint": "عبر كل الكورسات",
+        "exams": "اختبارات قادمة",
+        "examsHint": "جاهزة أو مجدولة",
+        "flashcards": "البطاقات",
+        "flashcardsHint": "جاهزة للمراجعة",
+        "certsHint": "شهاداتك الحالية"
+      },
+      "continueLearning": "تابع التعلم",
+      "continueLearningHint": "أكمل من حيث توقفت",
+      "upcomingExams": "اختبارات قادمة",
+      "upcomingExamsHint": "جهّز نفسك قبل الموعد",
+      "noExams": "لا توجد اختبارات قادمة حالياً.",
+      "quickLinks": "اختصارات سريعة",
+      "quick": {
+        "exams": "الاختبارات",
+        "flashcards": "البطاقات",
+        "studyPlan": "خطة المذاكرة",
+        "recordings": "التسجيلات",
+        "certificates": "الشهادات",
+        "progress": "التقدم"
+      },
+      "studyPlan": "خطة المذاكرة",
+      "recordedCourse": "كورس مسجّل",
+      "viewAll": "عرض الكل",
+      "noCourses": "سجّل في كورس لتبدأ التعلم.",
+      "exploreCta": "استكشف الكورسات",
+      "notifications": "تنبيهات حديثة",
+      "noNotifications": "لا توجد تنبيهات جديدة.",
+      "coursesSummary": "{{count}} كورس · {{completed}} مكتمل",
+      "examsSummary": "{{upcoming}} اختبار قادم · {{done}} مكتمل",
+      "nearlyDone": "قريب من الإكمال",
+      "withInstructor": "مع",
+      "lessons": "درس",
+      "resume": "متابعة",
+      "availableNow": "متاح الآن",
+      "upcoming": "قادم",
+      "minutesShort": "د",
+      "noFixedSchedule": "بدون موعد محدد",
+      "badgeResult": "نتيجة",
+      "badgeExam": "اختبار",
+      "badgeAlert": "تنبيه",
+      "studentFallback": "طالب"
+    },
+    "liveSessions": {
+      "title": "الحصص المباشرة",
+      "subtitle": "انضم للحصص المجدولة في كورساتك."
+    },
+    "recordings": {
+      "title": "التسجيلات",
+      "subtitle": "شاهد تسجيلات الحصص المباشرة وفيديوهات الدروس.",
+      "typeLive": "تسجيل مباشر",
+      "typeLesson": "فيديو درس",
+      "filterAll": "كل الأنواع",
+      "loadError": "تعذّر تحميل التسجيلات.",
+      "empty": "لا توجد تسجيلات بعد.",
+      "back": "العودة للمكتبة",
+      "notesTitle": "ملاحظات المشاهدة",
+      "notesHint": "دوّن النقاط المهمة أثناء المشاهدة.",
+      "notePlaceholder": "أضف ملاحظة…",
+      "addNote": "إضافة ملاحظة",
+      "noNotes": "لا توجد ملاحظات بعد.",
+      "noteError": "تعذّر حفظ الملاحظة.",
+      "deleteNote": "حذف الملاحظة",
+      "upNext": "التالي"
+    },
+    "payments": {
+      "title": "المدفوعات",
+      "subtitle": "تابع طلبات شراء الكورسات والإيصالات.",
+      "loadError": "تعذّر تحميل المدفوعات.",
+      "empty": "لا توجد مدفوعات بعد.",
+      "colCourse": "الكورس / العنصر",
+      "colAmount": "المبلغ",
+      "colStatus": "الحالة",
+      "colDate": "التاريخ",
+      "colReceipt": "الإيصال",
+      "viewReceipt": "عرض",
+      "unknownItem": "دفعة"
+    },
+    "certificates": {
+      "title": "الشهادات",
+      "subtitle": "حمّل شهادات إتمام الكورسات.",
+      "loadError": "تعذّر تحميل الشهادات.",
+      "empty": "أكمل كورساً للحصول على أول شهادة.",
+      "readyToClaim": "جاهزة للتحميل",
+      "claim": "تحميل PDF",
+      "claimError": "تعذّر استلام الشهادة.",
+      "issued": "صدرت في",
+      "download": "تحميل PDF",
+      "verifyLink": "رابط التحقق",
+      "shareDownload": "رابط تحميل قابل للمشاركة",
+      "downloadError": "تعذّر تحميل الشهادة."
+    },
+    "tickets": {
+      "title": "الدعم",
+      "subtitle": "افتح تذكرة وسيرد فريقنا عليك.",
+      "new": "تذكرة جديدة",
+      "subjectPlaceholder": "الموضوع",
+      "descriptionPlaceholder": "صف مشكلتك…",
+      "submit": "إرسال التذكرة",
+      "createError": "تعذّر إنشاء التذكرة.",
+      "loadError": "تعذّر تحميل التذاكر.",
+      "empty": "لا توجد تذاكر دعم بعد.",
+      "back": "العودة للتذاكر",
+      "notFound": "التذكرة غير موجودة.",
+      "statusLabel": "الحالة",
+      "noMessages": "لا توجد رسائل بعد.",
+      "replyPlaceholder": "اكتب رداً…",
+      "sendReply": "إرسال الرد",
+      "replyError": "تعذّر إرسال الرد.",
+      "priority": {
+        "low": "منخفضة",
+        "medium": "متوسطة",
+        "high": "عالية",
+        "urgent": "عاجلة"
+      }
+    },
+    "wishlist": {
+      "title": "المفضلة",
+      "subtitle": "الكورسات التي حفظتها لاحقاً.",
+      "loadError": "تعذّر تحميل المفضلة.",
+      "empty": "قائمة المفضلة فارغة.",
+      "viewCourse": "عرض الكورس",
+      "remove": "إزالة"
+    },
+    "qna": {
+      "title": "أسئلة الدرس",
+      "askPlaceholder": "اسأل عن هذا الدرس…",
+      "ask": "اسأل",
+      "askError": "تعذّر نشر السؤال.",
+      "answerError": "تعذّر نشر الإجابة.",
+      "empty": "لا أسئلة بعد. كن أول من يسأل!",
+      "answerPlaceholder": "اكتب إجابة…",
+      "reply": "رد",
+      "anonymous": "طالب",
+      "pageTitle": "استفساراتي وأسئلتي",
+      "pageSubtitle": "تابع إجابات المحاضرين على أسئلتك المطروحة داخل الدروس.",
+      "listTitle": "أسئلتي السابقة",
+      "loading": "جاري تحميل استفساراتك…",
+      "emptyList": "لم تقم بطرح أي سؤال بعد.",
+      "questionFallback": "استفسار",
+      "courseFallback": "معلومات الكورس",
+      "resolved": "محلول",
+      "pending": "قيد المراجعة",
+      "instructor": "المحاضر",
+      "followUpPlaceholder": "اكتب ردك أو استفسارك الإضافي هنا…",
+      "selectPrompt": "اختر سؤالاً من القائمة لعرض المحادثة.",
+      "loadError": "تعذّر تحميل الأسئلة.",
+      "replySuccess": "تم إرسال ردك بنجاح!",
+      "replyError": "تعذّر إرسال الرد."
+    },
+    "flashcards": {
+      "title": "البطاقات التعليمية",
+      "subtitle": "راجع البطاقات المنشورة من الكورسات المتاحة لك.",
+      "allCourses": "كل الكورسات",
+      "allSystems": "كل الأنظمة",
+      "allLectures": "كل المحاضرات",
+      "flip": "اقلب",
+      "shuffle": "خلط",
+      "empty": "لا توجد بطاقات لهذا التصفية بعد.",
+      "retry": "تعذّر تحميل البطاقات"
+    },
+    "studyPlan": {
+      "title": "خطة مذاكرتي",
+      "subtitle": "أنشئ مهاماً عملية، جدولها، وتابع إنجازها.",
+      "eyebrow": "التخطيط",
+      "activePlan": "الخطة النشطة",
+      "noPlan": "لا توجد خطة بعد",
+      "today": "اليوم",
+      "completed": "مكتمل",
+      "createPlan": "أنشئ خطتك",
+      "defaultTitle": "خطة USMLE Step 1",
+      "addTask": "إضافة مهمة",
+      "add": "إضافة",
+      "done": "تم",
+      "undo": "تراجع",
+      "unscheduled": "غير مجدول",
+      "empty": "لا توجد مهام بعد.",
+      "planCreated": "تم إنشاء الخطة.",
+      "taskCreated": "تمت إضافة المهمة.",
+      "planCreateError": "تعذّر إنشاء خطة المذاكرة.",
+      "taskCreateError": "تعذّر إضافة المهمة.",
+      "retry": "تعذّر تحميل الخطة",
+      "planTitlePlaceholder": "خطة USMLE Step 1",
+      "taskTitlePlaceholder": "مراجعة فسيولوجيا الكلى"
+    }
+  },
+  "adminPages": {
+    "common": {
+      "search": "بحث...",
+      "actions": "الإجراءات",
+      "save": "حفظ",
+      "delete": "حذف",
+      "cancel": "إلغاء"
+    },
+    "pagination": {
+      "prev": "السابق",
+      "next": "التالي",
+      "pageSize": "عدد الصفوف",
+      "page": "صفحة {{page}} من {{totalPages}}"
+    },
+    "cohorts": {
+      "title": "الدفعات (Cohorts)",
+      "subtitle": "إنشاء وإدارة دفعات الكورس (الجدول، المحاضر، السعر).",
+      "addCohort": "إضافة دفعة",
+      "editCohort": "تعديل الدفعة",
+      "filters": {
+        "course": "الكورس",
+        "instructor": "المحاضر",
+        "type": "النوع",
+        "allCourses": "كل الكورسات",
+        "allInstructors": "كل المحاضرين",
+        "allTypes": "كل الأنواع"
+      },
+      "table": {
+        "name": "الدفعة",
+        "course": "الكورس",
+        "instructor": "المحاضر",
+        "type": "الصيغة",
+        "status": "الحالة",
+        "start": "البداية",
+        "price": "السعر",
+        "actions": "إجراءات",
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "form": {
+        "name": "اسم الدفعة",
+        "course": "الكورس",
+        "instructor": "المحاضر",
+        "typeLive": "مباشر",
+        "typeRecorded": "مسجّل",
+        "status": "الحالة",
+        "start": "تاريخ ووقت البدء",
+        "end": "تاريخ ووقت الانتهاء (اختياري)",
+        "price": "السعر (USD)",
+        "save": "حفظ الدفعة",
+        "cancel": "إلغاء"
+      },
+      "deleteConfirmTitle": "حذف الدفعة؟",
+      "deleteConfirmMessage": "قد لا يمكن التراجع إذا كان هناك طلاب مسجّلون.",
+      "deleteConfirm": "حذف",
+      "deleteCancel": "إلغاء",
+      "empty": "لا توجد دفعات مطابقة.",
+      "page": "صفحة {{page}} من {{totalPages}}",
+      "prev": "السابق",
+      "next": "التالي"
+    },
+    "packages": {
+      "title": "باقات الرصيد",
+      "subtitle": "باقات شراء مرة واحدة تمنح أرصدة للدفعات المباشرة والمسجلة والجلسات الخاصة.",
+      "addPackage": "إضافة باقة",
+      "editPackage": "تعديل الباقة",
+      "table": {
+        "name": "الاسم",
+        "level": "المستوى",
+        "packagePrice": "سعر الباقة",
+        "liveCap": "دفعات مباشرة",
+        "recCap": "دفعات مسجّلة",
+        "privateCap": "جلسات خاصة",
+        "active": "نشط",
+        "recommended": "مميّز",
+        "actions": "إجراءات",
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "stats": {
+        "total": "إجمالي الباقات",
+        "totalHint": "باقات جاهزة للطلاب",
+        "active": "نشطة",
+        "activeHint": "ظاهرة ومتاحة",
+        "featured": "مميّزة",
+        "featuredHint": "باقات موصى بها",
+        "startsFrom": "تبدأ من",
+        "startsFromHint": "أقل سعر باقة",
+        "inactive": "غير نشطة"
+      },
+      "card": {
+        "inactive": "غير نشطة",
+        "oneTimePurchase": "شراء لمرة واحدة",
+        "features": "المميزات",
+        "noFeatures": "لم يتم إضافة مميزات بعد.",
+        "featureItems": "{{count}} ميزة",
+        "description": "الوصف"
+      },
+      "formHero": {
+        "create": "إنشاء باقة",
+        "update": "تعديل باقة",
+        "newPackage": "باقة جديدة",
+        "description": "حدد اسم الباقة وسعرها وحدود الرصيد والمميزات التي سيشاهدها الطالب داخل التطبيق."
+      },
+      "sections": {
+        "identity": {
+          "title": "بيانات الباقة",
+          "description": "الاسم والمستوى المستخدمان في لوحة الإدارة وصفحات الباقات والدفع."
+        },
+        "pricing": {
+          "title": "الأسعار",
+          "description": "سعر الباقة الذي يظهر للطالب أثناء الدفع."
+        },
+        "limits": {
+          "title": "حدود الرصيد",
+          "description": "عدد الدفعات المباشرة والمسجلة والجلسات الخاصة التي تمنحها هذه الباقة."
+        },
+        "features": {
+          "title": "مميزات الباقة",
+          "description": "اكتب المميزات بلغة بسيطة وواضحة لأن الطالب قد يراها قبل شراء الباقة."
+        },
+        "visibility": {
+          "title": "الظهور",
+          "description": "تحكم في ظهور الباقة داخل لوحة الإدارة وصفحات باقات الطلاب."
+        }
+      },
+      "form": {
+        "name": "الاسم الظاهر",
+        "level": "مستوى الباقة",
+        "priceMonthly": "سعر الباقة",
+        "priceYearly": "سعر قديم",
+        "featuresLines": "المميزات التي تظهر للطالب",
+        "featuresPlaceholder": "الوصول إلى الدروس المسجلة\nشهادة بعد إتمام الكورس\nدعم أسرع من فريق المنصة",
+        "featuresHint": "اكتب كل ميزة في سطر منفصل وبصيغة واضحة. مثال: الوصول إلى الدروس المسجلة.",
+        "liveLimit": "حد الدفعات المباشرة",
+        "recordedLimit": "حد الدفعات المسجّلة",
+        "privateLimit": "حد الجلسات الخاصة",
+        "recommended": "وضع كباقة موصى بها",
+        "recommendedDescription": "إبراز هذه الباقة كأفضل اختيار للطلاب.",
+        "active": "متاحة للبيع",
+        "activeDescription": "السماح بظهور هذه الباقة كخيار متاح.",
+        "priceHint": "هذا سعر شراء لمرة واحدة. يظل الرصيد متاحًا حتى يستخدمه الطالب.",
+        "save": "حفظ الباقة",
+        "cancel": "إلغاء"
+      },
+      "emptyState": {
+        "title": "لا توجد باقات بعد",
+        "body": "أنشئ باقة تحتوي على الأسعار وحدود الدفعات والجلسات الخاصة ومميزات واضحة للطلاب."
+      },
+      "deleteConfirmTitle": "حذف الباقة؟",
+      "deleteConfirmMessage": "قد يؤثر الحذف على أرصدة طلاب مرتبطة بهذه الباقة.",
+      "deleteConfirm": "حذف",
+      "deleteCancel": "إلغاء",
+      "empty": "لا توجد باقات بعد.",
+      "invalidFeatures": "راجع قائمة المميزات واكتب كل ميزة واضحة في سطر منفصل."
+    },
+    "courseEditor": {
+      "editor": "المحرر",
+      "editMetadata": "تعديل البيانات والموارد المرتبطة",
+      "curriculum": "محتوى الكورس",
+      "courseSettings": "إعدادات الكورس",
+      "courseSettingsHint": "البيانات والاختبار النهائي",
+      "notFound": "الكورس غير موجود",
+      "node": {
+        "course": "الكورس",
+        "unit": "الوحدة",
+        "lesson": "الدرس"
+      },
+      "status": {
+        "published": "منشور",
+        "draft": "مسودة"
+      },
+      "stats": {
+        "units": "الوحدات",
+        "lessons": "الدروس",
+        "videos": "الفيديوهات",
+        "finalExam": "الاختبار النهائي",
+        "lessonsCount": "{{count}} درس"
+      },
+      "fields": {
+        "title": "العنوان",
+        "description": "الوصف",
+        "thumbnailUrl": "رابط الصورة",
+        "videoUrl": "رابط الفيديو"
+      },
+      "placeholders": {
+        "title": "اكتب العنوان...",
+        "courseSummary": "ملخص الكورس..."
+      },
+      "actions": {
+        "addUnit": "إضافة وحدة",
+        "addLesson": "إضافة درس",
+        "deleteUnit": "حذف الوحدة",
+        "deleteLesson": "حذف الدرس",
+        "backToCourses": "العودة للكورسات",
+        "saveChanges": "حفظ التغييرات",
+        "saving": "جاري الحفظ...",
+        "changesSaved": "تم حفظ التغييرات",
+        "saveNode": "حفظ {{node}}",
+        "cancel": "إلغاء",
+        "addSection": "إضافة قسم",
+        "deleteSection": "حذف القسم"
+      },
+      "empty": {
+        "noCategory": "بدون تصنيف",
+        "noInstructor": "بدون محاضر",
+        "noUnits": "لا توجد وحدات بعد",
+        "selectItem": "اختر عنصرًا لتعديله",
+        "untitledUnit": "وحدة بدون عنوان",
+        "noSections": "لا توجد أقسام بعد",
+        "untitledSection": "قسم بلا عنوان"
+      },
+      "defaults": {
+        "unit": "وحدة {{n}}",
+        "lesson": "درس {{n}}",
+        "section": "قسم"
+      },
+      "confirm": {
+        "deleteUnit": "هل تريد حذف هذه الوحدة وكل دروسها؟",
+        "deleteLesson": "هل تريد حذف هذا الدرس؟",
+        "deleteSection": "حذف هذا القسم وكل دروسه؟"
+      },
+      "validation": {
+        "titleRequired": "العنوان مطلوب",
+        "questionRequired": "نص السؤال مطلوب",
+        "optionRequired": "الاختيار مطلوب"
+      },
+      "toasts": {
+        "unitAdded": "تمت إضافة الوحدة",
+        "unitAddFailed": "فشل إضافة الوحدة",
+        "unitRenameFailed": "فشل تعديل اسم الوحدة",
+        "unitDeleted": "تم حذف الوحدة",
+        "unitDeleteFailed": "فشل حذف الوحدة",
+        "lessonAdded": "تمت إضافة الدرس",
+        "lessonAddFailed": "فشل إضافة الدرس",
+        "lessonDeleted": "تم حذف الدرس",
+        "lessonDeleteFailed": "فشل حذف الدرس",
+        "nodeSaved": "تم حفظ التغييرات بنجاح",
+        "saveChangesFailed": "فشل حفظ التغييرات",
+        "questionSaved": "تم حفظ السؤال {{n}}",
+        "saveFailed": "فشل الحفظ",
+        "questionAdded": "تمت إضافة السؤال",
+        "questionAddFailed": "فشل إضافة السؤال",
+        "examCreated": "تم إنشاء الاختبار وربطه بنجاح",
+        "examCreateFailed": "فشل إنشاء الاختبار",
+        "examLinked": "تم ربط الاختبار",
+        "examLinkFailed": "فشل ربط الاختبار",
+        "examUnlinked": "تم فك ربط الاختبار",
+        "examUnlinkFailed": "فشل فك ربط الاختبار",
+        "sectionAdded": "تمت إضافة القسم",
+        "sectionAddFailed": "تعذّرت إضافة القسم",
+        "sectionDeleted": "تم حذف القسم",
+        "sectionDeleteFailed": "تعذّر حذف القسم",
+        "sectionRenameFailed": "تعذّر إعادة تسمية القسم"
+      },
+      "exam": {
+        "assessment": "التقييم",
+        "questionBankEditor": "محرر بنك الأسئلة",
+        "questionsCount": "الأسئلة ({{count}})",
+        "questionsBankCount": "بنك الأسئلة ({{count}})",
+        "addQuestion": "+ إضافة سؤال",
+        "addNewQuestion": "+ إضافة سؤال جديد",
+        "questionNumber": "السؤال {{n}}",
+        "questionTextPlaceholder": "نص السؤال...",
+        "questionPlaceholder": "اكتب السؤال...",
+        "multipleChoice": "اختيار من متعدد",
+        "trueFalse": "صح / خطأ",
+        "true": "صح",
+        "false": "خطأ",
+        "shortAnswer": "إجابة قصيرة",
+        "points": "النقاط",
+        "optionNumber": "اختيار {{n}}",
+        "buildExam": "إنشاء اختبار {{target}}",
+        "stepLabel": "خطوة {{step}} من {{total}}: {{label}}",
+        "settings": "إعدادات الاختبار",
+        "questionBank": "بنك الأسئلة",
+        "title": "عنوان الاختبار",
+        "titlePlaceholder": "مثال: اختبار منتصف المستوى",
+        "duration": "المدة (دقيقة)",
+        "passingScore": "درجة النجاح",
+        "backToSettings": "العودة للإعدادات",
+        "nextBuildQuestions": "التالي: بناء الأسئلة",
+        "saveAndLink": "حفظ وربط الاختبار",
+        "questionsShort": "{{count}} سؤال",
+        "minutesShort": "{{count}} دقيقة",
+        "editQuestions": "تعديل الأسئلة",
+        "noExamAttached": "لا يوجد اختبار مرتبط",
+        "noExamHint": "أضف اختبارًا لتقييم الطلاب في هذا المستوى.",
+        "createNew": "إنشاء جديد",
+        "linkExisting": "ربط اختبار موجود",
+        "searchPlaceholder": "ابحث في الاختبارات غير المرتبطة...",
+        "noAvailableExams": "لا توجد اختبارات متاحة.",
+        "settingsStepHint": "الخطوة 1: إعدادات الاختبار — ثم إضافة الأسئلة",
+        "createAndEditQuestions": "إنشاء وتعديل الأسئلة",
+        "totalPoints": "إجمالي النقاط",
+        "openFullEditor": "فتح محرر الاختبار الكامل",
+        "viewSubmissions": "عرض التسليمات"
+      },
+      "sessions": {
+        "title": "المحاضرات المباشرة",
+        "subtitle": "جدولة جلسات البث المباشر الجماعية لهذا الكورس المدمج.",
+        "courseOwner": "صاحب الكورس",
+        "instructor": "المحاضر"
+      },
+      "staff": {
+        "add": "إضافة",
+        "added": "تمت إضافة الطاقم",
+        "addFailed": "تعذّرت إضافة الطاقم",
+        "empty": "لا يوجد طاقم معيّن",
+        "removed": "تمت إزالة الطاقم",
+        "removeFailed": "تعذّرت إزالة الطاقم",
+        "selectUser": "اختر مستخدماً",
+        "title": "طاقم الكورس"
+      }
+    },
+    "examEditor": {
+      "notFound": "الاختبار غير موجود",
+      "backToExams": "← العودة للاختبارات",
+      "settingsSaved": "تم حفظ الإعدادات",
+      "saveFailed": "فشل الحفظ",
+      "questionAdded": "تمت إضافة السؤال",
+      "questionAddFailed": "فشل إضافة السؤال",
+      "questionSaved": "تم حفظ السؤال",
+      "questionSaveFailed": "فشل الحفظ",
+      "deleteConfirm": "حذف هذا السؤال؟",
+      "questionDeleted": "تم حذف السؤال",
+      "questionDeleteFailed": "فشل الحذف",
+      "settingsTitle": "إعدادات الاختبار",
+      "edit": "تعديل",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "stats": {
+        "questions": "الأسئلة",
+        "totalPoints": "إجمالي النقاط",
+        "duration": "المدة",
+        "passScore": "درجة النجاح"
+      }
+    },
+    "userDirectory": {
+      "title": "كل المستخدمين",
+      "subtitle": "بحث وتصفية وإدارة الحسابات بجميع الأدوار مع ترقيم من الخادم.",
+      "export": "تصدير CSV (هذه الصفحة)",
+      "filters": {
+        "role": "الدور",
+        "status": "الحالة",
+        "allRoles": "كل الأدوار",
+        "allStatuses": "كل الحالات",
+        "active": "نشط",
+        "suspended": "موقوف",
+        "apply": "تطبيق المرشحات",
+        "searchPlaceholder": "بحث بالاسم أو البريد…"
+      },
+      "table": {
+        "name": "الاسم",
+        "email": "البريد",
+        "role": "الدور",
+        "status": "الحالة",
+        "created": "تاريخ الانضمام",
+        "actions": "إجراءات"
+      },
+      "pagination": {
+        "page": "صفحة {{page}} من {{pages}}",
+        "rows": "{{count}} مستخدم في هذه الصفحة"
+      },
+      "menu": {
+        "more": "المزيد",
+        "editRole": "تعديل الدور",
+        "editDetails": "تعديل البيانات"
+      },
+      "slideRole": {
+        "title": "تغيير الدور",
+        "role": "الدور",
+        "save": "حفظ الدور",
+        "select": "اختر الدور"
+      },
+      "slideDetails": {
+        "title": "تعديل المستخدم",
+        "fullName": "الاسم الكامل",
+        "email": "البريد",
+        "phone": "الهاتف",
+        "save": "حفظ التغييرات"
+      },
+      "toggleActive": "حساب نشط",
+      "viewProfile": "عرض الملف",
+      "empty": "لا يوجد مستخدمون مطابقون للمرشحات.",
+      "loadError": "تعذر تحميل المستخدمين.",
+      "createAssistant": "إنشاء مساعد",
+      "saveAssistant": "حفظ المساعد",
+      "assistantCreated": "تم إنشاء المساعد",
+      "createFailed": "فشل إنشاء المساعد",
+      "createForm": {
+        "fullName": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "tempPassword": "كلمة مرور مؤقتة",
+        "role": "الدور"
+      }
+    },
+    "courses": {
+      "contentStatus": "حالة المحتوى",
+      "submitForReview": "إرسال للمراجعة",
+      "submittedForReview": "تم الإرسال للمراجعة",
+      "submitFailed": "فشل الإرسال",
+      "downloadReviews": "تنزيل تقرير المراجعات PDF",
+      "pdfSuccess": "تم تنزيل تقرير المراجعات بنجاح!",
+      "pdfError": "فشل تنزيل تقرير المراجعات PDF."
+    },
+    "userDetail": {
+      "title": "ملف المستخدم",
+      "back": "العودة إلى المستخدمين",
+      "identity": "الهوية",
+      "permissions": "الصلاحيات والدور",
+      "openStudent": "فتح سجل الطالب",
+      "openInstructor": "فتح سجل المحاضر",
+      "lastLogin": "آخر دخول",
+      "customRole": "دور مخصص",
+      "loadError": "تعذر تحميل هذا المستخدم.",
+      "devices": "الأجهزة",
+      "directPermissions": "صلاحيات مباشرة",
+      "forceLogout": "تسجيل خروج إجباري",
+      "forceLogoutDone": "تم تسجيل خروج المستخدم من كل الجلسات.",
+      "grant": "منح",
+      "grantPermission": "منح صلاحية",
+      "noDevices": "لا توجد أجهزة مسجّلة.",
+      "noDirectPermissions": "لا توجد صلاحيات مباشرة.",
+      "noPermissionGrant": "اختر صلاحية أولاً.",
+      "noSessions": "لا توجد جلسات نشطة.",
+      "permissionGranted": "تم منح الصلاحية.",
+      "permissionGrantFailed": "تعذّر منح الصلاحية.",
+      "quickLinks": "روابط سريعة",
+      "revoke": "سحب",
+      "selectPermission": "اختر صلاحية",
+      "sessions": "الجلسات",
+      "tabs": {
+        "overview": "نظرة عامة",
+        "permissions": "الصلاحيات",
+        "sessions": "الجلسات"
+      }
+    },
+    "students": {
+      "title": "الطلاب",
+      "subtitle": "إدارة جميع الطلاب المسجلين",
+      "addStudent": "إضافة طالب",
+      "totalStudents": "إجمالي الطلاب",
+      "activeThisMonth": "النشطون هذا الشهر",
+      "joinedThisMonth": "منضمون هذا الشهر",
+      "newThisWeek": "الجدد هذا الأسبوع",
+      "searchPlaceholder": "البحث بالاسم أو البريد...",
+      "table": {
+        "name": "الاسم",
+        "email": "البريد",
+        "courses": "الكورسات",
+        "joined": "تاريخ الانضمام",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "empty": "لا يوجد طلاب بعد",
+      "addFirst": "أضف أول طالب",
+      "edit": "تعديل",
+      "loadError": "فشل تحميل قائمة الطلاب.",
+      "filters": {
+        "all": "الكل",
+        "active": "نشط",
+        "suspended": "معلق"
+      },
+      "sort": {
+        "newest": "الأحدث",
+        "oldest": "الأقدم",
+        "nameAz": "الاسم أ-ي"
+      },
+      "passwordMin": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+      "createTitle": "إضافة طالب جديد",
+      "editTitle": "تعديل الملف الشخصي للطالب",
+      "fullName": "الاسم الكامل",
+      "emailAddress": "البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "academicLevel": "المستوى الدراسي / السنة",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "لا تقل عن 8 أحرف",
+      "cancel": "إلغاء",
+      "saveStudent": "حفظ",
+      "saving": "جاري الحفظ...",
+      "saveChanges": "حفظ التعديلات",
+      "createValidation": "يرجى ملء جميع الحقول المطلوبة. كلمة المرور لا تقل عن 8 رموز.",
+      "createSuccess": "تم إنشاء حساب الطالب بنجاح",
+      "createFailed": "فشل إنشاء حساب الطالب.",
+      "updateSuccess": "تم تعديل بيانات الطالب بنجاح",
+      "updateFailed": "فشل تحديث ملف الطالب.",
+      "accountStatus": "حالة الحساب",
+      "accountStatusHint": "تعليق حساب الطالب يمنعه من تسجيل الدخول للمنصة.",
+      "active": "نشط",
+      "suspended": "معلق",
+      "updatePasswordOptional": "تعديل كلمة المرور (اختياري)",
+      "updatePasswordHint": "في حال قمت بتعيين كلمة مرور جديدة، فسيتم تسجيل خروج الطالب تلقائياً من جميع أجهزته الحالية.",
+      "newPasswordPlaceholder": "كلمة المرور الجديدة (8 رموز كحد أدنى)",
+      "passwordMinError": "كلمة المرور يجب أن لا تقل عن 8 رموز.",
+      "academicLevels": {
+        "unspecified": "عام / غير محدد",
+        "preparatory": "سنة تمهيدية / ما قبل الطب",
+        "firstYear": "الفرقة الأولى",
+        "firstYearShort": "الفرقة الأولى",
+        "secondYear": "الفرقة الثانية",
+        "secondYearShort": "الفرقة الثانية",
+        "thirdYear": "الفرقة الثالثة",
+        "thirdYearShort": "الفرقة الثالثة",
+        "fourthYear": "الفرقة الرابعة",
+        "fourthYearShort": "الفرقة الرابعة",
+        "graduate": "خريج"
+      }
+    },
+    "studentDetail": {
+      "course": "الكورس",
+      "progress": "التقدم",
+      "status": "الحالة",
+      "enrolledDate": "تاريخ التسجيل",
+      "activity": "الأنشطة",
+      "coursesEnrolled": "الكورسات المسجلة",
+      "completed": "مكتمل",
+      "totalSpent": "إجمالي الإنفاق",
+      "lastLogin": "آخر دخول",
+      "examsTaken": "الامتحانات المقدمة",
+      "avgExamScore": "متوسط درجة الامتحان",
+      "sendMessage": "إرسال رسالة",
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "suspendAccount": "إيقاف الحساب",
+      "delete": "حذف",
+      "tabOverview": "نظرة عامة",
+      "tabPerformance": "الأداء الأكاديمي",
+      "tabAttendance": "الحضور والغياب",
+      "tabExams": "نتائج الامتحانات",
+      "tabHomework": "تسجيلات الاسايمينت",
+      "tabCourses": "الكورسات المسجلة",
+      "loading": "جاري تحميل ملف الطالب...",
+      "loadError": "تعذر تحميل تفاصيل الطالب.",
+      "quickActions": "إجراءات سريعة",
+      "exams": {
+        "title": "تقديمات ونتائج الامتحانات",
+        "empty": "لا توجد امتحانات مقدمة لهذا الطالب.",
+        "colTitle": "اسم الامتحان",
+        "colSubmitted": "تاريخ التقديم",
+        "colScore": "الدرجة",
+        "colPercent": "النسبة المئوية",
+        "colStatus": "النتيجة",
+        "passed": "ناجح",
+        "failed": "راسب",
+        "pending": "معلق"
+      },
+      "homeworks": {
+        "title": "تقديمات الاسايمينت",
+        "empty": "لا توجد اسايمينت مقدمة.",
+        "colTitle": "عنوان الاسايمينت",
+        "colCourse": "الكورس",
+        "colSubmitted": "تاريخ التقديم",
+        "colGrade": "الدرجة",
+        "colStatus": "الحالة",
+        "colGraded": "تاريخ التصحيح"
+      },
+      "chartCompleteVsActive": "مكتمل مقابل قيد التقدم",
+      "chartProgressPerCourse": "التقدم لكل كورس",
+      "perf": {
+        "loadError": "تعذر تحميل بيانات الأداء لهذا الطالب.",
+        "avgExam": "متوسط درجة الامتحان",
+        "examsTaken": "{{count}} امتحان مقدّم",
+        "hwCompletion": "إكمال الاسايمينت",
+        "hwAvg": "متوسط الدرجة: {{score}}",
+        "overallProgress": "التقدم الإجمالي",
+        "lessonsDone": "{{done}} / {{total}} درس مكتمل",
+        "examOutcomes": "نتائج الامتحانات",
+        "passed": "ناجح",
+        "failed": "راسب",
+        "pending": "معلق / غير مصحح",
+        "noExams": "لا توجد امتحانات مقدمة بعد.",
+        "passRate": "نسبة النجاح (المصححة)",
+        "ungradedExam": "غير مصحح / غير معروف",
+        "homeworkPipeline": "مسار الاسايمينت",
+        "graded": "مصحح",
+        "pendingGrade": "بانتظار التصحيح",
+        "notSubmitted": "غير مقدّم",
+        "completionRing": "نظرة على الإكمال",
+        "lessonBased": "إكمال الدروس",
+        "cohortAvg": "تقدم المجموعة (متوسط)",
+        "liveAttendance": "حضور الجلسات المباشرة",
+        "attendanceNote": "جلسات مباشرة مكتملة في المجموعات المسجلة (سياق): {{n}}. لا يُسجّل حضور لكل طالب؛ يُحسب التقدم من الدروس والتسجيل.",
+        "recentGrades": "الدرجات الأخيرة",
+        "colType": "النوع",
+        "colItem": "البند",
+        "colScore": "الدرجة",
+        "colDate": "التاريخ",
+        "exam": "امتحان",
+        "homework": "اسايمينت",
+        "noGrades": "لا توجد درجات حديثة.",
+        "inProgress": "قيد التقدم",
+        "assignmentPipeline": "مسار الواجبات",
+        "assignment": "واجب"
+      },
+      "tabAssignment": "تسجيلات الواجبات",
+      "assignments": {
+        "title": "تسجيلات الواجبات",
+        "empty": "لا توجد واجبات مقدمة.",
+        "colTitle": "عنوان الواجب",
+        "colCourse": "الكورس",
+        "colSubmitted": "تاريخ التقديم",
+        "colGrade": "الدرجة",
+        "colStatus": "الحالة",
+        "colGraded": "تاريخ التصحيح"
+      },
+      "activateAccount": "تفعيل الحساب",
+      "activated": "تم تفعيل الحساب.",
+      "activityEnroll": "سجّل في كورس ",
+      "activityExam": "سلّم اختبار ",
+      "confirmActivate": "إعادة تفعيل حساب هذا الطالب؟",
+      "confirmSuspend": "إيقاف حساب هذا الطالب؟ لن يتمكن من تسجيل الدخول.",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleted": "تم حذف حساب الطالب.",
+      "deleteFailed": "تعذّر حذف الحساب.",
+      "deleteTypeEmail": "اكتب بريد الطالب كما هو لتأكيد الحذف.",
+      "deleteWarn1": "سيُزال حساب الطالب نهائياً (حذف ناعم). المتابعة؟",
+      "loadErrorDesc": "تعذّر جلب تفاصيل ملف الطالب.",
+      "noActivity": "لا يوجد نشاط حديث لهذا الطالب.",
+      "noCourses": "الطالب غير مسجّل في أي كورس.",
+      "passwordResetDone": "تم تحديث كلمة المرور.",
+      "passwordResetFailed": "تعذّر إعادة تعيين كلمة المرور.",
+      "savePassword": "تحديث كلمة المرور",
+      "sendAndOpenTicket": "إرسال وفتح التذكرة",
+      "suspended": "تم إيقاف الحساب.",
+      "suspendFailed": "تعذّر تحديث حالة الحساب.",
+      "ticketCreated": "تم إنشاء تذكرة الدعم.",
+      "ticketFailed": "تعذّر إنشاء التذكرة.",
+      "ticketValidation": "الموضوع والرسالة (10 أحرف على الأقل) مطلوبان."
+    },
+    "instructorsList": {
+      "title": "قائمة المحاضرين",
+      "subtitle": "إدارة دليل المحاضرين",
+      "name": "الاسم",
+      "email": "البريد",
+      "coursesCount": "الكورسات",
+      "totalStudents": "إجمالي الطلاب",
+      "rating": "التقييم",
+      "revenue": "الإيراد",
+      "status": "الحالة",
+      "addInstructor": "إضافة محاضر"
+    },
+    "instructorDetail": {
+      "course": "الكورس",
+      "enrollments": "التسجيلات",
+      "revenue": "الإيراد",
+      "rating": "التقييم",
+      "status": "الحالة",
+      "reviews": {
+        "title": "تقييمات ومراجعات الطلاب",
+        "empty": "لا توجد مراجعات منشورة لهذا المحاضر بعد.",
+        "anonymous": "طالب مجهول",
+        "ratingOnly": "ترك تقييماً فقط (لا توجد مراجعة مكتوبة)."
+      },
+      "totalCourses": "إجمالي الكورسات",
+      "totalStudents": "الطلاب المسجلون",
+      "totalRevenue": "إجمالي الإيراد",
+      "avgRating": "متوسط التقييم",
+      "period": "الفترة",
+      "amount": "المبلغ",
+      "approve": "اعتماد",
+      "suspend": "إيقاف",
+      "sendMessage": "إرسال رسالة",
+      "tabPerformance": "الأداء",
+      "performanceLoadError": "تعذر تحميل مؤشرات الأداء لهذا المحاضر.",
+      "tabAvailability": "التوفر",
+      "availabilitySubtitle": "الفترات المفتوحة القادمة التي نشرها المحاضر للحجز.",
+      "availabilityEmpty": "لا يوجد توفر قادم.",
+      "availabilityLoadError": "تعذر تحميل جدول التوفر.",
+      "availabilitySlotStatus": "متاح",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "loadingProfile": "جاري تحميل ملف المحاضر...",
+      "loadErrorTitle": "تعذر تحميل بيانات المحاضر",
+      "loadErrorDesc": "لا يمكن استرداد تفاصيل المحاضر.",
+      "yearsExp": "سنوات خبرة",
+      "tabOverview": "نظرة عامة",
+      "tabWallet": "المحفظة والمالية",
+      "tabCourses": "الكورسات",
+      "tabReviews": "تقييمات الطلاب",
+      "walletBalance": "رصيد المحفظة",
+      "totalEarnings": "إجمالي الأرباح",
+      "profileInfo": "معلومات الملف الشخصي",
+      "experience": "الخبرة",
+      "years": "سنوات",
+      "studentsPerCourse": "الطلاب لكل كورس",
+      "noCourses": "لا توجد كورسات متاحة لهذا المحاضر بعد.",
+      "courseVisibility": "مزيج ظهور الكورسات",
+      "noCoursesYet": "لم يتم إنشاء أي كورسات بعد.",
+      "quickActions": "إجراءات سريعة",
+      "wallet": {
+        "currentBalance": "الرصيد الحالي",
+        "totalRevenue": "إجمالي الإيرادات",
+        "totalWithdrawn": "إجمالي المسحوبات",
+        "earningsHistory": "منحنى سجل الأرباح",
+        "transactions": "معاملات المحفظة",
+        "noTransactions": "لا توجد معاملات مسجلة في هذه المحفظة بعد.",
+        "noPayouts": "لم يتم تقديم طلبات دفع بعد.",
+        "payoutRequests": "طلبات الدفع",
+        "requestDate": "تاريخ الطلب",
+        "amountRequested": "المبلغ المطلوب",
+        "status": "الحالة",
+        "managePayouts": "إدارة كل طلبات الدفع",
+        "payoutMethod": "طريقة الدفع",
+        "commissionTitle": "توزيع الإيرادات",
+        "commissionSubtitle": "نسبة كل عملية بيع تُحوَّل لهذا المحاضر. المنصة تحتفظ بالباقي.",
+        "commissionInstructor": "حصة المحاضر",
+        "commissionPlatform": "حصة المنصة",
+        "commissionRate": "نسبة المحاضر (%)",
+        "commissionExample": "عند بيع بقيمة {{amount}} {{currency}}، يحصل المحاضر على {{instructorAmount}} {{currency}} والمنصة على {{platformAmount}} {{currency}}.",
+        "commissionSave": "حفظ نسبة العمولة",
+        "commissionSaved": "تم تحديث نسبة العمولة",
+        "commissionSaveFailed": "تعذر تحديث نسبة العمولة",
+        "commissionInvalid": "أدخل نسبة بين 0 و 100"
+      },
+      "commissionRate": "نسبة العمولة",
+      "editProfile": "تعديل الملف",
+      "saveProfile": "حفظ التغييرات",
+      "cancelEdit": "إلغاء",
+      "profileSaved": "تم تحديث بيانات المحاضر",
+      "profileSaveFailed": "تعذر تحديث بيانات المحاضر",
+      "statusUpdated": "تم تحديث حالة المحاضر",
+      "statusUpdateFailed": "تعذر تحديث حالة المحاضر",
+      "changePassword": "تغيير كلمة المرور",
+      "newPassword": "كلمة مرور جديدة",
+      "passwordHint": "تغيير كلمة المرور ينهي جلسات المحاضر الحالية.",
+      "passwordUpdated": "تم تحديث كلمة المرور",
+      "passwordUpdateFailed": "تعذر تحديث كلمة المرور",
+      "passwordTooShort": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "bio": "نبذة",
+      "phoneInvalid": "رقم الهاتف: 7–15 رقمًا، ويمكن أن يبدأ بـ +",
+      "courses": {
+        "title": "كورسات المحاضر",
+        "empty": "لا توجد كورسات مدرجة لهذا المحاضر.",
+        "colTitle": "عنوان الكورس",
+        "colType": "النوع",
+        "colStudents": "الطلاب المسجلون",
+        "colRating": "التقييم",
+        "colStatus": "حالة النشر"
+      },
+      "availability": {
+        "title": "فترات التوفر",
+        "subtitle": "فترات التقويم النشطة التي قام المحاضر بتكوينها لحجوزات الطلاب",
+        "loading": "جاري تحميل التوفر...",
+        "loadError": "فشل تحميل فترات المحاضر.",
+        "refresh": "تحديث",
+        "empty": "لا توجد فترات توفر قادمة منشورة بعد."
+      },
+      "ticketHint": "ينشئ تذكرة دعم مرتبطة بهذا المحاضر."
+    },
+    "payouts": {
+      "title": "الدفعات",
+      "subtitle": "اعتماد أو رفض أو تأكيد دفعات المحاضرين (مرتبطة بالمحفظة).",
+      "totalPaid": "إجمالي المدفوع هذا الشهر",
+      "pending": "دفعات معلقة",
+      "nextDate": "تاريخ الدفعة التالية",
+      "instructor": "المحاضر",
+      "amount": "المبلغ",
+      "period": "الفترة",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "payNow": "تأكيد الدفع",
+      "approve": "اعتماد",
+      "reject": "رفض",
+      "notes": "ملاحظات الإدارة",
+      "filterStatus": "تصفية الحالة",
+      "allStatuses": "كل الحالات",
+      "loading": "جاري تحميل الدفعات…",
+      "loadError": "تعذر تحميل الدفعات.",
+      "retry": "إعادة المحاولة",
+      "updated": "تم تحديث الدفعة.",
+      "processFailed": "تعذر تنفيذ العملية.",
+      "details": "تفاصيل الدفع",
+      "actions": "الإجراءات",
+      "empty": "لا توجد طلبات دفع مسجلة حالياً.",
+      "paidSuccess": "تم الدفع بنجاح",
+      "viewReceipt": "عرض الإيصال 📄",
+      "markPaid": "تأكيد الدفع",
+      "approveBtn": "قبول (✔)",
+      "rejectBtn": "رفض (✖)",
+      "statusPaid": "مدفوع",
+      "statusApproved": "مقبول",
+      "statusPending": "قيد الانتظار",
+      "statusRejected": "مرفوض",
+      "rejectReasonRequired": "يرجى كتابة سبب الرفض",
+      "rejectModalTitle": "رفض طلب السحب",
+      "rejectModalBody": "يرجى تحديد سبب لرفض طلب السحب هذا. سيتم توجيه هذا السبب إلى المدرب وتوثيقه في النظام.",
+      "rejectReasonLabel": "سبب الرفض",
+      "rejectReasonPlaceholder": "مثال: رقم الحساب غير صحيح أو بيانات البنك غير كاملة",
+      "confirmReject": "تأكيد الرفض",
+      "payModalTitle": "تأكيد تحويل الدفعة للمحاضر",
+      "payModalBody": "يرجى إدخال أي ملاحظات اختيارية ورفع إثبات التحويل (صورة أو ملف PDF) لتأكيد عملية الدفع للمحاضر.",
+      "additionalNotes": "ملاحظات إضافية",
+      "notesPlaceholder": "مثال: تم التحويل بنجاح عبر فودافون كاش",
+      "attachReceipt": "إرفاق إثبات الدفع (اختياري)",
+      "confirmPayment": "تأكيد وإتمام الدفع",
+      "accountLabel": "حساب",
+      "banks": {
+        "CIB": "البنك التجاري الدولي (CIB)",
+        "NBE": "البنك الأهلي المصري (NBE)"
+      },
+      "providers": {
+        "vodafone": "فودافون كاش",
+        "etisalat": "إيصال اتصالات كاش",
+        "orange": "أورنج كاش",
+        "we": "وي باي (WE)"
+      },
+      "statusLabels": {
+        "PENDING": "قيد الانتظار",
+        "APPROVED": "مقبول",
+        "REJECTED": "مرفوض",
+        "PAID": "مدفوع"
+      }
+    },
+    "addCourse": {
+      "title": "إضافة كورس",
+      "subtitle": "إنشاء ونشر كورس جديد",
+      "quickStartTitle": "بداية سريعة وتحكم كامل",
+      "quickStartBody": "املأ البيانات الأساسية بالأسفل. بعد الإنشاء سيتم نقلك إلى",
+      "courseStudio": "استوديو الكورس لإضافة الوحدات والدروس وربط محتوى الفيديو.",
+      "titlePlaceholder": "مثال: الجهاز القلبي الوعائي — مراجعة Step 1",
+      "descriptionPlaceholder": "ملخص قصير لما سيتعلمه الطلاب...",
+      "titleRequired": "عنوان الكورس مطلوب.",
+      "instructorRequired": "المحاضر مطلوب.",
+      "missingId": "تم إنشاء الكورس لكن لم يرجع المعرّف.",
+      "createFailed": "فشل إنشاء الكورس.",
+      "creating": "جاري الإنشاء...",
+      "createAndOpen": "إنشاء وفتح الاستوديو",
+      "step1": "الخطوة 1",
+      "step2": "الخطوة 2",
+      "step3": "الخطوة 3",
+      "titleField": "عنوان الكورس",
+      "description": "الوصف",
+      "category": "التصنيف",
+      "instructor": "المحاضر",
+      "price": "السعر",
+      "level": "المستوى",
+      "thumbnailUpload": "اسحب الصورة أو انقر للتصفح",
+      "sectionTitle": "عنوان القسم",
+      "addLesson": "إضافة درس",
+      "status": "الحالة",
+      "language": "اللغة",
+      "previewUrl": "رابط المعاينة",
+      "metaTitle": "عنوان SEO",
+      "metaDescription": "وصف SEO",
+      "publishCourse": "نشر الكورس",
+      "courseType": "نوع الكورس",
+      "lifetimePurchasable": "السماح بالشراء مدى الحياة",
+      "priceInvalid": "أدخل سعراً صالحاً.",
+      "publishNow": "نشر فوراً (نشط)",
+      "typeRecorded": "مسجّل"
+    },
+    "categories": {
+      "title": "تصنيفات الكورسات",
+      "subtitle": "إدارة التصنيفات",
+      "nameEn": "الاسم بالإنجليزية",
+      "nameAr": "الاسم بالعربية",
+      "icon": "الأيقونة",
+      "save": "حفظ التصنيف",
+      "courses": "كورس",
+      "add": "إضافة تصنيف",
+      "total": "إجمالي التصنيفات",
+      "subcategories": "التصنيفات الفرعية",
+      "activeCourses": "إجمالي كورسات المنصة",
+      "activeCoursesLabel": "الكورسات المتاحة:",
+      "topLevel": "تصنيف رئيسي",
+      "subcategoryOf": "تصنيف فرعي من: {{name}}",
+      "editTitle": "تعديل تصنيف",
+      "createTitle": "إضافة تصنيف جديد",
+      "name": "اسم التصنيف",
+      "slug": "الرابط اللطيف (Slug)",
+      "parent": "التصنيف الأب (لجعله تصنيف فرعي)",
+      "parentNone": "-- تصنيف رئيسي (بدون أب) --",
+      "selectIcon": "اختر الأيقونة البصرية",
+      "description": "الوصف",
+      "cancel": "إلغاء",
+      "saveChanges": "حفظ التغييرات",
+      "deleteTitle": "تأكيد حذف التصنيف",
+      "deleteConfirm": "هل أنت متأكد من حذف هذا التصنيف نهائياً؟ قد يؤدي هذا لإلغاء تصنيف بعض الكورسات.",
+      "confirmDelete": "نعم، احذف",
+      "requiredFields": "يرجى ملء الحقول المطلوبة",
+      "updated": "تم تعديل التصنيف بنجاح",
+      "created": "تم إضافة التصنيف بنجاح",
+      "saveFailed": "فشل حفظ التصنيف",
+      "deleted": "تم حذف التصنيف بنجاح",
+      "deleteFailed": "فشل حذف التصنيف",
+      "loading": "جاري تحميل التصنيفات...",
+      "loadError": "فشل تحميل التصنيفات.",
+      "retry": "إعادة المحاولة",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "enrollments": {
+      "title": "سجل التسجيلات",
+      "subtitle": "متابعة جميع التسجيلات",
+      "total": "إجمالي التسجيلات",
+      "thisMonth": "هذا الشهر",
+      "completionRate": "معدل الإكمال",
+      "revenue": "إيراد التسجيلات",
+      "student": "الطالب",
+      "course": "الكورس",
+      "instructor": "المحاضر",
+      "cohort": "الدفعة",
+      "enrolledDate": "تاريخ التسجيل",
+      "progress": "التقدم",
+      "status": "الحالة",
+      "price": "السعر المدفوع",
+      "allCourses": "جميع الكورسات",
+      "allStatuses": "جميع الحالات",
+      "statusActive": "نشط",
+      "statusCompleted": "مكتمل",
+      "statusCohortEnded": "انتهت الدفعة",
+      "showingCount": "عرض {{count}} من {{total}} تسجيل",
+      "empty": "لا تسجيلات مطابقة لعوامل التصفية.",
+      "lessonsDone": "{{n}} درس مُعلَّم كمكتمل",
+      "listPrice": "سعر الدفعة {{amount}}"
+    },
+    "enrollStudent": {
+      "title": "تسجيل طالب",
+      "subtitle": "كورس ← دفعة ← طالب (تسجيل يدوي في الدفعة)",
+      "student": "الطالب",
+      "course": "الكورس",
+      "cohort": "الدفعة",
+      "notes": "ملاحظات",
+      "submit": "سجل الآن",
+      "stepCourse": "الكورس",
+      "stepCohort": "الدفعة",
+      "stepStudent": "الطالب",
+      "selectCourse": "اختر الكورس…",
+      "selectCohort": "اختر الدفعة…",
+      "selectStudent": "اختر الطالب…",
+      "noCohorts": "لا توجد دفعات لهذا الكورس. أنشئ دفعة من صفحة الدفعات أولاً.",
+      "amountOptional": "المبلغ المدفوع (اختياري — يُسجّل دفعة يدوية مدفوعة)",
+      "reset": "ابدأ من جديد",
+      "success": "تم إنشاء التسجيل بنجاح.",
+      "error": "فشل التسجيل."
+    },
+    "cmsPosts": {
+      "title": "المدونات",
+      "subtitle": "مسودات ومقالات منشورة في صفحة /blogs.",
+      "titlePlaceholder": "عنوان مقالة جديدة",
+      "create": "إنشاء مسودة",
+      "loading": "جاري تحميل المقالات…",
+      "empty": "لا توجد مقالات بعد. أضف عنوانًا واضغط إنشاء مسودة.",
+      "edit": "تعديل",
+      "viewLive": "عرض للعامة",
+      "publish": "نشر",
+      "unpublish": "إلغاء النشر",
+      "confirmDelete": "حذف هذه المقالة؟ لا يمكن التراجع.",
+      "drawerTitle": "تعديل المقالة",
+      "slug": "المسار (slug)",
+      "thumbnailUrl": "رابط الصورة (اختياري)",
+      "body": "المتن (Markdown)",
+      "publishedLabel": "منشور للعامة",
+      "saveChanges": "حفظ التغييرات",
+      "fieldTitle": "العنوان",
+      "bodyAr": "المحتوى (عربي)",
+      "catBlog": "مدونة",
+      "category": "التصنيف",
+      "catInvestigation": "تحقيق",
+      "catNews": "أخبار",
+      "fieldTitleAr": "العنوان (عربي)"
+    },
+    "cmsBanners": {
+      "title": "اللافتات",
+      "subtitle": "صور ترويجية مع رابط اختياري (مثل شريط الصفحة الرئيسية).",
+      "add": "لافتة جديدة",
+      "edit": "تعديل اللافتة",
+      "save": "حفظ التغييرات",
+      "created": "تم إنشاء اللافتة.",
+      "updated": "تم تحديث اللافتة.",
+      "active": "نشطة",
+      "inactive": "غير نشطة",
+      "untitled": "بدون عنوان",
+      "noLink": "بدون رابط",
+      "showOnMobile": "إظهار في سلايدر الموبايل",
+      "mobileHint": "اللافتات النشطة تظهر في سلايدر الموبايل عبر GET /public/banners.",
+      "loading": "جاري تحميل اللافتات…",
+      "order": "ترتيب العرض",
+      "imageUrl": "رابط الصورة",
+      "toggle": "تفعيل/إيقاف",
+      "delete": "حذف",
+      "confirmDelete": "حذف هذه اللافتة؟",
+      "create": "إنشاء لافتة",
+      "empty": "لا توجد لافتات بعد.",
+      "emptyHint": "أضف عدة شرائح لسلايدر الصفحة الرئيسية في الموبايل.",
+      "form": {
+        "title": "العنوان (اختياري)",
+        "link": "الرابط (مثل /subscription)"
+      }
+    },
+    "settingsRoles": {
+      "title": "الأدوار والصلاحيات",
+      "subtitle": "إدارة مصفوفة الصلاحيات",
+      "save": "حفظ الصلاحيات",
+      "newRole": "دور جديد",
+      "createRole": "إنشاء دور جديد",
+      "editRole": "تعديل الدور",
+      "editorSubtitle": "عرّف الدور وحدد الصلاحيات التفصيلية.",
+      "roleDetails": "بيانات الدور",
+      "roleName": "اسم الدور",
+      "description": "الوصف",
+      "descriptionPlaceholder": "ما الذي يمكن لهذا الدور فعله؟",
+      "permissionsSelected": "صلاحية محددة",
+      "permissionsHint": "يرث المستخدمون كل الصلاحيات المحددة عبر هذا الدور.",
+      "searchPermissions": "بحث في الصلاحيات…",
+      "permissionsRequired": "اختر صلاحية واحدة على الأقل",
+      "roleNameRequired": "اسم الدور مطلوب"
+    },
+    "settingsEmails": {
+      "title": "قوالب البريد",
+      "subtitle": "تعديل قوالب البريد",
+      "subject": "الموضوع",
+      "preview": "معاينة",
+      "sendTest": "إرسال اختبار"
+    },
+    "settingsIntegrations": {
+      "title": "التكاملات",
+      "subtitle": "إعداد الخدمات الخارجية",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "configure": "إعداد",
+      "testConnection": "اختبار الاتصال"
+    },
+    "overview": {
+      "title": "نظرة عامة",
+      "subtitle": "إدارة منصة نظرة عامة",
+      "courses": "الكورسات",
+      "students": "الطلاب",
+      "instructors": "المحاضرين",
+      "enrollments": "التسجيلات",
+      "studentStatus": "حالة أداء الطالب",
+      "instructorStatus": "حالة أداء المحاضر",
+      "enrollmentGrowth": "نمو التسجيلات"
+    },
+    "coupons": {
+      "title": "الكوبونات",
+      "subtitle": "إنشاء وإدارة وتفعيل كوبونات الخصم"
+    },
+    "certificates": {
+      "title": "الشهادات",
+      "subtitle": "إصدار ومتابعة شهادات الطلاب"
+    },
+    "assessments": {
+      "title": "جميع الامتحانات / التقييمات",
+      "subtitle": "متابعة وإدارة الاختبارات والامتحانات عبر المنصة",
+      "add": "إضافة امتحان",
+      "total": "إجمالي التقييمات",
+      "active": "نشط / مكتمل",
+      "upcoming": "قادم / مسودة",
+      "search": "تصفية حسب الامتحان أو الكورس أو النوع...",
+      "tip1Title": "بحث سريع",
+      "tip1Body": "قم بالتصفية حسب عنوان الامتحان أو الكورس أو النوع للعثور على السجلات بسرعة.",
+      "tip2Title": "منشئ الامتحانات",
+      "tip2Body": "استخدم 'إضافة امتحان' لإنشاء اختبارات/امتحانات جديدة مع الأسئلة وقواعد التصحيح.",
+      "colAssessment": "التقييم / الامتحان",
+      "colType": "النوع",
+      "colQuestions": "الأسئلة",
+      "colDuration": "المدة",
+      "colPoints": "النقاط",
+      "colStatus": "الحالة",
+      "colActions": "الإجراءات",
+      "standalone": "مستقل",
+      "minutes": "دقيقة",
+      "editTitle": "تعديل الأسئلة",
+      "viewTitle": "عرض التقديمات",
+      "loading": "جاري تحميل الامتحانات...",
+      "loadError": "تعذر تحميل الامتحانات.",
+      "statusCompleted": "مكتمل",
+      "statusAvailable": "متاح",
+      "statusUpcoming": "قادم",
+      "statusDraft": "مسودة"
+    },
+    "addExam": {
+      "title": "إنشاء امتحان جديد",
+      "subtitle": "اضبط الإعدادات الأساسية، ثم قم ببناء بنك الأسئلة الخاص بك في المحرر.",
+      "quickStartTitle": "بداية سريعة، تحكم كامل",
+      "quickStartDesc": "املأ البيانات الأساسية أدناه. بمجرد الإنشاء، سيتم نقلك إلى محرر الامتحانات حيث يمكنك إضافة الأسئلة وتحديد الإجابات الصحيحة وتهيئة قواعد التصحيح.",
+      "examTitle": "عنوان الامتحان",
+      "titlePlaceholder": "مثال: اختبار تدريبي للجهاز القلبي الوعائي",
+      "type": "النوع",
+      "duration": "المدة (دقائق)",
+      "totalPoints": "النقاط الإجمالية",
+      "passingScore": "درجة النجاح",
+      "cancel": "إلغاء",
+      "creating": "جاري الإنشاء...",
+      "createBtn": "إنشاء وفتح المحرر",
+      "errorRequired": "العنوان مطلوب.",
+      "errorCreate": "فشل إنشاء الامتحان.",
+      "errorId": "تم إنشاء الامتحان ولكن لم يتم إرجاع المعرف.",
+      "types": {
+        "STANDALONE": "امتحان مستقل",
+        "FINAL": "امتحان نهائي",
+        "UNIT": "امتحان وحدة",
+        "LESSON": "اختبار درس قصير"
+      }
+    },
+    "tickets": {
+      "title": "تذاكر الدعم الفني",
+      "subtitle": "إدارة طلبات الدعم المقدمة من الطلاب والمحاضرين",
+      "newBtn": "تذكرة جديدة",
+      "statsOpen": "التذاكر المفتوحة",
+      "statsInProgress": "قيد المعالجة",
+      "statsResolved": "تم حلها اليوم",
+      "statsTotal": "الإجمالي هذا الشهر",
+      "searchPlaceholder": "البحث في التذاكر...",
+      "loading": "جاري تحميل التذاكر...",
+      "loadError": "فشل تحميل تذاكر الدعم.",
+      "emptyTitle": "لم يتم العثور على تذاكر",
+      "emptyDesc": "ستظهر طلبات الدعم هنا بمجرد أن يقوم الطلاب أو المحاضرون بتقديمها.",
+      "noAccess": "ليس لديك صلاحية لإدارة تذاكر الدعم الفني.",
+      "noMatch": "لا توجد تذاكر تطابق عوامل التصفية الخاصة بك.",
+      "tooltipView": "عرض التذكرة",
+      "tooltipResolve": "حل التذكرة",
+      "statuses": {
+        "All": "كل الحالات",
+        "OPEN": "مفتوحة",
+        "IN_PROGRESS": "قيد المعالجة",
+        "RESOLVED": "تم حلها",
+        "CLOSED": "مغلقة"
+      },
+      "priorities": {
+        "All": "كل الأولويات",
+        "URGENT": "عاجلة",
+        "HIGH": "عالية",
+        "MEDIUM": "متوسطة",
+        "LOW": "منخفضة"
+      },
+      "table": {
+        "id": "#",
+        "subject": "الموضوع",
+        "from": "من",
+        "category": "الفئة",
+        "priority": "الأولوية",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "actions": "الإجراءات"
+      },
+      "replyFailed": "تعذّر إرسال الرد.",
+      "replySent": "تم إرسال الرد.",
+      "category": "الفئة",
+      "general": "عام",
+      "conversationFeed": "محادثة الدعم الفني",
+      "messagesCount": "{{count}} رسائل",
+      "replyPlaceholder": "اكتب رد الإدارة الفني...",
+      "requesterProfile": "بيانات صاحب التذكرة",
+      "fullName": "الاسم الكامل",
+      "emailAddress": "البريد الإلكتروني",
+      "activeRole": "الدور الوظيفي",
+      "accountStatus": "حالة الحساب",
+      "active": "نشط",
+      "ticketMetadata": "التحكم في التذكرة",
+      "assignedAdmin": "المسؤول الحالي:",
+      "unassigned": "غير معين",
+      "createdDate": "تاريخ الإنشاء:",
+      "lastUpdate": "تاريخ التحديث:",
+      "changeStatus": "تغيير حالة التذكرة",
+      "confirmStatusChange": "تأكيد تغيير الحالة؟",
+      "internalNotes": "ملاحظات داخلية خاصة",
+      "internalNotesHint": "🔒 هذه الملاحظات خاصة بمشرفي الدعم الفني ولن تظهر للمستخدم العادي. سيتم إرفاقها عند تغيير حالة التذكرة.",
+      "internalNotesPlaceholder": "اكتب الملاحظات الداخلية الخاصة هنا...",
+      "notFound": "التذكرة غير موجودة.",
+      "adminSupport": "دعم الإدارة",
+      "requester": "مقدم الطلب"
+    },
+    "auditLogs": {
+      "title": "سجلات التدقيق",
+      "subtitle": "تتبع إجراءات الإدارة الحساسة عبر المنصة.",
+      "action": "الإجراء",
+      "actor": "المنفّذ",
+      "entity": "الكيان",
+      "entityId": "معرّف الكيان",
+      "when": "الوقت",
+      "loadError": "تعذّر تحميل سجلات التدقيق."
+    },
+    "cmsPages": {
+      "title": "صفحات الموقع",
+      "subtitle": "عدّل صفحات التذييل بالإنجليزية والعربية — تواصل، الشروط، الدليل، والمزيد.",
+      "aboutFaqNote": "صفحة من نحن والأسئلة الشائعة وواجهة الصفحة الرئيسية تُعدَّل من محتوى الموقع (/admin/cms). المقالات من قسم المدونة.",
+      "addSection": "إضافة قسم",
+      "emptySeed": "لا توجد صفحات في قاعدة البيانات. شغّل الـ seed أو الترحيل لإنشاء الصفحات الافتراضية.",
+      "inbox": "وارد نموذج التواصل",
+      "inboxEmpty": "لا توجد رسائل بعد.",
+      "markRead": "تعليم كمقروء",
+      "preview": "معاينة",
+      "published": "منشور (ظاهر على الموقع)",
+      "saved": "تم حفظ الصفحة.",
+      "sectionBody": "نص المحتوى",
+      "sectionHeading": "العنوان",
+      "sectionList": "قائمة نقطية (عنصر في كل سطر)",
+      "sections": "أقسام المحتوى",
+      "selectPage": "اختر صفحة.",
+      "subtitleAr": "العنوان الفرعي (عربي)",
+      "subtitleEn": "العنوان الفرعي (إنجليزي)",
+      "titleAr": "العنوان (عربي)",
+      "titleEn": "العنوان (إنجليزي)"
+    },
+    "otp": {
+      "title": "رمز التحقق",
+      "description": "أدخل الرمز لمرة واحدة المرسل إلى بريدك.",
+      "confirm": "تحقق",
+      "invalid": "رمز غير صالح أو منتهٍ.",
+      "resend": "إعادة إرسال الرمز",
+      "sendFailed": "تعذّر إرسال الرمز.",
+      "sent": "تم إرسال الرمز.",
+      "verifyFailed": "فشل التحقق."
+    },
+    "reviewQueue": {
+      "title": "قائمة المراجعة",
+      "subtitle": "وافق أو ارفض المحتوى والطلبات المعلّقة.",
+      "approve": "موافقة",
+      "approved": "تمت الموافقة.",
+      "approveFailed": "تعذّرت الموافقة.",
+      "confirmReject": "رفض هذا العنصر؟",
+      "instructor": "المحاضر",
+      "loadError": "تعذّر تحميل قائمة المراجعة.",
+      "reject": "رفض",
+      "rejected": "تم الرفض.",
+      "rejectFailed": "تعذّر الرفض.",
+      "rejectPlaceholder": "سبب الرفض…",
+      "rejectTitle": "رفض الطلب",
+      "status": "الحالة"
+    },
+    "subscriptions": {
+      "title": "الاشتراكات",
+      "subtitle": "إدارة وصول اشتراكات المستخدمين"
+    },
+    "integrations": {
+      "title": "التكاملات",
+      "subtitle": "تُدار عبر متغيرات البيئة على الخادم — لا حفظ وهمي من الواجهة",
+      "smtpName": "SMTP Email",
+      "smtpNote": "مطلوب لإعادة تعيين كلمة السر وOTP واختبار القوالب",
+      "manualName": "الدفع اليدوي",
+      "manualNote": "تعليمات التحويل البنكي تظهر عند الدفع — لا بوابة دفع إلكترونية في النطاق الحالي",
+      "webhooksName": "Webhooks الدفع",
+      "webhooksNote": "معطّلة افتراضياً وتتطلب توقيع HMAC"
+    },
+    "qna": {
+      "title": "استفسارات الطلاب",
+      "subtitle": "عرض والرد على أسئلة الطلاب داخل الدروس.",
+      "allCourses": "كل الكورسات",
+      "filterPending": "قيد المراجعة",
+      "filterResolved": "تم الحل",
+      "filterAll": "الكل",
+      "listTitle": "الاستفسارات الواردة",
+      "loading": "جارٍ تحميل الأسئلة…",
+      "empty": "لا توجد أسئلة تطابق هذا الفلتر.",
+      "questionFallback": "استفسار",
+      "anonymous": "طالب",
+      "instructor": "المحاضر",
+      "staff": "فريق الدعم",
+      "pending": "قيد المراجعة",
+      "resolved": "تم الحل",
+      "reopen": "إعادة فتح",
+      "markResolved": "تعليمليم كمحلول",
+      "replyPlaceholder": "اكتب ردك هنا…",
+      "reply": "إرسال الرد",
+      "selectPrompt": "اختر استفساراً من القائمة.",
+      "loadError": "تعذّر تحميل الاستفسارات.",
+      "replySuccess": "تم إرسال الرد بنجاح.",
+      "replyError": "تعذّر إرسال الرد.",
+      "statusUpdated": "تم تحديث حالة السؤال.",
+      "statusError": "تعذّر تحديث الحالة."
+    },
+    "finance": {
+      "netPlatformRevenue": "صافي أرباح المنصة",
+      "pendingPayoutsValue": "المستحقات المعلقة",
+      "stable": "مستقر",
+      "gatewaySuccessRate": "معدل نجاح الدفع",
+      "dailyCashVolume": "التدفق اليومي",
+      "paymentMethodsTitle": "طرق الدفع المفضلة",
+      "paymentMethodsSubtitle": "نسب تشغيل بوابات الدفع",
+      "totalIntake": "إجمالي الدخل",
+      "dailyIntakeTitle": "مخطط التدفق المالي",
+      "dailyIntakeSubtitle": "مراقبة المدفوعات اليومية الناجحة",
+      "successIntake": "إجمالي المدخول الناجح",
+      "filterAll": "كل المعاملات",
+      "filterPaid": "المدفوعة",
+      "filterPending": "المعلقة",
+      "filterRefunded": "المستردة والملغاة",
+      "refresh": "تحديث",
+      "colInvoice": "الفاتورة",
+      "colParentStudent": "الطالب/ولي الأمر",
+      "colTarget": "الهدف",
+      "colAmount": "المبلغ",
+      "colStatus": "الحالة",
+      "colDate": "التاريخ",
+      "colAction": "الإجراء",
+      "methodVodafone": "فودافون كاش",
+      "methodInstapay": "إنستا باي",
+      "methodCreditCards": "بطاقة ائتمان",
+      "proof": "إثبات"
+    },
+    "performance": {
+      "title": "تحليلات الأداء",
+      "subtitle": "راقب سرعة التدريس ومؤشرات التفاعل واستبقاء الصفوف",
+      "courseCompletionVelocity": "معدل إكمال الكورسات",
+      "globalInstructionRating": "متوسط التقييم العام",
+      "examPassRatio": "نسبة النجاح",
+      "activeToday": "نشط اليوم",
+      "dailyContentEngagement": "الدروس المشاهدة اليوم",
+      "fromDate": "من تاريخ",
+      "toDate": "إلى تاريخ",
+      "allCourses": "كل الكورسات",
+      "allInstructors": "كل المحاضرين",
+      "retentionTitle": "منحنى استبقاء الطلاب",
+      "retentionSubtitle": "نسب التفاعل مع الحصص والموديولات",
+      "retention": "نسبة الاستبقاء",
+      "submissionsTitle": "نسب الواجبات والامتحانات القصيرة",
+      "submissionsSubtitle": "مقارنة تقدم الدورة مع نسب إكمال التسجيل",
+      "courseProgress": "تقدم الدورة",
+      "completionRate": "إكمال التسجيل",
+      "weeklyEngagementTitle": "اتجاه التفاعل الأسبوعي",
+      "weeklyEngagementSubtitle": "نشاط التسجيلات والمشاركة خلال الأسبوع",
+      "engagement": "التفاعل",
+      "topInstructorsTitle": "ترتيب المحاضرين حسب الأداء",
+      "topInstructorsSubtitle": "المحاضرين الأكثر تفاعلاً وأعلى تقييماً",
+      "colTeacher": "المحاضر",
+      "colRating": "التقييم",
+      "colActiveStudents": "الطلاب النشطين",
+      "noRecords": "لا توجد سجلات بعد",
+      "trendingTitle": "الكورسات الصاعدة هذا الأسبوع",
+      "trendingSubtitle": "الأسرع نمواً من حيث عدد التسجيلات",
+      "new": "جدد",
+      "total": "إجمالي"
+    },
+    "examSubmissions": {
+      "exportExcel": "تصدير إكسل (.xlsx)"
+    },
+    "events": {
+      "title": "إدارة الفعاليات والأخبار",
+      "subtitle": "إدارة فعاليات Step 1 والندوات الطبية وورش حل الأسئلة المنشورة للطلاب.",
+      "addNew": "إضافة فعالية جديدة",
+      "empty": "لا توجد فعاليات مضافة حالياً.",
+      "table": {
+        "title": "الفعالية",
+        "date": "الموعد",
+        "location": "الموقع",
+        "active": "نشط؟",
+        "actions": "إجراءات"
+      },
+      "toggleActive": "تغيير حالة النشاط",
+      "active": "نشط",
+      "inactive": "معطل",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "modalEdit": "تعديل بيانات الفعالية",
+      "modalCreate": "إضافة فعالية جديدة",
+      "titleAr": "عنوان الفعالية (العربية)",
+      "titleEn": "عنوان الفعالية (الإنجليزية)",
+      "titleArPlaceholder": "مثال: ندوة تصميم المنشآت الذكية",
+      "descAr": "التفاصيل والوصف (العربية)",
+      "descEn": "التفاصيل والوصف (الإنجليزية)",
+      "descArPlaceholder": "اكتب تفاصيل الفعالية وجدول الأعمال هنا...",
+      "descEnPlaceholder": "Describe the event itinerary, webinar schedules...",
+      "eventDate": "موعد الفعالية",
+      "location": "المكان (رقم القاعة أو رابط البث)",
+      "locationPlaceholder": "مثال: مدرج 3 أو https://zoom.us/...",
+      "bannerUrl": "رابط صورة الغلاف (اختياري)",
+      "publishNow": "تفعيل ونشر الفعالية فوراً للطلاب",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "deleteTitle": "حذف الفعالية",
+      "deleteConfirm": "هل أنت متأكد من حذف الفعالية: \"{{title}}\" نهائياً؟",
+      "loadError": "فشل تحميل الفعاليات",
+      "requiredFields": "يرجى ملء كافة الحقول المطلوبة.",
+      "updated": "تم تعديل الفعالية بنجاح ✅",
+      "created": "تمت إضافة الفعالية بنجاح ✅",
+      "saveFailed": "فشل حفظ الفعالية",
+      "statusToggled": "تم تحديث حالة الفعالية بنجاح",
+      "toggleFailed": "فشل تحديث حالة الفعالية",
+      "deleted": "تم حذف الفعالية بنجاح",
+      "deleteFailed": "فشل حذف الفعالية"
+    }
+  },
+  "overview": {
+    "title": "نظرة عامة",
+    "subtitle": "تتبع نمو المنصة والمقاييس الرئيسية",
+    "totalStudents": "إجمالي الطلاب",
+    "totalInstructors": "إجمالي المحاضرين",
+    "activeCourses": "الكورسات النشطة",
+    "totalRevenue": "إجمالي الإيرادات",
+    "vsLastMonth": "مقارنة بالشهر الماضي",
+    "noDataYet": "لا توجد بيانات بعد",
+    "revenueAnalytics": "تحليل الإيرادات",
+    "monthlyEarnings": "نظرة عامة على الأرباح الشهرية",
+    "weeklyEnrollments": "التسجيلات الأسبوعية",
+    "studentActivity": "نشاط الطلاب",
+    "topInstructors": "أفضل المحاضرين",
+    "bestTeachers": "المعلمون الأفضل أداءً",
+    "activityFeed": "سجل النشاط",
+    "viewAll": "عرض الكل",
+    "clearHistory": "مسح السجل",
+    "newStudents": "طلاب جدد",
+    "completions": "مكتملون",
+    "platformStatus": "حالة المنصة",
+    "allSystemsOk": "جميع الأنظمة تعمل",
+    "chartsUnavailable": "الرسوم التفصيلية غير متوفرة في هذا الإصدار؛ تظهر الأرقام الأساسية أعلاه.",
+    "lastSynced": "آخر مزامنة",
+    "minAgo": "دقيقتين مضت",
+    "newThisWeek": "جديد هذا الأسبوع",
+    "quickActions": {
+      "title": "الإجراءات التشغيلية السريعة",
+      "subtitle": "مهام المنصة الشائعة",
+      "createCourse": "إنشاء كورس جديد",
+      "enrollStudent": "تسجيل طالب يدوياً",
+      "generateCoupon": "إنشاء كوبون خصم"
+    },
+    "recentPlatformActivity": "آخر العمليات النشطة",
+    "recentPlatformActivityHint": "نبض العمليات الحية للمنصة",
+    "noRecentActivity": "لا توجد عمليات نشطة بالمنصة بعد.",
+    "activityTypeAudit": "سجل تدقيق",
+    "activityTypeSession": "جلسة نشطة",
+    "revenueStreams": "توزيع مصادر الإيرادات",
+    "revenueStreamsHint": "مسجلة مقابل اشتراكات مقابل تفاعلية",
+    "recordedCourses": "كورس مسجل",
+    "packages": "باقات واشتراكات",
+    "liveCohorts": "محاضرات حية",
+    "totalSales": "إجمالي المبيعات",
+    "securityGuardrail": "حماية المنصة",
+    "concurrentSessions": "جلسات متزامنة مشبوهة",
+    "forceLogouts": "تسجيل خروج إجباري اليوم",
+    "operationalBottlenecks": "عقبات التشغيل",
+    "ticketsBacklog": "تذاكر معلقة",
+    "reviewQueue": "انتظار مراجعة الكورسات",
+    "platformVolume": "حجم المنصة",
+    "topCoursesByEnrollment": "أفضل الكورسات (التسجيلات النشطة)",
+    "topCoursesByEnrollmentHint": "المجموعات الحية والجارية",
+    "enrollmentCount": "التسجيلات",
+    "recentActivityHint": "أحدث التسجيلات والمدفوعات",
+    "activityPayment": "دفع",
+    "advanced": {
+      "audience": {
+        "title": "نظرة عامة على الجمهور",
+        "subtitle": "اتجاهات المستخدمين والجلسات والتفاعل"
+      },
+      "stats": {
+        "users": "المستخدمون",
+        "sessions": "الجلسات",
+        "bounceRate": "معدل الارتداد",
+        "avgTime": "متوسط الوقت"
+      },
+      "coursePerformance": {
+        "title": "أداء الكورسات",
+        "subtitle": "تحليل راداري لأفضل الكورسات",
+        "legend": "درجة الأداء المجمعة"
+      },
+      "topCategories": {
+        "title": "أفضل التصنيفات",
+        "students": "طالب",
+        "weekly": "أسبوعي",
+        "monthly": "شهري",
+        "allTime": "كل الوقت"
+      }
+    }
+  },
+  "months": {
+    "jan": "يناير",
+    "feb": "فبراير",
+    "mar": "مارس",
+    "apr": "أبريل",
+    "may": "مايو",
+    "jun": "يونيو",
+    "mon": "الإثنين",
+    "tue": "الثلاثاء",
+    "wed": "الأربعاء",
+    "thu": "الخميس",
+    "fri": "الجمعة"
+  },
+  "header": {
+    "logoAlt": "ياسر USMLE",
+    "search": "البحث في الموارد...",
+    "admin": "مدير النظام",
+    "notifications": "الإشعارات",
+    "notificationsEmpty": "لا إشعارات",
+    "notificationsMarkAll": "تعليم الكل كمقروء",
+    "topbar": {
+      "visitTime": "وقت الزيارة: الإثنين - السبت 9:00 - 19:00",
+      "phone": "(+22) 123 456 7890",
+      "language": "اللغة"
+    },
+    "nav": {
+      "home": "الرئيسية",
+      "subscription": "الاشتراك",
+      "explore": "استكشاف",
+      "packages": "الباقات",
+      "instructors": "المحاضرون",
+      "myClasses": "كورساتي",
+      "myDashboard": "لوحتي",
+      "bookPrivate": "طلب جلسة فردية",
+      "events": "الفعاليات والأخبار"
+    },
+    "actions": {
+      "login": "تسجيل الدخول",
+      "signUp": "إنشاء حساب"
+    },
+    "mobile": {
+      "menuToggle": "تبديل القائمة"
+    },
+    "toggleTheme": "تبديل المظهر",
+    "dropdown": {
+      "open": "فتح قائمة المستخدم",
+      "myClasses": "كورساتي",
+      "recordings": "التسجيلات",
+      "homework": "الاسايمينت",
+      "exams": "الامتحانات",
+      "progress": "تقدمي",
+      "settings": "الإعدادات",
+      "logout": "تسجيل الخروج",
+      "assignment": "الواجبات",
+      "adminDashboard": "لوحة الإدارة",
+      "instructorDashboard": "لوحة المحاضر",
+      "students": "الطلاب",
+      "courses": "الكورسات",
+      "myCourses": "كورساتي"
+    },
+    "dashboardMenu": {
+      "account": "ملفي الشخصي",
+      "platformSettings": "إعدادات المنصة",
+      "instructorHome": "الرئيسية",
+      "studentHome": "لوحتي",
+      "studentPanel": "لوحة الطالب",
+      "instructorPanel": "لوحة المحاضر",
+      "visitWebsite": "زيارة الموقع",
+      "websiteHome": "الصفحة الرئيسية",
+      "websiteExplore": "استكشاف الكورسات",
+      "websiteInstructors": "تصفح المحاضرين",
+      "switchRole": "تبديل الدور",
+      "logout": "تسجيل الخروج",
+      "accountActions": "الحساب",
+      "adminPanel": "لوحة الإدارة"
+    },
+    "themeToggle": "تبديل المظهر",
+    "roles": {
+      "superAdmin": "مالك المنصة",
+      "admin": "مسؤول",
+      "instructor": "محاضر",
+      "student": "طالب",
+      "staff": "طاقم العمل",
+      "userFallback": "مستخدم"
+    }
+  },
+  "hero": {
+    "headline": {
+      "start": "أتقن",
+      "highlight": "USMLE Step 1"
+    },
+    "subheadline": "دورات منظّمة حسب الأنظمة · اختبارات تدريبية · فلاش كاردز · خطط مذاكرة — كل شيء في منصة واحدة.",
+    "upperTag": "استعد لـ USMLE Step 1 — منظّم · مبني على الأدلة · سهل الوصول",
+    "features": {
+      "experts": "توجيه خبراء",
+      "liveCohorts": "منهج حسب الأنظمة",
+      "membership": "خطط وصول مرنة"
+    },
+    "actions": {
+      "startLearning": "استكشف الدورات",
+      "watchNow": "شاهد كيف يعمل"
+    },
+    "socialProof": {
+      "studentsCount": "يثق بنا طلاب الطب حول العالم",
+      "engineersCount": "يثق بنا طلاب الطب حول العالم",
+      "rating": "تقييم عالٍ من الطلاب"
+    },
+    "bannerAlt": "معاينة دورة USMLE Step 1"
+  },
+  "features": {
+    "titlePrefix": "كل ما تحتاجه",
+    "titleBrand": "Yaser USMLE",
+    "subtitle": "منصة متكاملة تجمع المحتوى الطبي، والاختبارات، والبطاقات الدراسية، وخطط المراجعة في مكان واحد.",
+    "learnMore": "اكتشف المزيد",
+    "items": {
+      "structuredCourses": {
+        "title": "دورات حسب الأنظمة",
+        "description": "تابع منهجاً منظماً مرتباً حسب أنظمة الأعضاء — من القلب والأوعية إلى الكلى — مصمماً خصيصاً للنجاح في USMLE Step 1."
+      },
+      "flashcards": {
+        "title": "فلاش كاردز ذكية",
+        "description": "راجع المعلومات عالية الأهمية باستخدام حزم بطاقات دراسية مرتبة حسب النظام والموضوع، لتعزيز الحفظ والفهم."
+      },
+      "quizzes": {
+        "title": "اختبارات تدريبية",
+        "description": "اختبر فهمك بأسئلة مخصصة لكل نظام، احصل على تغذية راجعة فورية، وتابع أداءك في كل موضوع."
+      },
+      "studyPlan": {
+        "title": "تخطيط المذاكرة",
+        "description": "نظّم تحضيرك بخطة مذاكرة شخصية — حدد أهدافاً يومية، تتبع التقدم، والتزم بالجدول حتى يوم الامتحان."
+      },
+      "liveClasses": {
+        "title": "دورات حسب الأنظمة",
+        "description": "تابع منهجاً منظماً حسب أنظمة الأعضاء مصمماً لـ USMLE Step 1."
+      },
+      "groupAndOneToOne": {
+        "title": "توجيه خبراء",
+        "description": "تعلّم من الدكتور ياسر وفريق من المعلمين الخبراء المتخصصين في التحضير لـ USMLE."
+      },
+      "homeworkAndPractice": {
+        "title": "اختبارات تدريبية",
+        "description": "اختبر فهمك بأسئلة مخصصة واحصل على تغذية راجعة فورية."
+      },
+      "assignmentAndPractice": {
+        "title": "اختبارات تدريبية",
+        "description": "اختبر فهمك بأسئلة مخصصة واحصل على تغذية راجعة فورية."
+      },
+      "recordedSessions": {
+        "title": "تخطيط المذاكرة",
+        "description": "نظّم تحضيرك بخطة شخصية وتابع تقدمك."
+      }
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "تجربة تعليمية متكاملة",
+    "titleStart": "رحلتك التعليمية",
+    "titleAccent": "من الفهم إلى الثقة",
+    "subtitle": "تجمع Yaser USMLE المحتوى والتدريب والمتابعة في تجربة تعليمية واحدة تساعدك على الاستعداد بوضوح وثقة.",
+    "steps": {
+      "step1": {
+        "title": "اختر مسارك التعليمي",
+        "description": "ابدأ بالمسار الذي يناسب مستوى تحضيرك وهدفك، مع وصول منظم إلى المحاضرات والمواد التي تحتاجها."
+      },
+      "step2": {
+        "title": "افهم المفاهيم بعمق",
+        "description": "تعلّم كل نظام عضوي من خلال شرح واضح، وتسلسل مدروس، وربط سريري يساعدك على تثبيت المعلومة."
+      },
+      "step3": {
+        "title": "طبّق وراجع بذكاء",
+        "description": "حوّل المعرفة إلى مهارة باستخدام الاختبارات والفلاش كاردز والتفسيرات التي تكشف نقاط القوة والفجوات."
+      },
+      "step4": {
+        "title": "قِس جاهزيتك وتقدّم بثقة",
+        "description": "تابع إنجازك، نظّم وقتك بخطة مذاكرة واضحة، واعرف أين تقف قبل دخول USMLE Step 1."
+      }
+    }
+  },
+  "learningStyle": {
+    "titlePrefix": "اختر",
+    "titleAccent": "أسلوب التعلّم المناسب",
+    "subtitle": "اختر الخيار الذي يناسب جدولك وتفضيلاتك التعليمية",
+    "cards": {
+      "cohorts": {
+        "title": "مجموعات حية",
+        "description": "تعلّم ضمن مجموعة ثابتة مع حصص مباشرة مجدولة وزملاء ومسار دراسي واضح من الأسبوع الأول.",
+        "features": {
+          "affordable": "تسعير واضح حسب البرنامج",
+          "peerInteractions": "تعلّم مع زملاء متحمسين",
+          "community": "بناء زخم مع مجموعتك"
+        },
+        "button": "تصفح دورات المجموعات"
+      },
+      "privateSessions": {
+        "title": "جلسات خاصة",
+        "description": "احجز وقتًا خاصًا مع المعلمين للمحادثة أو التحضير للامتحان أو المواضيع التي تريد التعمق فيها.",
+        "features": {
+          "curriculum": "مركّز على أهدافك",
+          "flexible": "جدولة مرنة",
+          "progress": "تسريع المهارات الصعبة"
+        },
+        "button": "الخطط والحجز"
+      }
+    }
+  },
+  "feedback": {
+    "titlePrefix": "بعض",
+    "titleHighlight": "آراء",
+    "titleSuffix": "طلابنا القيّمة",
+    "subtitle": "تظهر هنا آراء حقيقية من متعلمين مسجلين في دورات Yaser USMLE عند نشرها.",
+    "button": "تصفح الدورات",
+    "anonymousStudent": "طالب",
+    "noComment": "قيّم هذه الدورة (بدون تعليق نصي).",
+    "empty": {
+      "title": "ستظهر التقييمات هنا",
+      "description": "نعرض فقط تقييمات موثّقة من طلاب مسجلين. تصفح الدورات للبدء—ملاحظاتك تساعد المتعلم التالي.",
+      "ctaExplore": "استكشف الدورات",
+      "ctaSignup": "إنشاء حساب"
+    },
+    "discover": {
+      "title": "اعثر على دورتك التالية",
+      "subtitle": "تصفح المجموعات الحية والمعلمين والمناهج في مكان واحد.",
+      "cta": "الانتقال إلى الاستكشاف"
+    },
+    "rating": {
+      "fromPublished": "متوسط من {{count}} تقييم منشور على Yaser USMLE."
+    }
+  },
+  "publicFaq": {
+    "title": "كل ما تحتاج معرفته قبل أن تبدأ",
+    "subtitle": "إجابات واضحة عن تجربة التعلم، الدورات، التسجيل، والوصول إلى محتوى Yaser USMLE.",
+    "pageTitlePrefix": "إجابات واضحة",
+    "pageTitleAccent": "قبل أن تبدأ",
+    "pageSubtitle": "ابحث عن كل ما يخص الدورات والباقات والدفع والوصول إلى المحتوى، واحصل على الإجابة التي تحتاجها بسرعة.",
+    "searchPlaceholder": "ابحث عن سؤالك…",
+    "viewAll": "عرض كل الأسئلة",
+    "loadError": "تعذر تحميل المحتوى.",
+    "empty": "لا توجد أسئلة منشورة بعد.",
+    "ctaExplore": "استكشف الدورات",
+    "footerPlans": "عرض خطط الاشتراك",
+    "items": {
+      "q1": {
+        "question": "ما هي صيغة التعلم في منصة Yaser USMLE؟",
+        "answer": "نقدم دورات مسجلة منظمة حسب أنظمة الأعضاء، مع اختبارات تدريبية وفلاش كاردز وخطط مذاكرة — كل ذلك في منصة واحدة مصممة للتحضير لـ USMLE Step 1."
+      },
+      "q2": {
+        "question": "لمن تم تصميم هذه الدورات التدريبية؟",
+        "answer": "لطلاب الطب والخريجين المتحضرين لـ USMLE Step 1 ممن يريدون نهجاً منظماً ومبنياً على الأدلة تحت إشراف معلمين خبراء."
+      },
+      "q3": {
+        "question": "كيف يمكنني الوصول للدورة بعد التسجيل؟",
+        "answer": "بعد الموافقة على طلب التسجيل، ستحصل فوراً على وصول كامل لجميع محاضرات الدورة والمواد والاختبارات والفلاش كاردز من لوحة تحكم الطالب."
+      },
+      "q4": {
+        "question": "ما هي طرق الدفع المتاحة؟",
+        "answer": "ندعم الدفع عبر التحويل البنكي اليدوي. ارفع إيصال الدفع وسيقوم فريقنا بالتحقق منه وتفعيل الوصول في غضون يوم عمل واحد."
+      },
+      "q5": {
+        "question": "هل المحتوى متاح بالعربية والإنجليزية؟",
+        "answer": "تدعم المنصة الواجهة العربية والإنجليزية، وتوضح صفحة كل دورة لغة الشرح والمواد المتاحة قبل التسجيل."
+      },
+      "q6": {
+        "question": "ماذا أفعل إذا واجهت مشكلة في الحساب أو الوصول؟",
+        "answer": "يمكنك التواصل مع فريق الدعم من صفحة اتصل بنا أو فتح تذكرة من لوحة الطالب، وسنراجع مشكلة الحساب أو الدفع أو الوصول."
+      }
+    }
+  },
+  "publicContact": {
+    "title": "تواصل معنا",
+    "eyebrow": "فريق Yaser USMLE معك",
+    "heroPrefix": "كيف يمكننا أن",
+    "heroAccent": "نساعدك اليوم؟",
+    "subtitle": "سواء كان سؤالك عن حسابك أو دورة أو عملية دفع، أرسل التفاصيل وسيعمل فريقنا على توجيه طلبك إلى الشخص المناسب.",
+    "responseTitle": "دعم إنساني وواضح",
+    "responseTime": "نراجع الرسائل حسب أولوية الطلب",
+    "responseBody": "للحصول على رد أدق، استخدم البريد المرتبط بحسابك وأضف رقم الطلب عند الاستفسار عن الدفع.",
+    "channels": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "location": "الموقع"
+    },
+    "beforeTitle": "قبل أن ترسل",
+    "prepareTitle": "ساعدنا على خدمتك بشكل أسرع",
+    "prepare": {
+      "1": "استخدم البريد الإلكتروني المرتبط بحسابك.",
+      "2": "أضف رقم الطلب أو اسم الدورة عند الحاجة.",
+      "3": "اشرح المشكلة والخطوات التي سبقتها بوضوح."
+    },
+    "quick": {
+      "faqTitle": "مركز المساعدة",
+      "faqBody": "إجابات فورية للأسئلة الشائعة",
+      "refundTitle": "سياسة الاسترداد",
+      "refundBody": "راجع الأهلية وخطوات الطلب"
+    },
+    "formTitle": "أرسل رسالتك",
+    "formSubtitle": "اختر نوع الطلب وأضف التفاصيل، وسنتابع معك عبر البريد.",
+    "nameLabel": "الاسم الكامل",
+    "namePlaceholder": "اكتب اسمك",
+    "emailLabel": "البريد الإلكتروني",
+    "subjectLabel": "نوع الطلب",
+    "topicPlaceholder": "اختر الموضوع المناسب",
+    "topics": {
+      "account": "الحساب وتسجيل الدخول",
+      "course": "الدورات والمحتوى",
+      "payment": "الدفع والتسجيل",
+      "technical": "مشكلة تقنية",
+      "instructor": "الانضمام كمحاضر",
+      "other": "موضوع آخر"
+    },
+    "messageLabel": "تفاصيل الرسالة",
+    "messagePlaceholder": "صف لنا ما الذي تحتاج المساعدة فيه...",
+    "submit": "إرسال الرسالة",
+    "formSuccess": "تم إرسال رسالتك بنجاح. سيتواصل معك فريقنا قريباً.",
+    "formError": "تعذر إرسال الرسالة. يرجى المحاولة مرة أخرى."
+  },
+  "publicRefund": {
+    "title": "سياسة الاسترداد",
+    "eyebrow": "مراجعة عادلة وواضحة للطلبات",
+    "heroPrefix": "طلب الاسترداد",
+    "heroAccent": "بخطوات واضحة",
+    "subtitle": "توضح هذه السياسة الحالات التي يمكن مراجعتها، وما نحتاجه لمعالجة طلبك، وكيف يصدر القرار ويُعاد المبلغ عند الموافقة.",
+    "effectiveDate": "السياسة السارية اعتباراً من يوليو 2026",
+    "processEyebrow": "مسار الطلب",
+    "processTitle": "من تقديم الطلب إلى إغلاقه",
+    "caseReview": "تتم مراجعة كل حالة وفق بياناتها",
+    "journey": {
+      "submit": "إرسال الطلب",
+      "verify": "التحقق من البيانات",
+      "decision": "إصدار القرار",
+      "return": "إعادة المبلغ"
+    },
+    "contentsTitle": "تفاصيل السياسة",
+    "beforeRequestTitle": "قبل إرسال الطلب",
+    "beforeRequestBody": "جهّز بريد الحساب ورقم الطلب وإثبات الدفع وسبب الاسترداد لتسريع المراجعة.",
+    "sections": {
+      "scope": {
+        "title": "نطاق السياسة",
+        "body": "تسري هذه السياسة على مشتريات الدورات والباقات المدفوعة مباشرة إلى Yaser USMLE. تعتمد أهلية الطلب على حالة التفعيل، ومقدار استخدام المحتوى، وسبب الطلب، وأي شروط ظهرت بوضوح في صفحة العرض وقت الشراء."
+      },
+      "eligible": {
+        "title": "حالات يمكن أن تكون مؤهلة",
+        "body": "تُراجع الطلبات بإنصاف ولا تعني الأمثلة التالية موافقة تلقائية. يتحقق الفريق من سجل الدفع والوصول قبل اتخاذ القرار.",
+        "points": {
+          "1": "خصم أو تحويل مكرر للعملية نفسها.",
+          "2": "تعذر المنصة بصورة جوهرية عن توفير المحتوى المدفوع.",
+          "3": "طلب قُدّم قبل التفعيل أو قبل استخدام جوهري للمحتوى."
+        }
+      },
+      "notEligible": {
+        "title": "حالات غير مؤهلة عادةً",
+        "body": "نظراً للطبيعة الرقمية للمحتوى، قد يُرفض الطلب عندما تكون الخدمة قد استُخدمت بصورة جوهرية أو عند مخالفة شروط الاستخدام.",
+        "points": {
+          "1": "إكمال أو مشاهدة جزء جوهري من الدورة أو تنزيل مواردها.",
+          "2": "انتهاء مدة الوصول أو تغيير الرأي بعد استخدام المحتوى.",
+          "3": "تعليق الحساب بسبب مشاركة الدخول أو نسخ المحتوى أو إساءة الاستخدام."
+        }
+      },
+      "request": {
+        "title": "كيفية تقديم الطلب",
+        "body": "أرسل طلبك في أقرب وقت عبر صفحة التواصل الرسمية مستخدماً البريد المرتبط بالحساب. الطلب الكامل يساعد الفريق على الوصول إلى قرار أسرع.",
+        "points": {
+          "1": "اكتب رقم الطلب واسم الدورة أو الباقة.",
+          "2": "أرفق إثبات الدفع وحدد وسيلة وتاريخ التحويل.",
+          "3": "اشرح سبب الطلب وأي مشكلة تقنية واجهتك بوضوح."
+        }
+      },
+      "review": {
+        "title": "المراجعة والقرار",
+        "body": "يراجع الفريق حالة الدفع ووقت التفعيل وسجل الوصول والمراسلات ذات الصلة. قد نطلب معلومات إضافية للتحقق من الهوية أو العملية. يصلك القرار عبر وسيلة التواصل المسجلة، وقد تكون الموافقة كاملة أو جزئية حيث يكون ذلك مناسباً."
+      },
+      "processing": {
+        "title": "إعادة المبلغ بعد الموافقة",
+        "body": "عند الموافقة، يُعاد المبلغ إلى وسيلة الدفع الأصلية متى كان ذلك ممكناً، أو عبر وسيلة تحويل موثقة يتفق عليها الطرفان. قد يختلف وقت ظهور المبلغ بحسب البنك أو مزود الدفع، ولا يشمل عادةً الرسوم الخارجية غير القابلة للاسترداد."
+      },
+      "contact": {
+        "title": "الاعتراضات والتواصل",
+        "body": "إذا كنت تعتقد أن القرار لم يأخذ معلومة مهمة في الاعتبار، يمكنك الرد بالمستندات الداعمة لطلب إعادة المراجعة. تواصل معنا قبل بدء اعتراض بنكي حتى نتيح للفريق فرصة فحص العملية، دون المساس بأي حقوق يمنحها لك القانون المطبق."
+      }
+    },
+    "footerTitle": "هل ترغب في مراجعة عملية شراء؟",
+    "footerBody": "أرسل تفاصيل الطلب وإثبات الدفع من البريد المرتبط بحسابك، وسيتولى فريق الدعم مراجعتها.",
+    "startRequest": "ابدأ طلب الاسترداد"
+  },
+  "publicPrivacy": {
+    "title": "سياسة الخصوصية",
+    "eyebrow": "خصوصيتك في Yaser USMLE",
+    "heroPrefix": "بياناتك جزء من",
+    "heroAccent": "ثقتك في المنصة",
+    "subtitle": "نوضح هنا البيانات التي نجمعها، ولماذا نستخدمها، وكيف نحميها، والخيارات المتاحة لك عند استخدام تجربة Yaser USMLE التعليمية.",
+    "promiseTitle": "التزامنا بالخصوصية",
+    "promiseBody": "نستخدم البيانات لتشغيل تجربة التعلم ودعم حسابك، ولا نبيع بياناتك الشخصية للمعلنين.",
+    "effectiveDate": "آخر تحديث: يوليو 2026",
+    "contentsTitle": "داخل هذه السياسة",
+    "requestTitle": "طلب متعلق ببياناتك",
+    "requestBody": "يمكنك طلب الوصول إلى بياناتك أو تصحيحها أو حذفها وفقاً للقانون المطبق.",
+    "contact": "تواصل مع فريق الخصوصية",
+    "summary": {
+      "noSale": {
+        "title": "لا نبيع بياناتك",
+        "body": "لا تُباع معلومات المتعلمين الشخصية لأغراض إعلانية."
+      },
+      "transparent": {
+        "title": "استخدام واضح",
+        "body": "نجمع فقط ما يلزم لتشغيل الحساب والتعلم والدعم."
+      },
+      "control": {
+        "title": "أنت صاحب القرار",
+        "body": "يمكنك مراجعة بياناتك وتحديثها وتقديم طلبات الخصوصية."
+      }
+    },
+    "sections": {
+      "collection": {
+        "title": "البيانات التي نجمعها",
+        "body": "تعتمد البيانات التي نعالجها على طريقة استخدامك للمنصة والخصائص التي تختارها. قد تقدم بعض البيانات مباشرة، بينما تُنشأ بيانات أخرى أثناء التعلم.",
+        "points": {
+          "1": "بيانات الحساب والملف الشخصي ووسائل التواصل.",
+          "2": "التسجيلات والتقدم والاختبارات وخطط الدراسة.",
+          "3": "طلبات الدفع وإثبات التحويل وسجل الاشتراكات.",
+          "4": "بيانات الجهاز والاستخدام ورسائل الدعم."
+        }
+      },
+      "usage": {
+        "title": "كيف نستخدم البيانات",
+        "body": "نستخدم المعلومات لتقديم الخدمة المتعاقد عليها، والحفاظ على أمنها، وتحسين المحتوى وتجربة المتعلم، والوفاء بالمتطلبات القانونية عند انطباقها.",
+        "points": {
+          "1": "إنشاء الحساب وتسجيلك في الدورات والباقات.",
+          "2": "حفظ التقدم وعرض النتائج والتوصيات التعليمية.",
+          "3": "مراجعة المدفوعات والرد على طلبات الدعم.",
+          "4": "منع الاحتيال وتحليل الأداء وتحسين المنصة."
+        }
+      },
+      "cookies": {
+        "title": "ملفات الارتباط والتقنيات المشابهة",
+        "body": "قد تستخدم المنصة ملفات ارتباط وتخزيناً محلياً ضرورياً لتسجيل الدخول وحفظ اللغة والإعدادات وتأمين الجلسة وقياس الأداء. يمكنك التحكم في الملفات غير الضرورية عبر إعدادات المتصفح عند توفرها، لكن تعطيل الضرورية قد يؤثر في عمل الخدمة."
+      },
+      "sharing": {
+        "title": "متى نشارك البيانات",
+        "body": "لا نبيع معلوماتك الشخصية. قد نشارك الحد الأدنى اللازم مع مقدمي خدمات يعملون نيابة عنا، أو عندما يفرض القانون ذلك، أو لحماية حقوق المنصة والمستخدمين.",
+        "points": {
+          "1": "الاستضافة والبنية التحتية والتخزين الآمن.",
+          "2": "خدمات البريد والإشعارات ودعم العملاء.",
+          "3": "مقدمو الدفع عند استخدام وسيلة دفع متكاملة.",
+          "4": "الجهات المختصة عند وجود التزام قانوني صحيح."
+        }
+      },
+      "security": {
+        "title": "أمن المعلومات",
+        "body": "نطبق ضوابط تقنية وتنظيمية معقولة لحماية البيانات من الوصول أو التعديل أو الفقد غير المصرح به. لا توجد وسيلة نقل أو تخزين آمنة بنسبة مطلقة، لذلك نشجعك على اختيار كلمة مرور قوية والإبلاغ عن أي نشاط مريب."
+      },
+      "retention": {
+        "title": "مدة الاحتفاظ بالبيانات",
+        "body": "نحتفظ بالمعلومات طوال مدة نشاط الحساب وبالقدر اللازم لتقديم الخدمات والوفاء بالالتزامات المالية والقانونية وتسوية النزاعات. بعد انتهاء الحاجة، نحذف البيانات أو نخفي هويتها بطريقة آمنة وفقاً لسياسات الاحتفاظ المعمول بها."
+      },
+      "rights": {
+        "title": "حقوقك واختياراتك",
+        "body": "وفقاً للقانون المطبق، يمكنك تقديم طلب يتعلق ببياناتك. قد نحتاج إلى التحقق من هويتك قبل التنفيذ، وقد تنطبق استثناءات قانونية محدودة.",
+        "points": {
+          "1": "الوصول إلى نسخة من بياناتك الشخصية.",
+          "2": "تصحيح المعلومات غير الدقيقة أو تحديثها.",
+          "3": "طلب الحذف أو تقييد بعض أوجه المعالجة.",
+          "4": "إلغاء الرسائل التسويقية وتعديل تفضيلاتك."
+        }
+      },
+      "updates": {
+        "title": "تحديث السياسة والتواصل",
+        "body": "قد نحدّث هذه السياسة عند تغير خدماتنا أو المتطلبات القانونية. سننشر النسخة الجديدة هنا مع تاريخ التحديث، وقد نرسل إشعاراً إضافياً عند إجراء تغيير جوهري. للاستفسارات أو الطلبات استخدم صفحة التواصل الرسمية."
+      }
+    },
+    "footerTitle": "الخصوصية تبدأ بتواصل واضح",
+    "footerBody": "إذا كان لديك سؤال عن بياناتك أو ترغب في ممارسة أحد حقوقك، أرسل طلباً إلى فريق Yaser USMLE."
+  },
+  "publicTerms": {
+    "title": "الشروط والأحكام",
+    "eyebrow": "اتفاقية استخدام Yaser USMLE",
+    "heroPrefix": "شروط واضحة تحمي",
+    "heroAccent": "تجربتك التعليمية",
+    "subtitle": "توضح هذه الشروط مسؤوليات المستخدم والمنصة عند إنشاء الحساب وشراء الدورات أو الباقات والوصول إلى المحتوى التعليمي.",
+    "effectiveDate": "سارية اعتباراً من يوليو 2026",
+    "readingTime": "وقت القراءة التقريبي: 8 دقائق",
+    "contentsTitle": "محتويات الوثيقة",
+    "helpText": "إذا كان لديك سؤال حول هذه الشروط، تواصل مع فريق المنصة قبل إتمام أي عملية شراء.",
+    "contact": "تواصل معنا",
+    "summary": {
+      "account": {
+        "title": "حساب شخصي وآمن",
+        "body": "حافظ على بيانات دخولك ولا تشارك الحساب مع الآخرين."
+      },
+      "payment": {
+        "title": "دفع ومراجعة واضحة",
+        "body": "يتفعّل الوصول بعد مراجعة طلب الدفع وإثبات التحويل."
+      },
+      "access": {
+        "title": "استخدام تعليمي فقط",
+        "body": "المحتوى مرخّص لك شخصياً ولا يجوز نسخه أو إعادة توزيعه."
+      }
+    },
+    "sections": {
+      "acceptance": {
+        "title": "قبول الشروط",
+        "body": "باستخدام موقع أو تطبيق Yaser USMLE أو إنشاء حساب أو شراء أي دورة أو باقة، فإنك تقر بأنك قرأت هذه الشروط وفهمتها ووافقت على الالتزام بها. إذا لم توافق على أي جزء منها، يجب عدم استخدام الخدمات."
+      },
+      "account": {
+        "title": "الحساب وأهلية الاستخدام",
+        "body": "تحتاج بعض خصائص المنصة إلى حساب صحيح ببيانات محدثة. أنت مسؤول عن جميع الأنشطة التي تتم من خلال حسابك وعن إبلاغنا فوراً بأي استخدام غير مصرح به.",
+        "points": {
+          "1": "تقديم اسم وبريد إلكتروني وبيانات صحيحة عند التسجيل.",
+          "2": "الحفاظ على سرية كلمة المرور وعدم مشاركة الحساب.",
+          "3": "استخدام حساب واحد لكل متعلم ما لم توافق المنصة كتابياً على خلاف ذلك."
+        }
+      },
+      "content": {
+        "title": "طبيعة المحتوى التعليمي",
+        "body": "تقدم المنصة محتوى تحضيرياً لـ USMLE Step 1 لأغراض التعليم والمراجعة. لا يمثل المحتوى استشارة طبية أو بديلاً عن المراجع الرسمية أو الحكم السريري، ولا تضمن المنصة نتيجة محددة في أي امتحان."
+      },
+      "payments": {
+        "title": "الأسعار والدفع والتفعيل",
+        "body": "تظهر الأسعار والعملة ومدة الوصول في صفحة الدورة أو الباقة قبل إرسال الطلب. في الدفع اليدوي، يظل الطلب قيد المراجعة حتى يتحقق الفريق من التحويل وتطابق بياناته.",
+        "points": {
+          "1": "يجب رفع إثبات دفع واضح وصحيح مرتبط بالطلب.",
+          "2": "لا يبدأ الوصول المدفوع قبل قبول عملية الدفع وتفعيل التسجيل.",
+          "3": "تخضع طلبات الإلغاء أو الاسترداد لسياسة الاسترداد المنشورة وقت الشراء."
+        }
+      },
+      "access": {
+        "title": "الوصول والاستخدام المسموح",
+        "body": "يمنحك التسجيل ترخيصاً شخصياً محدوداً وغير قابل للتحويل للوصول إلى المحتوى خلال المدة الموضحة. قد يختلف الوصول بين الدورات والباقات والدفعات.",
+        "points": {
+          "1": "يُمنع تسجيل الشاشة أو تنزيل أو نسخ المحتوى بوسائل غير مصرح بها.",
+          "2": "يُمنع بيع بيانات الدخول أو مشاركة الدروس والملفات مع الغير.",
+          "3": "يجوز تعليق الوصول عند الاشتباه في إساءة الاستخدام لحين مراجعة الحالة."
+        }
+      },
+      "intellectualProperty": {
+        "title": "الملكية الفكرية",
+        "body": "جميع المحاضرات والنصوص والرسومات والأسئلة والفلاش كاردز والعلامات والتصميمات مملوكة للمنصة أو لأصحاب الحقوق المرخصين. لا يمنحك الاشتراك أو الشراء أي حق ملكية أو إعادة نشر."
+      },
+      "conduct": {
+        "title": "سلوك المستخدم",
+        "body": "يجب استخدام المنصة بطريقة قانونية ومحترمة لا تضر بالمتعلمين أو المحاضرين أو أمن الخدمة. يمكن اتخاذ إجراءات على الحسابات التي تخالف هذه القواعد.",
+        "points": {
+          "1": "عدم إساءة استخدام المجتمع أو الدعم أو التواصل مع المحاضرين.",
+          "2": "عدم محاولة تجاوز الحماية أو الوصول إلى بيانات أو خصائص غير مصرح بها.",
+          "3": "عدم رفع محتوى ضار أو مضلل أو ينتهك حقوق أي طرف."
+        }
+      },
+      "changes": {
+        "title": "التحديثات وإنهاء الخدمة",
+        "body": "قد نحدث هذه الشروط أو خصائص المنصة أو المحتوى عند الحاجة التشغيلية أو القانونية. تُنشر النسخة المحدثة هنا مع تاريخ السريان، ويعد استمرار الاستخدام بعد النشر قبولاً بالتحديثات."
+      }
+    },
+    "footerTitle": "هل تحتاج توضيحاً قبل الموافقة؟",
+    "footerBody": "تواصل مع فريق Yaser USMLE لأي استفسار عن الحساب أو الدفع أو حقوق الوصول إلى المحتوى."
+  },
+  "publicGuide": {
+    "title": "دليل استخدام Yaser USMLE",
+    "eyebrow": "ابدأ رحلتك بخطوات واضحة",
+    "heroPrefix": "كل ما تحتاجه لاستخدام",
+    "heroAccent": "المنصة بثقة",
+    "subtitle": "دليل عملي يأخذك من إنشاء الحساب واختيار مسارك إلى التعلم والتدريب ومتابعة تقدمك داخل Yaser USMLE.",
+    "startGuide": "ابدأ الدليل",
+    "previewTitle": "رحلتك داخل المنصة",
+    "stats": {
+      "steps": "خطوات واضحة للبدء",
+      "platform": "تجربة تعلم متكاملة",
+      "access": "وصول إلى محتواك"
+    },
+    "journeyEyebrow": "دليلك خطوة بخطوة",
+    "journeyTitle": "من أول زيارة حتى متابعة تقدمك",
+    "journeySubtitle": "اتبع هذه الخطوات للاستفادة من الدورات والباقات وأدوات المذاكرة داخل المنصة.",
+    "steps": {
+      "account": {
+        "title": "أنشئ حسابك",
+        "body": "سجّل بياناتك الأساسية، اختر كلمة مرور آمنة، ثم ادخل إلى لوحة الطالب التي تجمع جميع أدواتك.",
+        "action": "إنشاء حساب"
+      },
+      "discover": {
+        "title": "اكتشف المسار المناسب",
+        "body": "تصفّح الدورات حسب الأنظمة والموضوعات، وقارن المحتوى وطريقة الدراسة قبل اختيار ما يناسب مرحلتك.",
+        "action": "استكشف الدورات"
+      },
+      "enroll": {
+        "title": "سجّل في دورة أو باقة",
+        "body": "اختر الدورة أو الباقة، أرسل طلب الدفع وإثبات التحويل، وسيفعّل الفريق وصولك بعد المراجعة.",
+        "action": "عرض الباقات"
+      },
+      "learn": {
+        "title": "ابدأ التعلم",
+        "body": "شاهد الدروس بترتيب المنهج، افتح المواد المرفقة، وتابع من آخر نقطة وصلت إليها عبر لوحة الطالب.",
+        "action": "تسجيل الدخول"
+      },
+      "practice": {
+        "title": "طبّق وراجع",
+        "body": "استخدم الاختبارات والفلاش كاردز والتفسيرات لتثبيت المفاهيم واكتشاف الفجوات التي تحتاج مراجعة.",
+        "action": "الدخول إلى أدوات التعلم"
+      },
+      "progress": {
+        "title": "تابع تقدمك",
+        "body": "راقب إكمال الدروس ونتائج الاختبارات، ونظّم أهدافك اليومية من خلال خطة المذاكرة.",
+        "action": "عرض لوحة الطالب"
+      }
+    },
+    "supportTitle": "توقفت عند خطوة أو واجهت مشكلة؟",
+    "supportBody": "فريق الدعم جاهز لمساعدتك في الحساب أو الدفع أو الوصول إلى المحتوى التعليمي.",
+    "contactSupport": "تواصل مع الدعم"
+  },
+  "publicTeach": {
+    "navTitle": "درّس معنا",
+    "eyebrow": "انضم إلى فريق Yaser USMLE التعليمي",
+    "heroPrefix": "شارك خبرتك، واصنع",
+    "heroAccent": "أثراً حقيقياً",
+    "subtitle": "إذا كنت تمتلك خبرة قوية في العلوم الطبية وشغفاً بالتعليم الواضح، ساعدنا في بناء تجربة Step 1 أكثر فهماً وترابطاً.",
+    "applyCta": "قدّم طلبك الآن",
+    "howItWorks": "تعرّف على خطوات الانضمام",
+    "imageStatement": "حوّل خبرتك الطبية إلى تجربة تعلم تبقى مع الطالب.",
+    "imageBadge": "خبرتك تصنع فرقاً",
+    "benefits": {
+      "impact": {
+        "title": "أثر يصل إلى طلاب أكثر",
+        "body": "شارك معرفتك مع طلاب طب يبحثون عن شرح واضح ومنظم يساعدهم على التقدم."
+      },
+      "tools": {
+        "title": "أدوات تدريس متكاملة",
+        "body": "قدّم الدروس والاختبارات والفلاش كاردز والمواد التعليمية داخل منصة واحدة."
+      },
+      "growth": {
+        "title": "نمو مهني مستمر",
+        "body": "طوّر محتواك وتابع تفاعل الطلاب وأداءهم ضمن تجربة تعليمية احترافية."
+      }
+    },
+    "processEyebrow": "رحلة الانضمام",
+    "processTitle": "خطوات واضحة من التقديم إلى بدء التدريس",
+    "processSubtitle": "نراجع كل طلب بعناية لضمان توافق الخبرة وأسلوب التدريس مع معايير المحتوى في المنصة.",
+    "process": {
+      "apply": {
+        "title": "إرسال الطلب",
+        "body": "أدخل بياناتك وخبرتك ومجال التدريس وأرفق رابط سيرتك الذاتية."
+      },
+      "review": {
+        "title": "مراجعة الملف",
+        "body": "يراجع الفريق خبرتك الأكاديمية والعملية وملاءمتها لاحتياجات المنصة."
+      },
+      "conversation": {
+        "title": "مقابلة تعليمية",
+        "body": "نتحدث عن أسلوبك في الشرح والمحتوى الذي يمكنك تقديمه للطلاب."
+      },
+      "onboarding": {
+        "title": "بدء التعاون",
+        "body": "نجهز حسابك وأدواتك ونساعدك على إطلاق أول تجربة تعليمية."
+      }
+    },
+    "profileEyebrow": "من نبحث عنه؟",
+    "profileTitle": "محاضرون يجمعون بين الخبرة ووضوح الشرح",
+    "profileSubtitle": "نهتم بجودة المعرفة بقدر اهتمامنا بالقدرة على تبسيطها وربطها بطريقة تفكير طالب Step 1.",
+    "profile": {
+      "expertise": "خبرة أكاديمية أو سريرية قوية في مجال طبي ذي صلة",
+      "clarity": "قدرة على تبسيط المفاهيم وربط العلوم الأساسية بالتطبيق",
+      "commitment": "التزام بجودة المحتوى ومواعيد العمل والتواصل",
+      "quality": "استعداد للتطوير المستمر والاستفادة من ملاحظات الطلاب"
+    },
+    "finalTitle": "جاهز لتحويل خبرتك إلى أثر تعليمي؟",
+    "finalBody": "أرسل طلبك اليوم، وسيقوم فريق Yaser USMLE بمراجعته والتواصل معك بشأن الخطوة التالية."
+  },
+  "publicAbout": {
+    "title": "عن Yaser USMLE",
+    "subtitle": "منصة تعليمية تساعد طلاب الطب على بناء فهم مترابط للعلوم الأساسية والاستعداد لـ USMLE Step 1 بوضوح وثقة.",
+    "eyebrow": "تعليم طبي يبدأ بالفهم",
+    "heroPrefix": "نبني الفهم الذي يقود إلى",
+    "heroAccent": "الثقة",
+    "heroQuote": "لا نريدك أن تحفظ المعلومة فقط؛ نريدك أن تفهم لماذا هي صحيحة.",
+    "loadError": "تعذر تحميل الصفحة.",
+    "empty": "لم يتم ضبط محتوى الصفحة بعد.",
+    "cta": "استكشف الدورات",
+    "storyTitle": "قصتنا",
+    "fallbackStory": "بدأت Yaser USMLE بهدف واضح: تقديم تجربة تعليمية تجعل العلوم الأساسية أكثر ترابطاً وقابلية للتطبيق، وتمنح طالب Step 1 مساراً منظماً يجمع الشرح والتدريب والمراجعة في مكان واحد.",
+    "mission": "الرسالة",
+    "vision": "الرؤية",
+    "missionFallback": "إتاحة تعليم Step 1 عالي الجودة لطلاب الطب الناطقين بالعربية من خلال شرح واضح وأدوات تعلم متكاملة.",
+    "visionFallback": "أن يصبح كل طالب قادراً على بناء استدلال سريري واثق انطلاقاً من أساس علمي قوي.",
+    "joinTitle": "جاهز للتعلّم معنا؟",
+    "policiesTitle": "السياسات والشروط",
+    "policiesBody": "للاستفسارات القانونية والفوترة، تواصل مع الفريق. يدير المسؤولون النص الكامل من لوحة الإدارة.",
+    "policiesContact": "راسل الدعم"
+  },
+  "publicBlogs": {
+    "title": "مكتبة Yaser التعليمية",
+    "eyebrow": "معرفة تساعدك على الفهم والتطبيق",
+    "heroPrefix": "اقرأ بعمق، وذاكر",
+    "heroAccent": "بمنهج أذكى",
+    "subtitle": "شروحات طبية مركزة، استراتيجيات مذاكرة عملية، وأفكار تساعدك على ربط مفاهيم USMLE Step 1 وحل الأسئلة بثقة.",
+    "pillars": {
+      "concepts": "فهم المفاهيم",
+      "clinical": "ربط سريري",
+      "strategy": "استراتيجية مذاكرة"
+    },
+    "searchLabel": "البحث في المقالات",
+    "searchPlaceholder": "ابحث عن موضوع أو مفهوم أو استراتيجية...",
+    "searchButton": "ابحث في المكتبة",
+    "featured": "اختيار المحرر",
+    "latestEyebrow": "المزيد من المكتبة",
+    "latestTitle": "أحدث المقالات والموارد",
+    "clearSearch": "مسح البحث",
+    "defaultExcerpt": "محتوى تعليمي مختصر يساعدك على بناء فهم أوضح والاستعداد بصورة أكثر تنظيماً.",
+    "categories": {
+      "step1_guide": "دليل Step 1",
+      "study_strategy": "استراتيجية مذاكرة",
+      "news": "أخبار المنصة",
+      "education": "تعليم طبي"
+    },
+    "loadError": "تعذر تحميل المقالات.",
+    "empty": "لم نعثر على مقالات مطابقة.",
+    "readMore": "اقرأ المقال",
+    "notFound": "هذا المقال غير متاح أو أزيل.",
+    "emptyBody": "لا يوجد نص لهذا المقال بعد."
+  },
+  "cta": {
+    "title": "هل أنت مستعد لاجتياز USMLE Step 1؟",
+    "subtitle": "انضم إلى Yaser USMLE — دورات منظمة، توجيه خبراء، اختبارات تدريبية، وخطط مذاكرة في منصة واحدة.",
+    "actions": {
+      "createAccount": "أنشئ حساباً مجانياً",
+      "learnMore": "تصفح الدورات"
+    }
+  },
+  "footer": {
+    "disciplinesLabel": "مجالات تعلم USMLE التي ندعمها",
+    "disciplines": {
+      "structural": "العلوم الأساسية",
+      "bim": "التعلم حسب الأنظمة",
+      "hvac": "تدريب الأسئلة",
+      "geo": "الفلاش كاردز",
+      "transport": "خطة المذاكرة",
+      "cfd": "جاهزية الامتحان"
+    },
+    "brand": {
+      "logoAlt": "Yaser USMLE",
+      "description": "يساعد Yaser USMLE طلاب الطب على التحضير لـ USMLE Step 1 من خلال دورات منظمة وأسئلة وفلاش كاردز وخطط مذاكرة.",
+      "location": "القاهرة، مصر"
+    },
+    "company": {
+      "title": "الشركة",
+      "about": "من نحن",
+      "contact": "اتصل بنا",
+      "news": "الأخبار والمدونة",
+      "library": "المكتبة",
+      "career": "الوظائف"
+    },
+    "community": {
+      "title": "المجتمع",
+      "documentation": "من نحن",
+      "faq": "الأسئلة الشائعة",
+      "forum": "المنتدى",
+      "sitemap": "خريطة الموقع",
+      "courses": "تصفح الدورات",
+      "instructors": "المحاضرون"
+    },
+    "teaching": {
+      "title": "التدريس",
+      "becomeTeacher": "كن معلّمًا",
+      "howToGuide": "دليل الاستخدام",
+      "terms": "الشروط والأحكام"
+    },
+    "legal": {
+      "privacy": "سياسة الخصوصية",
+      "refund": "سياسة الاسترداد"
+    },
+    "copyright": "© 2026 Yaser USMLE. جميع الحقوق محفوظة.",
+    "socialComingSoon": "روابط التواصل الاجتماعي قريبًا — عيّن VITE_SOCIAL_*_URL في البيئة لتفعيلها."
+  },
+  "auth": {
+    "shell": {
+      "eyebrow": "منصة تعليمية مصممة لطالب الطب",
+      "headline": "كل ما تحتاجه لبناء فهم أقوى لـ Step 1.",
+      "body": "ارجع إلى مسارك التعليمي، تابع تقدمك، وتدرّب على ربط العلوم الأساسية بالتفكير السريري في تجربة واحدة منظمة.",
+      "highlight1": "محاضرات مرتبة حسب أجهزة الجسم ومفاهيم الامتحان",
+      "highlight2": "أسئلة وفلاش كاردز تساعدك على الاستدعاء والتطبيق",
+      "highlight3": "متابعة واضحة للتقدم وخطة المذاكرة والنتائج",
+      "backHome": "العودة للرئيسية",
+      "secureAccess": "دخول مشفر وآمن إلى حسابك"
+    },
+    "login": {
+      "brandTitle": "مرحبًا بعودتك",
+      "brandSubtitle": "واصل رحلة التحضير لـ USMLE مع Yaser USMLE.",
+      "title": "تسجيل الدخول",
+      "subtitle": "ادخل إلى لوحة التحكم والدورات والمجموعات.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "example@mail.com",
+      "identifierLabel": "البريد أو اسم المستخدم",
+      "identifierPlaceholder": "email@example.com أو username",
+      "identifierRequired": "البريد أو اسم المستخدم مطلوب",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "rememberMe": "تذكّرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signUpLink": "إنشاء حساب",
+      "securityNote": "نحمي بيانات الدخول ولا نشاركها مع أي طرف"
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور؟",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل تعليمات إعادة التعيين إن وُجد حساب.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "example@mail.com",
+      "submit": "إرسال رابط إعادة التعيين",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "successTitle": "تحقق من بريدك",
+      "successBody": "إن وُجد حساب لهذا البريد، فقد أرسلنا تعليمات إعادة تعيين كلمة المرور. يرجى مراجعة صندوق الوارد.",
+      "errors": {
+        "required": "البريد الإلكتروني مطلوب",
+        "invalid": "أدخل بريداً إلكترونياً صالحاً",
+        "generic": "حدث خطأ. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "signup": {
+      "brandTitle": "انضم إلى Yaser USMLE",
+      "brandSubtitle": "استعد لـ USMLE Step 1 بدورات وأدوات تعلم منظمة.",
+      "benefit1": "وصول منظم للدورات مع إرشاد متخصص",
+      "benefit2": "موارد محاضرات وأسئلة وفلاش كاردز وخطط مذاكرة",
+      "benefit3": "شهادات وامتحانات وتتبع للتقدم",
+      "title": "إنشاء حسابك",
+      "subtitle": "ابدأ التعلم — تسجيل مجاني للطلاب.",
+      "fullNameLabel": "الاسم الكامل",
+      "fullNamePlaceholder": "أحمد حسن",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "example@mail.com",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "+20 100 000 0000",
+      "phoneHint": "اختياري — أدخل مع رمز الدولة",
+      "academicLevelLabel": "المرحلة الدراسية",
+      "academicLevels": {
+        "placeholder": "اختر المرحلة الدراسية",
+        "preparatory": "سنة تمهيدية / ما قبل الطب",
+        "first": "السنة الطبية الأولى",
+        "second": "السنة الطبية الثانية",
+        "third": "السنة الطبية الثالثة",
+        "fourth": "السنة الطبية الرابعة أو أعلى",
+        "graduate": "خريج طب / طبيب"
+      },
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "8 أحرف على الأقل",
+      "passwordStrength": "قوة كلمة المرور",
+      "strengthWeak": "ضعيفة",
+      "strengthMedium": "متوسطة",
+      "strengthStrong": "قوية",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور",
+      "acceptPrefix": "بإنشاء الحساب، أوافق على",
+      "termsLink": "الشروط والأحكام",
+      "and": "و",
+      "privacyLink": "سياسة الخصوصية",
+      "securityNote": "بياناتك محمية وتستخدم لتشغيل تجربتك التعليمية فقط",
+      "submit": "إنشاء الحساب",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "loginLink": "تسجيل الدخول",
+      "errors": {
+        "fullName": "أدخل اسماً كاملاً صحيحاً",
+        "email": "أدخل بريداً إلكترونياً صالحاً",
+        "phone": "أدخل رقم هاتف صحيحاً مع رمز الدولة",
+        "password": "استخدم 8 أحرف على الأقل تتضمن حروفاً وأرقاماً",
+        "confirmPassword": "كلمتا المرور غير متطابقتين",
+        "terms": "يجب الموافقة على الشروط وسياسة الخصوصية"
+      }
+    },
+    "errors": {
+      "loginFailed": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
+      "registerFailed": "فشل إنشاء الحساب. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "explore": {
+    "eyebrow": "مسارات تعليمية مصممة لـ Step 1",
+    "titlePrefix": "ابنِ أساسك، وأتقن",
+    "titleAccent": "USMLE Step 1",
+    "subtitle": "اختر مسارك من دورات منظّمة تجمع العلوم الأساسية والأنظمة العضوية والتطبيق السريري، مع تجربة تعلم تساعدك على الفهم والمراجعة وقياس جاهزيتك.",
+    "searchPlaceholder": "ابحث باسم النظام، الموضوع، أو المحاضر…",
+    "enroll": "التسجيل",
+    "free": "مجاني",
+    "students": "طالب",
+    "private": "خاص",
+    "noResults": "لا توجد دورات تطابق الفلاتر المحددة.",
+    "clearFilters": "مسح الفلاتر",
+    "showing": "عرض {{count}} من أصل {{total}} دورة",
+    "showingPaged": "عرض {{count}} في هذه الصفحة · {{total}} إجمالاً · الصفحة {{page}}",
+    "instructorFallback": "المحاضر سيُعلَن لاحقاً",
+    "enrollmentsLabel": "متعلّم",
+    "cohorts": {
+      "multiple": "{{count}} دفعات مفتوحة",
+      "single": "{{count}} دفعة"
+    },
+    "pricing": {
+      "from": "ابتداءً من ${{price}}",
+      "contact": "عرض الأسعار"
+    },
+    "pagination": {
+      "page": "الصفحة {{page}} من {{totalPages}}",
+      "prev": "السابق",
+      "next": "التالي"
+    },
+    "badge": {
+      "oneToOne": "فردي"
+    },
+    "sort": {
+      "popular": "الأكثر شهرة",
+      "rating": "الأعلى تقييمًا",
+      "priceLow": "السعر: من الأقل للأعلى",
+      "priceHigh": "السعر: من الأعلى للأقل"
+    },
+    "categories": {
+      "all": "جميع الدورات",
+      "hybrid": "مجموعات حية",
+      "recorded": "دورات مسجّلة"
+    },
+    "courses": {
+      "hsk1": {
+        "title": "أساسيات الباثولوجي العام",
+        "desc": "أتقن إصابة الخلايا والالتهاب والأورام وآليات المرض الأساسية في Step 1."
+      },
+      "hsk2": {
+        "title": "الجهاز القلبي الوعائي",
+        "desc": "اربط فسيولوجيا القلب بالباثولوجي والفارماكولوجي والتفكير السريري بنمط الامتحان."
+      },
+      "hsk3": {
+        "title": "الجهاز الكلوي وتوازن الأحماض والقواعد",
+        "desc": "أتقن فسيولوجيا الكلى واضطرابات الشوارد وتحليل الأحماض والقواعد وأهم أمراض الكلى."
+      },
+      "conversation": {
+        "title": "استراتيجية حل أسئلة Step 1",
+        "desc": "تدرّب على التقاط المعلومات المهمة واختيار أفضل إجابة ومراجعة الخيارات المشتتة."
+      },
+      "writing": {
+        "title": "الفارماكولوجي عالي الأهمية",
+        "desc": "تعلّم آليات الأدوية وآثارها الجانبية وتداخلاتها واستخداماتها السريرية الشائعة."
+      },
+      "beginner": {
+        "title": "أساسيات Step 1",
+        "desc": "تبدأ التحضير للامتحان؟ ابدأ بمراجعة منظمة للعلوم الطبية الأساسية."
+      },
+      "hsk1o2o": {
+        "title": "الأساسيات — جلسات فردية",
+        "desc": "مراجعة مخصصة للعلوم الأساسية مع محاضر طبي وبالوتيرة التي تناسبك."
+      },
+      "hsk2o2o": {
+        "title": "المراجعة المكثفة — جلسات فردية",
+        "desc": "سرّع تحضيرك لـ Step 1 من خلال جلسات مراجعة فردية مصممة لاحتياجاتك."
+      }
+    }
+  },
+  "checkout": {
+    "title": "تأكيد التسجيل",
+    "subtitle": "راجع الدفعة. إن كان لديك خطة نشطة مع حصة، يمكنك الانضمام فورًا. وإلا يمكنك دفع سعر الدفعة مباشرة.",
+    "cohort": {
+      "directIntro": "خطتك لا تغطي هذا التسجيل أو استنفدت حصتك. ادفع سعر الدفعة أدناه وأرسل إثبات التحويل. سيؤكد الفريق الدفع ويفعّل وصولك.",
+      "directTitle": "الدفع لهذه الدفعة",
+      "payCohort": "ادفع {{price}} لهذه الدفعة",
+      "submitDirect": "إرسال طلب الدفع",
+      "directSubmitError": "تعذّر إرسال طلب دفع الدفعة. حاول مرة أخرى.",
+      "upgradeLink": "تفضّل اشتراكًا؟ عرض الخطط",
+      "successTitle": "تم تقديم الطلب",
+      "successBody": "شراء الدفعة قيد الانتظار. يرجى تحويل المبلغ بالطريقة التي اخترتها والانتظار حتى يوافق المسؤول. سيُفعّل وصولك فور تأكيد الدفع.",
+      "successPendingNote": "إن كان لديك طلب معلّق مسبقًا لنفس الدفعة، أبقينا على طلبك الحالي.",
+      "successToast": "تم إرسال طلب الدفع. سنؤكد وصولك للدفعة بعد المراجعة."
+    },
+    "breadcrumbExplore": "استكشف الدورات",
+    "breadcrumbSubscription": "الخطط",
+    "coupon": {
+      "label": "رمز القسيمة",
+      "placeholder": "أدخل الرمز",
+      "apply": "تطبيق",
+      "enterCode": "أدخل رمز القسيمة.",
+      "contextRequired": "التحقق من القسيمة يحتاج سياق الكورس أو الخطة.",
+      "applied": "القسيمة صالحة لهذا الشراء.",
+      "appliedWithDiscount": "تم تطبيق القسيمة — خصم {{discount}}. الإجمالي الجديد: {{price}}",
+      "originalPrice": "السعر الأصلي",
+      "discount": "الخصم",
+      "remove": "إزالة",
+      "invalid": "تعذّر تطبيق هذه القسيمة."
+    },
+    "package": {
+      "title": "الاشتراك في الخطة",
+      "subtitle": "أرسل تفاصيل الدفع. يبقى اشتراكك قيد الانتظار حتى يؤكد الفريق الدفع.",
+      "planLabel": "الخطة",
+      "paymentMethod": "طريقة الدفع",
+      "methodBank": "تحويل بنكي",
+      "methodCard": "بطاقة / أونلاين",
+      "methodOther": "أخرى",
+      "receiptUrl": "رابط إثبات الدفع",
+      "receiptHint": "الصق رابطًا لإيصالك أو تأكيد التحويل (يجب أن يكون https صالحًا).",
+      "receiptRequired": "يرجى إدخال رابط الإيصال أو الإثبات.",
+      "receiptUrlInvalid": "أدخل رابطًا صالحًا (مثل https://…).",
+      "amountInvalid": "تعذّر تحديد سعر الخطة.",
+      "submit": "إرسال طلب الدفع",
+      "submitError": "تعذّر إرسال الطلب. حاول مرة أخرى.",
+      "successToast": "تم إرسال طلب الدفع. سنؤكد اشتراكك قريبًا.",
+      "notFoundTitle": "الخطة غير موجودة",
+      "notFoundBody": "هذه الخطة لم تعد متاحة. ارجع إلى الخطط واختر أخرى.",
+      "backPlans": "العودة إلى الخطط"
+    },
+    "invalid": {
+      "title": "رابط غير صالح",
+      "body": "الرابط غير مكتمل. افتح كورسًا واختر دفعة، أو اختر خطة من الاشتراكات."
+    },
+    "backExplore": "العودة إلى الكتالوج",
+    "loading": "جارٍ تحميل الكورس…",
+    "courseLoadError": "تعذّر تحميل هذا الكورس. تحقق من الرابط أو أعد المحاولة من الاستكشاف.",
+    "courseNotFound": "هذا الكورس غير متاح.",
+    "courseLabel": "الكورس",
+    "noCourseContext": "لم يُرفق مع الرابط تفاصيل الكورس. يمكنك المتابعة إذا كانت الدفعة صحيحة—وإلا ارجع إلى صفحة الكورس من الاستكشاف.",
+    "cohortMismatch": "هذه الدفعة غير مدرجة لهذا الكورس. ارجع واختر دفعة من صفحة الكورس.",
+    "cohortSection": "الدفعة",
+    "cohortIdOnly": "معرّف الدفعة: {{id}}",
+    "type": "الصيغة",
+    "status": "الحالة",
+    "starts": "البداية",
+    "instructor": "المحاضر",
+    "confirm": "تأكيد التسجيل",
+    "cancel": "رجوع",
+    "genericError": "تعذّر إتمام التسجيل. حاول مرة أخرى.",
+    "alreadyEnrolled": "أنت مسجّل بالفعل في هذه الدفعة.",
+    "goToClasses": "اذهب إلى حصصي",
+    "viewPayments": "عرض المدفوعات",
+    "quota": {
+      "title": "ترقية خطتك",
+      "body": "اشتراكك الحالي لا يسمح بهذا التسجيل أو لقد استنفدت حد الباقة. اختر خطة تناسب أهدافك.",
+      "cta": "عرض الخطط والترقية",
+      "close": "إغلاق",
+      "fallbackDetail": "قيود الاشتراك أو الحصة."
+    }
+  },
+  "subscription": {
+    "eyebrow": "قيمة أكبر لمسار تعليمي متكامل",
+    "titlePrefix": "مسارك الكامل في",
+    "titleAccent": "باقة واحدة",
+    "subtitle": "اجمع الدورات التي تحتاجها لتحضير Step 1 في باقة مترابطة بسعر أوفر، وادرس من مكان واحد وفق مسار واضح.",
+    "mostPopular": "الباقة الموصى بها",
+    "allPlansIncluded": "جميع الخطط تشمل",
+    "getStarted": "ابدأ الآن",
+    "faqTeaser": "هل لديك أسئلة؟",
+    "faqLink": "اقرأ الأسئلة الشائعة",
+    "viewDetails": "عرض تفاصيل الباقة",
+    "noDescription": "ستتوفر تفاصيل الباقة قريباً.",
+    "billing": {
+      "monthly": "شهري",
+      "yearly": "سنوي",
+      "discount": "وفّر 17%",
+      "perUser": "لكل مستخدم / شهر",
+      "toggleAria": "تبديل فترة الفوترة"
+    },
+    "limits": {
+      "live": "حتى {{count}} تسجيل في دفعات مباشرة",
+      "recorded": "حتى {{count}} تسجيل في دفعات مسجّلة",
+      "private": "حتى {{count}} جلسات خاصة"
+    },
+    "tierLimits": "حدود الباقة",
+    "featuresHeading": "الميزات",
+    "yearlyHint": "السنوي يعادل من ${{price}}/شهر",
+    "loadError": "تعذّر تحميل خطط الاشتراك.",
+    "empty": "لا توجد باقات متاحة حالياً.",
+    "plans": {
+      "basic": {
+        "name": "الأساسية",
+        "badge": "للمبتدئين"
+      },
+      "professional": {
+        "name": "الاحترافية",
+        "badge": "الأكثر اختيارًا"
+      },
+      "premium": {
+        "name": "المتميزة",
+        "badge": "شامل الكل"
+      }
+    },
+    "features": {
+      "feature1": "ما يصل إلى 5 مقاعد في الفصول الجماعية شهريًا",
+      "feature2": "الوصول إلى مكتبة الجلسات المسجلة",
+      "feature3": "اسايمينت منزلية منظمة",
+      "feature4": "لوحة تتبع التقدم",
+      "feature5": "دعم المجتمع على مدار الساعة",
+      "feature6": "إعادة مشاهدة غير محدودة للجلسات",
+      "feature7": "اسايمينت منظمة وتتبع للتقدم"
+    }
+  },
+  "myClasses": {
+    "titlePrefix": "دروسي",
+    "titleAccent": "",
+    "subtitle": "أدر وشاهد جميع دروس USMLE Step 1 الخاصة بك.",
+    "searchPlaceholder": "ابحث بالدرس أو المعلم…",
+    "students": "طالب",
+    "private": "خاص",
+    "noResults": "لا توجد دروس تطابق الفلاتر المحددة.",
+    "clearFilters": "مسح الفلاتر",
+    "showing": "عرض {{count}} من أصل {{total}} درس",
+    "status": {
+      "upcoming": "قادم",
+      "ongoing": "جارٍ",
+      "completed": "مكتمل",
+      "missed": "فائت"
+    },
+    "filter": {
+      "all": "جميع الحالات"
+    },
+    "actions": {
+      "viewDetails": "عرض التفاصيل",
+      "joinClass": "انضم للدرس",
+      "viewRecording": "مشاهدة التسجيل"
+    },
+    "stats": {
+      "total": "إجمالي الدروس",
+      "upcoming": "القادمة",
+      "ongoing": "الجارية",
+      "completed": "المكتملة"
+    },
+    "class1": {
+      "title": "القلب – الجلسة 8: فشل القلب"
+    },
+    "class2": {
+      "title": "القلب – الجلسة 9: مضادات اضطراب النظم"
+    },
+    "class3": {
+      "title": "فردي: مراجعة الأسئلة"
+    },
+    "class4": {
+      "title": "فردي: تخطيط المذاكرة"
+    },
+    "class5": {
+      "title": "الكلى – الجلسة 8: اضطرابات الأحماض والقواعد"
+    },
+    "class6": {
+      "title": "الكلى – الجلسة 9: مدرات البول"
+    },
+    "class7": {
+      "title": "فردي: مراجعة مكثفة"
+    }
+  },
+  "courseView": {
+    "backToClasses": "العودة إلى كورساتي",
+    "sidebarTitle": "محتوى الكورس",
+    "lessonsCompleted": "درس مكتمل",
+    "clickToPlay": "انقر لتشغيل الدرس",
+    "with": "مع",
+    "prev": "السابق",
+    "next": "الدرس التالي",
+    "download": "تحميل",
+    "noMaterials": "لا توجد مواد لهذا الدرس.",
+    "notesPlaceholder": "اكتب ملاحظاتك هنا…",
+    "needCohort": {
+      "title": "اختر دفعة",
+      "body": "يتم تتبع التقدم لكل دفعة. افتح الكورس من «كورساتي» ليُرفق رابط الدفعة.",
+      "cta": "اذهب إلى كورساتي"
+    },
+    "markComplete": "تعليم الدرس كمكتمل",
+    "markedDone": "مكتمل",
+    "lastLessonHint": "هذا آخر درس في هذا الكورس.",
+    "pickLesson": "اختر درساً من القائمة.",
+    "videoPlaceholder": "لا يوجد رابط فيديو لهذا الدرس.",
+    "tabs": {
+      "notes": "الملاحظات",
+      "materials": "المواد",
+      "objectives": "الأهداف",
+      "lessons": "الدروس",
+      "liveSessions": "الحصص المباشرة",
+      "homework": "الاسايمينت",
+      "assignment": "الواجب"
+    },
+    "liveSessions": {
+      "empty": "لا توجد حصص مباشرة مجدولة لهذا الكورس بعد.",
+      "hint": "انضم من هنا عندما يصل العداد إلى الصفر.",
+      "viewAll": "عرض كل الحصص المباشرة"
+    },
+    "homework": {
+      "empty": "لا توجد اسايمينت لهذا الكورس بعد.",
+      "hint": "افتح الاسايمينت لقراءة التعليمات ورفع عملك.",
+      "viewAll": "عرض كل الاسايمينت"
+    },
+    "certificate": {
+      "completeTitle": "أكملت الكورس!",
+      "ready": "احصل على شهادة الإتمام.",
+      "claim": "استلام الشهادة",
+      "claimError": "تعذّر استلام الشهادة.",
+      "issued": "تم إصدار الشهادة",
+      "viewAll": "عرض كل الشهادات"
+    },
+    "assignment": {
+      "empty": "لا توجد واجبات لهذا الكورس بعد.",
+      "hint": "افتح الواجب لقراءة التعليمات وتسليم عملك.",
+      "viewAll": "عرض كل الواجبات"
+    }
+  },
+  "homework": {
+    "hubTitle": "الاسايمينت حسب الدفعة",
+    "hubSubtitle": "اختر دفعة لعرض الاسايمينت.",
+    "loadError": "تعذّر تحميل الاسايمينت.",
+    "emptyCohort": "لا اسايمينت لهذه الدفعة.",
+    "hubLoadError": "تعذّر تحميل الاسايمينت.",
+    "hubEmpty": "لا اسايمينت لصفوفك بعد.",
+    "emptyFilter": "لا اسايمينت تطابق البحث أو الدفعة المختارة.",
+    "showingNone": "لا اسايمينت للعرض",
+    "showingRange": "عرض {{from}}–{{to}} من {{total}} نتيجة",
+    "searchAria": "بحث",
+    "titlePrefix": "اسايمينتي",
+    "titleAccent": "المنزلية",
+    "subtitle": "تتبع وتسليم اسايمينتك المنزلية",
+    "viewCourse": "كل اسايمينت الكورس",
+    "courseListSubtitle": "اسايمينت هذا الكورس",
+    "due": "الموعد النهائي:",
+    "submitted": "تم التسليم:",
+    "grade": "الدرجة:",
+    "gradePct": "الدرجة: {{pct}}٪",
+    "searchPlaceholder": "ابحث عن الاسايمينت…",
+    "showing": "عرض {{count}} من {{total}} اسايمينت",
+    "contextLine": "{{courseTitle}} · {{cohortName}}",
+    "daysLeft": "({{n}} يوم متبقٍ)",
+    "overdue": "متأخر {{n}} يوماً",
+    "type": {
+      "TEXT": "إجابة كتابية",
+      "FILE": "رفع ملف",
+      "LINK": "تسليم برابط"
+    },
+    "status": {
+      "pending": "لم يبدأ",
+      "submitted": "تم التسليم",
+      "underReview": "قيد المراجعة",
+      "completed": "مكتمل",
+      "late": "متأخر"
+    },
+    "filter": {
+      "all": "جميع الحالات",
+      "allClasses": "جميع الدفعات"
+    },
+    "actions": {
+      "submit": "تسليم الاسايمينت",
+      "viewDetails": "عرض التفاصيل",
+      "viewResults": "عرض النتائج"
+    },
+    "stats": {
+      "total": "الإجمالي",
+      "pending": "معلق",
+      "submitted": "قيد المراجعة",
+      "completed": "مكتمل"
+    }
+  },
+  "exams": {
+    "titlePrefix": "الاختبارات",
+    "titleAccent": "الدورية",
+    "subtitle": "تتبع تقييماتك الدورية ونتائج اختباراتك",
+    "enrolledOnlyHint": "تظهر هنا اختبارات الدورات المسجّل فيها فقط.",
+    "continue": "متابعة الاختبار",
+    "completedOn": "اكتمل",
+    "scoreLine": "الدرجة: {{score}}/{{max}} ({{pct}}٪)",
+    "type": {
+      "FINAL": "اختبار نهائي",
+      "UNIT": "اختبار وحدة",
+      "LESSON": "اختبار درس",
+      "STANDALONE": "فردي / مستقل"
+    },
+    "minutes": "دقيقة",
+    "questions": "سؤال",
+    "totalScore": "الدرجة الكلية",
+    "searchPlaceholder": "ابحث عن الاختبارات…",
+    "showing": "عرض {{count}} من {{total}} اختبارات",
+    "loadError": "تعذّر تحميل الاختبارات.",
+    "empty": "لا اختبارات مطابقة.",
+    "view": "التفاصيل",
+    "start": "ابدأ",
+    "status": {
+      "upcoming": "قادم",
+      "available": "متاح",
+      "completed": "مكتمل",
+      "expired": "منتهي"
+    },
+    "filter": {
+      "all": "جميع الحالات"
+    },
+    "actions": {
+      "startExam": "ابدأ الاختبار",
+      "viewDetails": "عرض تفاصيل الاختبار",
+      "viewResults": "عرض النتائج"
+    },
+    "minutesShort": "د",
+    "pointsLine": "{{count}} نقطة"
+  },
+  "examQuestionEditor": {
+    "bankTitle": "بنك الأسئلة",
+    "drawerSubtitle": "محرر بنك الأسئلة",
+    "questionsCount": "{{count}} سؤال",
+    "addQuestion": "إضافة سؤال",
+    "pointsAllocated": "الدرجات الموزعة",
+    "emptyTitle": "لا توجد أسئلة بعد",
+    "emptyHint": "اضغط «إضافة سؤال» لبدء بناء الاختبار.",
+    "questionText": "نص السؤال",
+    "questionPlaceholder": "اكتب نص السؤال هنا…",
+    "questionType": "نوع السؤال",
+    "points": "الدرجة",
+    "pointsShort": "نقطة",
+    "save": "حفظ",
+    "saved": "تم حفظ السؤال.",
+    "saveFailed": "تعذّر حفظ السؤال.",
+    "deleted": "تم حذف السؤال.",
+    "deleteConfirm": "هل تريد حذف هذا السؤال؟",
+    "deleteFailed": "تعذّر حذف السؤال.",
+    "optionsTitle": "خيارات الإجابة",
+    "optionsHint": "اضغط على الدائرة لتحديد الإجابة الصحيحة.",
+    "addOption": "إضافة خيار",
+    "optionPlaceholder": "الخيار {{letter}}",
+    "markCorrect": "تحديد كإجابة صحيحة",
+    "modelAnswer": "الإجابة النموذجية",
+    "modelAnswerPlaceholder": "الإجابة المتوقعة للمرجعية…",
+    "modelAnswerOptional": "اختياري — مرجع للمحاضر عند التصحيح.",
+    "rubric": "معايير التصحيح",
+    "essayPlaceholder": "النقاط الأساسية للتصحيح…",
+    "trueLabel": "صح",
+    "falseLabel": "خطأ",
+    "minOptions": "أضف خيارين على الأقل.",
+    "correctRequired": "حدد الإجابة الصحيحة.",
+    "textRequired": "نص السؤال مطلوب.",
+    "pointsInvalid": "الدرجة يجب أن تكون 1 على الأقل.",
+    "validation": "يرجى مراجعة جميع الحقول.",
+    "newQuestionDraft": "اكتب نص السؤال هنا...",
+    "types": {
+      "MULTIPLE_CHOICE": "اختيار من متعدد",
+      "TRUE_FALSE": "صح / خطأ",
+      "SHORT_ANSWER": "إجابة قصيرة",
+      "ESSAY": "مقالي"
+    }
+  },
+  "progress": {
+    "titlePrefix": "تقدمي",
+    "titleAccent": "الدراسي",
+    "subtitle": "تتبع رحلتك التعليمية وإنجازاتك",
+    "completed": "مكتمل",
+    "lessons": "درس",
+    "myCourses": "تقدم الكورسات",
+    "recentActivity": "النشاط الأخير",
+    "loadError": "تعذّر تحميل التقدم.",
+    "noCourses": "لا توجد كورسات مسجّلة بعد.",
+    "noActivity": "لا يوجد نشاط حديث.",
+    "stats": {
+      "coursesEnrolled": "الكورسات المسجلة",
+      "classesAttended": "الدروس المكتملة",
+      "lessonsCompleted": "الدروس المكتملة",
+      "homeworkDone": "اسايمينت مُقيّمة",
+      "avgScore": "متوسط التقدم",
+      "assignmentDone": "واجبات مُقيَّمة",
+      "coursesCompleted": "الكورسات المكتملة"
+    }
+  },
+  "settings": {
+    "titlePrefix": "إعدادات",
+    "titleAccent": "الحساب",
+    "subtitle": "إدارة الملف الشخصي والأمان وتفضيلات الإشعارات",
+    "save": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ…",
+    "saved": "تم الحفظ بنجاح!",
+    "nav": {
+      "profile": "الملف الشخصي",
+      "security": "الأمان",
+      "notifications": "الإشعارات"
+    },
+    "profile": {
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "اسمك الكامل",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "your@email.com",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "+966 5xx xxx xxxx"
+    },
+    "avatar": {
+      "title": "صورة الملف الشخصي",
+      "hint": "ارفع صورة (حتى نحو 450 كيلوبايت) أو الصق رابط HTTPS مباشر. تظهر في أنحاء المنصة.",
+      "upload": "رفع صورة",
+      "chooseFile": "اختيار صورة",
+      "remove": "إزالة الصورة",
+      "urlLabel": "رابط الصورة",
+      "applyUrl": "استخدام الرابط",
+      "updated": "تم تحديث صورة الملف.",
+      "removed": "تمت إزالة الصورة.",
+      "failed": "تعذر تحديث صورة الملف.",
+      "notImage": "يرجى اختيار ملف صورة.",
+      "tooLarge": "الصورة كبيرة جداً. استخدم ملفاً أصغر أو رابطاً مستضافاً.",
+      "badUrl": "أدخل رابطاً صالحاً (https://…)."
+    },
+    "security": {
+      "changePassword": "تغيير كلمة المرور",
+      "currentPassword": "كلمة المرور الحالية",
+      "currentPasswordPlaceholder": "أدخل كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "newPasswordPlaceholder": "8 أحرف على الأقل",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد كلمة المرور الجديدة"
+    },
+    "notifs": {
+      "description": "اختر الإشعارات التي تريد استلامها.",
+      "classReminders": {
+        "title": "تذكيرات الدروس",
+        "desc": "يتم إشعارك قبل 30 دقيقة من بدء درسك."
+      },
+      "homeworkDeadlines": {
+        "title": "مواعيد الاسايمينت",
+        "desc": "تذكيرات عند اقتراب الموعد النهائي للاسايمينت."
+      },
+      "examAlerts": {
+        "title": "تنبيهات الاختبارات",
+        "desc": "إشعارات الاختبارات القادمة وتحديثات النتائج."
+      },
+      "progressReports": {
+        "title": "تقارير التقدم",
+        "desc": "ملخص أسبوعي لتقدمك في التعلم."
+      },
+      "promotions": {
+        "title": "العروض والخصومات",
+        "desc": "صفقات خاصة وإعلانات الكورسات الجديدة."
+      },
+      "assignmentDeadlines": {
+        "title": "مواعيد تسليم الواجبات",
+        "desc": "تذكيرات عند اقتراب موعد تسليم الواجب."
+      }
+    },
+    "errors": {
+      "required": "هذا الحقل مطلوب.",
+      "fullNameMin": "يجب أن يكون الاسم حرفين على الأقل.",
+      "phoneMin": "يجب أن يكون الهاتف 7 أرقام على الأقل.",
+      "passwordMin": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+      "passwordMatch": "كلمتا المرور غير متطابقتين.",
+      "passwordFailed": "تعذّر تحديث كلمة المرور.",
+      "saveFailed": "تعذّر حفظ الملف الشخصي."
+    }
+  },
+  "liveSessions": {
+    "countdown": {
+      "startsIn": "يبدأ بعد",
+      "liveNow": "مباشر الآن",
+      "ended": "انتهت الحصة",
+      "endsIn": "ينتهي بعد",
+      "days": "يوم",
+      "hours": "ساعة",
+      "minutes": "دقيقة",
+      "seconds": "ثانية"
+    }
+  },
+  "recordings": {
+    "titlePrefix": "جلسات حية",
+    "titleAccent": "وتسجيلات",
+    "subtitle": "دفعاتك المسجّلة والجلسات القادمة وروابط الاجتماع. ستظهر التسجيلات عندما ينشرها المحاضر لمجموعتك.",
+    "watchBtn": "مشاهدة التسجيل",
+    "searchPlaceholder": "ابحث بالدفعة أو الكورس أو المحاضر…",
+    "showing": "عرض {{count}} من {{total}} جلسة",
+    "videoPlaceholder": "مشغل الفيديو قريباً…",
+    "close": "إغلاق",
+    "empty": "لا توجد جلسات تطابق عوامل التصفية.",
+    "emptyCohorts": "لا توجد تسجيلات أو جلسات حية لدفعاتك بعد.",
+    "signInPrompt": "سجّل الدخول بحساب طالب لعرض جلسات دفعتك وروابط الحصص المباشرة.",
+    "signInCta": "تسجيل الدخول",
+    "studentsOnly": "هذه الصفحة للطلاب المسجّلين في الدفعات. استخدم حساب طالب للمتابعة.",
+    "loading": "جاري تحميل صفوفك…",
+    "loadError": "تعذر تحميل صفوفك. حاول لاحقاً.",
+    "joinLive": "انضم للجلسة المباشرة",
+    "openMeeting": "فتح رابط الاجتماع",
+    "noMeetingLink": "لا يوجد رابط اجتماع لهذه الجلسة بعد.",
+    "durationMinutes": "{{n}} دقيقة",
+    "unknownCourse": "كورس",
+    "filter": {
+      "all": "جميع الكورسات"
+    }
+  },
+  "courseDetails": {
+    "reviews": "تقييم",
+    "students": "طالب مسجل",
+    "hours": "ساعة",
+    "breadcrumb": {
+      "explore": "استعرض الكورسات"
+    },
+    "about": {
+      "title": "عن هذا الكورس"
+    },
+    "curriculum": {
+      "title": "محتوى الكورس",
+      "modules": "وحدة",
+      "lessons": "درس",
+      "showAll": "عرض {{n}} وحدة إضافية",
+      "showLess": "عرض أقل",
+      "empty": "سيتم نشر محتوى الكورس قريبًا.",
+      "homework": "اسايمينت",
+      "exam": "امتحان",
+      "homeworkCount": "اسايمينت",
+      "examCount": "امتحان",
+      "homeworkSection": "اسايمينت الكورس",
+      "examSection": "اختبارات الكورس",
+      "liveLesson": "جلسة مباشرة",
+      "enrollHint": "فيديوهات الدروس والملفات والاختبارات تُفتح بعد التسجيل في الكورس.",
+      "publicNotice": "تفاصيل الدروس متاحة للطلاب المسجلين. اختر دفعة أدناه، ثم سجّل الدخول للتسجيل.",
+      "assignment": "واجب",
+      "assignmentCount": "واجبات",
+      "assignmentSection": "واجبات الكورس"
+    },
+    "cohorts": {
+      "title": "اختر دفعتك",
+      "subtitle": "لكل دفعة جدولها ومحاضرها وسعرها.",
+      "type": "الصيغة",
+      "status": "الحالة",
+      "starts": "البداية",
+      "instructor": "المحاضر",
+      "enrolled": "المسجّلون حالياً",
+      "seats": "المقاعد",
+      "price": "السعر",
+      "select": "اختيار",
+      "none": "لا توجد دفعات مفتوحة لهذا الكورس حالياً. عد لاحقاً.",
+      "selected": "الدفعة المختارة",
+      "continueLogin": "سجّل الدخول للتسجيل",
+      "continueSignup": "إنشاء حساب",
+      "pickFirst": "اختر دفعة للمتابعة."
+    },
+    "instructor": {
+      "title": "المدرب",
+      "noBio": "السيرة الذاتية قريبًا.",
+      "viewProfile": "عرض الملف",
+      "bookSession": "طلب جلسة فردية"
+    },
+    "card": {
+      "previewVideo": "معاينة",
+      "off": "خصم",
+      "enrollNow": "سجّل الآن",
+      "enrollCta": "ابدأ اليوم",
+      "continueLearning": "متابعة التعلم",
+      "loginPromptPrefix": "لديك حساب بالفعل؟",
+      "loginPromptLink": "سجّل الدخول",
+      "guarantee": "ضمان استرداد المال خلال 30 يوماً",
+      "includes": "يتضمن هذا الكورس:",
+      "share": "مشاركة",
+      "gift": "هدية",
+      "loadingSession": "جاري التحميل…",
+      "checkingEnrollment": "جاري التحقق من التسجيل…",
+      "logInToEnroll": "سجّل الدخول للتسجيل",
+      "enrollWithPrice": "تسجيل مع السعر"
+    },
+    "inclusions": {
+      "liveSession": "جلسات مباشرة مع مدرب معتمد",
+      "videoHours": "50+ ساعة فيديو عند الطلب",
+      "downloadable": "أوراق عمل وملفات PDF قابلة للتنزيل",
+      "instructorSupport": "دعم المحاضر وملاحظات على تقدمك",
+      "fullLifetime": "وصول كامل مدى الحياة",
+      "guarantee": "ضمان استرداد المال خلال 30 يوماً"
+    }
+  },
+  "examDetails": {
+    "backToExams": "العودة إلى الاختبارات",
+    "loadError": "الاختبار غير موجود.",
+    "noDescription": "لا يوجد وصف.",
+    "startExam": "ابدأ الاختبار",
+    "notAvailable": "لا يمكن بدء هذا الاختبار (الحالة: {{status}}).",
+    "alreadySubmitted": "لقد سلّمت هذا الاختبار مسبقاً.",
+    "ins": {
+      "timer": "أكمل الاختبار ضمن الوقت المحدد؛ يُسلَّم تلقائياً عند انتهاء الوقت.",
+      "graded": "يُصحَّح اختبارك على الخادم عند التسليم."
+    },
+    "meta": {
+      "examType": "نوع الاختبار",
+      "examDate": "تاريخ الاختبار",
+      "timeDuration": "الوقت والمدة",
+      "duration": "المدة",
+      "totalScore": "الدرجة الكلية",
+      "passingScore": "حد النجاح",
+      "questions": "الأسئلة",
+      "status": "الحالة"
+    },
+    "about": {
+      "title": "عن هذا الاختبار"
+    },
+    "topics": {
+      "title": "الموضوعات المشمولة"
+    },
+    "structure": {
+      "title": "هيكل الاختبار",
+      "questions": "سؤال",
+      "pts": "نقطة"
+    },
+    "instructions": {
+      "title": "تعليمات مهمة"
+    },
+    "ready": {
+      "title": "مستعد للبدء؟",
+      "description": "تأكد من توفر {{duration}} دقيقة لديك واتصال إنترنت مستقر.",
+      "startBtn": "ابدأ الاختبار"
+    },
+    "tips": {
+      "title": "نصائح للتحضير"
+    },
+    "summary": {
+      "questions": "سؤال",
+      "duration": "المدة",
+      "sections": "أقسام"
+    }
+  },
+  "homeworkDetail": {
+    "typeLabel": "نوع التسليم",
+    "submitError": "فشل التسليم.",
+    "validation": {
+      "text": "يرجى إدخال إجابتك.",
+      "link": "يرجى إدخال رابط صالح.",
+      "file": "اختر ملفاً أو الصق رابط الملف."
+    },
+    "fileOrUrlHint": "ارفع الملف مباشرة، أو الصق رابط ملف مستضاف.",
+    "fileUrlPlaceholder": "الصق رابط الملف",
+    "fileReady": "تم إرفاق الملف.",
+    "fileTooBig": "الملف كبير جداً (الحد 10 ميجابايت).",
+    "fileReadError": "تعذّر قراءة الملف.",
+    "notFound": "الاسايمينت غير موجود.",
+    "back": "العودة إلى الاسايمينت",
+    "due": "الموعد النهائي:",
+    "instructions": {
+      "title": "التعليمات"
+    },
+    "requirements": {
+      "title": "المتطلبات",
+      "fallbackDefault": "اتبع تعليمات المحاضر وسلّم قبل الموعد النهائي.",
+      "fallback": {
+        "TEXT": "قدّم إجابة كتابية كما هو موضح في التعليمات.",
+        "FILE": "ارفع الملفات المطلوبة (صوت أو PDF أو صور) ضمن الحد المسموح.",
+        "LINK": "قدّم رابطاً يعمل لعملك المكتمل."
+      }
+    },
+    "contextSubtitle": "{{courseTitle}} · {{cohortName}}",
+    "submitCard": {
+      "title": "تسليم الاسايمينت",
+      "answerLabel": "إجابتك",
+      "answerPlaceholder": "اكتب إجاباتك هنا...",
+      "uploadLabel": "رفع الملفات",
+      "submitBtn": "تسليم الاسايمينت",
+      "submitting": "جارٍ التسليم…"
+    },
+    "upload": {
+      "cta": "انقر للرفع أو اسحب الملف وأفلته",
+      "hint": "ملفات صوتية أو PDF أو صور (الحد الأقصى 10 ميجابايت لكل ملف)"
+    },
+    "sidebar": {
+      "relatedTitle": "الدرس المرتبط",
+      "viewClassBtn": "عرض تفاصيل الدرس",
+      "tipsTitle": "نصائح التسليم",
+      "tip1": "راجع الإملاء والأحرف قبل التسليم.",
+      "tip2": "اجعل التسجيلات الصوتية واضحة.",
+      "tip3": "استخدم أنواع الملفات والأحجام المذكورة أعلاه.",
+      "tip4": "سلّم قبل الموعد لتجنب حالة التأخير."
+    },
+    "successTitle": "تم تسليم الاسايمينت!",
+    "gradedTitle": "التسليم المُقيَّم",
+    "downloadSubmission": "تحميل الملف المُسلَّم",
+    "resubmitTitle": "تحديث التسليم",
+    "resubmitBtn": "تحديث التسليم",
+    "successMsg": "تم استلام تسليمك. سيراجعه معلمك قريباً.",
+    "backBtn": "العودة إلى الاسايمينت"
+  },
+  "takeExam": {
+    "answered": "مجاب عليها",
+    "flagged": "معلّمة",
+    "flag": "تعليم",
+    "unflag": "إلغاء التعليم",
+    "strip": {
+      "questionOf": "السؤال {{n}} من {{total}}",
+      "submit": "تسليم الاختبار",
+      "review": "مراجعة"
+    },
+    "review": {
+      "title": "مراجعة قبل التسليم",
+      "summary": "{{answered}} من {{total}} مجاب · {{flagged}} معلّمة · {{unanswered}} بدون إجابة",
+      "unanswered": "بدون إجابة",
+      "flagged": "معلّمة للمراجعة",
+      "back": "العودة للأسئلة"
+    },
+    "question": {
+      "label": "السؤال {{n}}",
+      "unanswered": "اختر إجابة للمتابعة"
+    },
+    "audio": {
+      "play": "تشغيل الصوت",
+      "playing": "جارٍ التشغيل…"
+    },
+    "nav": {
+      "prev": "السابق",
+      "next": "التالي",
+      "submitNow": "تسليم الآن"
+    },
+    "warn": {
+      "title": "تسليم الاختبار؟",
+      "body": "أجبت على {{answered}} من {{total}} سؤال. {{unanswered}} سؤال لم تُجب عليه بعد.",
+      "cancel": "متابعة الاختبار",
+      "confirm": "تسليم الاختبار"
+    },
+    "result": {
+      "passed": "مبروك، لقد اجتزت الاختبار!",
+      "failed": "حظاً أوفر في المرة القادمة",
+      "score": "الدرجة",
+      "percent": "درجتك",
+      "passing": "درجة النجاح",
+      "backToExams": "العودة إلى الاختبارات",
+      "reviewAnswers": "مراجعة الإجابات",
+      "viewDetails": "عرض النتائج التفصيلية"
+    },
+    "loading": "جارٍ تحميل الاختبار…",
+    "retry": "إعادة المحاولة",
+    "backExams": "العودة إلى الاختبارات",
+    "backDetail": "العودة إلى تفاصيل الاختبار",
+    "begin": "بدء الاختبار",
+    "starting": "جارٍ البدء…",
+    "submitting": "جارٍ التسليم…",
+    "notAvailable": "لا يمكن بدء هذا الاختبار (الحالة: {{status}}).",
+    "noQuestions": "لا توجد أسئلة لهذا الاختبار بعد.",
+    "noMcqOptions": "لم تُضف خيارات إجابة لهذا السؤال. تواصل مع المحاضر.",
+    "true": "صحيح",
+    "false": "خطأ",
+    "shortAnswerPlaceholder": "اكتب إجابتك…",
+    "errors": {
+      "load": "تعذّر تحميل هذا الاختبار.",
+      "start": "تعذّر بدء الاختبار.",
+      "submit": "تعذّر تسليم الإجابات."
+    },
+    "meta": {
+      "duration": "المدة",
+      "minutes": "دقيقة",
+      "passing": "درجة النجاح",
+      "questions": "الأسئلة"
+    },
+    "validation": {
+      "incomplete": "يرجى الإجابة على كل الأسئلة قبل التسليم."
+    },
+    "expiredIncomplete": {
+      "title": "انتهى الوقت",
+      "body": "انتهى وقت الاختبار، ولم تُجب على كل الأسئلة، لذا لم يُسلَّم الاختبار."
+    }
+  },
+  "examResult": {
+    "title": "نتائج الاختبار",
+    "loadError": "تعذّر تحميل النتائج.",
+    "scoreSummary": "الدرجة: {{score}} / {{max}} ({{pct}}٪)",
+    "passingLine": "درجة النجاح: {{passing}}",
+    "yourAnswer": "إجابتك",
+    "correctAnswer": "الإجابة الصحيحة",
+    "correct": "صحيح",
+    "incorrect": "خطأ",
+    "pts": "نقطة",
+    "passed": "ناجح",
+    "failed": "راسب",
+    "explanation": "الشرح"
+  },
+  "myCohorts": {
+    "titlePrefix": "كورساتي",
+    "titleAccent": "",
+    "subtitle": "تابع التعلم في الكورسات المسجّل بها. افتح الكورس لتتبع التقدم لكل كورس.",
+    "loadError": "تعذّر تحميل التسجيلات.",
+    "empty": "أنت غير مسجّل في أي كورس بعد. استكشف الكورسات للتسجيل.",
+    "progress": "مكتمل",
+    "continue": "متابعة التعلم",
+    "homework": "الاسايمينت",
+    "assignment": "الواجبات"
+  },
+  "quotaModal": {
+    "title": "ترقية خطتك",
+    "body": "هذا الإجراء يتطلب اشتراكاً نشطاً أو حداً أعلى في الباقة. عرض الخطط للمتابعة.",
+    "cta": "عرض خطط الاشتراك",
+    "close": "إغلاق"
+  },
+  "publicInstructors": {
+    "badge": "محاضرون خبراء",
+    "title": "تعرّف على محاضرينا",
+    "subtitle": "تصفّح الملفات، استكشف كورساتهم، واحجز جلسة فردية.",
+    "searchPlaceholder": "ابحث بالاسم أو التخصص…",
+    "loadError": "تعذّر تحميل المحاضرين.",
+    "empty": "لا يوجد محاضرون يطابقون بحثك.",
+    "browseCourses": "تصفح الكورسات بدلًا من ذلك",
+    "noBio": "محاضر طبي خبير في USMLE Step 1 على منصة Yaser USMLE.",
+    "yearsExp": "{{n}}+ سنوات خبرة",
+    "viewProfile": "عرض الملف",
+    "bookSession": "طلب جلسة فردية",
+    "backToList": "كل المحاضرين",
+    "profileNotFound": "المحاضر غير موجود.",
+    "coursesTitle": "كورسات هذا المحاضر",
+    "reviewsTitle": "تقييمات الطلاب",
+    "bookTitle": "احجز جلسة فردية",
+    "bookHint": "اختر موعدًا متاحًا وأكمل الدفع لتأكيد جلستك الخاصة.",
+    "loginToBook": "سجّل الدخول للحجز",
+    "studentsOnly": "الجلسات الخاصة متاحة لحسابات الطلاب فقط."
+  },
+  "studentAttendance": {
+    "title": "حضوري",
+    "subtitle": "تابع حضورك في الجلسات المباشرة الجماعية لكورساتك.",
+    "loadError": "تعذّر تحميل تقرير الحضور.",
+    "empty": "لا توجد جلسات مباشرة مسجّلة لكورساتك بعد.",
+    "live": "التحديثات اللحظية مفعّلة",
+    "untitledSession": "جلسة مباشرة",
+    "summary": {
+      "total": "إجمالي الجلسات",
+      "present": "حاضر",
+      "absent": "غائب",
+      "rate": "نسبة الحضور"
+    },
+    "col": {
+      "session": "الجلسة",
+      "course": "الكورس",
+      "date": "التاريخ",
+      "status": "الحالة"
+    },
+    "status": {
+      "present": "حاضر",
+      "absent": "غائب",
+      "left": "غادر مبكرًا"
+    }
+  },
+  "bookSession": {
+    "title": "حجز جلسة خاصة",
+    "subtitle": "اختر موعداً متاحاً مع المحاضر. يجب أن تسمح باقاتك بحصص خاصة.",
+    "loadError": "تعذّر تحميل المواعيد المتاحة.",
+    "empty": "لا توجد مواعيد مفتوحة حالياً.",
+    "book": "احجز",
+    "booking": "جارٍ الحجز…",
+    "success": "تم حجز الجلسة!",
+    "bookError": "فشل الحجز.",
+    "priceNotConfigured": "لم يُضبط سعر هذه الفترة بعد. يجب على المحاضر تعيين سعر الجلسة قبل الحجز.",
+    "instructor": "المحاضر",
+    "needPlan": "الجلسات الخاصة تتطلّب خطة نشطة تشمل حصص الجلسات الخاصة. قم بالترقية أو الاشتراك للحجز.",
+    "viewPlans": "عرض الخطط والترقية"
+  },
+  "dashboard": {
+    "common": {
+      "panel": "لوحة التحكم",
+      "search": "بحث",
+      "actions": "الإجراءات",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "submit": "إرسال",
+      "reply": "رد",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "loading": "جاري التحميل...",
+      "refresh": "تحديث",
+      "retry": "إعادة المحاولة",
+      "validation": "يرجى التحقق من الحقول والمحاولة مرة أخرى.",
+      "comingSoon": "قريباً",
+      "comingSoonDescription": "هذا القسم ضمن مرحلة التنفيذ التالية.",
+      "saved": "تم الحذف بنجاح",
+      "yes": "نعم",
+      "no": "لا",
+      "close": "إغلاق",
+      "back": "رجوع",
+      "confirm": "تأكيد"
+    },
+    "admin": {
+      "title": "لوحة المشرف",
+      "nav": {
+        "overview": "نظرة عامة",
+        "users": "المستخدمون",
+        "instructors": "المحاضرون",
+        "instructorOverview": "نظرة عامة",
+        "instructorList": "قائمة المحاضرين",
+        "payouts": "المدفوعات",
+        "courses": "الدورات",
+        "courseCategories": "التصنيفات",
+        "courseList": "قائمة الدورات",
+        "courseAdd": "إضافة دورة",
+        "enrolment": "التسجيلات",
+        "enrollHistory": "السجل",
+        "enrollStudent": "تسجيل طالب",
+        "exams": "الاختبارات",
+        "finance": "المالية",
+        "cms": "إدارة المحتوى",
+        "settings": "الإعدادات"
+      },
+      "stats": {
+        "totalStudents": "إجمالي الطلاب",
+        "totalInstructors": "إجمالي المحاضرين",
+        "activeCourses": "الدورات النشطة",
+        "totalRevenue": "إجمالي الإيرادات",
+        "pendingPayouts": "المدفوعات المعلقة"
+      },
+      "pages": {
+        "overview": {
+          "title": "نظرة عامة",
+          "subtitle": "تابع نمو المنصة والمؤشرات الرئيسية."
+        },
+        "users": {
+          "title": "إدارة المستخدمين",
+          "subtitle": "إدارة وصول الطلاب والموظفين."
+        },
+        "instructors": {
+          "title": "المحاضرون",
+          "subtitle": "إدارة حسابات المحاضرين وحالتهم."
+        },
+        "courses": {
+          "title": "إدارة الدورات",
+          "subtitle": "إدارة جميع الدورات والتعيينات."
+        },
+        "exams": {
+          "title": "إدارة الاختبارات",
+          "subtitle": "إنشاء بنوك الاختبارات وصيانتها."
+        },
+        "finance": {
+          "title": "المالية",
+          "subtitle": "إدارة المعاملات والمدفوعات والقسائم.",
+          "invoiceCopied": "تم نسخ رقم الفاتورة!",
+          "invoiceCopyHint": "انقر لنسخ رقم الفاتورة",
+          "rejectionReasonPrompt": "سبب الرفض",
+          "refundConfirm": "هل تريد وضع علامة مسترد على هذه الدفعة؟",
+          "paymentApproved": "تمت الموافقة على الدفعة ومنح الوصول.",
+          "paymentApproveFailed": "فشلت الموافقة على الدفعة.",
+          "paymentRejected": "تم رفض الدفعة.",
+          "paymentRejectFailed": "فشل رفض الدفعة.",
+          "paymentRefunded": "تم وضع علامة مسترد على الدفعة.",
+          "paymentRefundFailed": "فشل استرداد الدفعة."
+        },
+        "cms": {
+          "title": "إدارة المحتوى",
+          "subtitle": "إدارة الأسئلة الشائعة وأقسام الصفحة الرئيسية ومحتوى «من نحن».",
+          "subtitleNew": "عدّل ما يراه الزوار في الصفحة الرئيسية و«من نحن» والأسئلة الشائعة — بدون JSON.",
+          "tabHero": "بانر الصفحة الرئيسية",
+          "tabAbout": "من نحن",
+          "tabFaq": "الأسئلة الشائعة",
+          "heroTitle": "بانر البطل",
+          "heroHint": "العنوان الرئيسي في أعلى الصفحة العامة.",
+          "heroHeadline": "العنوان",
+          "heroSubheadline": "العنوان الفرعي",
+          "heroSaved": "تم حفظ بانر الصفحة الرئيسية.",
+          "heroPreviewNote": "تعكس هذه المعاينة التعديلات غير المحفوظة في النموذج أعلاه.",
+          "previewLabel": "معاينة",
+          "previewHome": "الصفحة الرئيسية",
+          "previewAbout": "صفحة من نحن",
+          "previewFaq": "صفحة الأسئلة الشائعة",
+          "saveFaqItem": "حفظ هذا السؤال",
+          "aboutHint": "الرسالة والرؤية والقصة المعروضة في صفحة «من نحن» العامة.",
+          "faqHint": "الأسئلة والأجوبة المعروضة في صفحة الأسئلة الشائعة العامة.",
+          "faqCount": "سؤال",
+          "more": "إدارة أيضًا",
+          "aboutTitle": "من نحن (للعامة)",
+          "phMission": "الرسالة",
+          "phVision": "الرؤية",
+          "phDescription": "الوصف / القصة",
+          "aboutSaved": "تم حفظ محتوى «من نحن».",
+          "faqTitle": "الأسئلة الشائعة",
+          "faqUpdated": "تم تحديث السؤال.",
+          "faqDeleted": "تم حذف السؤال.",
+          "faqAdded": "تمت إضافة سؤال.",
+          "confirmDeleteFaq": "حذف هذا السؤال؟",
+          "newQuestion": "سؤال جديد",
+          "newAnswer": "إجابة جديدة",
+          "addFaq": "إضافة سؤال",
+          "sectionsTitle": "أقسام الصفحة الرئيسية",
+          "sectionsHint": "يُحمَّل المحتوى كـ JSON للصفحة العامة (مثل الإحصائيات وقائمة الأسئلة).",
+          "visible": "ظاهر",
+          "hidden": "مخفي",
+          "sectionUpdated": "تم تحديث القسم.",
+          "sectionKey": "مفتاح القسم",
+          "order": "الترتيب",
+          "visibility": "الظهور",
+          "sectionCreated": "تم إنشاء القسم.",
+          "createSection": "إنشاء قسم"
+        },
+        "settings": {
+          "title": "الإعدادات",
+          "subtitle": "ضبط خيارات إدارة المنصة.",
+          "saved": "تم حفظ الإعدادات",
+          "loading": "جاري تحميل الإعدادات...",
+          "loadFailed": "فشل تحميل الإعدادات.",
+          "saveFailed": "فشل حفظ الإعدادات.",
+          "brandIdentity": "هوية العلامة",
+          "platformLogos": "شعارات المنصة",
+          "platformLogosHint": "ارفع ملفات PNG أو JPEG أو WEBP حتى 2 ميجابايت. استخدم PNG أو WEBP شفاف للحصول على أفضل نتيجة، ثم احفظ التغييرات لنشرها في المنصة.",
+          "primaryLogo": "الشعار الرئيسي",
+          "primaryLogoDesc": "الرأس والصفحات الفاتحة ولوحة التحكم.",
+          "lightLogo": "الشعار الفاتح",
+          "lightLogoDesc": "التذييل والخلفيات الداكنة.",
+          "compactBrandMark": "علامة العلامة المختصرة",
+          "compactBrandMarkDesc": "شاشات تسجيل الدخول والتنقل المطوي والمساحات المدمجة.",
+          "uploading": "جاري الرفع…",
+          "uploadLogo": "رفع الشعار",
+          "useDefault": "استخدام الافتراضي",
+          "logoUploaded": "تم رفع الشعار. احفظ التغييرات لنشره.",
+          "logoUploadFailed": "تعذر رفع الشعار.",
+          "logoUploadNoUrl": "لم يُرجع الرفع رابط الشعار.",
+          "contactPublicSite": "التواصل والموقع العام",
+          "contactPublicSiteHint": "يظهر في رأس التسويق والتذييل وروابط التواصل. اترك رابط وسائل التواصل فارغاً لإخفاء الأيقونة.",
+          "publicContactEmail": "البريد العام للتواصل",
+          "phoneHeader": "الهاتف (الرأس)",
+          "facebookUrl": "رابط فيسبوك",
+          "twitterUrl": "رابط X (تويتر)",
+          "instagramUrl": "رابط إنستغرام",
+          "linkedinUrl": "رابط لينكدإن",
+          "generalSettings": "الإعدادات العامة",
+          "siteName": "اسم الموقع",
+          "publicRegistration": "التسجيل العام",
+          "publicRegistrationDesc": "السماح للطلاب الجدد بإنشاء حسابات",
+          "interfaceExperience": "الواجهة والتجربة",
+          "defaultTheme": "المظهر الافتراضي",
+          "defaultThemeDesc": "اختر المظهر الافتراضي للمستخدمين الجدد",
+          "darkThemePremium": "المظهر الداكن (مميز)",
+          "lightTheme": "المظهر الفاتح",
+          "systemNotifications": "إشعارات النظام",
+          "systemNotificationsDesc": "تلقي تنبيهات عن التسجيلات والمدفوعات الجديدة",
+          "security": "الأمان",
+          "maintenanceMode": "وضع الصيانة",
+          "maintenanceModeDesc": "تعطيل الوصول للواجهة الأمامية للصيانة",
+          "configure2fa": "إعداد المصادقة الثنائية للمشرفين ←",
+          "dangerZone": "منطقة الخطر",
+          "clearSystemCache": "مسح ذاكرة التخزين المؤقت",
+          "clearSystemCacheDesc": "سيؤدي هذا إلى إجبار تحديث جميع البيانات الثابتة",
+          "clearCache": "مسح الذاكرة المؤقتة"
+        },
+        "account": {
+          "title": "ملفي الشخصي",
+          "subtitle": "صورتك وبيانات حسابك في لوحة الإدارة."
+        }
+      },
+      "widgets": {
+        "topInstructors": "أفضل المحاضرين",
+        "recentEnrollments": "أحدث التسجيلات",
+        "viewAll": "عرض الكل"
+      },
+      "users": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "status": "الحالة",
+        "toggle": "تبديل",
+        "emptyTitle": "لا يوجد مستخدمون",
+        "emptyDescription": "جرّب تغيير الفلاتر أو عبارة البحث."
+      },
+      "courses": {
+        "titleCol": "الدورة",
+        "instructor": "المحاضر",
+        "status": "الحالة",
+        "createdAt": "تاريخ الإنشاء",
+        "emptyTitle": "لا توجد دورات",
+        "emptyDescription": "أضف دورة جديدة أو عدّل البحث.",
+        "introVideo": "فيديو المقدمة",
+        "introVideoUrl": "رابط فيديو المقدمة",
+        "open": "فتح",
+        "assignInstructor": "تعيين محاضر",
+        "selectInstructor": "اختر محاضرًا",
+        "deepEdit": "تعديل متقدم (الاستوديو)",
+        "deleteConfirm": "هل تريد حذف هذا الكورس؟",
+        "deleted": "تم حذف الكورس.",
+        "deleteFailed": "فشل حذف الكورس.",
+        "editCourse": "تعديل الكورس",
+        "updated": "تم تحديث الكورس.",
+        "updateFailed": "فشل تحديث الكورس.",
+        "activated": "تم تفعيل الكورس",
+        "deactivated": "تم إيقاف الكورس",
+        "statusUpdateFailed": "فشل تحديث الحالة"
+      },
+      "instructors": {
+        "add": "إضافة محاضر",
+        "edit": "تعديل المحاضر",
+        "fullName": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "experience": "الخبرة",
+        "password": "كلمة المرور",
+        "bio": "نبذة",
+        "emptyTitle": "لا يوجد محاضرون",
+        "emptyDescription": "أضف محاضراً جديداً أو عدّل الفلاتر."
+      },
+      "finance": {
+        "payments": "المدفوعات",
+        "coupons": "الكوبونات",
+        "payouts": "طلبات السحب",
+        "student": "الطالب",
+        "instructor": "المحاضر",
+        "amount": "المبلغ",
+        "status": "الحالة",
+        "date": "التاريخ"
+      }
+    },
+    "instructor": {
+      "title": "لوحة المحاضر",
+      "nav": {
+        "overview": "نظرة عامة",
+        "classes": "حصصي",
+        "exams": "الاختبارات",
+        "students": "الطلاب",
+        "qna": "الأسئلة والأجوبة",
+        "wallet": "المحفظة",
+        "performance": "الأداء",
+        "settings": "الإعدادات",
+        "cohorts": "دفعاتي"
+      },
+      "stats": {
+        "totalClasses": "إجمالي الحصص",
+        "upcomingClasses": "الحصص القادمة",
+        "averageRating": "متوسط التقييم",
+        "totalReviews": "إجمالي المراجعات"
+      },
+      "pages": {
+        "overview": {
+          "title": "نظرة عامة",
+          "subtitle": "تابع تقديم الحصص وتفاعل الطلاب."
+        },
+        "classes": {
+          "title": "حصصي",
+          "subtitle": "راقب الحصص القادمة والمكتملة."
+        },
+        "courses": {
+          "title": "كورساتي",
+          "subtitle": "الكورسات التي تدرّسها والطلاب المسجّلون."
+        },
+        "exams": {
+          "title": "الاختبارات",
+          "subtitle": "إدارة محتوى الاختبارات والتسليمات."
+        },
+        "students": {
+          "title": "الطلاب",
+          "subtitle": "عرض تقدم الطلاب وحضورهم."
+        },
+        "studentDetail": {
+          "backLink": "العودة إلى الطلاب",
+          "loadError": "تعذر تحميل بيانات هذا الطالب.",
+          "forbidden": "ليس لديك صلاحية لعرض هذا الطالب.",
+          "noActivity": "لا يوجد نشاط تسجيل لعرضه بعد.",
+          "scopedNote": "الإحصائيات والتقدم تخص الكورسات التي تدرّسها فقط.",
+          "viewProgress": "عرض التقدم"
+        },
+        "qna": {
+          "title": "الأسئلة والأجوبة",
+          "subtitle": "الإجابة على أسئلة الطلاب في دوراتك."
+        },
+        "availability": {
+          "title": "التوفر",
+          "subtitle": "إدارة الأوقات المتاحة لحجز الجلسات الخاصة.",
+          "heroTitle": "تقويم تدريسك",
+          "heroHint": "يحجز الطلاب ضمن هذه الفترات. اجعلها واقعية وسهلة الالتزام بها.",
+          "addSectionTitle": "إضافة فترة جديدة",
+          "addSectionHint": "اختر اليوم والفترة التي تكون فيها متاحاً — مثل ساعات المكتب.",
+          "labelDate": "التاريخ",
+          "labelStart": "وقت البداية",
+          "labelEnd": "وقت النهاية",
+          "addCta": "إضافة للتقويم",
+          "adding": "جاري الإضافة…",
+          "scheduleTitle": "الفترات القادمة",
+          "scheduleHint": "مجمّعة حسب اليوم. يمكنك حذف الفترة قبل أن تُحجز.",
+          "emptyTitle": "لا يوجد توفر بعد",
+          "emptyHint": "أنشئ أول فترة ليتمكن الطلاب من حجز جلسات خاصة.",
+          "removed": "تمت إزالة الفترة.",
+          "added": "تمت إضافة الفترة.",
+          "invalidRange": "يجب أن يكون وقت النهاية بعد وقت البداية.",
+          "slotsCount": "{{count}} فترة/فترات مفتوحة",
+          "openStatus": "متاح",
+          "labelPrice": "سعر الجلسة (USD)",
+          "pricePlaceholder": "مثال: 500",
+          "priceHint": "يدفع الطالب هذا المبلغ لحجز هذه الفترة.",
+          "priceRequired": "أدخل سعرًا صالحًا أكبر من صفر.",
+          "priceMissing": "السعر غير مضبوط — الفترة مخفية عن الطلاب.",
+          "setPrice": "تعيين السعر",
+          "priceUpdated": "تم تحديث سعر الجلسة.",
+          "slotPrice": "{{price}} USD"
+        },
+        "wallet": {
+          "title": "المحفظة",
+          "subtitle": "تابع المعاملات وطلبات السحب."
+        },
+        "performance": {
+          "title": "الأداء",
+          "subtitle": "مراجعة التقييمات ونتائج التدريس."
+        },
+        "settings": {
+          "title": "الإعدادات",
+          "subtitle": "إدارة إعدادات حساب المحاضر.",
+          "subtitleLive": "حدّث ظهورك للطلاب وأمّن كلمة المرور.",
+          "sectionProfile": "الملف الشخصي",
+          "sectionProfileHint": "الاسم والنبذة تظهر في صفحة المحاضر.",
+          "sectionSecurity": "الأمان",
+          "sectionSecurityHint": "بعد تغيير كلمة المرور ستُخرج من كل الجلسات.",
+          "email": "البريد الإلكتروني",
+          "fullName": "الاسم الكامل",
+          "phoneOptional": "الهاتف (اختياري)",
+          "headline": "العنوان / النبذة",
+          "headlinePlaceholder": "مثال: محاضر USMLE Step 1 · متخصص في الباثولوجي والفسيولوجي",
+          "experienceYears": "سنوات الخبرة (اختياري)",
+          "saveProfile": "حفظ الملف",
+          "currentPassword": "كلمة المرور الحالية",
+          "newPassword": "كلمة المرور الجديدة",
+          "confirmPassword": "تأكيد كلمة المرور",
+          "passwordRules": "8 أحرف على الأقل، مع حرف ورقم على الأقل.",
+          "updatePassword": "تحديث كلمة المرور",
+          "profileSaved": "تم تحديث الملف.",
+          "profileError": "تعذر حفظ الملف.",
+          "passwordChanged": "تم تغيير كلمة المرور. سجّل الدخول من جديد.",
+          "passwordError": "تعذر تغيير كلمة المرور.",
+          "passwordFields": "أكمل جميع حقول كلمة المرور.",
+          "passwordMismatch": "كلمتا المرور الجديدتان غير متطابقتين.",
+          "nameMin": "الاسم يجب أن يكون 3 أحرف على الأقل.",
+          "phoneInvalid": "استخدم 7–15 رقماً، يمكن أن يبدأ بـ +.",
+          "experienceInvalid": "الخبرة يجب أن تكون رقماً صحيحاً غير سالب.",
+          "loadError": "تعذر تحميل الملف الشخصي."
+        },
+        "cohorts": {
+          "title": "دفعاتي",
+          "subtitle": "الدفعات التي تدرّسها والطلاب المسجّلون."
+        },
+        "assignment": {
+          "title": "قائمة الواجبات",
+          "subtitle": "راجع التسليمات المعلّقة وأضف الدرجات."
+        }
+      },
+      "classes": {
+        "allStatuses": "كل الحالات",
+        "upcoming": "قادم",
+        "ongoing": "جاري",
+        "completed": "مكتمل",
+        "titleCol": "الحصة",
+        "type": "النوع",
+        "status": "الحالة",
+        "scheduledAt": "موعد الحصة",
+        "emptyTitle": "لا توجد حصص",
+        "emptyDescription": "لا توجد نتائج مطابقة للفلاتر الحالية."
+      },
+      "courses": {
+        "titleCol": "الكورس",
+        "type": "النوع",
+        "published": "منشور",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "enrollments": "المشتركون",
+        "upcomingSessions": "جلسات قادمة",
+        "viewStudents": "الطلاب",
+        "manageSessions": "الجلسات",
+        "sessionsSubtitle": "جدولة الجلسات المباشرة وإضافة روابط التسجيل.",
+        "addSession": "إضافة جلسة",
+        "editSession": "تعديل الجلسة",
+        "sessionTitle": "عنوان الجلسة",
+        "meetingUrl": "رابط الاجتماع",
+        "recordingUrl": "رابط التسجيل",
+        "sessionCreated": "تم إنشاء الجلسة.",
+        "sessionUpdated": "تم تحديث الجلسة.",
+        "sessionDeleted": "تم حذف الجلسة.",
+        "sessionError": "تعذّر حفظ الجلسة.",
+        "noSessions": "لا توجد جلسات مجدولة بعد.",
+        "untitledSession": "جلسة مباشرة",
+        "statusUpcoming": "قادمة",
+        "statusOngoing": "جارية",
+        "statusCompleted": "مكتملة",
+        "statusMissed": "فائتة",
+        "emptyTitle": "لا توجد كورسات",
+        "emptyDescription": "ستظهر هنا الكورسات المسندة إليك."
+      },
+      "overview": {
+        "totalStudents": "إجمالي الطلاب",
+        "activeCourses": "كورسات نشطة",
+        "upcomingSessions": "جلسات قادمة",
+        "totalEarnings": "إجمالي الأرباح",
+        "walletBalance": "رصيد المحفظة",
+        "earningsTrend": "اتجاه الأرباح",
+        "earnings": "الأرباح",
+        "reviewsSnapshot": "التقييمات",
+        "avgRatingLine": "متوسط {{rating}} / 5",
+        "topCourses": "أعلى الكورسات بالتسجيل",
+        "allYourCourses": "كل كورساتك",
+        "upcomingSessionsTitle": "أقرب الجلسات المباشرة",
+        "upcomingSessionsHint": "أقرب جلساتك المجدولة",
+        "noUpcomingSessions": "لا توجد جلسات مباشرة قادمة",
+        "noUpcomingSessionsHint": "جدول جلسات جماعية من «كورساتي»، أو عيّن درسًا في المنهج كـ Live مع موعد.",
+        "liveLesson": "درس مباشر",
+        "groupSession": "جلسة جماعية",
+        "privateSession": "خاصة",
+        "withStudent": "مع",
+        "manageSession": "إدارة",
+        "joinSession": "انضم"
+      },
+      "exams": {
+        "titleCol": "الاختبار",
+        "duration": "المدة",
+        "points": "الدرجات",
+        "status": "الحالة",
+        "scope": "النطاق",
+        "emptyTitle": "لا توجد اختبارات",
+        "emptyDescription": "أنشئ أول اختبار للبدء.",
+        "createExam": "إنشاء اختبار",
+        "details": "التفاصيل",
+        "results": "النتائج",
+        "questionsCount": "الأسئلة",
+        "submissionsCount": "التسليمات",
+        "minutesShort": "د",
+        "wholeCourse": "على مستوى الكورس",
+        "showing": "{{count}} اختبار",
+        "stats": {
+          "total": "إجمالي الاختبارات",
+          "questions": "إجمالي الأسئلة",
+          "submissions": "إجمالي التسليمات"
+        },
+        "statusLabels": {
+          "AVAILABLE": "متاح",
+          "UPCOMING": "قادم",
+          "COMPLETED": "مكتمل",
+          "EXPIRED": "منتهي"
+        },
+        "questionTypes": {
+          "MULTIPLE_CHOICE": "اختيار من متعدد",
+          "TRUE_FALSE": "صح / خطأ",
+          "SHORT_ANSWER": "إجابة قصيرة",
+          "ESSAY": "مقالي"
+        },
+        "create": {
+          "title": "اختبار جديد",
+          "subtitle": "حدّد الأساسيات وقواعد التقييم، ثم أضف الأسئلة من محرر الاختبار.",
+          "quickStartDesc": "بعد إنشاء الاختبار ستنتقل مباشرة لمحرر الأسئلة لبناء بنك الأسئلة.",
+          "basicsTitle": "البيانات الأساسية",
+          "titleLabel": "العنوان",
+          "titlePlaceholder": "مثال: اختبار الوحدة الثالثة — فسيولوجيا القلب",
+          "selectCourse": "اختر الكورس",
+          "courseLabel": "الكورس",
+          "descriptionPlaceholder": "وصف مختصر للطلاب (اختياري)",
+          "scopeTitle": "نطاق الاختبار",
+          "scopeHint": "اختر إن كان الاختبار على مستوى الكورس كاملًا أو وحدة أو درس واحد.",
+          "scopeCourse": "الكورس كاملًا",
+          "scopeUnit": "وحدة",
+          "scopeLesson": "درس",
+          "unitLabel": "الوحدة",
+          "lessonLabel": "الدرس",
+          "selectUnit": "اختر الوحدة",
+          "selectLesson": "اختر الدرس",
+          "allUnits": "كل الوحدات",
+          "selectUnitRequired": "يرجى اختيار وحدة لهذا الاختبار.",
+          "selectLessonRequired": "يرجى اختيار درس لهذا الاختبار.",
+          "noUnits": "لا توجد وحدات في هذا الكورس بعد. أضف المنهج من محرر الكورس أولًا.",
+          "noLessons": "لا توجد دروس بعد. أضف دروسًا قبل إنشاء اختبار على مستوى الدرس.",
+          "rulesTitle": "التقييم والتوقيت",
+          "rulesHint": "المدة والدرجة الكلية ودرجة النجاح تنطبق على جميع الطلاب.",
+          "descriptionLabel": "الوصف",
+          "durationLabel": "المدة (بالدقائق)",
+          "totalPointsLabel": "الدرجة الكلية",
+          "passingLabel": "درجة النجاح",
+          "passingHint": "يجب أن تكون بين 0 والدرجة الكلية.",
+          "scoreValidation": "تحقق من المدة والدرجة الكلية ودرجة النجاح.",
+          "scheduleLabel": "موعد الاختبار (اختياري)",
+          "advancedTitle": "تفاصيل للطالب (اختياري)",
+          "advancedHint": "تظهر في شاشة الاختبار على الموبايل. اتركها فارغة لاستخدام الافتراضي.",
+          "coveredTopics": "المواضيع المغطاة",
+          "coveredTopicsPh": "موضوع في كل سطر",
+          "examStructure": "هيكل الاختبار",
+          "examStructurePh": "استماع | 20 | 30\nقراءة | 15 | 30",
+          "examStructureHint": "الصيغة: عنوان القسم | عدد الأسئلة | الدرجات",
+          "instructions": "تعليمات مهمة",
+          "instructionsPh": "تعليمة في كل سطر",
+          "preparationTips": "نصائح التحضير",
+          "preparationTipsPh": "نصيحة في كل سطر",
+          "readyMessage": "رسالة البدء",
+          "readyMessagePh": "تأكد من توفر وقت كافٍ واتصال إنترنت مستقر.",
+          "submit": "إنشاء وفتح المحرر",
+          "creating": "جاري الإنشاء…",
+          "clearScope": "مسح الوحدة والدرس",
+          "noCourses": "تحتاج كورسًا واحدًا على الأقل قبل إنشاء اختبار.",
+          "error": "تعذّر إنشاء الاختبار."
+        },
+        "detailPage": {
+          "back": "العودة إلى الاختبارات",
+          "loadError": "تعذّر تحميل الاختبار.",
+          "metaLine": "{{questions}} سؤال · {{points}} نقطة · {{duration}} د",
+          "addQuestionTitle": "إضافة سؤال",
+          "addQuestionHint": "اختر نوع السؤال، أضف الخيارات، وحدد الإجابة الصحيحة.",
+          "questionType": "نوع السؤال",
+          "questionPlaceholder": "اكتب نص السؤال هنا…",
+          "optionsTitle": "خيارات الإجابة",
+          "optionsHint": "اضغط على الدائرة لتحديد الإجابة الصحيحة.",
+          "optionPlaceholder": "الخيار {{letter}}",
+          "addOption": "إضافة خيار",
+          "minOptions": "أضف خيارين على الأقل.",
+          "correctRequired": "حدد الإجابة الصحيحة.",
+          "modelAnswer": "الإجابة النموذجية",
+          "modelAnswerPlaceholder": "الإجابة المتوقعة للمرجعية عند التصحيح",
+          "modelAnswerOptional": "اختياري — يُستخدم كمرجع للمحاضر عند التصحيح.",
+          "rubricHint": "معايير التصحيح / ملاحظات",
+          "essayPlaceholder": "النقاط الأساسية أو معايير تصحيح المقال…",
+          "pointsUsed": "الدرجات الموزعة",
+          "questionsEmpty": "لا توجد أسئلة بعد",
+          "questionsEmptyHint": "استخدم النموذج على اليسار لإضافة أول سؤال.",
+          "addError": "تعذّر إضافة السؤال.",
+          "questionSaved": "تم حفظ السؤال.",
+          "questionDeleted": "تم حذف السؤال.",
+          "deleteConfirm": "هل تريد حذف هذا السؤال؟",
+          "deleteError": "تعذّر حذف السؤال.",
+          "noSubmissions": "لا توجد تسليمات من الطلاب بعد.",
+          "questionsTitle": "الأسئلة",
+          "addMcTitle": "إضافة سؤال اختيار من متعدد",
+          "questionText": "نص السؤال",
+          "optionA": "الخيار أ",
+          "optionB": "الخيار ب",
+          "correct": "الإجابة الصحيحة",
+          "points": "الدرجة",
+          "addQuestion": "إضافة سؤال",
+          "questionAdded": "تمت إضافة السؤال.",
+          "submissionsTitle": "نتائج الطلاب",
+          "student": "الطالب",
+          "score": "الدرجة",
+          "passed": "النجاح",
+          "submitted": "التسليم",
+          "pending": "قيد التنفيذ",
+          "yes": "نعم",
+          "no": "لا"
+        }
+      },
+      "homework": {
+        "queue": {
+          "notOpened": "غير مفتوح",
+          "opened": "مفتوح",
+          "closed": "مغلق / مصحّح",
+          "all": "الكل",
+          "stateLabel": "حالة المراجعة",
+          "markOpened": "تعليم كمفتوح",
+          "markClosed": "إغلاق بدون درجة",
+          "resetNew": "تعليم كغير مفتوح",
+          "courseLine": "{{course}}",
+          "emptyFilter": "لا توجد تسليمات في هذا الفلتر.",
+          "emptyAll": "عندما يسلّم الطلاب الاسايمينت ستظهر هنا. أنشئ الاسايمينت من محرر الكورس (تاب الاسايمينت).",
+          "goToCourses": "الذهاب إلى كورساتي",
+          "emptyTitle": "لا توجد تسليمات بعد",
+          "stateUpdated": "تم تحديث حالة المراجعة."
+        }
+      },
+      "wallet": {
+        "requestPayout": "طلب سحب",
+        "balance": "الرصيد الحالي",
+        "totalEarned": "إجمالي الأرباح",
+        "totalWithdrawn": "إجمالي المسحوب",
+        "transactions": "المعاملات",
+        "payoutHistory": "سجل السحب"
+      },
+      "qna": {
+        "lessonIdPlaceholder": "أدخل معرف الدرس",
+        "replyPlaceholder": "اكتب ردك...",
+        "selectCourse": "اختر الكورس",
+        "allCourses": "كل الكورسات",
+        "noQuestions": "لا توجد أسئلة لهذا الفلتر."
+      },
+      "students": {
+        "selectClass": "اختر الكورس",
+        "selectCourse": "اختر الكورس",
+        "purchasedAt": "تاريخ الشراء",
+        "progress": "التقدم",
+        "emptyTitle": "لا يوجد طلاب",
+        "emptyDescription": "اختر كورساً لعرض الطلاب المسجّلين."
+      },
+      "cohorts": {
+        "allStatuses": "كل الحالات",
+        "upcoming": "قادم",
+        "ongoing": "جاري",
+        "completed": "مكتمل",
+        "nameCol": "الدفعة",
+        "courseCol": "الكورس",
+        "type": "النوع",
+        "status": "الحالة",
+        "startDate": "تاريخ البدء",
+        "students": "الطلاب",
+        "emptyTitle": "لا توجد دفعات",
+        "emptyDescription": "لا توجد دفعات مطابقة لهذا الفلتر."
+      },
+      "assignment": {
+        "queue": {
+          "notOpened": "لم تُفتح",
+          "opened": "مفتوحة",
+          "closed": "مغلقة / مُقيَّمة",
+          "all": "All",
+          "stateLabel": "حالة مراجعتك",
+          "markOpened": "تعليم كمفتوحة",
+          "markClosed": "إغلاق بدون درجة",
+          "resetNew": "تعليم كغير مفتوحة",
+          "courseLine": "{{course}}",
+          "emptyFilter": "لا تسليمات في هذا الفلتر.",
+          "emptyAll": "عند تسليم الطلاب للواجبات ستظهر هنا. أنشئ الواجبات من محرر الكورس (تبويب الواجب).",
+          "goToCourses": "الانتقال إلى كورساتي",
+          "emptyTitle": "لا تسليمات بعد",
+          "stateUpdated": "تم تحديث حالة المراجعة."
+        }
+      }
+    }
+  },
+  "recommendedCourses": {
+    "titlePrefix": "تصفح أهم",
+    "titleAccent": "الكورسات الموصى بها",
+    "subtitle": "اختر من بين مجموعات البث المباشر والدورات المسجلة التي يقدمها محاضرون طبيون ذوو خبرة في USMLE Step 1.",
+    "tabs": {
+      "all": "جميع الكورسات",
+      "live": "مجموعات حية (Cohorts)",
+      "recorded": "دورات مسجّلة"
+    },
+    "exploreCurriculum": "استكشف المنهج",
+    "status": {
+      "live": "كوهورت حي 🔴",
+      "recorded": "مسجل 🖥️"
+    },
+    "courses": {
+      "structural": {
+        "title": "الجهاز القلبي الوعائي",
+        "description": "اربط فسيولوجيا القلب بالباثولوجي والفارماكولوجي والتطبيقات السريرية عالية الأهمية لامتحان Step 1."
+      },
+      "cfd": {
+        "title": "الجهاز التنفسي",
+        "description": "ابنِ فهماً واضحاً لفسيولوجيا الرئة وأمراض الجهاز التنفسي والأدوية الشائعة في أسئلة Step 1."
+      },
+      "hvac": {
+        "title": "الجهاز الكلوي وتوازن الأحماض والقواعد",
+        "description": "أتقن فسيولوجيا الكلى واضطرابات الشوارد وتحليل الأحماض والقواعد وأهم أمراض الكلى."
+      },
+      "embedded": {
+        "title": "الأعصاب والعلوم السلوكية",
+        "description": "راجع التشريح العصبي والأمراض العصبية والطب النفسي والفارماكولوجي من خلال حالات متكاملة."
+      },
+      "frontend": {
+        "title": "المناعة والميكروبيولوجي",
+        "description": "اربط آليات المناعة بالميكروبات عالية الأهمية والعلاج المضاد للعدوى والعروض السريرية."
+      },
+      "infrastructure": {
+        "title": "مراجعة الباثولوجي والفارماكولوجي",
+        "description": "ثبّت آليات الأمراض ومبادئ الأدوية الأساسية من خلال أسئلة بنمط الامتحان ومراجعات سريعة."
+      }
+    }
+  },
+  "testimonials": {
+    "titlePrefix": "ماذا يقول",
+    "titleAccent": "طلابنا؟",
+    "subtitle": "استمع إلى طلاب الطب الذين عززوا أساسياتهم وطوروا أداءهم في الأسئلة ودخلوا فترة المراجعة بثقة.",
+    "items": {
+      "item1": {
+        "name": "يوسف فتحي",
+        "role": "طالب طب في السنة الثالثة",
+        "text": "ربطت دورة القلب بين الفسيولوجيا والباثولوجي والفارماكولوجي بطريقة جعلت أسئلة الامتحان أسهل بكثير."
+      },
+      "item2": {
+        "name": "أمينة منصور",
+        "role": "طالبة طب تستعد لـ Step 1",
+        "text": "حوّلت دروس الكلى والأحماض والقواعد موضوعاً صعباً إلى إطار واضح أطبقه بسرعة على أسئلة التدريب."
+      },
+      "item3": {
+        "name": "طارق حجازي",
+        "role": "طالب طب في السنة الرابعة",
+        "text": "كشفت لي الاختبارات الأسبوعية والشروحات المفصلة مواضع الخطأ في طريقة تفكيري وكيفية تصحيحها."
+      },
+      "item4": {
+        "name": "ليلى شاهين",
+        "role": "طالبة طب دولية",
+        "text": "ساعدني الشرح ثنائي اللغة على فهم المفاهيم بعمق مع الاعتياد على مصطلحات الامتحان الإنجليزية."
+      },
+      "item5": {
+        "name": "محمود زكي",
+        "role": "طبيب امتياز",
+        "text": "ساعدتني خطة المذاكرة المرنة والمراجعات المركزة على الاستمرار إلى جانب جدول التدريب السريري المزدحم."
+      },
+      "item6": {
+        "name": "سارة العتيبي",
+        "role": "طالبة تستعد لـ Step 1",
+        "text": "منحتني وحدات الأنظمة المنظمة والفلاش كاردز وتتبع التقدم البنية التي كانت تنقص فترة المراجعة المكثفة."
+      }
+    }
+  },
+  "assignment": {
+    "hubTitle": "الواجبات حسب الدفعة",
+    "hubSubtitle": "اختر دفعة لعرض الواجبات.",
+    "openCohort": "عرض الواجبات",
+    "loadError": "تعذّر تحميل الواجبات.",
+    "emptyCohort": "لا واجبات لهذه الدفعة.",
+    "hubLoadError": "تعذّر تحميل الواجبات.",
+    "hubEmpty": "لا واجبات لصفوفك بعد.",
+    "emptyFilter": "لا واجبات تطابق البحث أو الدفعة المختارة.",
+    "showingNone": "لا واجبات للعرض",
+    "showingRange": "عرض {{from}}–{{to}} من {{total}} نتيجة",
+    "searchAria": "بحث",
+    "titlePrefix": "واجباتي",
+    "titleAccent": "",
+    "subtitle": "تتبع وتسليم واجباتك",
+    "viewCourse": "كل واجبات الكورس",
+    "courseListSubtitle": "واجبات هذا الكورس",
+    "due": "الموعد النهائي:",
+    "submitted": "تم التسليم:",
+    "grade": "الدرجة:",
+    "gradePct": "الدرجة: {{pct}}٪",
+    "searchPlaceholder": "ابحث عن الواجبات…",
+    "showing": "عرض {{count}} من {{total}} واجب",
+    "contextLine": "{{courseTitle}} · {{cohortName}}",
+    "daysLeft": "({{n}} يوم متبقٍ)",
+    "overdue": "متأخر {{n}} يوماً",
+    "type": {
+      "TEXT": "إجابة كتابية",
+      "FILE": "رفع ملف",
+      "LINK": "تسليم برابط"
+    },
+    "status": {
+      "pending": "لم يبدأ",
+      "submitted": "تم التسليم",
+      "underReview": "قيد المراجعة",
+      "completed": "مكتمل",
+      "late": "متأخر"
+    },
+    "filter": {
+      "all": "جميع الحالات",
+      "allClasses": "جميع الدفعات"
+    },
+    "actions": {
+      "submit": "تسليم الواجب",
+      "viewDetails": "عرض التفاصيل",
+      "viewResults": "عرض النتائج"
+    },
+    "stats": {
+      "total": "الإجمالي",
+      "pending": "معلق",
+      "submitted": "قيد المراجعة",
+      "completed": "مكتمل"
+    }
+  },
+  "assignmentDetail": {
+    "typeLabel": "نوع التسليم",
+    "submitError": "فشل التسليم.",
+    "validation": {
+      "text": "يرجى إدخال إجابتك.",
+      "link": "يرجى إدخال رابط صالح.",
+      "file": "يرجى اختيار ملف أو لصق رابط ملف."
+    },
+    "fileOrUrlHint": "ارفع ملفاً مباشرة، أو الصق رابط ملف مستضاف.",
+    "fileUrlPlaceholder": "الصق رابط الملف المستضاف",
+    "fileReady": "تم إرفاق الملف.",
+    "fileTooBig": "الملف كبير جداً (الحد 8MB).",
+    "fileReadError": "تعذّر قراءة الملف.",
+    "notFound": "الواجب غير موجود.",
+    "back": "العودة إلى الواجبات",
+    "due": "الموعد النهائي:",
+    "instructions": {
+      "title": "التعليمات"
+    },
+    "requirements": {
+      "title": "المتطلبات",
+      "fallbackDefault": "اتبع توجيهات محاضرك وسلّم قبل الموعد النهائي.",
+      "fallback": {
+        "TEXT": "سلّم إجابة كتابية كما هو موضّح في التعليمات.",
+        "FILE": "ارفع الملفات المطلوبة (صوت أو PDF أو صور) ضمن الحد المسموح.",
+        "LINK": "سلّم رابطاً صالحاً لعملك المكتمل."
+      }
+    },
+    "contextSubtitle": "{{courseTitle}} · {{cohortName}}",
+    "submitCard": {
+      "title": "تسليم واجبك",
+      "answerLabel": "إجابتك",
+      "answerPlaceholder": "اكتب إجاباتك هنا...",
+      "uploadLabel": "رفع الملفات",
+      "submitBtn": "تسليم الواجب",
+      "submitting": "جارٍ التسليم…"
+    },
+    "upload": {
+      "cta": "انقر للرفع أو اسحب وأفلت",
+      "hint": "ملفات صوت أو PDF أو صور (حد أقصى 10MB لكل ملف)"
+    },
+    "sidebar": {
+      "relatedTitle": "الصف المرتبط",
+      "viewClassBtn": "عرض تفاصيل الصف",
+      "tipsTitle": "نصائح التسليم",
+      "tip1": "راجع الإملاء والنص قبل التسليم.",
+      "tip2": "اجعل التسجيلات الصوتية واضحة وسهلة السماع.",
+      "tip3": "استخدم أنواع الملفات وأحجامها الموضحة أعلاه.",
+      "tip4": "سلّم قبل الموعد النهائي لتجنب حالة التأخر."
+    },
+    "successTitle": "تم تسليم الواجب!",
+    "gradedTitle": "تسليم مُقيَّم",
+    "downloadSubmission": "تحميل الملف المُسلَّم",
+    "resubmitTitle": "تحديث التسليم",
+    "resubmitBtn": "تحديث التسليم",
+    "successMsg": "تم استلام تسليمك. سيراجعه معلمك قريباً.",
+    "backBtn": "العودة إلى الواجبات"
+  },
+  "admin": {
+    "shell": {
+      "tagline": "إدارة المنصة باحتراف",
+      "controlCenter": "مركز التحكم",
+      "adminFallback": "مسؤول"
+    }
+  }
+}

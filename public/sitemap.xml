@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This static file is superseded by the dynamic sitemap served by the
+  backend at /api/v1/public/sitemap.xml (see robots.txt Sitemap directive),
+  which includes published courses, packages, and blog posts. Kept here as a
+  minimal fallback in case the API sitemap is unreachable.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yaser-usmle.com/</loc>
+  </url>
+</urlset>

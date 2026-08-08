@@ -1,0 +1,4467 @@
+{
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist or has been moved.",
+    "cta": "Browse courses"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "body": "We are sorry — an unexpected error occurred. You can try again or return to the home page.",
+    "retry": "Try again",
+    "home": "Go home"
+  },
+  "common": {
+    "previous": "Previous",
+    "next": "Next",
+    "create": "Create",
+    "delete": "Delete",
+    "save": "Save changes",
+    "error": "Something went wrong.",
+    "noAccess": "You do not have access to this section.",
+    "pending": "Needs attention",
+    "accessDenied": "Access denied",
+    "dashboardReadPermissionRequired": "You do not have the required permission to view the admin dashboard.",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle theme",
+    "actions": "Actions",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "noDataYet": "No data yet"
+  },
+  "nav": {
+    "overview": "Overview",
+    "finance": "Finance",
+    "users": "Users",
+    "instructors": "Instructors",
+    "courses": "Courses",
+    "enrollments": "Enrollments",
+    "cms": "CMS",
+    "settings": "Settings"
+  },
+  "sidebar": {
+    "analytics": "Analytics",
+    "management": "Management",
+    "system": "System",
+    "storage": "Storage",
+    "adminPanel": "Admin Panel"
+  },
+  "sidebarNav": {
+    "sections": {
+      "analytics": "Analytics",
+      "management": "Management",
+      "content": "Content",
+      "system": "System",
+      "instructor": "Instructor",
+      "academicMatrix": "Academic Matrix",
+      "liveOps": "Live Operations",
+      "financialsSecurity": "Financials & Security",
+      "studentOverview": "Dashboard",
+      "studentLearning": "Learning",
+      "studentServices": "Account & support",
+      "studentWebsite": "Website"
+    },
+    "items": {
+      "analytics": "Analytics",
+      "overview": "Overview",
+      "allUsers": "All users",
+      "finance": "Finance",
+      "students": "My Students",
+      "studentsList": "Students List",
+      "addStudent": "Add Student",
+      "instructors": "Instructors",
+      "list": "List",
+      "privateSessionRequests": "1-1 session requests",
+      "payouts": "Payouts",
+      "courses": "Courses",
+      "allCourses": "All Courses",
+      "addCourse": "Add Course",
+      "categories": "Categories",
+      "enrollments": "Enrollments",
+      "history": "History",
+      "enrollStudent": "Enroll Student",
+      "tickets": "Tickets",
+      "surveys": "Survey Questions",
+      "events": "Events & News",
+      "cms": "CMS",
+      "pages": "Pages",
+      "siteContent": "Homepage & FAQ",
+      "sitePages": "Site pages",
+      "blogPosts": "Blog Posts",
+      "mediaLibrary": "Media Library",
+      "banners": "Banners",
+      "settings": "Settings",
+      "account": "My profile",
+      "general": "General",
+      "rolesPerms": "Roles & Perms",
+      "emailTemplates": "Email Templates",
+      "integrations": "Integrations",
+      "freeTrial": "Free trial",
+      "myClasses": "My Classes",
+      "myCohorts": "My Cohorts",
+      "myCourses": "My Courses",
+      "qna": "Course Q&A",
+      "performance": "Performance Analytics",
+      "assignment": "Assignment Grading",
+      "availability": "Scheduling Availability",
+      "exams": "Exams",
+      "flashcards": "Flashcards",
+      "studyPlan": "Study Plan",
+      "instructorApplications": "Instructor Applications",
+      "wallet": "My Wallet",
+      "attendance": "Live Attendance",
+      "coupons": "Coupons",
+      "certificates": "Certificates",
+      "cohorts": "Cohorts",
+      "packages": "Packages",
+      "subscriptions": "Subscriptions",
+      "resources": "Resources",
+      "reviews": "Reviews",
+      "reviewQueue": "Review Queue",
+      "auditLogs": "Audit Logs",
+      "liveSessions": "Live Sessions",
+      "recordings": "Recordings",
+      "bookSession": "Request session",
+      "payments": "Payments",
+      "wishlist": "Wishlist",
+      "progress": "Progress",
+      "studentAssignment": "Assignment",
+      "websiteHome": "Homepage",
+      "websiteExplore": "Browse courses",
+      "websiteInstructors": "Find instructors",
+      "websiteAbout": "About us",
+      "websiteFaq": "FAQ",
+      "homework": "الاسايمينت والتقييم",
+      "studentHomework": "Assignment"
+    }
+  },
+  "student": {
+    "shell": {
+      "tagline": "Your focused path to Step 1"
+    },
+    "overview": {
+      "title": "Overview",
+      "subtitle": "Your learning dashboard at a glance.",
+      "greet": {
+        "morning": "Good morning",
+        "afternoon": "Good afternoon",
+        "evening": "Good evening"
+      },
+      "heroSubtitle": "Track course progress, stay ahead of upcoming exams, and keep your study momentum strong.",
+      "resumeLearning": "Resume learning",
+      "viewExams": "View exams",
+      "overallProgress": "Overall progress",
+      "stats": {
+        "courses": "Enrolled courses",
+        "coursesHint": "Completed in your plan",
+        "avgProgress": "Avg. progress",
+        "avgProgressHint": "Across all courses",
+        "exams": "Upcoming exams",
+        "examsHint": "Available or scheduled",
+        "flashcards": "Flashcards",
+        "flashcardsHint": "Ready to review",
+        "certsHint": "Your certificates"
+      },
+      "continueLearning": "Continue learning",
+      "continueLearningHint": "Pick up exactly where you left off",
+      "upcomingExams": "Upcoming exams",
+      "upcomingExamsHint": "Stay ready before the deadline",
+      "noExams": "No upcoming exams right now.",
+      "quickLinks": "Quick links",
+      "quick": {
+        "exams": "Exams",
+        "flashcards": "Flashcards",
+        "studyPlan": "Study plan",
+        "recordings": "Recordings",
+        "certificates": "Certificates",
+        "progress": "Progress"
+      },
+      "studyPlan": "Study plan",
+      "recordedCourse": "Recorded course",
+      "viewAll": "View all",
+      "noCourses": "Enroll in a course to start learning.",
+      "exploreCta": "Explore courses",
+      "notifications": "Recent alerts",
+      "noNotifications": "No new notifications.",
+      "coursesSummary": "{{count}} courses · {{completed}} completed",
+      "examsSummary": "{{upcoming}} upcoming exams · {{done}} completed",
+      "nearlyDone": "Nearly complete",
+      "withInstructor": "with",
+      "lessons": "lessons",
+      "resume": "Resume",
+      "availableNow": "Available now",
+      "upcoming": "Upcoming",
+      "minutesShort": "m",
+      "noFixedSchedule": "No fixed schedule",
+      "badgeResult": "Result",
+      "badgeExam": "Exam",
+      "badgeAlert": "Alert",
+      "studentFallback": "Student"
+    },
+    "liveSessions": {
+      "title": "Live Sessions",
+      "subtitle": "Join scheduled live classes for your enrolled courses."
+    },
+    "recordings": {
+      "title": "Recordings",
+      "subtitle": "Watch recorded live sessions and lesson videos from your courses.",
+      "typeLive": "Live recording",
+      "typeLesson": "Lesson video",
+      "filterAll": "All types",
+      "loadError": "Could not load recordings.",
+      "empty": "No recordings available yet.",
+      "back": "Back to library",
+      "notesTitle": "Playback notes",
+      "notesHint": "Jot down key points while you watch.",
+      "notePlaceholder": "Add a note…",
+      "addNote": "Add note",
+      "noNotes": "No notes yet.",
+      "noteError": "Could not save note.",
+      "deleteNote": "Delete note",
+      "upNext": "Up next"
+    },
+    "payments": {
+      "title": "Payments",
+      "subtitle": "Track your course purchase requests and receipts.",
+      "loadError": "Could not load payments.",
+      "empty": "No payment requests yet.",
+      "colCourse": "Course / item",
+      "colAmount": "Amount",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colReceipt": "Receipt",
+      "viewReceipt": "View",
+      "unknownItem": "Payment"
+    },
+    "certificates": {
+      "title": "Certificates",
+      "subtitle": "Download certificates for completed courses.",
+      "loadError": "Could not load certificates.",
+      "empty": "Complete a course to earn your first certificate.",
+      "readyToClaim": "Ready to claim",
+      "claim": "Claim PDF",
+      "claimError": "Could not claim certificate.",
+      "issued": "Issued",
+      "download": "Download PDF",
+      "verifyLink": "Verification link",
+      "shareDownload": "Shareable download link",
+      "downloadError": "Could not download certificate."
+    },
+    "tickets": {
+      "title": "Support",
+      "subtitle": "Open a ticket and our team will get back to you.",
+      "new": "New ticket",
+      "subjectPlaceholder": "Subject",
+      "descriptionPlaceholder": "Describe your issue…",
+      "submit": "Submit ticket",
+      "createError": "Could not create ticket.",
+      "loadError": "Could not load tickets.",
+      "empty": "No support tickets yet.",
+      "back": "Back to tickets",
+      "notFound": "Ticket not found.",
+      "statusLabel": "Status",
+      "noMessages": "No messages yet.",
+      "replyPlaceholder": "Write a reply…",
+      "sendReply": "Send reply",
+      "replyError": "Could not send reply.",
+      "priority": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "urgent": "Urgent"
+      }
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "subtitle": "Courses you saved for later.",
+      "loadError": "Could not load wishlist.",
+      "empty": "Your wishlist is empty.",
+      "viewCourse": "View course",
+      "remove": "Remove"
+    },
+    "qna": {
+      "title": "Lesson Q&A",
+      "askPlaceholder": "Ask a question about this lesson…",
+      "ask": "Ask",
+      "askError": "Could not post question.",
+      "answerError": "Could not post answer.",
+      "empty": "No questions yet. Be the first to ask!",
+      "answerPlaceholder": "Write an answer…",
+      "reply": "Reply",
+      "anonymous": "Student",
+      "pageTitle": "My Questions & Inquiries",
+      "pageSubtitle": "Track instructor answers to your queries posted inside course lessons.",
+      "listTitle": "My Inquiries",
+      "loading": "Loading inquiries…",
+      "emptyList": "You have not posted any questions yet.",
+      "questionFallback": "Question",
+      "courseFallback": "Course",
+      "resolved": "Resolved",
+      "pending": "Pending",
+      "instructor": "Instructor",
+      "followUpPlaceholder": "Type your follow-up reply here…",
+      "selectPrompt": "Select a question from the sidebar to view full thread.",
+      "loadError": "Could not load questions.",
+      "replySuccess": "Reply submitted successfully.",
+      "replyError": "Could not submit reply."
+    },
+    "flashcards": {
+      "title": "Flashcards",
+      "subtitle": "Review published flashcards from your available courses.",
+      "allCourses": "All courses",
+      "allSystems": "All systems",
+      "allLectures": "All lectures",
+      "flip": "Flip",
+      "shuffle": "Shuffle",
+      "empty": "No flashcards for this filter yet.",
+      "retry": "Could not load flashcards"
+    },
+    "studyPlan": {
+      "title": "My Study Plan",
+      "subtitle": "Create practical tasks, schedule them, and track completion.",
+      "eyebrow": "Planning",
+      "activePlan": "Active plan",
+      "noPlan": "No plan yet",
+      "today": "Today",
+      "completed": "Completed",
+      "createPlan": "Create your plan",
+      "defaultTitle": "USMLE Step 1 Plan",
+      "addTask": "Add task",
+      "add": "Add",
+      "done": "Done",
+      "undo": "Undo",
+      "unscheduled": "Unscheduled",
+      "empty": "No tasks yet.",
+      "planCreated": "Study plan created.",
+      "taskCreated": "Task added.",
+      "planCreateError": "Could not create study plan.",
+      "taskCreateError": "Could not add task.",
+      "retry": "Could not load plan",
+      "planTitlePlaceholder": "USMLE Step 1 plan",
+      "taskTitlePlaceholder": "Review renal physiology"
+    }
+  },
+  "adminPages": {
+    "common": {
+      "search": "Search...",
+      "actions": "Actions",
+      "save": "Save",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageSize": "Rows per page",
+      "page": "Page {{page}} of {{totalPages}}"
+    },
+    "cohorts": {
+      "title": "Cohorts",
+      "subtitle": "Create and manage course cohorts (schedule, instructor, pricing).",
+      "addCohort": "Add cohort",
+      "editCohort": "Edit cohort",
+      "filters": {
+        "course": "Course",
+        "instructor": "Instructor",
+        "type": "Format",
+        "allCourses": "All courses",
+        "allInstructors": "All instructors",
+        "allTypes": "All formats"
+      },
+      "table": {
+        "name": "Cohort",
+        "course": "Course",
+        "instructor": "Instructor",
+        "type": "Format",
+        "status": "Status",
+        "start": "Start",
+        "price": "Price",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "form": {
+        "name": "Cohort name",
+        "course": "Course",
+        "instructor": "Instructor",
+        "typeLive": "Live",
+        "typeRecorded": "Recorded",
+        "status": "Status",
+        "start": "Start date & time",
+        "end": "End date & time (optional)",
+        "price": "Price (USD)",
+        "save": "Save cohort",
+        "cancel": "Cancel"
+      },
+      "deleteConfirmTitle": "Delete cohort?",
+      "deleteConfirmMessage": "This cannot be undone if students are enrolled — confirm with support if needed.",
+      "deleteConfirm": "Delete",
+      "deleteCancel": "Cancel",
+      "empty": "No cohorts match your filters.",
+      "page": "Page {{page}} of {{totalPages}}",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "packages": {
+      "title": "Credit packages",
+      "subtitle": "One-time packages that grant live, recorded, and private-session credits.",
+      "addPackage": "Add package",
+      "editPackage": "Edit package",
+      "table": {
+        "name": "Name",
+        "level": "Tier",
+        "packagePrice": "Package price",
+        "liveCap": "Live cohorts",
+        "recCap": "Recorded cohorts",
+        "privateCap": "Private sessions",
+        "active": "Active",
+        "recommended": "Featured",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "stats": {
+        "total": "Total packages",
+        "totalHint": "Plans configured for students",
+        "active": "Active",
+        "activeHint": "Visible and available",
+        "featured": "Featured",
+        "featuredHint": "Recommended plans",
+        "startsFrom": "Starts from",
+        "startsFromHint": "Lowest package price",
+        "inactive": "Inactive"
+      },
+      "card": {
+        "inactive": "Inactive",
+        "oneTimePurchase": "one-time purchase",
+        "features": "Benefits",
+        "noFeatures": "No benefits listed yet.",
+        "featureItems": "{{count}} benefit items",
+        "description": "Description"
+      },
+      "formHero": {
+        "create": "Create plan",
+        "update": "Update plan",
+        "newPackage": "New package",
+        "description": "Set the package name, price, credit limits, and benefits that students will see in the app."
+      },
+      "sections": {
+        "identity": {
+          "title": "Package identity",
+          "description": "Name and tier used across admin, checkout, and package screens."
+        },
+        "pricing": {
+          "title": "Pricing",
+          "description": "One-time package price shown to students during checkout."
+        },
+        "limits": {
+          "title": "Credit limits",
+          "description": "How many live cohorts, recorded cohorts, and private sessions this package grants."
+        },
+        "features": {
+          "title": "Package benefits",
+          "description": "Write the benefits in simple language. Students may see this list before buying."
+        },
+        "visibility": {
+          "title": "Visibility",
+          "description": "Control how this package appears in admin and student package screens."
+        }
+      },
+      "form": {
+        "name": "Display name",
+        "level": "Tier level",
+        "priceMonthly": "Package price",
+        "priceYearly": "Legacy price",
+        "featuresLines": "Benefits shown to students",
+        "featuresPlaceholder": "Access to recorded lessons\nCertificate after completion\nPriority support from the team",
+        "featuresHint": "Write one clear benefit per line. Example: Access to recorded lessons.",
+        "liveLimit": "Live cohorts limit",
+        "recordedLimit": "Recorded cohorts limit",
+        "privateLimit": "Private sessions limit",
+        "recommended": "Mark as recommended",
+        "recommendedDescription": "Highlight this plan as the best choice.",
+        "active": "Active for sale",
+        "activeDescription": "Allow this plan to appear as available.",
+        "priceHint": "This is a one-time package price. The credits stay available until students use them.",
+        "save": "Save package",
+        "cancel": "Cancel"
+      },
+      "emptyState": {
+        "title": "No packages yet",
+        "body": "Create a package with pricing, cohort limits, private sessions, and benefits students can understand."
+      },
+      "deleteConfirmTitle": "Delete package?",
+      "deleteConfirmMessage": "Deleting may break existing package balances referencing this package.",
+      "deleteConfirm": "Delete",
+      "deleteCancel": "Cancel",
+      "empty": "No packages yet.",
+      "invalidFeatures": "Please review the benefits list and write one clear benefit per line."
+    },
+    "courseEditor": {
+      "editor": "Editor",
+      "editMetadata": "Edit metadata and linked resources",
+      "curriculum": "Curriculum",
+      "courseSettings": "Course settings",
+      "courseSettingsHint": "Metadata & final exam",
+      "notFound": "Course not found",
+      "node": {
+        "course": "Course",
+        "unit": "Unit",
+        "lesson": "Lesson"
+      },
+      "status": {
+        "published": "Published",
+        "draft": "Draft"
+      },
+      "stats": {
+        "units": "Units",
+        "lessons": "Lessons",
+        "videos": "Videos",
+        "finalExam": "Final exam",
+        "lessonsCount": "{{count}} lessons"
+      },
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "thumbnailUrl": "Thumbnail URL",
+        "videoUrl": "Video URL"
+      },
+      "placeholders": {
+        "title": "Enter title...",
+        "courseSummary": "Course summary..."
+      },
+      "actions": {
+        "addUnit": "Add unit",
+        "addLesson": "Add lesson",
+        "deleteUnit": "Delete unit",
+        "deleteLesson": "Delete lesson",
+        "backToCourses": "Back to courses",
+        "saveChanges": "Save changes",
+        "saving": "Saving...",
+        "changesSaved": "Changes saved",
+        "saveNode": "Save {{node}}",
+        "cancel": "Cancel",
+        "addSection": "Add section",
+        "deleteSection": "Delete section"
+      },
+      "empty": {
+        "noCategory": "No category",
+        "noInstructor": "No instructor",
+        "noUnits": "No units yet",
+        "selectItem": "Select an item to edit",
+        "untitledUnit": "Untitled unit",
+        "noSections": "No sections yet",
+        "untitledSection": "Untitled section"
+      },
+      "defaults": {
+        "unit": "Unit {{n}}",
+        "lesson": "Lesson {{n}}",
+        "section": "Section"
+      },
+      "confirm": {
+        "deleteUnit": "Delete this unit and all its lessons?",
+        "deleteLesson": "Delete this lesson?",
+        "deleteSection": "Delete this section and all its lessons?"
+      },
+      "validation": {
+        "titleRequired": "Title is required",
+        "questionRequired": "Question text is required",
+        "optionRequired": "Option is required"
+      },
+      "toasts": {
+        "unitAdded": "Unit added",
+        "unitAddFailed": "Failed to add unit",
+        "unitRenameFailed": "Failed to rename unit",
+        "unitDeleted": "Unit deleted",
+        "unitDeleteFailed": "Failed to delete unit",
+        "lessonAdded": "Lesson added",
+        "lessonAddFailed": "Failed to add lesson",
+        "lessonDeleted": "Lesson deleted",
+        "lessonDeleteFailed": "Failed to delete lesson",
+        "nodeSaved": "Changes saved successfully",
+        "saveChangesFailed": "Failed to save changes",
+        "questionSaved": "Question {{n}} saved",
+        "saveFailed": "Failed to save",
+        "questionAdded": "Question added",
+        "questionAddFailed": "Failed to add question",
+        "examCreated": "Exam created and linked successfully!",
+        "examCreateFailed": "Failed to create exam",
+        "examLinked": "Exam linked",
+        "examLinkFailed": "Failed to link exam",
+        "examUnlinked": "Exam unlinked",
+        "examUnlinkFailed": "Failed to unlink exam",
+        "sectionAdded": "Section added",
+        "sectionAddFailed": "Failed to add section",
+        "sectionDeleted": "Section deleted",
+        "sectionDeleteFailed": "Failed to delete section",
+        "sectionRenameFailed": "Failed to rename section"
+      },
+      "exam": {
+        "assessment": "Assessment",
+        "questionBankEditor": "Question bank editor",
+        "questionsCount": "Questions ({{count}})",
+        "questionsBankCount": "Question bank ({{count}})",
+        "addQuestion": "+ Add question",
+        "addNewQuestion": "+ Add new question",
+        "questionNumber": "Question {{n}}",
+        "questionTextPlaceholder": "Question text...",
+        "questionPlaceholder": "Write the question...",
+        "multipleChoice": "Multiple choice",
+        "trueFalse": "True/False",
+        "true": "True",
+        "false": "False",
+        "shortAnswer": "Short answer",
+        "points": "Points",
+        "optionNumber": "Option {{n}}",
+        "buildExam": "Build {{target}} exam",
+        "stepLabel": "Step {{step}} of {{total}}: {{label}}",
+        "settings": "Exam settings",
+        "questionBank": "Question bank",
+        "title": "Exam title",
+        "titlePlaceholder": "e.g. Midterm assessment",
+        "duration": "Duration (min)",
+        "passingScore": "Passing score",
+        "backToSettings": "Back to settings",
+        "nextBuildQuestions": "Next: build questions",
+        "saveAndLink": "Save & link exam",
+        "questionsShort": "{{count}} Qs",
+        "minutesShort": "{{count}} min",
+        "editQuestions": "Edit questions",
+        "noExamAttached": "No exam attached",
+        "noExamHint": "Assess students at this level.",
+        "createNew": "Create new",
+        "linkExisting": "Link existing",
+        "searchPlaceholder": "Search standalone exams...",
+        "noAvailableExams": "No available exams found.",
+        "settingsStepHint": "Step 1: exam settings — then add questions",
+        "createAndEditQuestions": "Create & edit questions",
+        "totalPoints": "Total points",
+        "openFullEditor": "Open full exam editor",
+        "viewSubmissions": "View submissions"
+      },
+      "sessions": {
+        "title": "Live sessions",
+        "subtitle": "Schedule group live sessions for this hybrid course.",
+        "courseOwner": "Course Owner",
+        "instructor": "Instructor"
+      },
+      "staff": {
+        "add": "Add",
+        "added": "Staff added",
+        "addFailed": "Failed to add staff",
+        "empty": "No staff assigned",
+        "removed": "Staff removed",
+        "removeFailed": "Failed to remove staff",
+        "selectUser": "Select user",
+        "title": "Course staff"
+      }
+    },
+    "examEditor": {
+      "notFound": "Exam not found",
+      "backToExams": "← Back to exams",
+      "settingsSaved": "Settings saved",
+      "saveFailed": "Failed to save",
+      "questionAdded": "Question added",
+      "questionAddFailed": "Failed to add question",
+      "questionSaved": "Question saved",
+      "questionSaveFailed": "Failed to save",
+      "deleteConfirm": "Delete this question?",
+      "questionDeleted": "Question deleted",
+      "questionDeleteFailed": "Failed to delete",
+      "settingsTitle": "Exam Settings",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "stats": {
+        "questions": "Questions",
+        "totalPoints": "Total Points",
+        "duration": "Duration",
+        "passScore": "Pass Score"
+      }
+    },
+    "userDirectory": {
+      "title": "All users",
+      "subtitle": "Search, filter, and manage every account across roles with server-backed pagination.",
+      "export": "Export CSV (this page)",
+      "filters": {
+        "role": "Role",
+        "status": "Status",
+        "allRoles": "All roles",
+        "allStatuses": "All statuses",
+        "active": "Active",
+        "suspended": "Suspended",
+        "apply": "Apply filters",
+        "searchPlaceholder": "Search name or email…"
+      },
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "created": "Joined",
+        "actions": "Actions"
+      },
+      "pagination": {
+        "page": "Page {{page}} of {{pages}}",
+        "rows": "{{count}} users on this page"
+      },
+      "menu": {
+        "more": "More actions",
+        "editRole": "Edit role",
+        "editDetails": "Edit details"
+      },
+      "slideRole": {
+        "title": "Change role",
+        "role": "Role",
+        "save": "Save role",
+        "select": "Select role"
+      },
+      "slideDetails": {
+        "title": "Edit user",
+        "fullName": "Full name",
+        "email": "Email",
+        "phone": "Phone",
+        "save": "Save changes"
+      },
+      "toggleActive": "Active account",
+      "viewProfile": "View profile",
+      "empty": "No users match your filters.",
+      "loadError": "Could not load users.",
+      "createAssistant": "Create assistant",
+      "saveAssistant": "Save assistant",
+      "assistantCreated": "Assistant created",
+      "createFailed": "Failed to create assistant",
+      "createForm": {
+        "fullName": "Full name",
+        "email": "Email",
+        "tempPassword": "Temp password",
+        "role": "Role"
+      }
+    },
+    "courses": {
+      "contentStatus": "Content status",
+      "submitForReview": "Submit for review",
+      "submittedForReview": "Submitted for review",
+      "submitFailed": "Submit failed",
+      "downloadReviews": "Download reviews PDF report",
+      "pdfSuccess": "Reviews PDF downloaded successfully!",
+      "pdfError": "Failed to download reviews PDF report."
+    },
+    "userDetail": {
+      "title": "User profile",
+      "back": "Back to users",
+      "identity": "Identity",
+      "permissions": "Permissions & role",
+      "openStudent": "Open student record",
+      "openInstructor": "Open instructor record",
+      "lastLogin": "Last login",
+      "customRole": "Custom role",
+      "loadError": "Could not load this user.",
+      "devices": "Devices",
+      "directPermissions": "Direct permissions",
+      "forceLogout": "Force logout",
+      "forceLogoutDone": "User logged out from all sessions.",
+      "grant": "Grant",
+      "grantPermission": "Grant permission",
+      "noDevices": "No devices recorded.",
+      "noDirectPermissions": "No direct permissions.",
+      "noPermissionGrant": "Select a permission first.",
+      "noSessions": "No active sessions.",
+      "permissionGranted": "Permission granted.",
+      "permissionGrantFailed": "Could not grant permission.",
+      "quickLinks": "Quick links",
+      "revoke": "Revoke",
+      "selectPermission": "Select permission",
+      "sessions": "Sessions",
+      "tabs": {
+        "overview": "Overview",
+        "permissions": "Permissions",
+        "sessions": "Sessions"
+      }
+    },
+    "students": {
+      "title": "Students",
+      "subtitle": "Manage all registered students",
+      "addStudent": "Add Student",
+      "totalStudents": "Total Students",
+      "activeThisMonth": "Active This Month",
+      "joinedThisMonth": "Joined This Month",
+      "newThisWeek": "New This Week",
+      "searchPlaceholder": "Search by name or email...",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "courses": "Enrolled Courses",
+        "joined": "Join Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": "No students yet",
+      "addFirst": "Add First Student",
+      "edit": "Edit",
+      "loadError": "Failed to load students list.",
+      "filters": {
+        "all": "All",
+        "active": "Active",
+        "suspended": "Suspended"
+      },
+      "sort": {
+        "newest": "Newest",
+        "oldest": "Oldest",
+        "nameAz": "Name A-Z"
+      },
+      "passwordMin": "Password must be at least 8 characters.",
+      "createTitle": "Create New Student",
+      "editTitle": "Edit Student Profile",
+      "fullName": "Full Name",
+      "emailAddress": "Email Address",
+      "phoneNumber": "Phone Number",
+      "academicLevel": "Academic Level",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "cancel": "Cancel",
+      "saveStudent": "Save Student",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes",
+      "createValidation": "Please fill all required fields. Password must be at least 8 characters.",
+      "createSuccess": "Student created successfully.",
+      "createFailed": "Failed to create student.",
+      "updateSuccess": "Student profile updated successfully.",
+      "updateFailed": "Failed to update student profile.",
+      "accountStatus": "Account Status",
+      "accountStatusHint": "Suspending the account blocks the student from signing in.",
+      "active": "Active",
+      "suspended": "Suspended",
+      "updatePasswordOptional": "Update Password (Optional)",
+      "updatePasswordHint": "If you set a new password, the student will be logged out from all active sessions.",
+      "newPasswordPlaceholder": "New password (min 8 characters)",
+      "passwordMinError": "Password must be at least 8 characters.",
+      "academicLevels": {
+        "unspecified": "General / Unspecified",
+        "preparatory": "Foundation / Pre-Medical",
+        "firstYear": "First Year",
+        "firstYearShort": "Year 1",
+        "secondYear": "Second Year",
+        "secondYearShort": "Year 2",
+        "thirdYear": "Third Year",
+        "thirdYearShort": "Year 3",
+        "fourthYear": "Fourth Year",
+        "fourthYearShort": "Year 4",
+        "graduate": "Graduate"
+      }
+    },
+    "studentDetail": {
+      "course": "Course",
+      "progress": "Progress",
+      "status": "Status",
+      "enrolledDate": "Enrolled Date",
+      "activity": "Activity Timeline",
+      "coursesEnrolled": "Courses Enrolled",
+      "completed": "Completed",
+      "totalSpent": "Total Spent",
+      "lastLogin": "Last Login",
+      "examsTaken": "Exams Taken",
+      "avgExamScore": "Avg Exam Score",
+      "sendMessage": "Send Message",
+      "resetPassword": "Reset Password",
+      "suspendAccount": "Suspend Account",
+      "delete": "Delete",
+      "tabOverview": "Overview",
+      "tabPerformance": "Academic Performance",
+      "tabAttendance": "Attendance",
+      "tabExams": "Exam Results",
+      "tabAssignment": "Assignment Submissions",
+      "tabCourses": "Enrolled Courses",
+      "loading": "Loading student profile...",
+      "loadError": "Failed to load student details.",
+      "quickActions": "Quick Actions",
+      "exams": {
+        "title": "Exam Submissions & Outcomes",
+        "empty": "No exam submissions found for this student.",
+        "colTitle": "Exam Title",
+        "colSubmitted": "Submitted Date",
+        "colScore": "Score",
+        "colPercent": "Percentage",
+        "colStatus": "Outcome",
+        "passed": "Passed",
+        "failed": "Failed",
+        "pending": "Pending"
+      },
+      "assignments": {
+        "title": "Assignment Submissions",
+        "empty": "No assignment submissions found.",
+        "colTitle": "Assignment Title",
+        "colCourse": "Course",
+        "colSubmitted": "Submitted Date",
+        "colGrade": "Grade",
+        "colStatus": "Status",
+        "colGraded": "Graded Date"
+      },
+      "chartCompleteVsActive": "Completed vs in progress",
+      "chartProgressPerCourse": "Progress per course",
+      "perf": {
+        "loadError": "Could not load performance data for this student.",
+        "avgExam": "Average exam score",
+        "examsTaken": "{{count}} exams taken",
+        "hwCompletion": "Assignment completion",
+        "hwAvg": "Avg grade: {{score}}",
+        "overallProgress": "Overall progress",
+        "lessonsDone": "{{done}} / {{total}} lessons completed",
+        "examOutcomes": "Exam outcomes",
+        "passed": "Passed",
+        "failed": "Failed",
+        "pending": "Pending / ungraded",
+        "noExams": "No submitted exams yet.",
+        "passRate": "Pass rate (graded)",
+        "ungradedExam": "Ungraded / unknown",
+        "assignmentPipeline": "Assignment pipeline",
+        "graded": "Graded",
+        "pendingGrade": "Pending grading",
+        "notSubmitted": "Not submitted",
+        "completionRing": "Completion overview",
+        "lessonBased": "Lesson completion",
+        "cohortAvg": "Cohort progress (avg)",
+        "liveAttendance": "Live session attendance",
+        "attendanceNote": "Live sessions completed in enrolled cohorts (context): {{n}}. Per-student attendance is not recorded; progress uses lessons and cohort enrollment.",
+        "recentGrades": "Recent grades",
+        "colType": "Type",
+        "colItem": "Item",
+        "colScore": "Score",
+        "colDate": "Date",
+        "exam": "Exam",
+        "assignment": "Assignment",
+        "noGrades": "No recent grades yet.",
+        "inProgress": "In progress",
+        "homeworkPipeline": "مسار الاسايمينت",
+        "homework": "اسايمينت"
+      },
+      "tabHomework": "Assignment Submissions",
+      "homeworks": {
+        "title": "تقديمات الاسايمينت",
+        "empty": "لا توجد اسايمينت مقدمة.",
+        "colTitle": "عنوان الاسايمينت",
+        "colCourse": "الكورس",
+        "colSubmitted": "تاريخ التقديم",
+        "colGrade": "الدرجة",
+        "colStatus": "الحالة",
+        "colGraded": "تاريخ التصحيح"
+      },
+      "activateAccount": "Activate account",
+      "activated": "Account activated.",
+      "activityEnroll": "Enrolled in course ",
+      "activityExam": "Submitted exam ",
+      "confirmActivate": "Re-activate this student account?",
+      "confirmSuspend": "Suspend this student account? They will not be able to sign in.",
+      "deleteConfirmTitle": "Confirm deletion",
+      "deleted": "Student account deleted.",
+      "deleteFailed": "Could not delete account.",
+      "deleteTypeEmail": "Type the student email exactly to confirm deletion.",
+      "deleteWarn1": "This will permanently remove the student account (soft delete). Continue?",
+      "loadErrorDesc": "The student profile details could not be retrieved.",
+      "noActivity": "No recent activities recorded for this student.",
+      "noCourses": "Student is not enrolled in any courses.",
+      "passwordResetDone": "Password updated.",
+      "passwordResetFailed": "Could not reset password.",
+      "savePassword": "Update password",
+      "sendAndOpenTicket": "Send & open ticket",
+      "suspended": "Account suspended.",
+      "suspendFailed": "Could not update account status.",
+      "ticketCreated": "Support ticket created.",
+      "ticketFailed": "Could not create ticket.",
+      "ticketValidation": "Subject and message (min 10 chars) are required."
+    },
+    "instructorsList": {
+      "title": "Instructors List",
+      "subtitle": "Manage instructor directory",
+      "name": "Name",
+      "email": "Email",
+      "coursesCount": "Courses",
+      "totalStudents": "Total Students",
+      "rating": "Rating",
+      "revenue": "Revenue",
+      "status": "Status",
+      "addInstructor": "Add Instructor"
+    },
+    "instructorDetail": {
+      "course": "Course",
+      "enrollments": "Enrollments",
+      "revenue": "Revenue",
+      "rating": "Rating",
+      "status": "Status",
+      "reviews": {
+        "title": "Student Reviews & Ratings",
+        "empty": "No reviews published yet for this instructor.",
+        "anonymous": "Anonymous Student",
+        "ratingOnly": "Left rating only (no written review)."
+      },
+      "totalCourses": "Total Courses",
+      "totalStudents": "Enrolled Students",
+      "totalRevenue": "Total Revenue",
+      "avgRating": "Avg Rating",
+      "period": "Period",
+      "amount": "Amount",
+      "approve": "Approve",
+      "suspend": "Suspend",
+      "sendMessage": "Send Message",
+      "tabPerformance": "Performance",
+      "performanceLoadError": "Could not load operational performance for this instructor.",
+      "tabAvailability": "Availability",
+      "availabilitySubtitle": "Upcoming open slots this instructor published for bookings.",
+      "availabilityEmpty": "No upcoming availability.",
+      "availabilityLoadError": "Could not load availability for this instructor.",
+      "availabilitySlotStatus": "Available",
+      "active": "Active",
+      "inactive": "Inactive",
+      "loadingProfile": "Loading instructor profile...",
+      "loadErrorTitle": "Failed to load instructor",
+      "loadErrorDesc": "The instructor details could not be retrieved.",
+      "yearsExp": "Years Exp",
+      "tabOverview": "Overview",
+      "tabWallet": "Wallet & Financials",
+      "tabCourses": "Courses",
+      "tabReviews": "Student Reviews",
+      "walletBalance": "Wallet Balance",
+      "totalEarnings": "Total Earnings",
+      "profileInfo": "Profile Information",
+      "experience": "Experience",
+      "years": "Years",
+      "studentsPerCourse": "Students per Course",
+      "noCourses": "No courses available for this instructor yet.",
+      "courseVisibility": "Course Visibility Mix",
+      "noCoursesYet": "No courses created yet.",
+      "quickActions": "Quick Actions",
+      "wallet": {
+        "currentBalance": "Current Balance",
+        "totalRevenue": "Total Revenue",
+        "totalWithdrawn": "Total Withdrawn",
+        "earningsHistory": "Earnings History Curve",
+        "transactions": "Wallet Transactions",
+        "noTransactions": "No transactions recorded yet in this wallet.",
+        "noPayouts": "No payout requests submitted yet.",
+        "payoutRequests": "Payout Requests",
+        "requestDate": "Request Date",
+        "amountRequested": "Amount Requested",
+        "status": "Status",
+        "managePayouts": "Manage all payouts",
+        "payoutMethod": "Payout method",
+        "commissionTitle": "Revenue Share",
+        "commissionSubtitle": "Percentage of each sale credited to this instructor. The platform keeps the remainder.",
+        "commissionInstructor": "Instructor share",
+        "commissionPlatform": "Platform share",
+        "commissionRate": "Instructor rate (%)",
+        "commissionExample": "On a {{amount}} {{currency}} sale, instructor earns {{instructorAmount}} {{currency}} and platform keeps {{platformAmount}} {{currency}}.",
+        "commissionSave": "Save commission rate",
+        "commissionSaved": "Commission rate updated",
+        "commissionSaveFailed": "Failed to update commission rate",
+        "commissionInvalid": "Enter a rate between 0 and 100"
+      },
+      "commissionRate": "Commission rate",
+      "editProfile": "Edit profile",
+      "saveProfile": "Save changes",
+      "cancelEdit": "Cancel",
+      "profileSaved": "Instructor profile updated",
+      "profileSaveFailed": "Failed to update instructor profile",
+      "statusUpdated": "Instructor status updated",
+      "statusUpdateFailed": "Failed to update instructor status",
+      "changePassword": "Change password",
+      "newPassword": "New password",
+      "passwordHint": "Changing the password signs the instructor out of existing sessions.",
+      "passwordUpdated": "Password updated successfully",
+      "passwordUpdateFailed": "Failed to update password",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "bio": "Bio",
+      "phoneInvalid": "Phone must be 7–15 digits, optionally starting with +",
+      "courses": {
+        "title": "Instructor's Courses",
+        "empty": "No courses listed for this instructor.",
+        "colTitle": "Course Title",
+        "colType": "Type",
+        "colStudents": "Enrolled Students",
+        "colRating": "Rating",
+        "colStatus": "Publishing Status"
+      },
+      "availability": {
+        "title": "Availability Slots",
+        "subtitle": "Active calendar slots configured by the instructor for student bookings",
+        "loading": "Loading availability...",
+        "loadError": "Failed to load instructor slots.",
+        "refresh": "Refresh",
+        "empty": "No upcoming availability slots published yet."
+      },
+      "ticketHint": "Creates a support ticket linked to this instructor."
+    },
+    "payouts": {
+      "title": "Payouts",
+      "subtitle": "Approve, reject, or mark instructor payout requests (wallet-backed).",
+      "totalPaid": "Total Paid This Month",
+      "pending": "Pending Payouts",
+      "nextDate": "Next Payout Date",
+      "instructor": "Instructor",
+      "amount": "Amount",
+      "period": "Period",
+      "status": "Status",
+      "date": "Date",
+      "payNow": "Mark paid",
+      "approve": "Approve",
+      "reject": "Reject",
+      "notes": "Admin notes",
+      "filterStatus": "Filter",
+      "allStatuses": "All statuses",
+      "loading": "Loading payouts…",
+      "loadError": "Failed to load payouts.",
+      "retry": "Retry",
+      "updated": "Payout updated.",
+      "processFailed": "Could not process payout.",
+      "details": "Payout Details",
+      "actions": "Actions",
+      "empty": "No payout requests found.",
+      "paidSuccess": "Paid successfully",
+      "viewReceipt": "View Receipt 📄",
+      "markPaid": "Mark as Paid",
+      "approveBtn": "Approve (✔)",
+      "rejectBtn": "Reject (✖)",
+      "statusPaid": "Paid",
+      "statusApproved": "Approved",
+      "statusPending": "Pending",
+      "statusRejected": "Rejected",
+      "rejectReasonRequired": "Please specify a rejection reason",
+      "rejectModalTitle": "Reject Payout Request",
+      "rejectModalBody": "Please capture the reason for rejecting this payout. This note will be visible to the instructor.",
+      "rejectReasonLabel": "Reason / Notes",
+      "rejectReasonPlaceholder": "e.g., Incomplete bank details",
+      "confirmReject": "Confirm Reject",
+      "payModalTitle": "Confirm Payout Transfer",
+      "payModalBody": "Please add any optional notes and upload the transfer receipt (Image or PDF) to confirm the payout.",
+      "additionalNotes": "Additional Notes",
+      "notesPlaceholder": "e.g., Successfully transferred via Vodafone Cash",
+      "attachReceipt": "Attach Receipt / Proof (Optional)",
+      "confirmPayment": "Confirm Payment",
+      "accountLabel": "Acc:",
+      "banks": {
+        "CIB": "Commercial International Bank (CIB)",
+        "NBE": "National Bank of Egypt (NBE)"
+      },
+      "providers": {
+        "vodafone": "Vodafone Cash",
+        "etisalat": "Etisalat Cash",
+        "orange": "Orange Cash",
+        "we": "WE Pay"
+      },
+      "statusLabels": {
+        "PENDING": "Pending",
+        "APPROVED": "Approved",
+        "REJECTED": "Rejected",
+        "PAID": "Paid"
+      }
+    },
+    "addCourse": {
+      "title": "Add Course",
+      "subtitle": "Create and publish a new course",
+      "quickStartTitle": "Quick start, full control",
+      "quickStartBody": "Fill in the essentials below. Once created, you'll be taken to the",
+      "courseStudio": "Course Studio where you can build units, lessons, and attach video content.",
+      "titlePlaceholder": "e.g. Cardiovascular System — Step 1 Review",
+      "descriptionPlaceholder": "Brief overview of what students will learn...",
+      "titleRequired": "Course title is required.",
+      "instructorRequired": "Instructor is required.",
+      "missingId": "Course was created but ID was not returned.",
+      "createFailed": "Failed to create course.",
+      "creating": "Creating...",
+      "createAndOpen": "Create & Open Studio",
+      "step1": "Step 1",
+      "step2": "Step 2",
+      "step3": "Step 3",
+      "titleField": "Course Title",
+      "description": "Description",
+      "category": "Category",
+      "instructor": "Instructor",
+      "price": "Price",
+      "level": "Level",
+      "thumbnailUpload": "Drop image or click to browse",
+      "sectionTitle": "Section title",
+      "addLesson": "Add Lesson",
+      "status": "Status",
+      "language": "Language",
+      "previewUrl": "Preview URL",
+      "metaTitle": "Meta Title",
+      "metaDescription": "Meta Description",
+      "publishCourse": "Publish Course",
+      "courseType": "Course type",
+      "lifetimePurchasable": "Allow lifetime purchase",
+      "priceInvalid": "Enter a valid price.",
+      "publishNow": "Publish immediately (active)",
+      "typeRecorded": "Recorded"
+    },
+    "categories": {
+      "title": "Course Categories",
+      "subtitle": "Manage categories and taxonomy",
+      "nameEn": "Name (EN)",
+      "nameAr": "Name (AR)",
+      "icon": "Icon",
+      "save": "Save Category",
+      "courses": "courses",
+      "add": "Add Category",
+      "total": "Total Categories",
+      "subcategories": "Subcategories",
+      "activeCourses": "Active Courses",
+      "activeCoursesLabel": "Active Courses:",
+      "topLevel": "Top-level category",
+      "subcategoryOf": "Subcategory of: {{name}}",
+      "editTitle": "Edit Category",
+      "createTitle": "Add New Category",
+      "name": "Category Name",
+      "slug": "Slug (Auto-generated)",
+      "parent": "Parent Category (to nested as subcategory)",
+      "parentNone": "-- Top-Level Category (No parent) --",
+      "selectIcon": "Select Category Icon",
+      "description": "Description (Optional)",
+      "cancel": "Cancel",
+      "saveChanges": "Save Changes",
+      "deleteTitle": "Delete Category",
+      "deleteConfirm": "Are you sure you want to delete this category?",
+      "confirmDelete": "Delete",
+      "requiredFields": "Name and Slug are required.",
+      "updated": "Category updated.",
+      "created": "Category created.",
+      "saveFailed": "Failed to save category.",
+      "deleted": "Category deleted.",
+      "deleteFailed": "Failed to delete category.",
+      "loading": "Loading categories...",
+      "loadError": "Failed to load categories.",
+      "retry": "Retry",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "enrollments": {
+      "title": "Enrollment History",
+      "subtitle": "Track all course enrollments",
+      "total": "Total Enrollments",
+      "thisMonth": "This Month",
+      "completionRate": "Completion Rate",
+      "revenue": "Revenue from Enrollments",
+      "student": "Student",
+      "course": "Course",
+      "instructor": "Instructor",
+      "cohort": "Cohort",
+      "enrolledDate": "Enrolled Date",
+      "progress": "Progress",
+      "status": "Status",
+      "price": "Price Paid",
+      "allCourses": "All courses",
+      "allStatuses": "All statuses",
+      "statusActive": "Active",
+      "statusCompleted": "Completed",
+      "statusCohortEnded": "Cohort ended",
+      "showingCount": "Showing {{count}} of {{total}} enrollments",
+      "empty": "No enrollments match your filters.",
+      "lessonsDone": "{{n}} lessons marked done",
+      "listPrice": "Cohort list {{amount}}"
+    },
+    "enrollStudent": {
+      "title": "Enroll Student",
+      "subtitle": "Course → Cohort → Student (manual cohort enrollment)",
+      "student": "Student",
+      "course": "Course",
+      "cohort": "Cohort",
+      "notes": "Notes",
+      "submit": "Enroll Now",
+      "stepCourse": "Course",
+      "stepCohort": "Cohort",
+      "stepStudent": "Student",
+      "selectCourse": "Select a course…",
+      "selectCohort": "Select a cohort…",
+      "selectStudent": "Select a student…",
+      "noCohorts": "No cohorts for this course. Create one under Cohorts first.",
+      "amountOptional": "Amount paid (optional, records a PAID manual payment)",
+      "reset": "Start over",
+      "success": "Enrollment created successfully.",
+      "error": "Enrollment failed."
+    },
+    "cmsPosts": {
+      "title": "Blog posts",
+      "subtitle": "Drafts and published articles on the public /blogs page.",
+      "titlePlaceholder": "New post title",
+      "create": "Create draft",
+      "loading": "Loading posts…",
+      "empty": "No posts yet. Create a draft from the title above.",
+      "edit": "Edit",
+      "viewLive": "View live",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "confirmDelete": "Delete this post? This cannot be undone.",
+      "drawerTitle": "Edit post",
+      "slug": "URL slug",
+      "thumbnailUrl": "Thumbnail URL (optional)",
+      "body": "Body (Markdown)",
+      "publishedLabel": "Published on site",
+      "saveChanges": "Save changes",
+      "fieldTitle": "Title",
+      "bodyAr": "Body (Arabic)",
+      "catBlog": "Blog",
+      "category": "Category",
+      "catInvestigation": "Investigation",
+      "catNews": "News",
+      "fieldTitleAr": "Title (Arabic)"
+    },
+    "cmsBanners": {
+      "title": "Banners",
+      "subtitle": "Promotional images with optional link (e.g. homepage carousel).",
+      "add": "New banner",
+      "edit": "Edit banner",
+      "save": "Save changes",
+      "created": "Banner created.",
+      "updated": "Banner updated.",
+      "active": "Active",
+      "inactive": "Inactive",
+      "untitled": "Untitled",
+      "noLink": "No link",
+      "showOnMobile": "Show on mobile slider",
+      "mobileHint": "Active banners appear on the mobile home slider via GET /public/banners.",
+      "loading": "Loading banners…",
+      "order": "Sort order",
+      "imageUrl": "Image URL",
+      "toggle": "Toggle active",
+      "delete": "Delete",
+      "confirmDelete": "Delete this banner?",
+      "create": "Create banner",
+      "empty": "No banners yet.",
+      "emptyHint": "Add multiple slides for the mobile home banner carousel.",
+      "form": {
+        "title": "Title (optional)",
+        "link": "Link (e.g. /subscription)"
+      }
+    },
+    "settingsRoles": {
+      "title": "Roles & Permissions",
+      "subtitle": "Manage role access matrix",
+      "save": "Save Permissions",
+      "newRole": "New Role",
+      "createRole": "Create new role",
+      "editRole": "Edit role",
+      "editorSubtitle": "Define the role identity and assign granular permissions.",
+      "roleDetails": "Role details",
+      "roleName": "Role name",
+      "description": "Description",
+      "descriptionPlaceholder": "What can this role do?",
+      "permissionsSelected": "permissions selected",
+      "permissionsHint": "Users inherit all checked permissions through this role.",
+      "searchPermissions": "Search permissions…",
+      "permissionsRequired": "Select at least one permission",
+      "roleNameRequired": "Role name is required"
+    },
+    "settingsEmails": {
+      "title": "Email Templates",
+      "subtitle": "Edit transactional email templates",
+      "subject": "Subject",
+      "preview": "Preview",
+      "sendTest": "Send Test Email"
+    },
+    "settingsIntegrations": {
+      "title": "Integrations",
+      "subtitle": "Configure external services",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "configure": "Configure",
+      "testConnection": "Test Connection"
+    },
+    "overview": {
+      "title": "Overview",
+      "subtitle": "Manage platform overview",
+      "courses": "Courses",
+      "students": "Students",
+      "instructors": "Instructors",
+      "enrollments": "Enrollments",
+      "studentStatus": "Student Performance Status",
+      "instructorStatus": "Instructor Performance Status",
+      "enrollmentGrowth": "Enrollment Growth"
+    },
+    "coupons": {
+      "title": "Coupons",
+      "subtitle": "Create, manage, and activate discount coupons"
+    },
+    "certificates": {
+      "title": "Certificates",
+      "subtitle": "Issue and track certificates for students"
+    },
+    "assessments": {
+      "title": "All Assessments",
+      "subtitle": "Track and manage quizzes and exams across the platform",
+      "add": "Add Exam",
+      "total": "Total Assessments",
+      "active": "Active / Completed",
+      "upcoming": "Upcoming / Draft",
+      "search": "Filter by exam, course, or type...",
+      "tip1Title": "Quick Search",
+      "tip1Body": "Filter by exam title, course, or type to quickly find records.",
+      "tip2Title": "Exam Builder",
+      "tip2Body": "Use Add Exam to create new quizzes/exams with questions and grading rules.",
+      "colAssessment": "Assessment",
+      "colType": "Type",
+      "colQuestions": "Questions",
+      "colDuration": "Duration",
+      "colPoints": "Points",
+      "colStatus": "Status",
+      "colActions": "Actions",
+      "standalone": "Standalone",
+      "minutes": "min",
+      "editTitle": "Edit Questions",
+      "viewTitle": "View Submissions",
+      "loading": "Loading exams...",
+      "loadError": "Failed to load exams.",
+      "statusCompleted": "Completed",
+      "statusAvailable": "Available",
+      "statusUpcoming": "Upcoming",
+      "statusDraft": "Draft"
+    },
+    "addExam": {
+      "title": "Create New Exam",
+      "subtitle": "Set the basics, then build your question bank in the editor.",
+      "quickStartTitle": "Quick Start, Full Power",
+      "quickStartDesc": "Fill in the essentials below. Once created, you'll be taken to the Exam Editor where you can add questions, set correct answers, and configure grading.",
+      "examTitle": "Exam Title",
+      "titlePlaceholder": "e.g. Cardiovascular System Practice Exam",
+      "type": "Type",
+      "duration": "Duration (min)",
+      "totalPoints": "Total Points",
+      "passingScore": "Passing Score",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createBtn": "Create & Open Editor",
+      "errorRequired": "Title is required.",
+      "errorCreate": "Failed to create exam.",
+      "errorId": "Exam was created but ID was not returned.",
+      "types": {
+        "STANDALONE": "Standalone Exam",
+        "FINAL": "Final Exam",
+        "UNIT": "Unit Exam",
+        "LESSON": "Lesson Quiz"
+      }
+    },
+    "tickets": {
+      "title": "Support Tickets",
+      "subtitle": "Manage student and instructor support requests",
+      "newBtn": "New Ticket",
+      "statsOpen": "Open Tickets",
+      "statsInProgress": "In Progress",
+      "statsResolved": "Resolved Today",
+      "statsTotal": "Total This Month",
+      "searchPlaceholder": "Search tickets...",
+      "loading": "Loading tickets...",
+      "loadError": "Failed to load tickets.",
+      "emptyTitle": "No tickets found",
+      "emptyDesc": "Support requests will appear here when students or instructors submit them.",
+      "noAccess": "You do not have access to support management.",
+      "noMatch": "No tickets match your filters.",
+      "tooltipView": "View Ticket",
+      "tooltipResolve": "Resolve Ticket",
+      "statuses": {
+        "All": "All Statuses",
+        "OPEN": "Open",
+        "IN_PROGRESS": "In Progress",
+        "RESOLVED": "Resolved",
+        "CLOSED": "Closed"
+      },
+      "priorities": {
+        "All": "All Priorities",
+        "URGENT": "Urgent",
+        "HIGH": "High",
+        "MEDIUM": "Medium",
+        "LOW": "Low"
+      },
+      "table": {
+        "id": "#",
+        "subject": "Subject",
+        "from": "From",
+        "category": "Category",
+        "priority": "Priority",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "replyFailed": "Could not send reply.",
+      "replySent": "Reply sent.",
+      "category": "Category",
+      "general": "General",
+      "conversationFeed": "Support Conversation Feed",
+      "messagesCount": "{{count}} messages",
+      "replyPlaceholder": "Type support response...",
+      "requesterProfile": "Requester Profile",
+      "fullName": "Full Name",
+      "emailAddress": "Email Address",
+      "activeRole": "Active Role",
+      "accountStatus": "Account Status",
+      "active": "Active",
+      "ticketMetadata": "Ticket Metadata",
+      "assignedAdmin": "Assigned Admin:",
+      "unassigned": "Unassigned",
+      "createdDate": "Created Date:",
+      "lastUpdate": "Last Update:",
+      "changeStatus": "Change Status",
+      "confirmStatusChange": "Confirm status change?",
+      "internalNotes": "Secure Internal Notes",
+      "internalNotesHint": "🔒 This field is private. Internal memo response sent along with status transitions.",
+      "internalNotesPlaceholder": "Write secure internal notes...",
+      "notFound": "Ticket not found.",
+      "adminSupport": "Admin Support",
+      "requester": "Requester"
+    },
+    "auditLogs": {
+      "title": "Audit logs",
+      "subtitle": "Track sensitive admin actions across the platform.",
+      "action": "Action",
+      "actor": "Actor",
+      "entity": "Entity",
+      "entityId": "Entity ID",
+      "when": "When",
+      "loadError": "Could not load audit logs."
+    },
+    "cmsPages": {
+      "title": "Site pages",
+      "subtitle": "Edit footer pages in English and Arabic — contact, terms, guide, and more.",
+      "aboutFaqNote": "About, FAQ, and homepage hero are edited under Site content (/admin/cms). Blog posts under Blog posts.",
+      "addSection": "Add section",
+      "emptySeed": "No pages in database. Run seed or migration to create default pages.",
+      "inbox": "Contact form inbox",
+      "inboxEmpty": "No messages yet.",
+      "markRead": "Mark as read",
+      "preview": "Preview",
+      "published": "Published (visible on site)",
+      "saved": "Page saved.",
+      "sectionBody": "Body text",
+      "sectionHeading": "Heading",
+      "sectionList": "Bullet list (one item per line)",
+      "sections": "Content sections",
+      "selectPage": "Select a page.",
+      "subtitleAr": "Subtitle (Arabic)",
+      "subtitleEn": "Subtitle (English)",
+      "titleAr": "Title (Arabic)",
+      "titleEn": "Title (English)"
+    },
+    "otp": {
+      "title": "Verification code",
+      "description": "Enter the one-time code sent to your email.",
+      "confirm": "Verify",
+      "invalid": "Invalid or expired code.",
+      "resend": "Resend code",
+      "sendFailed": "Could not send code.",
+      "sent": "Code sent.",
+      "verifyFailed": "Verification failed."
+    },
+    "reviewQueue": {
+      "title": "Review queue",
+      "subtitle": "Approve or reject pending content and requests.",
+      "approve": "Approve",
+      "approved": "Approved.",
+      "approveFailed": "Could not approve.",
+      "confirmReject": "Reject this item?",
+      "instructor": "Instructor",
+      "loadError": "Could not load review queue.",
+      "reject": "Reject",
+      "rejected": "Rejected.",
+      "rejectFailed": "Could not reject.",
+      "rejectPlaceholder": "Reason for rejection…",
+      "rejectTitle": "Reject request",
+      "status": "Status"
+    },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "subtitle": "Manage user subscription access"
+    },
+    "integrations": {
+      "title": "Integrations",
+      "subtitle": "Configured via server environment variables — no fake UI saves",
+      "smtpName": "SMTP Email",
+      "smtpNote": "Required for password reset, OTP, and template test sends",
+      "manualName": "Manual payments",
+      "manualNote": "Bank-transfer instructions shown at checkout — no card gateway in current scope",
+      "webhooksName": "Payment webhooks",
+      "webhooksNote": "Disabled by default; requires HMAC signature when enabled"
+    },
+    "qna": {
+      "title": "Student Q&A",
+      "subtitle": "View and reply to student questions from lessons.",
+      "allCourses": "All courses",
+      "filterPending": "Pending",
+      "filterResolved": "Resolved",
+      "filterAll": "All",
+      "listTitle": "Incoming inquiries",
+      "loading": "Loading questions…",
+      "empty": "No questions match this filter.",
+      "questionFallback": "Inquiry",
+      "anonymous": "Student",
+      "instructor": "Instructor",
+      "staff": "Support staff",
+      "pending": "Under review",
+      "resolved": "Resolved",
+      "reopen": "Reopen",
+      "markResolved": "Mark resolved",
+      "replyPlaceholder": "Write your reply…",
+      "reply": "Send reply",
+      "selectPrompt": "Select an inquiry from the list.",
+      "loadError": "Could not load inquiries.",
+      "replySuccess": "Reply sent successfully.",
+      "replyError": "Could not send reply.",
+      "statusUpdated": "Question status updated.",
+      "statusError": "Could not update status."
+    },
+    "finance": {
+      "netPlatformRevenue": "Net Platform Revenue",
+      "pendingPayoutsValue": "Pending Payouts Value",
+      "stable": "Stable",
+      "gatewaySuccessRate": "Gateway Success Rate",
+      "dailyCashVolume": "Daily Cash Volume",
+      "paymentMethodsTitle": "Payment Methods Distribution",
+      "paymentMethodsSubtitle": "User preference checkouts split",
+      "totalIntake": "Total Intake",
+      "dailyIntakeTitle": "Daily Intake Timeline",
+      "dailyIntakeSubtitle": "Spline area graph of intake inflow",
+      "successIntake": "Success Intake",
+      "filterAll": "All Transactions",
+      "filterPaid": "Paid",
+      "filterPending": "Pending",
+      "filterRefunded": "Refunded/Failed",
+      "refresh": "Refresh",
+      "colInvoice": "Invoice",
+      "colParentStudent": "Parent/Student",
+      "colTarget": "Target",
+      "colAmount": "Amount",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colAction": "Action",
+      "methodVodafone": "Vodafone Cash",
+      "methodInstapay": "InstaPay",
+      "methodCreditCards": "Credit Cards",
+      "proof": "Proof"
+    },
+    "performance": {
+      "title": "Performance Analytics",
+      "subtitle": "Monitor instructional velocity, engagement metrics, and class retention",
+      "courseCompletionVelocity": "Course Completion Velocity",
+      "globalInstructionRating": "Global Instruction Rating",
+      "examPassRatio": "Exam Pass Ratio",
+      "activeToday": "Active Today",
+      "dailyContentEngagement": "Daily Content Engagement",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "allCourses": "All courses",
+      "allInstructors": "All instructors",
+      "retentionTitle": "Student Retention Curve",
+      "retentionSubtitle": "Module interaction drop-off timeline",
+      "retention": "Retention",
+      "submissionsTitle": "Academic Submissions Metric",
+      "submissionsSubtitle": "Course progress vs completion rate",
+      "courseProgress": "Course progress",
+      "completionRate": "Completion rate",
+      "weeklyEngagementTitle": "Weekly Engagement Trend",
+      "weeklyEngagementSubtitle": "Enrollment activity over the last 7 days",
+      "engagement": "Engagement",
+      "topInstructorsTitle": "Top Instructors Ledger",
+      "topInstructorsSubtitle": "Best performing teachers & student volume",
+      "colTeacher": "Teacher",
+      "colRating": "Rating",
+      "colActiveStudents": "Active Students",
+      "noRecords": "No records found",
+      "trendingTitle": "Trending Courses Backlog",
+      "trendingSubtitle": "Fastest growing cohorts by enrollments",
+      "new": "new",
+      "total": "total"
+    },
+    "examSubmissions": {
+      "exportExcel": "Export Excel (.xlsx)"
+    },
+    "events": {
+      "title": "Events & News Dashboard",
+      "subtitle": "Schedule and configure Step 1 webinars, medical review sessions, and question workshops.",
+      "addNew": "Add New Event",
+      "empty": "No events configured yet.",
+      "table": {
+        "title": "Event Title",
+        "date": "Event Date",
+        "location": "Location / URL",
+        "active": "Active?",
+        "actions": "Actions"
+      },
+      "toggleActive": "Toggle active status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "edit": "Edit",
+      "delete": "Delete",
+      "modalEdit": "Edit Event",
+      "modalCreate": "Add New Event",
+      "titleAr": "Event Title (Arabic)",
+      "titleEn": "Event Title (English)",
+      "titleArPlaceholder": "e.g. Smart Structures Seminar",
+      "descAr": "Details & Description (Arabic)",
+      "descEn": "Details & Description (English)",
+      "descArPlaceholder": "Write the event details and agenda here...",
+      "descEnPlaceholder": "Describe the event itinerary, webinar schedules...",
+      "eventDate": "Event Date & Time",
+      "location": "Location (Room / URL Link)",
+      "locationPlaceholder": "e.g. Room 402 or https://...",
+      "bannerUrl": "Banner Cover Image URL (Optional)",
+      "publishNow": "Publish event immediately to students",
+      "cancel": "Cancel",
+      "save": "Save Event",
+      "deleteTitle": "Delete Event",
+      "deleteConfirm": "Are you sure you want to delete event: \"{{title}}\" permanently?",
+      "loadError": "Failed to load events.",
+      "requiredFields": "Please fill in all required fields.",
+      "updated": "Event updated successfully ✅",
+      "created": "Event added successfully ✅",
+      "saveFailed": "Failed to save event.",
+      "statusToggled": "Event status toggled successfully.",
+      "toggleFailed": "Failed to toggle status.",
+      "deleted": "Event deleted successfully.",
+      "deleteFailed": "Failed to delete event."
+    }
+  },
+  "overview": {
+    "title": "Overview",
+    "subtitle": "Track platform growth and key metrics",
+    "totalStudents": "Total Students",
+    "totalInstructors": "Total Instructors",
+    "activeCourses": "Active Courses",
+    "totalRevenue": "Total Revenue",
+    "vsLastMonth": "vs last month",
+    "noDataYet": "No data yet",
+    "revenueAnalytics": "Revenue Analytics",
+    "monthlyEarnings": "Monthly Earnings Overview",
+    "weeklyEnrollments": "Weekly Enrollments",
+    "studentActivity": "Student Activity",
+    "topInstructors": "Top Instructors",
+    "bestTeachers": "Best Performing Teachers",
+    "activityFeed": "Activity Feed",
+    "viewAll": "View All",
+    "clearHistory": "Clear History",
+    "newStudents": "New Students",
+    "completions": "Completions",
+    "platformStatus": "Platform Status",
+    "allSystemsOk": "All systems operational",
+    "chartsUnavailable": "Detailed charts are not available in this release; key stats are shown above.",
+    "lastSynced": "Last synced",
+    "minAgo": "2 min ago",
+    "newThisWeek": "new this week",
+    "quickActions": {
+      "title": "Quick Operational Actions",
+      "subtitle": "Common platform tasks",
+      "createCourse": "Create New Course",
+      "enrollStudent": "Enroll Student Manually",
+      "generateCoupon": "Generate Promo Coupon"
+    },
+    "recentPlatformActivity": "Recent Platform Activity",
+    "recentPlatformActivityHint": "Instant operational heartbeat view",
+    "noRecentActivity": "No platform activity recorded yet.",
+    "activityTypeAudit": "Audit",
+    "activityTypeSession": "Session",
+    "revenueStreams": "Revenue Streams Split",
+    "revenueStreamsHint": "Recorded vs Subscriptions vs Live",
+    "recordedCourses": "Recorded Courses",
+    "packages": "Subscriptions & Packages",
+    "liveCohorts": "Live Cohorts",
+    "totalSales": "Total Sales",
+    "securityGuardrail": "Security Guardrail",
+    "concurrentSessions": "Flagged Concurrent Sessions",
+    "forceLogouts": "Force Logouts Today",
+    "operationalBottlenecks": "Operational Bottlenecks",
+    "ticketsBacklog": "Tickets Backlog",
+    "reviewQueue": "Course Review Queue",
+    "platformVolume": "Platform Volume",
+    "topCoursesByEnrollment": "Top courses (active enrollments)",
+    "topCoursesByEnrollmentHint": "Live & ongoing cohorts",
+    "enrollmentCount": "Enrollments",
+    "recentActivityHint": "Latest enrollments & payments",
+    "activityPayment": "Payment",
+    "advanced": {
+      "audience": {
+        "title": "Audience Overview",
+        "subtitle": "Users, sessions, and engagement trends"
+      },
+      "stats": {
+        "users": "Users",
+        "sessions": "Sessions",
+        "bounceRate": "Bounce Rate",
+        "avgTime": "Avg. Time"
+      },
+      "coursePerformance": {
+        "title": "Course Performance",
+        "subtitle": "Top courses radar analysis",
+        "legend": "Composite performance score"
+      },
+      "topCategories": {
+        "title": "Top Categories",
+        "students": "students",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "allTime": "All Time"
+      }
+    }
+  },
+  "months": {
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday"
+  },
+  "header": {
+    "logoAlt": "Yaser USMLE",
+    "search": "Search resources...",
+    "admin": "System Admin",
+    "notifications": "Notifications",
+    "notificationsEmpty": "No notifications",
+    "notificationsMarkAll": "Mark all read",
+    "topbar": {
+      "visitTime": "Visit time: Mon-Sat 9:00-19:00",
+      "phone": "(+22) 123 456 7890",
+      "language": "Language"
+    },
+    "nav": {
+      "home": "Home",
+      "subscription": "Subscription",
+      "explore": "Explore",
+      "packages": "Packages",
+      "instructors": "Instructors",
+      "myClasses": "My Cohorts",
+      "myDashboard": "My dashboard",
+      "bookPrivate": "Request private session",
+      "events": "Events & News"
+    },
+    "actions": {
+      "login": "Login",
+      "signUp": "Sign Up"
+    },
+    "mobile": {
+      "menuToggle": "Toggle menu"
+    },
+    "toggleTheme": "Toggle theme",
+    "dropdown": {
+      "open": "Open user menu",
+      "myClasses": "My Cohorts",
+      "recordings": "Recordings",
+      "assignment": "Assignment",
+      "exams": "Exams",
+      "progress": "Progress",
+      "settings": "Settings",
+      "logout": "Log Out",
+      "homework": "الاسايمينت",
+      "adminDashboard": "Admin dashboard",
+      "instructorDashboard": "Instructor dashboard",
+      "students": "Students",
+      "courses": "Courses",
+      "myCourses": "My courses"
+    },
+    "dashboardMenu": {
+      "account": "My profile",
+      "platformSettings": "Platform settings",
+      "instructorHome": "Dashboard home",
+      "studentHome": "My dashboard",
+      "studentPanel": "Student panel",
+      "instructorPanel": "Instructor panel",
+      "visitWebsite": "Visit website",
+      "websiteHome": "Homepage",
+      "websiteExplore": "Browse courses",
+      "websiteInstructors": "Find instructors",
+      "switchRole": "Switch role",
+      "logout": "Log out",
+      "accountActions": "Account",
+      "adminPanel": "Admin panel"
+    },
+    "themeToggle": "Toggle theme",
+    "roles": {
+      "superAdmin": "Platform owner",
+      "admin": "Admin",
+      "instructor": "Instructor",
+      "student": "Student",
+      "staff": "Staff",
+      "userFallback": "User"
+    }
+  },
+  "hero": {
+    "upperTag": "Prepare for USMLE Step 1 — Structured · Evidence-Based · Accessible",
+    "headline": {
+      "start": "Master",
+      "highlight": "USMLE Step 1"
+    },
+    "subheadline": "Structured systems-based courses · Practice quizzes · Flashcards · Study planning — everything in one platform.",
+    "features": {
+      "experts": "Expert Guidance",
+      "liveCohorts": "Systems-Based Curriculum",
+      "membership": "Flexible Access Plans"
+    },
+    "actions": {
+      "startLearning": "Explore Courses",
+      "watchNow": "See How It Works"
+    },
+    "socialProof": {
+      "studentsCount": "Trusted by medical students worldwide",
+      "engineersCount": "Trusted by medical students worldwide",
+      "rating": "Highly rated by students"
+    },
+    "bannerAlt": "USMLE Step 1 course preview"
+  },
+  "features": {
+    "titlePrefix": "Everything you need",
+    "titleBrand": "Yaser USMLE",
+    "subtitle": "An integrated platform combining medical content, quizzes, flashcards, and review plans in one place.",
+    "learnMore": "Learn more",
+    "items": {
+      "structuredCourses": {
+        "title": "Systems-Based Courses",
+        "description": "Follow a structured curriculum organized by organ systems — from cardiovascular to renal — designed specifically for USMLE Step 1 success."
+      },
+      "flashcards": {
+        "title": "Smart Flashcards",
+        "description": "Review high-yield facts with organized flashcard decks grouped by system and topic, built to reinforce your learning and improve retention."
+      },
+      "quizzes": {
+        "title": "Practice Quizzes",
+        "description": "Test your understanding with system-specific quizzes, get immediate feedback, and track your performance across every topic area."
+      },
+      "studyPlan": {
+        "title": "Study Planning",
+        "description": "Organize your preparation with a personalized study plan — set daily targets, track progress, and stay on schedule for exam day."
+      },
+      "liveClasses": {
+        "title": "Systems-Based Courses",
+        "description": "Follow a structured curriculum organized by organ systems designed specifically for USMLE Step 1."
+      },
+      "groupAndOneToOne": {
+        "title": "Expert Guidance",
+        "description": "Learn from Dr. Yaser and a team of expert educators focused entirely on USMLE preparation."
+      },
+      "assignmentAndPractice": {
+        "title": "Practice Quizzes",
+        "description": "Test your understanding with system-specific quizzes and get immediate feedback."
+      },
+      "recordedSessions": {
+        "title": "Study Planning",
+        "description": "Organize your preparation with a personalized study plan and track your progress."
+      },
+      "homeworkAndPractice": {
+        "title": "اختبارات تدريبية",
+        "description": "اختبر فهمك بأسئلة مخصصة واحصل على تغذية راجعة فورية."
+      }
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "A complete learning experience",
+    "titleStart": "Your learning journey",
+    "titleAccent": "from understanding to confidence",
+    "subtitle": "Yaser USMLE brings content, practice, and progress tracking into one focused learning experience.",
+    "steps": {
+      "step1": {
+        "title": "Choose your learning path",
+        "description": "Start with the path that fits your preparation level and goals, with organized access to every lecture and resource you need."
+      },
+      "step2": {
+        "title": "Understand concepts deeply",
+        "description": "Master every organ system through clear explanations, thoughtful sequencing, and clinical connections that make knowledge stick."
+      },
+      "step3": {
+        "title": "Practice and review smarter",
+        "description": "Turn knowledge into skill with assessments, flashcards, and explanations that reveal both strengths and learning gaps."
+      },
+      "step4": {
+        "title": "Measure readiness with confidence",
+        "description": "Track your progress, organize your time with a clear study plan, and know where you stand before USMLE Step 1."
+      }
+    }
+  },
+  "learningStyle": {
+    "titlePrefix": "Choose Your",
+    "titleAccent": "Learning Style",
+    "subtitle": "Select the option that best fits your schedule and learning preferences",
+    "cards": {
+      "cohorts": {
+        "title": "Live cohorts",
+        "description": "Learn in a fixed cohort with scheduled live classes, classmates, and a clear syllabus from week one.",
+        "features": {
+          "affordable": "Structured pricing by program",
+          "peerInteractions": "Learn alongside motivated peers",
+          "community": "Build momentum with your cohort"
+        },
+        "button": "Browse cohort courses"
+      },
+      "privateSessions": {
+        "title": "Private sessions",
+        "description": "Book private time with instructors for speaking practice, exam prep, or topics you want to go deeper on.",
+        "features": {
+          "curriculum": "Focused on your goals",
+          "flexible": "Flexible scheduling",
+          "progress": "Accelerate tricky skills"
+        },
+        "button": "View plans & booking"
+      }
+    }
+  },
+  "feedback": {
+    "titlePrefix": "Some valuable",
+    "titleHighlight": "feedback",
+    "titleSuffix": "from our students",
+    "subtitle": "Real reviews from learners enrolled in Yaser USMLE courses appear here when published.",
+    "button": "Browse courses",
+    "anonymousStudent": "Student",
+    "noComment": "Rated this course (no written review).",
+    "empty": {
+      "title": "Reviews will appear here",
+      "description": "We only show verified reviews from enrolled students. Explore courses to get started—your feedback can help the next learner.",
+      "ctaExplore": "Explore courses",
+      "ctaSignup": "Create account"
+    },
+    "discover": {
+      "title": "Find your next course",
+      "subtitle": "Browse live cohorts, instructors, and syllabi in one place.",
+      "cta": "Go to Explore"
+    },
+    "rating": {
+      "fromPublished": "Average from {{count}} published review(s) on Yaser USMLE."
+    }
+  },
+  "publicFaq": {
+    "title": "Everything to know before you begin",
+    "subtitle": "Clear answers about the learning experience, courses, enrollment, and access to Yaser USMLE content.",
+    "pageTitlePrefix": "Clear answers",
+    "pageTitleAccent": "before you begin",
+    "pageSubtitle": "Find everything about courses, bundles, payment, and content access, and get the answer you need quickly.",
+    "searchPlaceholder": "Search for your question…",
+    "viewAll": "View all questions",
+    "loadError": "We could not load help content right now. Please try again later.",
+    "empty": "No FAQ entries are published yet.",
+    "ctaExplore": "Browse courses",
+    "footerPlans": "View subscription plans",
+    "items": {
+      "q1": {
+        "question": "What is the learning format at Yaser USMLE?",
+        "answer": "We offer structured, systems-based recorded courses combined with practice quizzes, flashcards, and a study planner — all in one platform designed specifically for USMLE Step 1 preparation."
+      },
+      "q2": {
+        "question": "Who are the courses designed for?",
+        "answer": "For medical students and graduates preparing for USMLE Step 1 who want a structured, evidence-based approach guided by expert educators."
+      },
+      "q3": {
+        "question": "How do I access a course after enrolling?",
+        "answer": "After your enrollment is approved, you will have immediate access to all course lectures, materials, quizzes, and flashcards from your student dashboard."
+      },
+      "q4": {
+        "question": "What payment methods are supported?",
+        "answer": "We support manual bank transfer payments. Upload your payment proof and our team will verify and activate your access within one business day."
+      },
+      "q5": {
+        "question": "Is content available in Arabic and English?",
+        "answer": "The platform interface supports Arabic and English. Each course page identifies the teaching language and available materials before enrollment."
+      },
+      "q6": {
+        "question": "What should I do if I have an account or access issue?",
+        "answer": "Contact our support team from the contact page or open a ticket from your student dashboard, and we will review any account, payment, or access issue."
+      }
+    }
+  },
+  "publicContact": {
+    "title": "Contact Us",
+    "eyebrow": "The Yaser USMLE team is here",
+    "heroPrefix": "How can we",
+    "heroAccent": "help you today?",
+    "subtitle": "Whether your question concerns your account, a course, or payment, send the details and our team will direct your request to the right person.",
+    "responseTitle": "Clear, human support",
+    "responseTime": "Messages are reviewed by request priority",
+    "responseBody": "For a more accurate response, use the email linked to your account and include the order number for payment questions.",
+    "channels": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location"
+    },
+    "beforeTitle": "Before you send",
+    "prepareTitle": "Help us assist you faster",
+    "prepare": {
+      "1": "Use the email address linked to your account.",
+      "2": "Include an order number or course name when relevant.",
+      "3": "Clearly explain the issue and the steps leading to it."
+    },
+    "quick": {
+      "faqTitle": "Help center",
+      "faqBody": "Quick answers to common questions",
+      "refundTitle": "Refund policy",
+      "refundBody": "Review eligibility and request steps"
+    },
+    "formTitle": "Send your message",
+    "formSubtitle": "Choose a request type, add the details, and we will follow up by email.",
+    "nameLabel": "Full name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email address",
+    "subjectLabel": "Request type",
+    "topicPlaceholder": "Choose the relevant topic",
+    "topics": {
+      "account": "Account and login",
+      "course": "Courses and content",
+      "payment": "Payment and enrollment",
+      "technical": "Technical issue",
+      "instructor": "Teaching with us",
+      "other": "Another topic"
+    },
+    "messageLabel": "Message details",
+    "messagePlaceholder": "Tell us what you need help with...",
+    "submit": "Send message",
+    "formSuccess": "Your message was sent successfully. Our team will contact you soon.",
+    "formError": "The message could not be sent. Please try again."
+  },
+  "publicRefund": {
+    "title": "Refund Policy",
+    "eyebrow": "Fair and transparent request review",
+    "heroPrefix": "Refund requests,",
+    "heroAccent": "clearly explained",
+    "subtitle": "This policy explains which cases can be reviewed, what we need to process a request, how decisions are made, and how approved amounts are returned.",
+    "effectiveDate": "Policy effective July 2026",
+    "processEyebrow": "Request journey",
+    "processTitle": "From submission to resolution",
+    "caseReview": "Each case is reviewed on its facts",
+    "journey": {
+      "submit": "Submit request",
+      "verify": "Verify details",
+      "decision": "Issue decision",
+      "return": "Return funds"
+    },
+    "contentsTitle": "Policy details",
+    "beforeRequestTitle": "Before you submit",
+    "beforeRequestBody": "Prepare your account email, order number, payment proof, and reason for requesting a refund.",
+    "sections": {
+      "scope": {
+        "title": "Scope of this policy",
+        "body": "This policy applies to course and bundle purchases paid directly to Yaser USMLE. Eligibility depends on activation status, content usage, the reason for the request, and any terms clearly displayed on the offer page at purchase."
+      },
+      "eligible": {
+        "title": "Cases that may be eligible",
+        "body": "Requests are reviewed fairly, and the examples below do not mean automatic approval. The team verifies payment and access records before deciding.",
+        "points": {
+          "1": "A duplicate charge or transfer for the same transaction.",
+          "2": "A material failure by the platform to provide paid content.",
+          "3": "A request made before activation or substantial content use."
+        }
+      },
+      "notEligible": {
+        "title": "Cases generally not eligible",
+        "body": "Because content is digital, a request may be declined when the service has been substantially used or the terms of use have been violated.",
+        "points": {
+          "1": "Completing or viewing a substantial portion of a course or downloading resources.",
+          "2": "Access expiration or a change of mind after using the content.",
+          "3": "Account suspension for sharing access, copying content, or misuse."
+        }
+      },
+      "request": {
+        "title": "How to submit a request",
+        "body": "Submit promptly through the official contact page using the email linked to your account. A complete request helps the team reach a decision sooner.",
+        "points": {
+          "1": "Include the order number and course or bundle name.",
+          "2": "Attach payment proof and specify the transfer method and date.",
+          "3": "Clearly explain your reason and any technical issue encountered."
+        }
+      },
+      "review": {
+        "title": "Review and decision",
+        "body": "The team reviews payment status, activation time, access history, and relevant communication. We may ask for more information to verify identity or the transaction. The decision is sent through your registered contact method and may be full or partial where appropriate."
+      },
+      "processing": {
+        "title": "Returning an approved amount",
+        "body": "Once approved, funds are returned to the original payment method where possible or through a verified transfer method agreed by both parties. Posting time depends on the bank or payment provider and generally excludes non-refundable external fees."
+      },
+      "contact": {
+        "title": "Questions and reconsideration",
+        "body": "If you believe a decision missed important information, reply with supporting documents and ask for reconsideration. Contact us before opening a bank dispute so the team can review the transaction, without limiting rights available under applicable law."
+      }
+    },
+    "footerTitle": "Would you like us to review a purchase?",
+    "footerBody": "Send the order details and payment proof from the email connected to your account, and our support team will review them.",
+    "startRequest": "Start a refund request"
+  },
+  "publicPrivacy": {
+    "title": "Privacy Policy",
+    "eyebrow": "Privacy at Yaser USMLE",
+    "heroPrefix": "Your data is part of",
+    "heroAccent": "your trust in us",
+    "subtitle": "This policy explains what data we collect, why we use it, how we protect it, and the choices available when you use the Yaser USMLE learning experience.",
+    "promiseTitle": "Our privacy commitment",
+    "promiseBody": "We use data to operate your learning experience and support your account. We do not sell your personal data to advertisers.",
+    "effectiveDate": "Last updated: July 2026",
+    "contentsTitle": "Inside this policy",
+    "requestTitle": "A request about your data",
+    "requestBody": "You may request access, correction, or deletion of your data, subject to applicable law.",
+    "contact": "Contact the privacy team",
+    "summary": {
+      "noSale": {
+        "title": "We do not sell your data",
+        "body": "Learners' personal information is not sold for advertising."
+      },
+      "transparent": {
+        "title": "Transparent use",
+        "body": "We collect what is needed to operate accounts, learning, and support."
+      },
+      "control": {
+        "title": "You stay in control",
+        "body": "You can review and update information and submit privacy requests."
+      }
+    },
+    "sections": {
+      "collection": {
+        "title": "Data we collect",
+        "body": "The data we process depends on how you use the platform and the features you choose. You provide some information directly, while other data is generated during learning.",
+        "points": {
+          "1": "Account, profile, and contact information.",
+          "2": "Enrollments, progress, exams, and study plans.",
+          "3": "Payment requests, transfer proof, and subscription history.",
+          "4": "Device, usage, and support communication data."
+        }
+      },
+      "usage": {
+        "title": "How we use data",
+        "body": "We use information to provide contracted services, maintain security, improve content and learner experience, and meet applicable legal requirements.",
+        "points": {
+          "1": "Create accounts and enroll you in courses and bundles.",
+          "2": "Save progress and present results and learning recommendations.",
+          "3": "Review payments and respond to support requests.",
+          "4": "Prevent fraud, analyze performance, and improve the platform."
+        }
+      },
+      "cookies": {
+        "title": "Cookies and similar technology",
+        "body": "The platform may use cookies and local storage needed to sign you in, remember language and settings, secure sessions, and measure performance. You can control non-essential cookies through browser settings where available, but disabling essential storage may affect the service."
+      },
+      "sharing": {
+        "title": "When we share data",
+        "body": "We do not sell personal information. We may share the minimum necessary with service providers acting on our behalf, when required by law, or to protect platform and user rights.",
+        "points": {
+          "1": "Hosting, infrastructure, and secure storage providers.",
+          "2": "Email, notification, and customer support services.",
+          "3": "Payment providers when an integrated payment method is used.",
+          "4": "Competent authorities under a valid legal obligation."
+        }
+      },
+      "security": {
+        "title": "Information security",
+        "body": "We apply reasonable technical and organizational controls to protect data against unauthorized access, alteration, or loss. No transmission or storage method is completely secure, so use a strong password and report suspicious activity."
+      },
+      "retention": {
+        "title": "How long we retain data",
+        "body": "We retain information while an account is active and as necessary to provide services, meet financial and legal obligations, and resolve disputes. When no longer needed, data is securely deleted or anonymized under applicable retention practices."
+      },
+      "rights": {
+        "title": "Your rights and choices",
+        "body": "Subject to applicable law, you may submit a request concerning your data. We may need to verify your identity before acting, and limited legal exceptions may apply.",
+        "points": {
+          "1": "Access a copy of your personal data.",
+          "2": "Correct inaccurate information or update it.",
+          "3": "Request deletion or restriction of certain processing.",
+          "4": "Opt out of marketing and adjust your preferences."
+        }
+      },
+      "updates": {
+        "title": "Policy updates and contact",
+        "body": "We may update this policy when services or legal requirements change. The new version and date will be published here, with additional notice for material changes where appropriate. Use the official contact page for questions or requests."
+      }
+    },
+    "footerTitle": "Privacy starts with clear communication",
+    "footerBody": "If you have a question about your data or want to exercise a right, send a request to the Yaser USMLE team."
+  },
+  "publicTerms": {
+    "title": "Terms and Conditions",
+    "eyebrow": "Yaser USMLE User Agreement",
+    "heroPrefix": "Clear terms protecting",
+    "heroAccent": "your learning experience",
+    "subtitle": "These terms explain the responsibilities of learners and the platform when creating an account, purchasing courses or bundles, and accessing educational content.",
+    "effectiveDate": "Effective July 2026",
+    "readingTime": "Estimated reading time: 8 minutes",
+    "contentsTitle": "Document contents",
+    "helpText": "If you have a question about these terms, contact our team before completing a purchase.",
+    "contact": "Contact us",
+    "summary": {
+      "account": {
+        "title": "Personal, secure account",
+        "body": "Protect your login details and do not share your account."
+      },
+      "payment": {
+        "title": "Clear payment review",
+        "body": "Access activates after the payment request and transfer proof are reviewed."
+      },
+      "access": {
+        "title": "Educational use only",
+        "body": "Content is licensed personally and may not be copied or redistributed."
+      }
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of terms",
+        "body": "By using the Yaser USMLE website or application, creating an account, or purchasing a course or bundle, you acknowledge that you have read, understood, and agreed to these terms. If you disagree with any part, you should not use the services."
+      },
+      "account": {
+        "title": "Account and eligibility",
+        "body": "Some platform features require an account with accurate, current information. You are responsible for activity through your account and for notifying us promptly of unauthorized use.",
+        "points": {
+          "1": "Provide an accurate name, email address, and registration information.",
+          "2": "Keep your password confidential and do not share your account.",
+          "3": "Use one account per learner unless the platform agrees otherwise in writing."
+        }
+      },
+      "content": {
+        "title": "Nature of educational content",
+        "body": "The platform provides USMLE Step 1 preparation content for education and review. It is not medical advice or a replacement for official references or clinical judgment, and the platform does not guarantee a specific examination result."
+      },
+      "payments": {
+        "title": "Pricing, payment, and activation",
+        "body": "Prices, currency, and access duration appear on the relevant course or bundle page before an order is submitted. For manual payments, the order remains pending until the team verifies the transfer and its details.",
+        "points": {
+          "1": "Upload clear and valid payment proof associated with your order.",
+          "2": "Paid access begins only after payment approval and enrollment activation.",
+          "3": "Cancellation and refund requests follow the refund policy published at purchase."
+        }
+      },
+      "access": {
+        "title": "Access and permitted use",
+        "body": "Enrollment grants a limited, personal, non-transferable license to access content for the stated duration. Access may differ across courses, bundles, and cohorts.",
+        "points": {
+          "1": "Do not record, download, or copy content through unauthorized methods.",
+          "2": "Do not sell login details or share lessons and files with others.",
+          "3": "Access may be suspended while suspected misuse is reviewed."
+        }
+      },
+      "intellectualProperty": {
+        "title": "Intellectual property",
+        "body": "All lectures, text, illustrations, questions, flashcards, marks, and designs belong to the platform or licensed rights holders. Enrollment or purchase does not grant ownership or republication rights."
+      },
+      "conduct": {
+        "title": "User conduct",
+        "body": "You must use the platform lawfully and respectfully without harming learners, educators, or service security. Action may be taken against accounts that violate these rules.",
+        "points": {
+          "1": "Do not misuse community, support, or instructor communication.",
+          "2": "Do not bypass protection or access unauthorized data or features.",
+          "3": "Do not upload harmful, misleading, or rights-infringing content."
+        }
+      },
+      "changes": {
+        "title": "Updates and service termination",
+        "body": "We may update these terms, platform features, or content for operational or legal reasons. The updated version and effective date will appear here, and continued use after publication constitutes acceptance."
+      }
+    },
+    "footerTitle": "Need clarification before agreeing?",
+    "footerBody": "Contact the Yaser USMLE team with questions about accounts, payment, or content access rights."
+  },
+  "publicGuide": {
+    "title": "Yaser USMLE User Guide",
+    "eyebrow": "Start your journey with clear steps",
+    "heroPrefix": "Everything you need to use",
+    "heroAccent": "the platform confidently",
+    "subtitle": "A practical guide taking you from account creation and path selection to learning, practice, and progress tracking inside Yaser USMLE.",
+    "startGuide": "Start the guide",
+    "previewTitle": "Your platform journey",
+    "stats": {
+      "steps": "Clear steps to begin",
+      "platform": "Integrated learning experience",
+      "access": "Access to your content"
+    },
+    "journeyEyebrow": "YOUR STEP-BY-STEP GUIDE",
+    "journeyTitle": "From your first visit to tracking progress",
+    "journeySubtitle": "Follow these steps to get the most from courses, bundles, and study tools across the platform.",
+    "steps": {
+      "account": {
+        "title": "Create your account",
+        "body": "Enter your basic details, choose a secure password, and access the student dashboard that brings every tool together.",
+        "action": "Create an account"
+      },
+      "discover": {
+        "title": "Find the right learning path",
+        "body": "Browse courses by system and topic, and compare content and learning formats before choosing what fits your stage.",
+        "action": "Explore courses"
+      },
+      "enroll": {
+        "title": "Enroll in a course or bundle",
+        "body": "Choose your course or bundle, submit payment proof, and our team will activate access after review.",
+        "action": "View bundles"
+      },
+      "learn": {
+        "title": "Start learning",
+        "body": "Watch lessons in curriculum order, open attached resources, and continue from where you stopped through your dashboard.",
+        "action": "Sign in"
+      },
+      "practice": {
+        "title": "Practice and review",
+        "body": "Use assessments, flashcards, and explanations to reinforce concepts and identify gaps that need review.",
+        "action": "Open learning tools"
+      },
+      "progress": {
+        "title": "Track your progress",
+        "body": "Monitor lesson completion and assessment performance, and organize daily goals with your study plan.",
+        "action": "View student dashboard"
+      }
+    },
+    "supportTitle": "Stuck on a step or facing an issue?",
+    "supportBody": "Our support team is ready to help with your account, payment, or access to learning content.",
+    "contactSupport": "Contact support"
+  },
+  "publicTeach": {
+    "navTitle": "Teach with us",
+    "eyebrow": "Join the Yaser USMLE education team",
+    "heroPrefix": "Share your expertise. Create",
+    "heroAccent": "meaningful impact",
+    "subtitle": "If you bring strong medical expertise and a passion for clear teaching, help us build a more connected and understandable Step 1 learning experience.",
+    "applyCta": "Apply now",
+    "howItWorks": "See how joining works",
+    "imageStatement": "Turn your medical expertise into learning that stays with students.",
+    "imageBadge": "Your expertise makes a difference",
+    "benefits": {
+      "impact": {
+        "title": "Reach more learners",
+        "body": "Share your knowledge with medical students seeking clear, structured guidance that moves them forward."
+      },
+      "tools": {
+        "title": "Integrated teaching tools",
+        "body": "Deliver lessons, assessments, flashcards, and learning resources through one platform."
+      },
+      "growth": {
+        "title": "Grow professionally",
+        "body": "Develop your content and understand student engagement and performance in a professional environment."
+      }
+    },
+    "processEyebrow": "THE JOINING JOURNEY",
+    "processTitle": "Clear steps from application to teaching",
+    "processSubtitle": "We review every application carefully to ensure experience and teaching style align with the platform's content standards.",
+    "process": {
+      "apply": {
+        "title": "Submit your application",
+        "body": "Share your details, expertise, teaching area, and a link to your CV."
+      },
+      "review": {
+        "title": "Profile review",
+        "body": "Our team reviews your academic and practical experience against current platform needs."
+      },
+      "conversation": {
+        "title": "Teaching conversation",
+        "body": "We discuss your teaching approach and the content you can offer learners."
+      },
+      "onboarding": {
+        "title": "Start collaborating",
+        "body": "We prepare your account and tools and help launch your first learning experience."
+      }
+    },
+    "profileEyebrow": "WHO WE ARE LOOKING FOR",
+    "profileTitle": "Educators combining expertise with clear teaching",
+    "profileSubtitle": "We value the quality of your knowledge and your ability to simplify and connect it to the Step 1 learner's way of thinking.",
+    "profile": {
+      "expertise": "Strong academic or clinical expertise in a relevant medical field",
+      "clarity": "Ability to simplify concepts and connect science with application",
+      "commitment": "Commitment to content quality, timelines, and communication",
+      "quality": "Willingness to improve continuously using learner feedback"
+    },
+    "finalTitle": "Ready to turn your expertise into educational impact?",
+    "finalBody": "Submit your application today. The Yaser USMLE team will review it and contact you about the next step."
+  },
+  "publicAbout": {
+    "title": "About Yaser USMLE",
+    "subtitle": "A learning platform helping medical students build connected foundational knowledge and prepare for USMLE Step 1 with clarity and confidence.",
+    "eyebrow": "Medical learning that starts with understanding",
+    "heroPrefix": "Building understanding that leads to",
+    "heroAccent": "confidence",
+    "heroQuote": "We do not want you to only memorize the answer—we want you to understand why it is right.",
+    "loadError": "We could not load this page right now.",
+    "empty": "About content is not configured yet.",
+    "cta": "Explore courses",
+    "storyTitle": "Our story",
+    "fallbackStory": "Yaser USMLE began with a clear goal: make foundational science more connected and applicable, giving Step 1 learners one structured path combining teaching, practice, and review.",
+    "mission": "Mission",
+    "vision": "Vision",
+    "missionFallback": "Make high-quality Step 1 education accessible to Arabic-speaking medical students through clear teaching and integrated learning tools.",
+    "visionFallback": "Enable every learner to build confident clinical reasoning from a strong scientific foundation.",
+    "joinTitle": "Ready to learn with us?",
+    "policiesTitle": "Policies & terms",
+    "policiesBody": "For billing, refunds, and legal terms, contact our team. Administrators manage full policy text in the CMS.",
+    "policiesContact": "Email support"
+  },
+  "publicBlogs": {
+    "title": "Yaser Learning Library",
+    "eyebrow": "Knowledge for understanding and application",
+    "heroPrefix": "Read deeply. Study",
+    "heroAccent": "with a smarter method",
+    "subtitle": "Focused medical explainers, practical study strategies, and ideas that help you connect USMLE Step 1 concepts and approach questions with confidence.",
+    "pillars": {
+      "concepts": "Concept mastery",
+      "clinical": "Clinical connections",
+      "strategy": "Study strategy"
+    },
+    "searchLabel": "Search articles",
+    "searchPlaceholder": "Search a topic, concept, or strategy...",
+    "searchButton": "Search library",
+    "featured": "Editor's pick",
+    "latestEyebrow": "More from the library",
+    "latestTitle": "Latest articles and resources",
+    "clearSearch": "Clear search",
+    "defaultExcerpt": "A focused educational resource to help you build clearer understanding and prepare with a more organized approach.",
+    "categories": {
+      "step1_guide": "Step 1 Guide",
+      "study_strategy": "Study Strategy",
+      "news": "Platform News",
+      "education": "Medical Education"
+    },
+    "loadError": "Could not load articles.",
+    "empty": "No matching articles were found.",
+    "readMore": "Read article",
+    "notFound": "This article is unavailable or was removed.",
+    "emptyBody": "This article does not have any body text yet."
+  },
+  "cta": {
+    "title": "Ready to pass USMLE Step 1?",
+    "subtitle": "Join Yaser USMLE — structured systems-based courses, expert guidance, practice quizzes, and study planning in one platform.",
+    "actions": {
+      "createAccount": "Create free account",
+      "learnMore": "Browse courses"
+    }
+  },
+  "footer": {
+    "disciplinesLabel": "USMLE learning areas we support",
+    "disciplines": {
+      "structural": "Foundational sciences",
+      "bim": "Systems-based learning",
+      "hvac": "Question practice",
+      "geo": "Flashcards",
+      "transport": "Study planning",
+      "cfd": "Exam readiness"
+    },
+    "brand": {
+      "logoAlt": "Yaser USMLE",
+      "description": "Yaser USMLE helps medical students prepare for USMLE Step 1 through structured courses, quizzes, flashcards, and study planning tools.",
+      "location": "Cairo, Egypt"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About us",
+      "contact": "Contact us",
+      "news": "News and Blogs",
+      "library": "Library",
+      "career": "Career"
+    },
+    "community": {
+      "title": "Community",
+      "documentation": "About us",
+      "faq": "FAQ",
+      "forum": "Forum",
+      "sitemap": "Sitemap",
+      "courses": "Browse courses",
+      "instructors": "Instructors"
+    },
+    "teaching": {
+      "title": "Teaching",
+      "becomeTeacher": "Become a teacher",
+      "howToGuide": "How to guide",
+      "terms": "Terms & Conditions"
+    },
+    "legal": {
+      "privacy": "Privacy Policy",
+      "refund": "Refund Policy"
+    },
+    "copyright": "© 2026 Yaser USMLE. All rights reserved.",
+    "socialComingSoon": "Social links coming soon — set VITE_SOCIAL_*_URL in your environment to enable."
+  },
+  "auth": {
+    "shell": {
+      "eyebrow": "A learning platform built for medical students",
+      "headline": "Everything you need to build stronger Step 1 understanding.",
+      "body": "Return to your learning path, track progress, and practice connecting foundational science to clinical reasoning in one organized experience.",
+      "highlight1": "Lectures organized by body systems and exam concepts",
+      "highlight2": "Questions and flashcards for recall and application",
+      "highlight3": "Clear progress, study-plan, and performance tracking",
+      "backHome": "Back to home",
+      "secureAccess": "Encrypted, secure access to your account"
+    },
+    "login": {
+      "brandTitle": "Welcome back",
+      "brandSubtitle": "Continue your USMLE learning journey with Yaser USMLE.",
+      "title": "Sign in",
+      "subtitle": "Access your dashboard, courses, and cohorts.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "identifierLabel": "Email or username",
+      "identifierPlaceholder": "email@example.com or username",
+      "identifierRequired": "Email or username is required",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "emailRequired": "Email address is required",
+      "passwordRequired": "Password is required",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log In",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Create account",
+      "securityNote": "We protect your login details and never share them"
+    },
+    "signup": {
+      "brandTitle": "Join Yaser USMLE",
+      "brandSubtitle": "Prepare for USMLE Step 1 with structured courses and learning tools.",
+      "benefit1": "Organized course access with expert guidance",
+      "benefit2": "Lecture resources, quizzes, flashcards, and study planning",
+      "benefit3": "Certificates, exams, and tracked progress",
+      "title": "Create your account",
+      "subtitle": "Start learning — free student registration.",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Ahmad Hassan",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+20 100 000 0000",
+      "phoneHint": "Optional — include country code",
+      "academicLevelLabel": "Academic level",
+      "academicLevels": {
+        "placeholder": "Choose your academic level",
+        "preparatory": "Foundation / Pre-Medical",
+        "first": "First-Year Medical Student",
+        "second": "Second-Year Medical Student",
+        "third": "Third-Year Medical Student",
+        "fourth": "Fourth-Year Medical Student or Above",
+        "graduate": "Medical Graduate / Physician"
+      },
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 8 characters",
+      "passwordStrength": "Password strength",
+      "strengthWeak": "Weak",
+      "strengthMedium": "Medium",
+      "strengthStrong": "Strong",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "acceptPrefix": "By creating an account, I agree to the",
+      "termsLink": "Terms and Conditions",
+      "and": "and",
+      "privacyLink": "Privacy Policy",
+      "securityNote": "Your data is protected and used only to operate your learning experience",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log In",
+      "errors": {
+        "fullName": "Enter a valid full name",
+        "email": "Enter a valid email address",
+        "phone": "Enter a valid phone number with country code",
+        "password": "Use at least 8 characters including letters and numbers",
+        "confirmPassword": "The passwords do not match",
+        "terms": "You must accept the terms and privacy policy"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot password?",
+      "subtitle": "Enter your email and we will send reset instructions if an account exists.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send reset link",
+      "backToLogin": "Back to login",
+      "successTitle": "Check your email",
+      "successBody": "If an account exists for that address, we have sent password reset instructions. Please check your inbox.",
+      "errors": {
+        "required": "Email is required",
+        "invalid": "Enter a valid email address",
+        "generic": "Something went wrong. Please try again."
+      }
+    },
+    "errors": {
+      "loginFailed": "Invalid email or password. Please try again.",
+      "registerFailed": "Registration failed. Please try again."
+    }
+  },
+  "explore": {
+    "eyebrow": "Learning paths built for Step 1",
+    "titlePrefix": "Build your foundation. Master",
+    "titleAccent": "USMLE Step 1",
+    "subtitle": "Choose a structured path connecting basic science, organ systems, and clinical application—with a learning experience built for understanding, review, and readiness.",
+    "searchPlaceholder": "Search by system, topic, or instructor…",
+    "enroll": "Enroll",
+    "free": "Free",
+    "students": "students",
+    "private": "Private",
+    "noResults": "No courses match your filters.",
+    "clearFilters": "Clear filters",
+    "showing": "Showing {{count}} of {{total}} courses",
+    "showingPaged": "Showing {{count}} on this page · {{total}} total · page {{page}}",
+    "instructorFallback": "Instructor TBA",
+    "enrollmentsLabel": "learners",
+    "cohorts": {
+      "multiple": "{{count}} cohorts open",
+      "single": "{{count}} cohort"
+    },
+    "pricing": {
+      "from": "From ${{price}}",
+      "contact": "View pricing"
+    },
+    "pagination": {
+      "page": "Page {{page}} of {{totalPages}}",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "badge": {
+      "oneToOne": "1-on-1"
+    },
+    "sort": {
+      "popular": "Most Popular",
+      "rating": "Top Rated",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low"
+    },
+    "categories": {
+      "all": "All Courses",
+      "hybrid": "Live Cohorts",
+      "recorded": "Recorded"
+    },
+    "courses": {
+      "hsk1": {
+        "title": "General Pathology Foundations",
+        "desc": "Master cell injury, inflammation, neoplasia, and other core disease mechanisms tested on Step 1."
+      },
+      "hsk2": {
+        "title": "Cardiovascular System",
+        "desc": "Integrate cardiovascular physiology, pathology, pharmacology, and board-style clinical reasoning."
+      },
+      "hsk3": {
+        "title": "Renal System & Acid–Base",
+        "desc": "Master renal physiology, electrolyte disorders, acid–base analysis, and high-yield renal disease."
+      },
+      "conversation": {
+        "title": "Board-Style Question Strategy",
+        "desc": "Build confidence identifying key clues, selecting the best answer, and reviewing distractors."
+      },
+      "writing": {
+        "title": "High-Yield Pharmacology",
+        "desc": "Learn mechanisms, adverse effects, interactions, and clinical uses of commonly tested drugs."
+      },
+      "beginner": {
+        "title": "Step 1 Foundations",
+        "desc": "New to board preparation? Start with a structured review of core basic sciences."
+      },
+      "hsk1o2o": {
+        "title": "Foundations — One-to-One",
+        "desc": "Personalized basic-science review with a dedicated medical instructor at your own pace."
+      },
+      "hsk2o2o": {
+        "title": "Dedicated Review — One-to-One",
+        "desc": "Accelerate your Step 1 preparation with tailored one-to-one review sessions."
+      }
+    }
+  },
+  "checkout": {
+    "title": "Confirm enrollment",
+    "subtitle": "Review your cohort. If you have an active plan with quota, you can join immediately. Otherwise you can pay for this cohort directly.",
+    "cohort": {
+      "directIntro": "Your plan does not cover this enrollment or you have used your quota. Pay the cohort price below and submit proof of transfer. Staff will confirm your payment and activate your access.",
+      "directTitle": "Pay for this cohort",
+      "payCohort": "Pay {{price}} for this cohort",
+      "submitDirect": "Submit payment request",
+      "directSubmitError": "Could not submit your cohort payment. Try again.",
+      "upgradeLink": "Prefer a subscription? View plans",
+      "successTitle": "Order placed",
+      "successBody": "Your cohort purchase is pending. Please transfer the funds using your chosen method and wait for admin approval. You will get access as soon as your payment is confirmed.",
+      "successPendingNote": "If you already had a pending request for this cohort, we kept your existing order.",
+      "successToast": "Payment request submitted. We will confirm your cohort access after review."
+    },
+    "breadcrumbExplore": "Explore courses",
+    "breadcrumbSubscription": "Plans",
+    "coupon": {
+      "label": "Coupon code",
+      "placeholder": "Enter code",
+      "apply": "Apply",
+      "enterCode": "Enter a coupon code.",
+      "contextRequired": "Coupon validation needs course or plan context.",
+      "applied": "Coupon is valid for this purchase.",
+      "appliedWithDiscount": "Coupon applied — {{discount}} off. New total: {{price}}",
+      "originalPrice": "Original price",
+      "discount": "Discount",
+      "remove": "Remove",
+      "invalid": "This coupon could not be applied."
+    },
+    "package": {
+      "title": "Subscribe to plan",
+      "subtitle": "Submit payment details. Your subscription stays pending until staff confirms your payment.",
+      "planLabel": "Plan",
+      "paymentMethod": "Payment method",
+      "methodBank": "Bank transfer",
+      "methodCard": "Card / online",
+      "methodOther": "Other",
+      "receiptUrl": "Payment proof URL",
+      "receiptHint": "Paste a link to your receipt or transfer confirmation (must be a valid https URL).",
+      "receiptRequired": "Please enter a receipt or proof URL.",
+      "receiptUrlInvalid": "Enter a valid URL (e.g. https://…).",
+      "amountInvalid": "Could not determine plan price.",
+      "submit": "Submit payment request",
+      "submitError": "Could not submit checkout. Try again.",
+      "successToast": "Payment request submitted. We will confirm your subscription soon.",
+      "notFoundTitle": "Plan not found",
+      "notFoundBody": "This plan is no longer available. Return to plans and pick another.",
+      "backPlans": "Back to plans"
+    },
+    "invalid": {
+      "title": "Invalid checkout link",
+      "body": "This link is incomplete. Open a course and choose a cohort, or pick a plan from Subscriptions."
+    },
+    "backExplore": "Back to catalog",
+    "loading": "Loading course…",
+    "courseLoadError": "We could not load this course. Check the link or try again from Explore.",
+    "courseNotFound": "This course is not available.",
+    "courseLabel": "Course",
+    "noCourseContext": "Course details were not included in this link. You can still enroll if this cohort is correct—otherwise return to the course page from Explore.",
+    "cohortMismatch": "This cohort is not listed for this course. Go back and pick a cohort from the course page.",
+    "cohortSection": "Cohort",
+    "cohortIdOnly": "Cohort ID: {{id}}",
+    "type": "Format",
+    "status": "Status",
+    "starts": "Starts",
+    "instructor": "Instructor",
+    "confirm": "Confirm enrollment",
+    "cancel": "Back",
+    "genericError": "Enrollment could not be completed. Please try again.",
+    "alreadyEnrolled": "You are already enrolled in this cohort.",
+    "goToClasses": "Go to My Classes",
+    "viewPayments": "View payments",
+    "quota": {
+      "title": "Upgrade your plan",
+      "body": "Your current subscription does not allow this enrollment, or you have reached your package limit. Choose a plan that fits your goals.",
+      "cta": "View plans & upgrade",
+      "close": "Close",
+      "fallbackDetail": "Subscription or quota restriction."
+    }
+  },
+  "subscription": {
+    "eyebrow": "More value for a complete learning path",
+    "titlePrefix": "Your complete path in",
+    "titleAccent": "one bundle",
+    "subtitle": "Bring the courses you need for Step 1 preparation into one connected, better-value bundle and study through one clear path.",
+    "mostPopular": "Recommended Bundle",
+    "allPlansIncluded": "All plans include",
+    "getStarted": "Get Started",
+    "faqTeaser": "Have questions?",
+    "faqLink": "Read our FAQ",
+    "viewDetails": "View bundle details",
+    "noDescription": "Bundle details will be available soon.",
+    "billing": {
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "discount": "Save 17%",
+      "perUser": "per user / mo",
+      "toggleAria": "Toggle billing period"
+    },
+    "limits": {
+      "live": "Up to {{count}} live cohort enrollments",
+      "recorded": "Up to {{count}} recorded cohort enrollments",
+      "private": "Up to {{count}} private sessions"
+    },
+    "tierLimits": "Tier limits",
+    "featuresHeading": "Features",
+    "yearlyHint": "Yearly from ${{price}}/mo equivalent",
+    "loadError": "Could not load subscription plans.",
+    "empty": "No packages are available yet.",
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "badge": "For Beginners"
+      },
+      "professional": {
+        "name": "Professional",
+        "badge": "Most Chosen"
+      },
+      "premium": {
+        "name": "Premium",
+        "badge": "All Inclusive"
+      }
+    },
+    "features": {
+      "feature1": "Up to 5 group class seats per month",
+      "feature2": "Access to recorded sessions library",
+      "feature3": "Structured assignment assignments",
+      "feature4": "Progress tracking dashboard",
+      "feature5": "24 / 7 community support",
+      "feature6": "Unlimited session replays",
+      "feature7": "Structured assignment & progress"
+    }
+  },
+  "myClasses": {
+    "titlePrefix": "My",
+    "titleAccent": "Classes",
+    "subtitle": "Manage and view all your USMLE Step 1 classes.",
+    "searchPlaceholder": "Search by lesson or teacher…",
+    "students": "students",
+    "private": "Private",
+    "noResults": "No classes match your filters.",
+    "clearFilters": "Clear filters",
+    "showing": "Showing {{count}} of {{total}} classes",
+    "status": {
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "missed": "Missed"
+    },
+    "filter": {
+      "all": "All Statuses"
+    },
+    "actions": {
+      "viewDetails": "View Details",
+      "joinClass": "Join Class",
+      "viewRecording": "View Recording"
+    },
+    "stats": {
+      "total": "Total Classes",
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "completed": "Completed"
+    },
+    "class1": {
+      "title": "Cardiovascular – Session 8: Heart Failure"
+    },
+    "class2": {
+      "title": "Cardiovascular – Session 9: Antiarrhythmics"
+    },
+    "class3": {
+      "title": "One-to-One: Question Review"
+    },
+    "class4": {
+      "title": "One-to-One: Study Planning"
+    },
+    "class5": {
+      "title": "Renal – Session 8: Acid–Base Disorders"
+    },
+    "class6": {
+      "title": "Renal – Session 9: Diuretics"
+    },
+    "class7": {
+      "title": "One-to-One: Dedicated Review"
+    }
+  },
+  "courseView": {
+    "backToClasses": "Back to My Cohorts",
+    "sidebarTitle": "Course Curriculum",
+    "lessonsCompleted": "lessons completed",
+    "clickToPlay": "Click to play lesson",
+    "with": "with",
+    "prev": "Previous",
+    "next": "Next Lesson",
+    "download": "Download",
+    "noMaterials": "No materials available for this lesson.",
+    "notesPlaceholder": "Type your notes here…",
+    "needCohort": {
+      "title": "Select a cohort",
+      "body": "Learning progress is tracked per cohort. Open this course from “My Cohorts” so your enrollment cohort is included in the link.",
+      "cta": "Go to My Cohorts"
+    },
+    "markComplete": "Mark lesson complete",
+    "markedDone": "Completed",
+    "lastLessonHint": "This is the last lesson in this course.",
+    "pickLesson": "Choose a lesson from the sidebar.",
+    "videoPlaceholder": "No video URL for this lesson.",
+    "tabs": {
+      "notes": "Notes",
+      "materials": "Materials",
+      "objectives": "Objectives",
+      "lessons": "Lessons",
+      "liveSessions": "Live sessions",
+      "assignment": "Assignment",
+      "homework": "الاسايمينت"
+    },
+    "liveSessions": {
+      "empty": "No live sessions scheduled for this course yet.",
+      "hint": "Join from here when the countdown reaches zero.",
+      "viewAll": "View all live sessions"
+    },
+    "assignment": {
+      "empty": "No assignment assigned for this course yet.",
+      "hint": "Open an assignment to read instructions and submit your work.",
+      "viewAll": "View all assignment"
+    },
+    "certificate": {
+      "completeTitle": "Course completed!",
+      "ready": "Claim your certificate of completion.",
+      "claim": "Claim certificate",
+      "claimError": "Could not claim certificate.",
+      "issued": "Certificate issued",
+      "viewAll": "View all certificates"
+    },
+    "homework": {
+      "empty": "لا توجد اسايمينت لهذا الكورس بعد.",
+      "hint": "افتح الاسايمينت لقراءة التعليمات ورفع عملك.",
+      "viewAll": "عرض كل الاسايمينت"
+    }
+  },
+  "assignment": {
+    "hubTitle": "Assignment by cohort",
+    "hubSubtitle": "Choose a cohort to see assignments.",
+    "openCohort": "View assignments",
+    "loadError": "Could not load assignments.",
+    "emptyCohort": "No assignments for this cohort.",
+    "hubLoadError": "Could not load assignment.",
+    "hubEmpty": "No assignment yet for your classes.",
+    "emptyFilter": "No assignments match your search or class filter.",
+    "showingNone": "No assignments to show",
+    "showingRange": "Showing {{from}}–{{to}} of {{total}} results",
+    "searchAria": "Search",
+    "titlePrefix": "My",
+    "titleAccent": "Assignment",
+    "subtitle": "Track and submit your assignment assignments",
+    "viewCourse": "All course assignment",
+    "courseListSubtitle": "Assignments for this course",
+    "due": "Due:",
+    "submitted": "Submitted:",
+    "grade": "Grade:",
+    "gradePct": "Grade: {{pct}}%",
+    "searchPlaceholder": "Search assignments…",
+    "showing": "Showing {{count}} of {{total}} assignments",
+    "contextLine": "{{courseTitle}} · {{cohortName}}",
+    "daysLeft": "({{n}} days left)",
+    "overdue": "{{n}} days overdue",
+    "type": {
+      "TEXT": "Written response",
+      "FILE": "File upload",
+      "LINK": "Link submission"
+    },
+    "status": {
+      "pending": "Not Started",
+      "submitted": "Submitted",
+      "underReview": "Under Review",
+      "completed": "Completed",
+      "late": "Late"
+    },
+    "filter": {
+      "all": "All Statuses",
+      "allClasses": "All classes"
+    },
+    "actions": {
+      "submit": "Submit Assignment",
+      "viewDetails": "View Details",
+      "viewResults": "View Results"
+    },
+    "stats": {
+      "total": "Total",
+      "pending": "Pending",
+      "submitted": "In Review",
+      "completed": "Completed"
+    }
+  },
+  "exams": {
+    "titlePrefix": "My",
+    "titleAccent": "Exams",
+    "subtitle": "Track your periodic assessments and exam results",
+    "enrolledOnlyHint": "Only exams for courses you are enrolled in are shown.",
+    "continue": "Continue exam",
+    "completedOn": "Completed",
+    "scoreLine": "Score: {{score}}/{{max}} ({{pct}}%)",
+    "type": {
+      "FINAL": "Final exam",
+      "UNIT": "Unit test",
+      "LESSON": "Lesson quiz",
+      "STANDALONE": "Individual / standalone"
+    },
+    "minutes": "min",
+    "questions": "questions",
+    "totalScore": "Total Score",
+    "searchPlaceholder": "Search exams…",
+    "showing": "Showing {{count}} of {{total}} exams",
+    "loadError": "Could not load exams.",
+    "empty": "No exams match your search.",
+    "view": "Details",
+    "start": "Start",
+    "status": {
+      "upcoming": "Upcoming",
+      "available": "Available",
+      "completed": "Completed",
+      "expired": "Expired"
+    },
+    "filter": {
+      "all": "All Statuses"
+    },
+    "actions": {
+      "startExam": "Start Exam",
+      "viewDetails": "View Exam Details",
+      "viewResults": "View Results"
+    },
+    "minutesShort": "min",
+    "pointsLine": "{{count}} pts"
+  },
+  "examQuestionEditor": {
+    "bankTitle": "Question bank",
+    "drawerSubtitle": "Question bank editor",
+    "questionsCount": "{{count}} questions",
+    "addQuestion": "Add question",
+    "pointsAllocated": "Points allocated",
+    "emptyTitle": "No questions yet",
+    "emptyHint": "Click “Add question” to start building your exam.",
+    "questionText": "Question text",
+    "questionPlaceholder": "Write the question prompt…",
+    "questionType": "Question type",
+    "points": "Points",
+    "pointsShort": "pts",
+    "save": "Save",
+    "saved": "Question saved.",
+    "saveFailed": "Failed to save question.",
+    "deleted": "Question deleted.",
+    "deleteConfirm": "Delete this question?",
+    "deleteFailed": "Failed to delete question.",
+    "optionsTitle": "Answer options",
+    "optionsHint": "Click the circle to mark the correct answer.",
+    "addOption": "Add option",
+    "optionPlaceholder": "Option {{letter}}",
+    "markCorrect": "Mark as correct",
+    "modelAnswer": "Model answer",
+    "modelAnswerPlaceholder": "Expected answer for reference…",
+    "modelAnswerOptional": "Optional — instructor grading reference.",
+    "rubric": "Grading rubric",
+    "essayPlaceholder": "Key points for grading…",
+    "trueLabel": "True",
+    "falseLabel": "False",
+    "minOptions": "Add at least two options.",
+    "correctRequired": "Select the correct answer.",
+    "textRequired": "Question text is required.",
+    "pointsInvalid": "Points must be at least 1.",
+    "validation": "Please check all fields.",
+    "newQuestionDraft": "Write your question here...",
+    "types": {
+      "MULTIPLE_CHOICE": "Multiple choice",
+      "TRUE_FALSE": "True / False",
+      "SHORT_ANSWER": "Short answer",
+      "ESSAY": "Essay"
+    }
+  },
+  "progress": {
+    "titlePrefix": "My",
+    "titleAccent": "Progress",
+    "subtitle": "Track your learning journey and achievements",
+    "completed": "Completed",
+    "lessons": "lessons",
+    "myCourses": "Course Progress",
+    "recentActivity": "Recent Activity",
+    "loadError": "Could not load progress.",
+    "noCourses": "No enrolled courses yet.",
+    "noActivity": "No recent activity.",
+    "stats": {
+      "coursesEnrolled": "Courses Enrolled",
+      "lessonsCompleted": "Lessons Completed",
+      "assignmentDone": "Assignment Graded",
+      "avgScore": "Average Progress",
+      "classesAttended": "Classes attended",
+      "homeworkDone": "Homework graded",
+      "coursesCompleted": "Courses completed"
+    }
+  },
+  "settings": {
+    "titlePrefix": "Account",
+    "titleAccent": "Settings",
+    "subtitle": "Manage your profile, security, and notification preferences",
+    "save": "Save Changes",
+    "saving": "Saving…",
+    "saved": "Changes saved!",
+    "nav": {
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications"
+    },
+    "profile": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+1 234 567 890"
+    },
+    "avatar": {
+      "title": "Profile photo",
+      "hint": "Upload an image (max ~450 KB) or paste a direct HTTPS link. Shown across the platform.",
+      "upload": "Upload photo",
+      "chooseFile": "Choose image",
+      "remove": "Remove photo",
+      "urlLabel": "Image URL",
+      "applyUrl": "Use URL",
+      "updated": "Profile photo updated.",
+      "removed": "Profile photo removed.",
+      "failed": "Could not update profile photo.",
+      "notImage": "Please choose an image file.",
+      "tooLarge": "Image is too large. Use a smaller file or a hosted URL.",
+      "badUrl": "Enter a valid URL (https://…)."
+    },
+    "security": {
+      "changePassword": "Change Password",
+      "currentPassword": "Current Password",
+      "currentPasswordPlaceholder": "Enter your current password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "At least 8 characters",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Repeat new password"
+    },
+    "notifs": {
+      "description": "Choose which notifications you want to receive.",
+      "classReminders": {
+        "title": "Class Reminders",
+        "desc": "Get notified 30 minutes before your class starts."
+      },
+      "assignmentDeadlines": {
+        "title": "Assignment Deadlines",
+        "desc": "Reminders when an assignment is due soon."
+      },
+      "examAlerts": {
+        "title": "Exam Alerts",
+        "desc": "Upcoming exam notifications and result updates."
+      },
+      "progressReports": {
+        "title": "Progress Reports",
+        "desc": "Weekly summary of your learning progress."
+      },
+      "promotions": {
+        "title": "Promotions & Offers",
+        "desc": "Special deals and new course announcements."
+      },
+      "homeworkDeadlines": {
+        "title": "مواعيد الاسايمينت",
+        "desc": "تذكيرات عند اقتراب الموعد النهائي للاسايمينت."
+      }
+    },
+    "errors": {
+      "required": "This field is required.",
+      "fullNameMin": "Name must be at least 2 characters.",
+      "phoneMin": "Phone must be at least 7 characters.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordMatch": "Passwords do not match.",
+      "passwordFailed": "Could not update password.",
+      "saveFailed": "Could not save profile."
+    }
+  },
+  "liveSessions": {
+    "countdown": {
+      "startsIn": "Starts in",
+      "liveNow": "Live now",
+      "ended": "Session ended",
+      "endsIn": "Ends in",
+      "days": "Days",
+      "hours": "Hrs",
+      "minutes": "Min",
+      "seconds": "Sec"
+    }
+  },
+  "recordings": {
+    "titlePrefix": "Upcoming live",
+    "titleAccent": "sessions & recordings",
+    "subtitle": "Your enrolled cohorts, next live sessions, and meeting links. Recordings will appear when instructors publish them for your group.",
+    "watchBtn": "Watch Recording",
+    "searchPlaceholder": "Search by cohort, course, or instructor…",
+    "showing": "Showing {{count}} of {{total}} sessions",
+    "videoPlaceholder": "Video player coming soon…",
+    "close": "Close",
+    "empty": "No sessions match your filters.",
+    "emptyCohorts": "No recordings or live sessions are available for your cohorts yet.",
+    "signInPrompt": "Sign in with your student account to see your cohort sessions and live class links.",
+    "signInCta": "Sign in",
+    "studentsOnly": "This page lists sessions for enrolled students. Switch to a student account to continue.",
+    "loading": "Loading your classes…",
+    "loadError": "Could not load your classes. Please try again later.",
+    "joinLive": "Join live session",
+    "openMeeting": "Open meeting link",
+    "noMeetingLink": "No meeting link for this session yet.",
+    "durationMinutes": "{{n}} min",
+    "unknownCourse": "Course",
+    "filter": {
+      "all": "All courses"
+    }
+  },
+  "courseDetails": {
+    "reviews": "reviews",
+    "students": "students enrolled",
+    "hours": "hours",
+    "breadcrumb": {
+      "explore": "Explore Courses"
+    },
+    "about": {
+      "title": "About This Course"
+    },
+    "curriculum": {
+      "title": "Course Curriculum",
+      "modules": "modules",
+      "lessons": "lessons",
+      "showAll": "Show {{n}} more sections",
+      "showLess": "Show less",
+      "empty": "Curriculum outline will be published soon.",
+      "assignment": "Assignment",
+      "exam": "Exam",
+      "assignmentCount": "assignments",
+      "examCount": "exams",
+      "assignmentSection": "Course assignments",
+      "examSection": "Course assessments",
+      "liveLesson": "Live session",
+      "enrollHint": "Lesson videos, files, and assessments unlock after you enroll.",
+      "publicNotice": "Detailed lesson outline is available to enrolled students. Choose a cohort below, then sign in to enroll.",
+      "homework": "اسايمينت",
+      "homeworkCount": "اسايمينت",
+      "homeworkSection": "اسايمينت الكورس"
+    },
+    "cohorts": {
+      "title": "Choose your cohort",
+      "subtitle": "Each cohort has its own schedule, instructor, and price.",
+      "type": "Format",
+      "status": "Status",
+      "starts": "Starts",
+      "instructor": "Instructor",
+      "enrolled": "Currently enrolled",
+      "seats": "Seats",
+      "price": "Price",
+      "select": "Select",
+      "none": "No open cohorts for this course right now. Check back soon.",
+      "selected": "Selected cohort",
+      "continueLogin": "Sign in to enroll",
+      "continueSignup": "Create account",
+      "pickFirst": "Select a cohort to continue."
+    },
+    "instructor": {
+      "title": "Your Instructor",
+      "noBio": "Bio coming soon.",
+      "viewProfile": "View profile",
+      "bookSession": "Request a private session"
+    },
+    "card": {
+      "previewVideo": "Preview",
+      "off": "OFF",
+      "enrollNow": "Enroll Now",
+      "enrollCta": "Get Started Today",
+      "continueLearning": "Continue Learning",
+      "loginPromptPrefix": "Already have an account?",
+      "loginPromptLink": "Log in",
+      "guarantee": "30-Day Money-Back Guarantee",
+      "includes": "This course includes:",
+      "share": "Share",
+      "gift": "Gift",
+      "loadingSession": "Loading…",
+      "checkingEnrollment": "Checking your enrollment…",
+      "logInToEnroll": "Log in to Enroll",
+      "enrollWithPrice": "Enroll with price"
+    },
+    "inclusions": {
+      "liveSession": "Live sessions with a certified teacher",
+      "videoHours": "50+ hours of on-demand video",
+      "downloadable": "Downloadable worksheets & PDFs",
+      "instructorSupport": "Instructor feedback and support",
+      "fullLifetime": "Full lifetime access",
+      "guarantee": "30-day money-back guarantee"
+    }
+  },
+  "examDetails": {
+    "backToExams": "Back to Exams",
+    "loadError": "Exam not found.",
+    "noDescription": "No description provided.",
+    "startExam": "Start exam",
+    "notAvailable": "This exam cannot be started right now (status: {{status}}).",
+    "ins": {
+      "timer": "Complete the exam within the allotted time; it submits automatically when time expires.",
+      "graded": "Your attempt is graded on the server when you submit."
+    },
+    "alreadySubmitted": "You have already submitted this exam.",
+    "meta": {
+      "examType": "Exam type",
+      "examDate": "Exam Date",
+      "timeDuration": "Time & Duration",
+      "duration": "Duration",
+      "totalScore": "Total Score",
+      "passingScore": "Passing threshold",
+      "questions": "Questions",
+      "status": "Status"
+    },
+    "about": {
+      "title": "About This Exam"
+    },
+    "topics": {
+      "title": "Covered Topics"
+    },
+    "structure": {
+      "title": "Exam Structure",
+      "questions": "questions",
+      "pts": "pts"
+    },
+    "instructions": {
+      "title": "Important Instructions"
+    },
+    "ready": {
+      "title": "Ready to Start?",
+      "description": "Make sure you have {{duration}} minutes available and a stable internet connection.",
+      "startBtn": "Start Exam"
+    },
+    "tips": {
+      "title": "Preparation Tips"
+    },
+    "summary": {
+      "questions": "Questions",
+      "duration": "Duration",
+      "sections": "Sections"
+    }
+  },
+  "assignmentDetail": {
+    "typeLabel": "Submission type",
+    "submitError": "Submission failed.",
+    "validation": {
+      "text": "Please enter your answer.",
+      "link": "Please enter a valid URL.",
+      "file": "Please choose a file or paste a file URL."
+    },
+    "fileOrUrlHint": "Upload a file directly, or paste a hosted file URL.",
+    "fileUrlPlaceholder": "Paste hosted file URL",
+    "fileReady": "File attached.",
+    "fileTooBig": "File is too large (max 8MB).",
+    "fileReadError": "Could not read file.",
+    "notFound": "Assignment not found.",
+    "back": "Back to Assignment",
+    "due": "Due:",
+    "instructions": {
+      "title": "Instructions"
+    },
+    "requirements": {
+      "title": "Requirements",
+      "fallbackDefault": "Follow your instructor’s directions and submit before the deadline.",
+      "fallback": {
+        "TEXT": "Submit a written response as described in the instructions.",
+        "FILE": "Upload the requested files (audio, PDF, or images) within the size limit.",
+        "LINK": "Submit a working link to your completed work."
+      }
+    },
+    "contextSubtitle": "{{courseTitle}} · {{cohortName}}",
+    "submitCard": {
+      "title": "Submit Your Assignment",
+      "answerLabel": "Your Answer",
+      "answerPlaceholder": "Type your written responses here...",
+      "uploadLabel": "Upload Files",
+      "submitBtn": "Submit Assignment",
+      "submitting": "Submitting…"
+    },
+    "upload": {
+      "cta": "Click to upload or drag and drop",
+      "hint": "Audio files, PDFs, or images (Max 10MB each)"
+    },
+    "sidebar": {
+      "relatedTitle": "Related Class",
+      "viewClassBtn": "View Class Details",
+      "tipsTitle": "Submission Tips",
+      "tip1": "Double-check spelling and characters before you submit.",
+      "tip2": "Keep audio recordings clear and easy to hear.",
+      "tip3": "Use the file types and size limits shown above.",
+      "tip4": "Submit before the due date to avoid a late status."
+    },
+    "successTitle": "Assignment Submitted!",
+    "gradedTitle": "Graded submission",
+    "downloadSubmission": "Download submitted file",
+    "resubmitTitle": "Update your submission",
+    "resubmitBtn": "Update submission",
+    "successMsg": "Your submission has been received. Your teacher will review it soon.",
+    "backBtn": "Back to Assignment"
+  },
+  "takeExam": {
+    "answered": "answered",
+    "flagged": "flagged",
+    "flag": "Flag",
+    "unflag": "Unflag",
+    "strip": {
+      "questionOf": "Question {{n}} of {{total}}",
+      "submit": "Submit Exam",
+      "review": "Review"
+    },
+    "review": {
+      "title": "Review before submit",
+      "summary": "{{answered}} of {{total}} answered · {{flagged}} flagged · {{unanswered}} unanswered",
+      "unanswered": "Unanswered",
+      "flagged": "Flagged for review",
+      "back": "Back to questions"
+    },
+    "question": {
+      "label": "Question {{n}}",
+      "unanswered": "Select an answer to continue"
+    },
+    "audio": {
+      "play": "Play Audio",
+      "playing": "Playing…"
+    },
+    "nav": {
+      "prev": "Previous",
+      "next": "Next",
+      "submitNow": "Submit Now"
+    },
+    "warn": {
+      "title": "Submit Exam?",
+      "body": "You've answered {{answered}} of {{total}} questions. {{unanswered}} question(s) are still unanswered.",
+      "cancel": "Keep Going",
+      "confirm": "Submit Exam"
+    },
+    "result": {
+      "passed": "Congratulations, you passed!",
+      "failed": "Better luck next time",
+      "score": "Score",
+      "percent": "Your Score",
+      "passing": "Passing Score",
+      "backToExams": "Back to Exams",
+      "reviewAnswers": "Review Answers",
+      "viewDetails": "View detailed results"
+    },
+    "loading": "Loading exam…",
+    "retry": "Retry",
+    "backExams": "Back to exams",
+    "backDetail": "Back to exam details",
+    "begin": "Begin exam",
+    "starting": "Starting…",
+    "submitting": "Submitting…",
+    "notAvailable": "This exam is not available to start (status: {{status}}).",
+    "noQuestions": "This exam has no questions yet.",
+    "noMcqOptions": "No answer choices were configured for this question. Contact your instructor.",
+    "true": "True",
+    "false": "False",
+    "shortAnswerPlaceholder": "Type your answer…",
+    "errors": {
+      "load": "Could not load this exam.",
+      "start": "Could not start the exam.",
+      "submit": "Could not submit answers."
+    },
+    "meta": {
+      "duration": "Duration",
+      "minutes": "minutes",
+      "passing": "Passing score",
+      "questions": "Questions"
+    },
+    "validation": {
+      "incomplete": "Please answer every question before submitting."
+    },
+    "expiredIncomplete": {
+      "title": "Time is up",
+      "body": "The exam time has ended, but not all questions were answered, so your exam could not be submitted."
+    }
+  },
+  "examResult": {
+    "title": "Exam results",
+    "loadError": "Could not load results.",
+    "scoreSummary": "Score: {{score}} / {{max}} ({{pct}}%)",
+    "passingLine": "Passing score: {{passing}}",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct answer",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "pts": "pts",
+    "passed": "Passed",
+    "failed": "Failed",
+    "explanation": "Explanation"
+  },
+  "myCohorts": {
+    "titlePrefix": "My",
+    "titleAccent": "Cohorts",
+    "subtitle": "Continue learning in the cohorts you are enrolled in. Open a course to track progress by cohort.",
+    "loadError": "Could not load your enrollments.",
+    "empty": "You are not enrolled in any cohort yet. Explore courses to enroll.",
+    "progress": "complete",
+    "continue": "Continue learning",
+    "assignment": "Assignment",
+    "homework": "الاسايمينت"
+  },
+  "quotaModal": {
+    "title": "Upgrade your plan",
+    "body": "This action requires an active subscription or a higher package limit. View plans to continue.",
+    "cta": "View subscription plans",
+    "close": "Close"
+  },
+  "publicInstructors": {
+    "badge": "Expert instructors",
+    "title": "Meet our instructors",
+    "subtitle": "Browse profiles, explore their courses, and book a private 1-on-1 session.",
+    "searchPlaceholder": "Search by name or specialty…",
+    "loadError": "Could not load instructors.",
+    "empty": "No instructors match your search.",
+    "browseCourses": "Browse courses instead",
+    "noBio": "Expert USMLE Step 1 medical instructor on Yaser USMLE.",
+    "yearsExp": "{{n}}+ years experience",
+    "viewProfile": "View profile",
+    "bookSession": "Request 1-on-1",
+    "backToList": "All instructors",
+    "profileNotFound": "Instructor not found.",
+    "coursesTitle": "Courses by this instructor",
+    "reviewsTitle": "Student reviews",
+    "bookTitle": "Book a 1-on-1 session",
+    "bookHint": "Pick an open slot and complete payment to confirm your private session.",
+    "loginToBook": "Sign in to book",
+    "studentsOnly": "Private sessions are available for student accounts."
+  },
+  "studentAttendance": {
+    "title": "My attendance",
+    "subtitle": "Track your presence in live group sessions across your courses.",
+    "loadError": "Could not load your attendance report.",
+    "empty": "No live sessions recorded for your enrolled courses yet.",
+    "live": "Live updates enabled",
+    "untitledSession": "Live session",
+    "summary": {
+      "total": "Total sessions",
+      "present": "Present",
+      "absent": "Absent",
+      "rate": "Attendance rate"
+    },
+    "col": {
+      "session": "Session",
+      "course": "Course",
+      "date": "Date",
+      "status": "Status"
+    },
+    "status": {
+      "present": "Present",
+      "absent": "Absent",
+      "left": "Left early"
+    }
+  },
+  "bookSession": {
+    "title": "Book a private session",
+    "subtitle": "Pick an available instructor slot. Your package must include private session quota.",
+    "loadError": "Could not load available slots.",
+    "empty": "No open slots right now. Check back later.",
+    "book": "Book",
+    "booking": "Booking…",
+    "success": "Session booked!",
+    "bookError": "Booking failed.",
+    "priceNotConfigured": "This slot has no price yet. The instructor must set a session price before booking.",
+    "instructor": "Instructor",
+    "needPlan": "Private sessions require an active plan that includes private session quota. Upgrade or subscribe to book.",
+    "viewPlans": "View plans & upgrade"
+  },
+  "dashboard": {
+    "common": {
+      "panel": "Control Panel",
+      "search": "Search",
+      "actions": "Actions",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "submit": "Submit",
+      "reply": "Reply",
+      "active": "Active",
+      "inactive": "Inactive",
+      "loading": "Loading...",
+      "refresh": "Refresh",
+      "retry": "Retry",
+      "validation": "Please check the form and try again.",
+      "comingSoon": "Coming soon",
+      "comingSoonDescription": "This module is part of the next implementation phase.",
+      "saved": "Deleted successfully",
+      "yes": "Yes",
+      "no": "No",
+      "close": "Close",
+      "back": "Back",
+      "confirm": "Confirm"
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "nav": {
+        "overview": "Overview",
+        "users": "Users",
+        "instructors": "Instructors",
+        "instructorOverview": "Overview",
+        "instructorList": "Instructors List",
+        "payouts": "Payouts",
+        "courses": "Courses",
+        "courseCategories": "Categories",
+        "courseList": "Courses List",
+        "courseAdd": "Add Course",
+        "enrolment": "Enrollments",
+        "enrollHistory": "History",
+        "enrollStudent": "Enroll Student",
+        "exams": "Exams",
+        "finance": "Finance",
+        "cms": "CMS",
+        "settings": "Settings"
+      },
+      "stats": {
+        "totalStudents": "Total Students",
+        "totalInstructors": "Total Instructors",
+        "activeCourses": "Active Courses",
+        "totalRevenue": "Total Revenue",
+        "pendingPayouts": "Pending Payouts"
+      },
+      "pages": {
+        "overview": {
+          "title": "Overview",
+          "subtitle": "Track platform growth and key metrics."
+        },
+        "users": {
+          "title": "Users Management",
+          "subtitle": "Manage students and staff access."
+        },
+        "instructors": {
+          "title": "Instructors",
+          "subtitle": "Manage instructor accounts and status."
+        },
+        "courses": {
+          "title": "Courses Management",
+          "subtitle": "Manage all courses and assignments."
+        },
+        "exams": {
+          "title": "Exams Management",
+          "subtitle": "Create and maintain exam banks."
+        },
+        "finance": {
+          "title": "Finance",
+          "subtitle": "Manage transactions, payouts, and coupons.",
+          "invoiceCopied": "Invoice ID copied!",
+          "invoiceCopyHint": "Click to copy Invoice ID",
+          "rejectionReasonPrompt": "Rejection reason",
+          "refundConfirm": "Mark this payment as REFUNDED?",
+          "paymentApproved": "Payment approved and access granted.",
+          "paymentApproveFailed": "Failed to approve payment.",
+          "paymentRejected": "Payment rejected.",
+          "paymentRejectFailed": "Failed to reject payment.",
+          "paymentRefunded": "Payment marked as refunded.",
+          "paymentRefundFailed": "Failed to refund payment."
+        },
+        "cms": {
+          "title": "CMS",
+          "subtitle": "Manage FAQs, homepage sections, and About content.",
+          "subtitleNew": "Edit what visitors see on the homepage, About page, and FAQ — no JSON required.",
+          "tabHero": "Homepage hero",
+          "tabAbout": "About us",
+          "tabFaq": "FAQ",
+          "heroTitle": "Hero banner",
+          "heroHint": "Main headline at the top of the public homepage.",
+          "heroHeadline": "Headline",
+          "heroSubheadline": "Subheadline",
+          "heroSaved": "Homepage hero saved.",
+          "heroPreviewNote": "This preview reflects unsaved edits in the form above.",
+          "previewLabel": "Preview",
+          "previewHome": "Homepage",
+          "previewAbout": "About page",
+          "previewFaq": "FAQ page",
+          "saveFaqItem": "Save this entry",
+          "aboutHint": "Mission, vision, and story shown on the public About page.",
+          "faqHint": "Questions and answers shown on the public FAQ page.",
+          "faqCount": "entries",
+          "more": "Also manage",
+          "aboutTitle": "About us (public)",
+          "phMission": "Mission",
+          "phVision": "Vision",
+          "phDescription": "Description / story",
+          "aboutSaved": "About content saved.",
+          "faqTitle": "FAQ",
+          "faqUpdated": "FAQ updated.",
+          "faqDeleted": "FAQ entry removed.",
+          "faqAdded": "FAQ entry added.",
+          "confirmDeleteFaq": "Delete this FAQ entry?",
+          "newQuestion": "New question",
+          "newAnswer": "New answer",
+          "addFaq": "Add FAQ",
+          "sectionsTitle": "Homepage sections",
+          "sectionsHint": "JSON drives the public landing page (e.g. STATS, FAQ list). Edit carefully.",
+          "visible": "Visible",
+          "hidden": "Hidden",
+          "sectionUpdated": "Section updated.",
+          "sectionKey": "Section key",
+          "order": "Order",
+          "visibility": "Visibility",
+          "sectionCreated": "Section created.",
+          "createSection": "Create section"
+        },
+        "settings": {
+          "title": "Settings",
+          "subtitle": "Configure platform administration options.",
+          "saved": "Settings saved",
+          "loading": "Loading settings...",
+          "loadFailed": "Failed to load settings.",
+          "saveFailed": "Failed to save settings.",
+          "brandIdentity": "Brand identity",
+          "platformLogos": "Platform logos",
+          "platformLogosHint": "Upload PNG, JPEG, or WEBP files up to 2 MB. Use transparent PNG or WEBP artwork for the best result, then save changes to publish across the platform.",
+          "primaryLogo": "Primary logo",
+          "primaryLogoDesc": "Header, light pages, and dashboard navigation.",
+          "lightLogo": "Light logo",
+          "lightLogoDesc": "Footer and dark backgrounds.",
+          "compactBrandMark": "Compact brand mark",
+          "compactBrandMarkDesc": "Login screens, collapsed navigation, and compact spaces.",
+          "uploading": "Uploading…",
+          "uploadLogo": "Upload logo",
+          "useDefault": "Use default",
+          "logoUploaded": "Logo uploaded. Save changes to publish it.",
+          "logoUploadFailed": "Could not upload logo.",
+          "logoUploadNoUrl": "The upload did not return a logo URL.",
+          "contactPublicSite": "Contact & public site",
+          "contactPublicSiteHint": "Shown in the marketing header, footer, and contact links. Leave a social URL empty to hide that icon.",
+          "publicContactEmail": "Public contact email",
+          "phoneHeader": "Phone (header)",
+          "facebookUrl": "Facebook URL",
+          "twitterUrl": "X (Twitter) URL",
+          "instagramUrl": "Instagram URL",
+          "linkedinUrl": "LinkedIn URL",
+          "generalSettings": "General Settings",
+          "siteName": "Site Name",
+          "publicRegistration": "Public Registration",
+          "publicRegistrationDesc": "Allow new students to create accounts",
+          "interfaceExperience": "Interface & Experience",
+          "defaultTheme": "Default Theme",
+          "defaultThemeDesc": "Choose the default appearance for new users",
+          "darkThemePremium": "Dark Theme (Premium)",
+          "lightTheme": "Light Theme",
+          "systemNotifications": "System Notifications",
+          "systemNotificationsDesc": "Receive alerts about new enrollments and payouts",
+          "security": "Security",
+          "maintenanceMode": "Maintenance Mode",
+          "maintenanceModeDesc": "Disable frontend access for maintenance",
+          "configure2fa": "Configure 2FA for Administrators →",
+          "dangerZone": "Danger Zone",
+          "clearSystemCache": "Clear System Cache",
+          "clearSystemCacheDesc": "This will force a refresh of all static data",
+          "clearCache": "Clear Cache"
+        },
+        "account": {
+          "title": "My profile",
+          "subtitle": "Your photo and account details for the admin dashboard."
+        }
+      },
+      "widgets": {
+        "topInstructors": "Top Instructors",
+        "recentEnrollments": "Recent Enrollments",
+        "viewAll": "View All"
+      },
+      "users": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "toggle": "Toggle",
+        "emptyTitle": "No users found",
+        "emptyDescription": "Try changing your filters or search query."
+      },
+      "courses": {
+        "titleCol": "Course",
+        "instructor": "Instructor",
+        "status": "Status",
+        "createdAt": "Created At",
+        "emptyTitle": "No courses found",
+        "emptyDescription": "Add new courses or refine your search.",
+        "introVideo": "Intro video",
+        "introVideoUrl": "Intro video URL",
+        "open": "Open",
+        "assignInstructor": "Assign instructor",
+        "selectInstructor": "Select instructor",
+        "deepEdit": "Deep edit (studio)",
+        "deleteConfirm": "Delete this course?",
+        "deleted": "Course deleted.",
+        "deleteFailed": "Failed to delete course.",
+        "editCourse": "Edit course",
+        "updated": "Course updated.",
+        "updateFailed": "Failed to update course.",
+        "activated": "Course activated",
+        "deactivated": "Course deactivated",
+        "statusUpdateFailed": "Failed to update status"
+      },
+      "instructors": {
+        "add": "Add Instructor",
+        "edit": "Edit Instructor",
+        "fullName": "Full Name",
+        "email": "Email",
+        "phone": "Phone",
+        "experience": "Experience",
+        "password": "Password",
+        "bio": "Bio",
+        "emptyTitle": "No instructors found",
+        "emptyDescription": "Create your first instructor or refine filters."
+      },
+      "finance": {
+        "payments": "Payments",
+        "coupons": "Coupons",
+        "payouts": "Payouts",
+        "student": "Student",
+        "instructor": "Instructor",
+        "amount": "Amount",
+        "status": "Status",
+        "date": "Date"
+      }
+    },
+    "instructor": {
+      "title": "Instructor Dashboard",
+      "nav": {
+        "overview": "Overview",
+        "classes": "My Classes",
+        "cohorts": "My Cohorts",
+        "exams": "Exams",
+        "students": "Students",
+        "qna": "Q&A",
+        "wallet": "Wallet",
+        "performance": "Performance",
+        "settings": "Settings"
+      },
+      "stats": {
+        "totalClasses": "Total Classes",
+        "upcomingClasses": "Upcoming Classes",
+        "averageRating": "Average Rating",
+        "totalReviews": "Total Reviews"
+      },
+      "pages": {
+        "overview": {
+          "title": "Overview",
+          "subtitle": "Track your class delivery and engagement."
+        },
+        "classes": {
+          "title": "My Classes",
+          "subtitle": "Monitor upcoming and completed classes."
+        },
+        "cohorts": {
+          "title": "My Cohorts",
+          "subtitle": "Cohorts you teach and enrolled learners."
+        },
+        "courses": {
+          "title": "My Courses",
+          "subtitle": "Courses you teach and enrolled learners."
+        },
+        "assignment": {
+          "title": "Assignment queue",
+          "subtitle": "Review pending submissions and leave grades."
+        },
+        "availability": {
+          "title": "Availability",
+          "subtitle": "Manage time slots for private session bookings.",
+          "heroTitle": "Your teaching calendar",
+          "heroHint": "Students book inside these windows. Keep slots realistic and easy to honor.",
+          "addSectionTitle": "Add a new slot",
+          "addSectionHint": "Pick a day and the window you are free — same as setting office hours.",
+          "labelDate": "Date",
+          "labelStart": "Start time",
+          "labelEnd": "End time",
+          "addCta": "Add to calendar",
+          "adding": "Adding…",
+          "scheduleTitle": "Upcoming slots",
+          "scheduleHint": "Grouped by day. Remove a slot anytime before it is booked.",
+          "emptyTitle": "No availability yet",
+          "emptyHint": "Create your first slot so learners can book private sessions.",
+          "removed": "Slot removed.",
+          "added": "Slot added.",
+          "invalidRange": "End time must be after start time.",
+          "slotsCount": "{{count}} open slot(s)",
+          "openStatus": "Open",
+          "labelPrice": "Session price (USD)",
+          "pricePlaceholder": "e.g. 500",
+          "priceHint": "Students pay this amount to book this slot.",
+          "priceRequired": "Enter a valid session price greater than zero.",
+          "priceMissing": "Price not set — slot is hidden from students.",
+          "setPrice": "Set price",
+          "priceUpdated": "Session price updated.",
+          "slotPrice": "{{price}} USD"
+        },
+        "exams": {
+          "title": "Exams",
+          "subtitle": "Manage exam content and submissions."
+        },
+        "students": {
+          "title": "Students",
+          "subtitle": "View learner progress and attendance."
+        },
+        "studentDetail": {
+          "backLink": "Back to students",
+          "loadError": "Could not load this student.",
+          "forbidden": "You do not have access to this student.",
+          "noActivity": "No enrollment activity to show yet.",
+          "scopedNote": "Statistics and progress reflect only courses you teach.",
+          "viewProgress": "View progress"
+        },
+        "qna": {
+          "title": "Q&A",
+          "subtitle": "Answer student questions from your courses."
+        },
+        "wallet": {
+          "title": "Wallet",
+          "subtitle": "Track transactions and payout requests."
+        },
+        "performance": {
+          "title": "My Performance",
+          "subtitle": "Sessions, recordings, checklists, surveys, and reviews."
+        },
+        "settings": {
+          "title": "Settings",
+          "subtitle": "Manage your instructor account preferences.",
+          "subtitleLive": "Update how you appear to students and keep your password secure.",
+          "sectionProfile": "Profile",
+          "sectionProfileHint": "Name and bio show on your public instructor presence.",
+          "sectionSecurity": "Security",
+          "sectionSecurityHint": "You will be signed out everywhere after a successful password change.",
+          "email": "Email",
+          "fullName": "Full name",
+          "phoneOptional": "Phone (optional)",
+          "headline": "Headline / bio",
+          "headlinePlaceholder": "e.g. USMLE Step 1 educator · Pathology and physiology specialist",
+          "experienceYears": "Years of experience (optional)",
+          "saveProfile": "Save profile",
+          "currentPassword": "Current password",
+          "newPassword": "New password",
+          "confirmPassword": "Confirm new password",
+          "passwordRules": "At least 8 characters, with at least one letter and one number.",
+          "updatePassword": "Update password",
+          "profileSaved": "Profile updated.",
+          "profileError": "Could not save profile.",
+          "passwordChanged": "Password updated. Please sign in again.",
+          "passwordError": "Could not change password.",
+          "passwordFields": "Fill in all password fields.",
+          "passwordMismatch": "New passwords do not match.",
+          "nameMin": "Name must be at least 3 characters.",
+          "phoneInvalid": "Use 7–15 digits, optional leading +.",
+          "experienceInvalid": "Experience must be a non-negative whole number.",
+          "loadError": "Could not load your profile."
+        }
+      },
+      "classes": {
+        "allStatuses": "All statuses",
+        "upcoming": "Upcoming",
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "titleCol": "Class",
+        "type": "Type",
+        "status": "Status",
+        "scheduledAt": "Scheduled At",
+        "emptyTitle": "No classes found",
+        "emptyDescription": "No class records match this filter."
+      },
+      "cohorts": {
+        "allStatuses": "All statuses",
+        "upcoming": "Upcoming",
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "nameCol": "Cohort",
+        "courseCol": "Course",
+        "type": "Type",
+        "status": "Status",
+        "startDate": "Start date",
+        "students": "Students",
+        "emptyTitle": "No cohorts found",
+        "emptyDescription": "No cohorts match this filter."
+      },
+      "courses": {
+        "titleCol": "Course",
+        "type": "Type",
+        "published": "Published",
+        "active": "Active",
+        "inactive": "Inactive",
+        "enrollments": "Enrollments",
+        "upcomingSessions": "Upcoming sessions",
+        "viewStudents": "Students",
+        "manageSessions": "Sessions",
+        "sessionsSubtitle": "Schedule live sessions and add recording links.",
+        "addSession": "Add session",
+        "editSession": "Edit session",
+        "sessionTitle": "Session title",
+        "meetingUrl": "Meeting URL",
+        "recordingUrl": "Recording URL",
+        "sessionCreated": "Session created.",
+        "sessionUpdated": "Session updated.",
+        "sessionDeleted": "Session deleted.",
+        "sessionError": "Could not save session.",
+        "noSessions": "No sessions scheduled yet.",
+        "untitledSession": "Live session",
+        "statusUpcoming": "Upcoming",
+        "statusOngoing": "Ongoing",
+        "statusCompleted": "Completed",
+        "statusMissed": "Missed",
+        "emptyTitle": "No courses found",
+        "emptyDescription": "Courses assigned to you will appear here."
+      },
+      "overview": {
+        "totalStudents": "Total students",
+        "activeCourses": "Active courses",
+        "upcomingSessions": "Upcoming sessions",
+        "totalEarnings": "Total earnings",
+        "walletBalance": "Wallet balance",
+        "earningsTrend": "Earnings trend",
+        "earnings": "Earnings",
+        "reviewsSnapshot": "Reviews",
+        "avgRatingLine": "Avg. {{rating}} / 5",
+        "topCourses": "Top courses by enrollment",
+        "allYourCourses": "All your courses",
+        "upcomingSessionsTitle": "Next live sessions",
+        "upcomingSessionsHint": "Your nearest scheduled sessions",
+        "noUpcomingSessions": "No upcoming live sessions",
+        "noUpcomingSessionsHint": "Schedule group sessions from My Courses, or mark a curriculum lesson as Live with a date.",
+        "liveLesson": "Live lesson",
+        "groupSession": "Group session",
+        "privateSession": "Private",
+        "withStudent": "With",
+        "manageSession": "Manage",
+        "joinSession": "Join"
+      },
+      "exams": {
+        "titleCol": "Exam",
+        "duration": "Duration",
+        "points": "Points",
+        "status": "Status",
+        "scope": "Scope",
+        "emptyTitle": "No exams found",
+        "emptyDescription": "Create your first exam to get started.",
+        "createExam": "Create exam",
+        "details": "Details",
+        "results": "Results",
+        "questionsCount": "Questions",
+        "submissionsCount": "Submissions",
+        "minutesShort": "min",
+        "wholeCourse": "Course-wide",
+        "showing": "{{count}} exams",
+        "stats": {
+          "total": "Total exams",
+          "questions": "Total questions",
+          "submissions": "Total submissions"
+        },
+        "statusLabels": {
+          "AVAILABLE": "Available",
+          "UPCOMING": "Upcoming",
+          "COMPLETED": "Completed",
+          "EXPIRED": "Expired"
+        },
+        "questionTypes": {
+          "MULTIPLE_CHOICE": "Multiple choice",
+          "TRUE_FALSE": "True / False",
+          "SHORT_ANSWER": "Short answer",
+          "ESSAY": "Essay"
+        },
+        "create": {
+          "title": "New exam",
+          "subtitle": "Set the basics and grading rules, then add questions in the editor.",
+          "quickStartDesc": "After creating the exam you will be taken to the question editor to build your question bank.",
+          "basicsTitle": "Exam basics",
+          "titleLabel": "Title",
+          "titlePlaceholder": "e.g. Unit 3 — Cardiovascular Physiology Quiz",
+          "selectCourse": "Select a course",
+          "courseLabel": "Course",
+          "descriptionPlaceholder": "Brief description for students (optional)",
+          "scopeTitle": "Exam scope",
+          "scopeHint": "Choose whether this exam covers the whole course, a unit, or a single lesson.",
+          "scopeCourse": "Whole course",
+          "scopeUnit": "Unit",
+          "scopeLesson": "Lesson",
+          "unitLabel": "Unit",
+          "lessonLabel": "Lesson",
+          "selectUnit": "Select a unit",
+          "selectLesson": "Select a lesson",
+          "allUnits": "All units",
+          "selectUnitRequired": "Please select a unit for this exam.",
+          "selectLessonRequired": "Please select a lesson for this exam.",
+          "noUnits": "This course has no units yet. Add curriculum in the course editor first.",
+          "noLessons": "This course has no lessons yet. Add curriculum in the course editor first.",
+          "noCourses": "You have no courses yet. Create a course before adding exams.",
+          "rulesTitle": "Grading & timing",
+          "rulesHint": "Duration, total points, and passing score apply to all students.",
+          "passingHint": "Must be between 0 and total points.",
+          "scoreValidation": "Check duration, total points, and passing score.",
+          "advancedTitle": "Student-facing details (optional)",
+          "advancedHint": "Shown on the mobile exam details screen. Leave empty to use defaults.",
+          "coveredTopics": "Covered topics",
+          "coveredTopicsPh": "One topic per line",
+          "examStructure": "Exam structure",
+          "examStructurePh": "Listening | 20 | 30\nReading | 15 | 30",
+          "examStructureHint": "Format: section title | question count | points",
+          "instructions": "Important instructions",
+          "instructionsPh": "One instruction per line",
+          "preparationTips": "Preparation tips",
+          "preparationTipsPh": "One tip per line",
+          "readyMessage": "Ready message",
+          "readyMessagePh": "Make sure you have enough time and a stable connection.",
+          "creating": "Creating…",
+          "descriptionLabel": "Description",
+          "durationLabel": "Duration (minutes)",
+          "totalPointsLabel": "Total points",
+          "passingLabel": "Passing score",
+          "scheduleLabel": "Scheduled at (optional)",
+          "submit": "Create & add questions",
+          "clearScope": "Clear unit & lesson",
+          "error": "Could not create exam."
+        },
+        "detailPage": {
+          "back": "Back to exams",
+          "loadError": "Could not load exam.",
+          "metaLine": "{{questions}} questions · {{points}} pts · {{duration}} min",
+          "addQuestionTitle": "Add a question",
+          "addQuestionHint": "Choose the question type, set options, and mark the correct answer.",
+          "questionType": "Question type",
+          "questionPlaceholder": "Write the question prompt here…",
+          "optionsTitle": "Answer options",
+          "optionsHint": "Click the circle to mark the correct answer.",
+          "optionPlaceholder": "Option {{letter}}",
+          "addOption": "Add option",
+          "minOptions": "Add at least two non-empty options.",
+          "correctRequired": "Select which option is correct.",
+          "modelAnswer": "Model answer",
+          "modelAnswerPlaceholder": "Expected short answer for auto-grading reference",
+          "modelAnswerOptional": "Optional — used as grading reference for instructors.",
+          "rubricHint": "Grading rubric / notes",
+          "essayPlaceholder": "Key points or rubric for grading essays…",
+          "pointsUsed": "Points allocated",
+          "questionsEmpty": "No questions yet",
+          "questionsEmptyHint": "Use the form on the left to add your first question.",
+          "addError": "Could not add question.",
+          "questionSaved": "Question saved.",
+          "questionDeleted": "Question deleted.",
+          "deleteConfirm": "Delete this question?",
+          "deleteError": "Could not delete question.",
+          "noSubmissions": "No student submissions yet.",
+          "questionsTitle": "Questions",
+          "addMcTitle": "Add multiple-choice question",
+          "questionText": "Question",
+          "optionA": "Option A",
+          "optionB": "Option B",
+          "correct": "Correct option",
+          "points": "Points",
+          "addQuestion": "Add question",
+          "questionAdded": "Question added.",
+          "submissionsTitle": "Student results",
+          "student": "Student",
+          "score": "Score",
+          "passed": "Passed",
+          "submitted": "Submitted",
+          "pending": "In progress",
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "assignment": {
+        "queue": {
+          "notOpened": "Not opened",
+          "opened": "Opened",
+          "closed": "Closed / graded",
+          "all": "All",
+          "stateLabel": "Your review state",
+          "markOpened": "Mark opened",
+          "markClosed": "Close without grade",
+          "resetNew": "Mark not opened",
+          "courseLine": "{{course}}",
+          "emptyFilter": "No submissions in this filter.",
+          "emptyAll": "When students submit assignment, they will appear here. Create assignments from a course editor (Assignment tab).",
+          "goToCourses": "Go to My Courses",
+          "emptyTitle": "No submissions yet",
+          "stateUpdated": "Review state updated."
+        }
+      },
+      "wallet": {
+        "requestPayout": "Request Payout",
+        "balance": "Current Balance",
+        "totalEarned": "Total Earned",
+        "totalWithdrawn": "Total Withdrawn",
+        "transactions": "Transactions",
+        "payoutHistory": "Payout History"
+      },
+      "qna": {
+        "lessonIdPlaceholder": "Enter lesson ID",
+        "replyPlaceholder": "Write your reply...",
+        "selectCourse": "Select course",
+        "allCourses": "All courses",
+        "noQuestions": "No questions found for this filter."
+      },
+      "students": {
+        "selectClass": "Select course",
+        "selectCourse": "Select course",
+        "purchasedAt": "Purchased",
+        "progress": "Progress",
+        "emptyTitle": "No students found",
+        "emptyDescription": "Select a course to view enrolled students."
+      },
+      "homework": {
+        "queue": {
+          "notOpened": "غير مفتوح",
+          "opened": "مفتوح",
+          "closed": "مغلق / مصحّح",
+          "all": "الكل",
+          "stateLabel": "حالة المراجعة",
+          "markOpened": "تعليم كمفتوح",
+          "markClosed": "إغلاق بدون درجة",
+          "resetNew": "تعليم كغير مفتوح",
+          "courseLine": "{{course}}",
+          "emptyFilter": "لا توجد تسليمات في هذا الفلتر.",
+          "emptyAll": "عندما يسلّم الطلاب الاسايمينت ستظهر هنا. أنشئ الاسايمينت من محرر الكورس (تاب الاسايمينت).",
+          "goToCourses": "الذهاب إلى كورساتي",
+          "emptyTitle": "لا توجد تسليمات بعد",
+          "stateUpdated": "تم تحديث حالة المراجعة."
+        }
+      }
+    }
+  },
+  "recommendedCourses": {
+    "titlePrefix": "Explore Our",
+    "titleAccent": "Recommended Courses",
+    "subtitle": "Choose from live cohorts and recorded courses led by experienced USMLE Step 1 medical educators.",
+    "tabs": {
+      "all": "All Courses",
+      "live": "Live Cohorts",
+      "recorded": "Recorded Courses"
+    },
+    "exploreCurriculum": "Explore Curriculum",
+    "status": {
+      "live": "Live Cohort 🔴",
+      "recorded": "Recorded 🖥️"
+    },
+    "courses": {
+      "structural": {
+        "title": "Cardiovascular System",
+        "description": "Integrate cardiovascular physiology, pathology, pharmacology, and high-yield clinical correlations for Step 1."
+      },
+      "cfd": {
+        "title": "Respiratory System",
+        "description": "Build a clear understanding of pulmonary physiology, pathology, and commonly tested respiratory drugs."
+      },
+      "hvac": {
+        "title": "Renal System & Acid–Base",
+        "description": "Master renal physiology, electrolyte disorders, acid–base interpretation, and high-yield renal pathology."
+      },
+      "embedded": {
+        "title": "Neurology & Behavioral Science",
+        "description": "Review neuroanatomy, neurologic disease, psychiatry, and pharmacology through integrated Step 1 cases."
+      },
+      "frontend": {
+        "title": "Immunology & Microbiology",
+        "description": "Connect immune mechanisms with high-yield pathogens, antimicrobial therapy, and clinical presentations."
+      },
+      "infrastructure": {
+        "title": "Pathology & Pharmacology Review",
+        "description": "Consolidate core disease mechanisms and drug principles with board-style questions and rapid review."
+      }
+    }
+  },
+  "testimonials": {
+    "titlePrefix": "What Our",
+    "titleAccent": "Students Say",
+    "subtitle": "Hear from medical students who strengthened their foundations, improved question performance, and entered dedicated study with confidence.",
+    "items": {
+      "item1": {
+        "name": "Youssef Fathy",
+        "role": "Third-Year Medical Student",
+        "text": "The cardiovascular course connected physiology, pathology, and pharmacology in a way that finally made board-style questions feel manageable."
+      },
+      "item2": {
+        "name": "Amina Mansour",
+        "role": "Medical Student Preparing for Step 1",
+        "text": "The renal and acid–base lessons turned a difficult topic into a clear framework I can apply quickly to practice questions."
+      },
+      "item3": {
+        "name": "Tarek Hegazi",
+        "role": "Fourth-Year Medical Student",
+        "text": "Weekly quizzes and detailed explanations showed me exactly where my reasoning broke down and how to fix it."
+      },
+      "item4": {
+        "name": "Laila Shaheen",
+        "role": "International Medical Student",
+        "text": "The bilingual explanations helped me learn the concepts in depth while becoming comfortable with English exam terminology."
+      },
+      "item5": {
+        "name": "Mahmoud Zaki",
+        "role": "Medical Intern",
+        "text": "The flexible study plan and concise high-yield reviews helped me stay consistent alongside a demanding clinical schedule."
+      },
+      "item6": {
+        "name": "Sarah Al-Otaibi",
+        "role": "Step 1 Candidate",
+        "text": "The organized system modules, flashcards, and progress tracking gave my dedicated period the structure it was missing."
+      }
+    }
+  },
+  "homework": {
+    "hubTitle": "الاسايمينت حسب الدفعة",
+    "hubSubtitle": "اختر دفعة لعرض الاسايمينت.",
+    "loadError": "تعذّر تحميل الاسايمينت.",
+    "emptyCohort": "لا اسايمينت لهذه الدفعة.",
+    "hubLoadError": "تعذّر تحميل الاسايمينت.",
+    "hubEmpty": "لا اسايمينت لصفوفك بعد.",
+    "emptyFilter": "لا اسايمينت تطابق البحث أو الدفعة المختارة.",
+    "showingNone": "لا اسايمينت للعرض",
+    "showingRange": "عرض {{from}}–{{to}} من {{total}} نتيجة",
+    "searchAria": "بحث",
+    "titlePrefix": "اسايمينتي",
+    "titleAccent": "المنزلية",
+    "subtitle": "تتبع وتسليم اسايمينتك المنزلية",
+    "viewCourse": "كل اسايمينت الكورس",
+    "courseListSubtitle": "اسايمينت هذا الكورس",
+    "due": "الموعد النهائي:",
+    "submitted": "تم التسليم:",
+    "grade": "الدرجة:",
+    "gradePct": "الدرجة: {{pct}}٪",
+    "searchPlaceholder": "ابحث عن الاسايمينت…",
+    "showing": "عرض {{count}} من {{total}} اسايمينت",
+    "contextLine": "{{courseTitle}} · {{cohortName}}",
+    "daysLeft": "({{n}} يوم متبقٍ)",
+    "overdue": "متأخر {{n}} يوماً",
+    "type": {
+      "TEXT": "إجابة كتابية",
+      "FILE": "رفع ملف",
+      "LINK": "تسليم برابط"
+    },
+    "status": {
+      "pending": "لم يبدأ",
+      "submitted": "تم التسليم",
+      "underReview": "قيد المراجعة",
+      "completed": "مكتمل",
+      "late": "متأخر"
+    },
+    "filter": {
+      "all": "جميع الحالات",
+      "allClasses": "جميع الدفعات"
+    },
+    "actions": {
+      "submit": "تسليم الاسايمينت",
+      "viewDetails": "عرض التفاصيل",
+      "viewResults": "عرض النتائج"
+    },
+    "stats": {
+      "total": "الإجمالي",
+      "pending": "معلق",
+      "submitted": "قيد المراجعة",
+      "completed": "مكتمل"
+    }
+  },
+  "homeworkDetail": {
+    "typeLabel": "نوع التسليم",
+    "submitError": "فشل التسليم.",
+    "validation": {
+      "text": "يرجى إدخال إجابتك.",
+      "link": "يرجى إدخال رابط صالح.",
+      "file": "اختر ملفاً أو الصق رابط الملف."
+    },
+    "fileOrUrlHint": "ارفع الملف مباشرة، أو الصق رابط ملف مستضاف.",
+    "fileUrlPlaceholder": "الصق رابط الملف",
+    "fileReady": "تم إرفاق الملف.",
+    "fileTooBig": "الملف كبير جداً (الحد 10 ميجابايت).",
+    "fileReadError": "تعذّر قراءة الملف.",
+    "notFound": "الاسايمينت غير موجود.",
+    "back": "العودة إلى الاسايمينت",
+    "due": "الموعد النهائي:",
+    "instructions": {
+      "title": "التعليمات"
+    },
+    "requirements": {
+      "title": "المتطلبات",
+      "fallbackDefault": "اتبع تعليمات المحاضر وسلّم قبل الموعد النهائي.",
+      "fallback": {
+        "TEXT": "قدّم إجابة كتابية كما هو موضح في التعليمات.",
+        "FILE": "ارفع الملفات المطلوبة (صوت أو PDF أو صور) ضمن الحد المسموح.",
+        "LINK": "قدّم رابطاً يعمل لعملك المكتمل."
+      }
+    },
+    "contextSubtitle": "{{courseTitle}} · {{cohortName}}",
+    "submitCard": {
+      "title": "تسليم الاسايمينت",
+      "answerLabel": "إجابتك",
+      "answerPlaceholder": "اكتب إجاباتك هنا...",
+      "uploadLabel": "رفع الملفات",
+      "submitBtn": "تسليم الاسايمينت",
+      "submitting": "جارٍ التسليم…"
+    },
+    "upload": {
+      "cta": "انقر للرفع أو اسحب الملف وأفلته",
+      "hint": "ملفات صوتية أو PDF أو صور (الحد الأقصى 10 ميجابايت لكل ملف)"
+    },
+    "sidebar": {
+      "relatedTitle": "الدرس المرتبط",
+      "viewClassBtn": "عرض تفاصيل الدرس",
+      "tipsTitle": "نصائح التسليم",
+      "tip1": "راجع الإملاء والأحرف قبل التسليم.",
+      "tip2": "اجعل التسجيلات الصوتية واضحة.",
+      "tip3": "استخدم أنواع الملفات والأحجام المذكورة أعلاه.",
+      "tip4": "سلّم قبل الموعد لتجنب حالة التأخير."
+    },
+    "successTitle": "تم تسليم الاسايمينت!",
+    "gradedTitle": "التسليم المُقيَّم",
+    "downloadSubmission": "تحميل الملف المُسلَّم",
+    "resubmitTitle": "تحديث التسليم",
+    "resubmitBtn": "تحديث التسليم",
+    "successMsg": "تم استلام تسليمك. سيراجعه معلمك قريباً.",
+    "backBtn": "العودة إلى الاسايمينت"
+  },
+  "admin": {
+    "shell": {
+      "tagline": "Operate the platform with clarity",
+      "controlCenter": "Control center",
+      "adminFallback": "Admin"
+    }
+  }
+}

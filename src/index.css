@@ -1,0 +1,651 @@
+/* Fonts load from index.html (Alexandria + Inter). Arabic uses Alexandria via --font-app when lang starts with "ar". */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   YASER USMLE — Design System Tokens
+   Brand: medical expertise, clarity, calm focus, premium trust
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* ── Yaser USMLE Brand Colors ─────────────────────────── */
+    --yu-blue-950:   #0A1628;
+    --yu-blue-900:   #0F2448;
+    --yu-blue-800:   #153577;
+    --yu-blue-700:   #1B4FBF;   /* brand.primary */
+    --yu-blue-600:   #2563EB;
+    --yu-blue-500:   #3B82F6;   /* brand.accent */
+    --yu-blue-400:   #60A5FA;
+    --yu-blue-300:   #93C5FD;
+    --yu-blue-100:   #DBEAFE;
+    --yu-blue-50:    #EFF6FF;
+
+    /* Warm CTA / highlight (energetic, not "engineering orange") */
+    --yu-amber-600:  #D97706;
+    --yu-amber-500:  #F59E0B;   /* warm highlight */
+    --yu-amber-400:  #FBBf24;
+    --yu-amber-50:   #FFFBEB;
+
+    /* Semantic tokens ────────────────────────────────────── */
+    --color-brand-primary:    var(--yu-blue-700);
+    --color-brand-secondary:  var(--yu-blue-500);
+    --color-brand-accent:     var(--yu-amber-500);
+
+    /* Backgrounds */
+    --color-bg-canvas:        #F8FAFD;
+    --color-bg-surface:       #FFFFFF;
+    --color-bg-elevated:      #F1F5F9;
+    --color-bg-overlay:       rgba(0, 0, 0, 0.5);
+
+    /* Text */
+    --color-text-primary:     #0F172A;
+    --color-text-secondary:   #334155;
+    --color-text-muted:       #64748B;
+    --color-text-inverted:    #FFFFFF;
+
+    /* Borders */
+    --color-border-subtle:    rgba(15, 23, 42, 0.08);
+    --color-border-default:   rgba(15, 23, 42, 0.14);
+    --color-border-strong:    rgba(15, 23, 42, 0.25);
+
+    /* Status */
+    --color-success:          #10B981;
+    --color-success-bg:       #ECFDF5;
+    --color-warning:          #F59E0B;
+    --color-warning-bg:       #FFFBEB;
+    --color-danger:           #EF4444;
+    --color-danger-bg:        #FEF2F2;
+    --color-info:             #0EA5E9;
+    --color-info-bg:          #F0F9FF;
+
+    /* Focus ring */
+    --color-focus:            rgba(27, 79, 191, 0.4);
+
+    /* Shadows */
+    --shadow-sm:    0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md:    0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+    --shadow-lg:    0 8px 24px rgba(15, 23, 42, 0.10), 0 4px 8px rgba(15, 23, 42, 0.06);
+    --shadow-xl:    0 16px 40px rgba(15, 23, 42, 0.12), 0 6px 12px rgba(15, 23, 42, 0.06);
+    --shadow-brand: 0 8px 24px rgba(27, 79, 191, 0.25);
+    --shadow-cta:   0 8px 24px rgba(27, 79, 191, 0.30);
+
+    /* Radius */
+    --radius-sm:   6px;
+    --radius-md:   10px;
+    --radius-lg:   14px;
+    --radius-xl:   20px;
+    --radius-2xl:  28px;
+    --radius-full: 9999px;
+
+    /* ── Legacy aliases (backward-compat for remaining pioneer-* vars) ── */
+    --pioneer-navy:                var(--yu-blue-950);
+    --pioneer-dark-bg:             #0F172A;
+    --pioneer-dark-card:           #1E293B;
+    --pioneer-dark-text-primary:   #F1F5F9;
+    --pioneer-dark-text-secondary: #94A3B8;
+  }
+
+  /* Dark mode overrides */
+  .dark {
+    --color-bg-canvas:       #0A1628;
+    --color-bg-surface:      #0F1E38;
+    --color-bg-elevated:     #172345;
+    --color-text-primary:    #F0F6FF;
+    --color-text-secondary:  #CBD5E1;
+    --color-text-muted:      #94A3B8;
+    --color-border-subtle:   rgba(255, 255, 255, 0.06);
+    --color-border-default:  rgba(255, 255, 255, 0.10);
+    --color-border-strong:   rgba(255, 255, 255, 0.18);
+
+    --pioneer-dark-bg:       #0A1628;
+    --pioneer-dark-card:     #0F1E38;
+  }
+
+  html {
+    --font-app: Inter, "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-app);
+    font-size: 106.25%;
+    scroll-behavior: smooth;
+  }
+
+  html[lang|="ar"] {
+    --font-app: "Cairo", "Alexandria", sans-serif;
+    font-size: 112.5%;
+    letter-spacing: 0;
+  }
+
+  body {
+    @apply text-slate-900 antialiased;
+    font-family: var(--font-app);
+    background-color: var(--color-bg-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Inherit parent color so headings stay readable on dark heroes
+     (text-white sections) and light surfaces alike. Body sets slate-900. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-app);
+    @apply tracking-tight font-semibold;
+    color: inherit;
+  }
+
+  html[lang|="ar"] h1,
+  html[lang|="ar"] h2,
+  html[lang|="ar"] h3,
+  html[lang|="ar"] h4,
+  html[lang|="ar"] h5,
+  html[lang|="ar"] h6 {
+    font-weight: 700;
+  }
+
+  /* Global focus ring */
+  :focus-visible {
+    outline: 2px solid var(--yu-blue-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* RTL Helpers */
+[dir="rtl"] .ltr-only {
+  direction: ltr !important;
+}
+
+/* ============================================================
+   DESIGN SYSTEM COMPONENTS
+   ============================================================ */
+
+@layer components {
+  /* ── Buttons ────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-150 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 select-none;
+  }
+  .btn:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  .btn-primary {
+    @apply btn text-white active:scale-[0.98];
+    background-color: var(--yu-blue-700);
+    box-shadow: var(--shadow-brand);
+  }
+  .btn-primary:hover {
+    background-color: var(--yu-blue-600);
+  }
+  .btn-secondary {
+    @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-transparent dark:text-white dark:border-white/10;
+  }
+  .btn-secondary:hover {
+    border-color: #93c5fd;
+  }
+  .btn-ghost {
+    @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+  }
+  .btn-danger {
+    @apply btn bg-red-500 text-white hover:bg-red-600 active:scale-[0.98];
+  }
+  .btn-cta {
+    @apply btn text-white active:scale-[0.98] text-base px-7 py-3;
+    background-color: var(--yu-blue-700);
+    box-shadow: var(--shadow-cta);
+  }
+  .btn-cta:hover {
+    background-color: var(--yu-blue-600);
+  }
+  .btn-sm {
+    @apply text-xs px-3 py-1.5 rounded-lg;
+  }
+  .btn-lg {
+    @apply text-base px-8 py-3.5 rounded-2xl;
+  }
+  .btn-icon {
+    @apply btn p-2 rounded-lg aspect-square;
+  }
+
+  /* ── Inputs ─────────────────────────────────────────────── */
+  .input {
+    @apply h-11 w-full rounded-xl border bg-white px-4 text-sm outline-none transition placeholder:text-slate-400 dark:bg-[#0F1E38] dark:text-white;
+    border-color: var(--color-border-default);
+    color: var(--color-text-primary);
+  }
+  .input:focus {
+    border-color: var(--yu-blue-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+  .input-error {
+    @apply border-red-400;
+  }
+  .input-error:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+  .textarea {
+    @apply w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 dark:bg-[#0F1E38] dark:text-white resize-y min-h-[100px];
+    border-color: var(--color-border-default);
+    color: var(--color-text-primary);
+  }
+  .textarea:focus {
+    border-color: var(--yu-blue-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+
+  /* ── Cards ──────────────────────────────────────────────── */
+  .card {
+    @apply rounded-2xl border bg-white transition-shadow duration-200 dark:bg-[#0F1E38];
+    border-color: var(--color-border-subtle);
+    box-shadow: var(--shadow-sm);
+  }
+  .card-hover {
+    @apply card;
+  }
+  .card-hover:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-border-default);
+  }
+  .card-elevated {
+    @apply rounded-2xl bg-white border-0 dark:bg-[#0F1E38];
+    box-shadow: var(--shadow-lg);
+  }
+  .card-brand {
+    @apply rounded-2xl text-white;
+    background-color: var(--yu-blue-700);
+    box-shadow: var(--shadow-brand);
+  }
+
+  /* ── Badges ─────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .badge-blue   { @apply badge bg-blue-50 text-blue-700 dark:text-blue-300; }
+  .badge-green  { @apply badge bg-emerald-50 text-emerald-700 dark:text-emerald-400; }
+  .badge-amber  { @apply badge bg-amber-50 text-amber-700 dark:text-amber-400; }
+  .badge-red    { @apply badge bg-red-50 text-red-700 dark:text-red-400; }
+  .badge-slate  { @apply badge bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400; }
+
+  /* ── Section layout ─────────────────────────────────────── */
+  .section {
+    @apply py-16 md:py-24;
+  }
+  .section-sm {
+    @apply py-10 md:py-16;
+  }
+  .container-page {
+    @apply mx-auto max-w-7xl px-4 md:px-6 lg:px-8;
+  }
+  .section-header {
+    @apply mx-auto max-w-2xl text-center;
+  }
+
+  /* ── Brand highlight underline ─────────────────────────── */
+  .text-brand-underline {
+    @apply relative inline-block;
+  }
+  .text-brand-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--yu-blue-500);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  /* ── Skeleton loading ────────────────────────────────────  */
+  .skeleton {
+    @apply animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700/50;
+  }
+
+  /* ── Data table ─────────────────────────────────────────── */
+  .data-table {
+    @apply w-full text-sm border-collapse;
+  }
+  .data-table th {
+    @apply px-4 py-3 text-start text-xs font-semibold uppercase tracking-wide text-slate-500 border-b border-slate-100 bg-slate-50 dark:bg-white/[0.02] dark:text-slate-400 dark:border-white/5;
+  }
+  .data-table td {
+    @apply px-4 py-3 text-slate-700 border-b border-slate-100 dark:text-slate-300 dark:border-white/5;
+  }
+  .data-table tr:hover td {
+    @apply bg-slate-50 dark:bg-white/[0.01];
+  }
+
+  /* ── Empty state ─────────────────────────────────────────  */
+  .empty-state {
+    @apply flex flex-col items-center justify-center rounded-2xl border-2 border-dashed bg-white p-12 text-center dark:bg-[#0F1E38];
+    border-color: var(--color-border-subtle);
+  }
+  .empty-state-icon {
+    @apply mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 dark:bg-white/5 dark:text-slate-600;
+  }
+
+  /* ── Alert ───────────────────────────────────────────────  */
+  .alert {
+    @apply flex items-start gap-3 rounded-xl border p-4 text-sm;
+  }
+  .alert-info    { @apply alert bg-blue-50 border-blue-200 text-blue-800 dark:text-blue-300; }
+  .alert-success { @apply alert bg-emerald-50 border-emerald-200 text-emerald-800 dark:text-emerald-300; }
+  .alert-warning { @apply alert bg-amber-50 border-amber-200 text-amber-800 dark:text-amber-300; }
+  .alert-danger  { @apply alert bg-red-50 border-red-200 text-red-800 dark:text-red-300; }
+
+  /* ── Quiz UI ─────────────────────────────────────────────  */
+  .quiz-option {
+    @apply flex items-center gap-3 rounded-xl border-2 bg-white p-4 text-sm font-medium text-slate-700 cursor-pointer transition-all duration-150 dark:bg-[#0F1E38] dark:text-slate-200;
+    border-color: var(--color-border-subtle);
+  }
+  .quiz-option:hover {
+    border-color: #93c5fd;
+    background-color: #eff6ff;
+  }
+  .quiz-option-selected {
+    @apply text-blue-800 dark:text-blue-200;
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+  .quiz-option-correct {
+    @apply border-emerald-500 bg-emerald-50 text-emerald-800 dark:text-emerald-300;
+  }
+  .quiz-option-incorrect {
+    @apply border-red-400 bg-red-50 text-red-700 dark:text-red-300;
+  }
+
+  /* ── Flashcard ───────────────────────────────────────────  */
+  .flashcard-container {
+    perspective: 1200px;
+  }
+  .flashcard-inner {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard-inner.flipped {
+    transform: rotateY(180deg);
+  }
+  .flashcard-face {
+    @apply rounded-2xl border border-[var(--color-border-subtle)] bg-white shadow-[var(--shadow-md)] dark:bg-[#0F1E38] dark:border-white/10;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flashcard-back {
+    transform: rotateY(180deg);
+    position: absolute;
+    inset: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flashcard-inner {
+      transition: none;
+    }
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+@layer utilities {
+  /* Scrollbar hide */
+  .scrollbar-hide,
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar,
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================================
+   DARK BACKGROUND OVERRIDES
+   ============================================================ */
+.dark [class*="bg-[#1A1A22]"],
+.dark [class*="bg-[#1a1a22]"] {
+  background-color: var(--color-bg-surface) !important;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Marquee scroll (trusted by/logos) */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+@keyframes marquee-scroll-left {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll-left 40s linear infinite;
+}
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll-right 40s linear infinite;
+}
+.pause-scroll:hover .animate-marquee-left,
+.pause-scroll:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* Number count-up pulse */
+@keyframes pulse-brand {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+.animate-pulse-brand {
+  animation: pulse-brand 2s ease-in-out infinite;
+}
+
+/* Section fade-up (used with framer-motion viewport or IntersectionObserver) */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+/* Gradient border animation (selective use) */
+@keyframes gradient-border {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.animated-gradient-border {
+  background: linear-gradient(90deg, var(--yu-blue-700), var(--yu-blue-500), var(--yu-blue-300));
+  background-size: 200% 200%;
+  animation: gradient-border 4s ease infinite;
+}
+
+/* Student dashboard shell */
+@keyframes studentFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.student-shell .student-shell-content > * {
+  --student-card-radius: 1.25rem;
+}
+
+.student-shell .rounded-2xl {
+  border-radius: 1.25rem;
+}
+
+.dark .student-shell {
+  color: #e2e8f0;
+}
+
+.student-sidebar {
+  box-shadow: 8px 0 40px rgba(7, 17, 31, 0.18);
+}
+
+[dir="rtl"] .student-sidebar {
+  box-shadow: -8px 0 40px rgba(7, 17, 31, 0.18);
+}
+
+/* Unify common surfaces inside student pages that still use older class patterns */
+.student-shell main .rounded-2xl.border.border-slate-200,
+.student-shell main .rounded-2xl.border.border-slate-100,
+.student-shell main .rounded-2xl.border.border-slate-200\/60,
+.student-shell main .rounded-2xl.border.border-slate-700\/40 {
+  border-radius: 1.35rem;
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: var(--shadow-sm);
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.dark .student-shell main .rounded-2xl.border.border-slate-200,
+.dark .student-shell main .rounded-2xl.border.border-slate-100,
+.dark .student-shell main .rounded-2xl.border.border-slate-200\/60,
+.dark .student-shell main .rounded-2xl.border.border-slate-700\/40,
+.dark .student-shell main .dark\:bg-\[\#1E293B\] {
+  border-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(15, 30, 56, 0.88);
+}
+
+.student-shell main table thead th {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.student-shell main table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.student-shell main table tbody tr:hover {
+  background-color: rgba(239, 246, 255, 0.55);
+}
+
+.dark .student-shell main table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.student-shell main input[type="text"],
+.student-shell main input[type="search"],
+.student-shell main input[type="email"],
+.student-shell main input[type="password"],
+.student-shell main input[type="date"],
+.student-shell main input[type="datetime-local"],
+.student-shell main input:not([type]),
+.student-shell main textarea,
+.student-shell main select {
+  border-radius: 0.75rem;
+}
+
+/* Admin / super-admin dashboard shell */
+@keyframes adminFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-shell .admin-shell-content > * {
+  --admin-card-radius: 1.35rem;
+}
+
+.admin-shell .rounded-xl,
+.admin-shell .rounded-2xl {
+  border-radius: 1.25rem;
+}
+
+.dark .admin-shell {
+  color: #e2e8f0;
+}
+
+.admin-sidebar {
+  box-shadow: 10px 0 44px rgba(5, 11, 22, 0.28);
+}
+
+[dir="rtl"] .admin-sidebar {
+  box-shadow: -10px 0 44px rgba(5, 11, 22, 0.28);
+}
+
+/* Elevate legacy card patterns across all admin pages */
+.admin-shell main .rounded-xl.border,
+.admin-shell main .rounded-2xl.border {
+  border-color: rgba(226, 232, 240, 0.92);
+  box-shadow: var(--shadow-sm);
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.dark .admin-shell main .rounded-xl.border,
+.dark .admin-shell main .rounded-2xl.border {
+  border-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(15, 30, 56, 0.9);
+}
+
+.admin-shell main article.group,
+.admin-shell main .shadow-sm {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-shell main table thead th {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.admin-shell main table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.admin-shell main table tbody tr:hover {
+  background-color: rgba(239, 246, 255, 0.6);
+}
+
+.dark .admin-shell main table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.035);
+}
+
+.admin-shell main input[type="text"],
+.admin-shell main input[type="search"],
+.admin-shell main input[type="email"],
+.admin-shell main input[type="password"],
+.admin-shell main input[type="date"],
+.admin-shell main input[type="datetime-local"],
+.admin-shell main input[type="number"],
+.admin-shell main input:not([type]),
+.admin-shell main textarea,
+.admin-shell main select {
+  border-radius: 0.85rem;
+}
+
+.admin-shell main .bg-slate-100.rounded-lg,
+.admin-shell main .bg-slate-100.rounded-xl,
+.admin-shell main .inline-flex.rounded-lg.bg-slate-100 {
+  border-radius: 0.85rem;
+}
+

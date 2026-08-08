@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Yaser USMLE">
+  <defs>
+    <linearGradient id="mark" x1="4" y1="3" x2="44" y2="45" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0891B2"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="15" fill="#071A38"/>
+  <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#mark)"/>
+  <path d="M13 14L24 25L35 14" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 25V37" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <path d="M29.5 31H36.5M33 27.5V34.5" stroke="#CFFAFE" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

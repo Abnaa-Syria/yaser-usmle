@@ -1,0 +1,1 @@
+function e(e,t=`Something went wrong`){return e?.response?.data?.message||e?.response?.data?.error||e?.message||t}function t(e){return e?.data?.data??e?.data??null}export{t as n,e as t};

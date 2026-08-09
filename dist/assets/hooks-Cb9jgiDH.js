@@ -1,1 +1,0 @@
-import{Tn as e,ti as t,yn as n}from"./index-DJjt-s2s.js";async function r(t={}){return(await n.get(e.student.flashcards,{params:t}))?.data?.data??[]}function i(e={}){return t({queryKey:[`student`,`flashcards`,e],queryFn:()=>r(e),retry:!1})}export{i as t};

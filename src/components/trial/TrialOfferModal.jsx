@@ -17,7 +17,10 @@ export default function TrialOfferModal() {
   const location = useLocation();
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const trialActive = useTrialStore((s) => s.isActive());
+  const trialActive = useTrialStore((s) => {
+    if (!s.accessToken || !s.expiresAt || s.status === "REVOKED") return false;
+    return new Date(s.expiresAt).getTime() > Date.now();
+  });
   const trialHydrated = useTrialStore((s) => s.hydrated);
   const { data: config, isLoading } = usePublicTrialConfig();
   const startTrial = useStartTrial();

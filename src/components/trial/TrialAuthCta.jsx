@@ -13,7 +13,10 @@ export default function TrialAuthCta() {
   const navigate = useNavigate();
   const { data: config } = usePublicTrialConfig();
   const startTrial = useStartTrial();
-  const trialActive = useTrialStore((s) => s.isActive());
+  const trialActive = useTrialStore((s) => {
+    if (!s.accessToken || !s.expiresAt || s.status === "REVOKED") return false;
+    return new Date(s.expiresAt).getTime() > Date.now();
+  });
 
   if (!config?.enabled) return null;
 

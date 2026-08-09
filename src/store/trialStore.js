@@ -90,7 +90,8 @@ const useTrialStore = create(
         if (state?.accessToken) {
           localStorage.setItem("trialAccessToken", state.accessToken);
         }
-        state?.setHydrated?.(true);
+        // Prefer setState so hydration works even if methods are not yet on `state`.
+        useTrialStore.setState({ hydrated: true });
       },
     }
   )

@@ -2,6 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { navigateReplaceTo } from "./routerNavigation";
 import useAuthStore from "../store/authStore";
+import useTrialStore from "../store/trialStore";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1",
@@ -54,12 +55,7 @@ api.interceptors.response.use(
         requestUrl.includes("/trial/") || requestUrl.includes("/public/trial/start");
       if (isTrialRequest && isTrialStopped) {
         localStorage.removeItem("trialAccessToken");
-        try {
-          const { default: useTrialStore } = await import("../store/trialStore");
-          useTrialStore.getState().clearSession();
-        } catch {
-          /* ignore */
-        }
+        useTrialStore.getState().clearSession();
         if (typeof window !== "undefined" && window.location.pathname.startsWith("/trial")) {
           toast.error(trialMsg);
           queueMicrotask(() => navigateReplaceTo("/signup"));
@@ -114,12 +110,7 @@ api.interceptors.response.use(
 
       if (isTrialRequest) {
         localStorage.removeItem("trialAccessToken");
-        try {
-          const { default: useTrialStore } = await import("../store/trialStore");
-          useTrialStore.getState().clearSession();
-        } catch {
-          /* ignore */
-        }
+        useTrialStore.getState().clearSession();
         return Promise.reject(error);
       }
 

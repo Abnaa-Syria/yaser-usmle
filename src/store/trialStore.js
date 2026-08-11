@@ -35,7 +35,7 @@ const useTrialStore = create(
       status: null,
       remainingMs: null,
       hydrated: false,
-      setHydrated: (value) => set({ hydrated: value }),
+      setHydrated: (value) => set({ hydrated: Boolean(value) }),
 
       setSession: ({ accessToken, trialId, startedAt, expiresAt, status, remainingMs }) => {
         if (accessToken) localStorage.setItem("trialAccessToken", accessToken);
@@ -86,15 +86,40 @@ const useTrialStore = create(
         status: s.status,
         remainingMs: s.remainingMs,
       }),
-      onRehydrateStorage: () => (state) => {
-        if (state?.accessToken) {
+      merge: (persistedState, currentState) => {
+        const persisted =
+          persistedState && typeof persistedState === "object" && "state" in persistedState
+            ? persistedState.state || {}
+            : persistedState || {};
+        const accessToken = persisted.accessToken || null;
+        if (accessToken) localStorage.setItem("trialAccessToken", accessToken);
+        return {
+          ...currentState,
+          ...persisted,
+          accessToken,
+          hydrated: true,
+        };
+      },
+      onRehydrateStorage: () => (state, error) => {
+        if (!error && state?.accessToken) {
           localStorage.setItem("trialAccessToken", state.accessToken);
         }
-        // Prefer setState so hydration works even if methods are not yet on `state`.
         useTrialStore.setState({ hydrated: true });
       },
     }
   )
 );
+
+if (typeof window !== "undefined") {
+  const markHydrated = () => useTrialStore.setState({ hydrated: true });
+  try {
+    useTrialStore.persist.onFinishHydration(markHydrated);
+    if (useTrialStore.persist.hasHydrated()) markHydrated();
+  } catch {
+    /* ignore */
+  }
+  // Never leave /trial blank if rehydration stalls.
+  window.setTimeout(markHydrated, 800);
+}
 
 export default useTrialStore;

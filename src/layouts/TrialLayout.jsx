@@ -6,6 +6,7 @@ import useTrialStore from "../store/trialStore";
 import { useTrialMe } from "../features/trial/hooks";
 import TrialSidebar from "./trial/TrialSidebar";
 import TrialTopbar from "./trial/TrialTopbar";
+import { loadingFallback } from "../components/LoadingFallback";
 
 export default function TrialLayout() {
   const { t } = useTranslation();
@@ -13,8 +14,15 @@ export default function TrialLayout() {
   const hydrated = useTrialStore((s) => s.hydrated);
   const accessToken = useTrialStore((s) => s.accessToken);
   const clearSession = useTrialStore((s) => s.clearSession);
-  const { data: me, isError, error } = useTrialMe(Boolean(accessToken));
+  const { data: me, isError, error, isLoading } = useTrialMe(Boolean(accessToken));
   const sidebarSections = getTrialNavigation();
+
+  useEffect(() => {
+    // Keep axios interceptor token in sync with the zustand session.
+    if (accessToken && localStorage.getItem("trialAccessToken") !== accessToken) {
+      localStorage.setItem("trialAccessToken", accessToken);
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -43,22 +51,23 @@ export default function TrialLayout() {
   useEffect(() => {
     if (!isError) return;
     const status = error?.response?.status;
-    const msg = String(error?.response?.data?.message || error?.message || "");
+    const msg = String(error?.response?.data?.message || "");
+    // Only clear on definitive auth/device failures — never on transient 500s.
     if (
       status === 401 ||
       status === 403 ||
-      status === 500 ||
       msg.includes("stopped by an administrator") ||
       msg.includes("does not match this device") ||
       msg.includes("already ended") ||
-      msg.includes("expired") ||
-      msg.includes("invalid")
+      msg.includes("Trial session expired") ||
+      msg.includes("Trial session not found") ||
+      msg.includes("Trial session required")
     ) {
       clearSession();
     }
   }, [isError, error, clearSession]);
 
-  if (!hydrated) return null;
+  if (!hydrated) return loadingFallback();
   if (!accessToken) return <Navigate to="/login" replace />;
 
   const revoked = me?.status === "REVOKED" || me?.revoked;
@@ -118,6 +127,7 @@ export default function TrialLayout() {
 
         <main className="relative flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="student-shell-content mx-auto max-w-7xl animate-[studentFadeIn_0.45s_ease-out]">
+            {isLoading && !me ? loadingFallback() : null}
             <Outlet context={{ me, expired, remainingDays, remainingMs, expiresAt, revoked }} />
           </div>
         </main>

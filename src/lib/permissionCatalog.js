@@ -32,6 +32,7 @@ export const PERMISSION_GROUPS = {
     label: "Assessments",
     permissions: [
       { key: "exam:manage", label: "Manage exams" },
+      { key: "flashcard:manage", label: "Manage flashcards" },
       { key: "certificate:manage", label: "Issue certificates" },
     ],
   },
@@ -47,12 +48,16 @@ export const PERMISSION_GROUPS = {
   },
   people: {
     label: "People",
-    permissions: [{ key: "instructor:manage", label: "Manage instructors" }],
+    permissions: [
+      { key: "instructor:manage", label: "Manage instructors" },
+      { key: "instructor_application:manage", label: "Review instructor applications" },
+    ],
   },
   content: {
     label: "Content & support",
     permissions: [
       { key: "cms:manage", label: "Manage CMS (FAQ, posts, banners)" },
+      { key: "event:manage", label: "Manage community events" },
       { key: "support:manage", label: "Manage support tickets" },
     ],
   },

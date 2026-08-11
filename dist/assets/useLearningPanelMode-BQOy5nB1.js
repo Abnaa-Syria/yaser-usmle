@@ -1,1 +1,0 @@
-import{Si as e}from"./index-BGI82GVV.js";function t(){let{pathname:t}=e(),n=t.startsWith(`/trial`);return{isTrial:n,examsBase:n?`/trial/exams`:`/student/exams`,flashcardsBase:n?`/trial/flashcards`:`/student/flashcards`}}export{t};

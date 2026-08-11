@@ -335,6 +335,12 @@ export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
               permission: "cms:manage",
             },
             {
+              labelKey: "sidebarNav.items.homeSections",
+              path: "/admin/cms/home-sections",
+              icon: FileText,
+              permission: "cms:manage",
+            },
+            {
               labelKey: "sidebarNav.items.blogPosts",
               path: "/admin/cms/posts",
               icon: FileText,

@@ -1,1 +1,0 @@
-import{Nn as e,ki as t,zn as n}from"./index-BGI82GVV.js";async function r(t={}){return(await e.get(n.student.flashcards,{params:t}))?.data?.data??[]}function i(e={},n={}){return t({queryKey:[`student`,`flashcards`,e],queryFn:()=>r(e),enabled:n.enabled!==!1,retry:!1})}export{i as t};

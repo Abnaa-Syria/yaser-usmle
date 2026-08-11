@@ -50,6 +50,7 @@ function PreviewLinks() {
     { to: "/about", label: t("dashboard.admin.pages.cms.previewAbout", { defaultValue: "About page" }), icon: Sparkles },
     { to: "/faq", label: t("dashboard.admin.pages.cms.previewFaq", { defaultValue: "FAQ page" }), icon: HelpCircle },
     { to: "/admin/cms/pages", label: t("sidebarNav.items.sitePages", { defaultValue: "Site pages" }), icon: FileText, admin: true },
+    { to: "/admin/cms/home-sections", label: t("sidebarNav.items.homeSections", { defaultValue: "Home & catalog sections" }), icon: Sparkles, admin: true },
     { to: "/admin/cms/posts", label: t("sidebarNav.items.blogPosts"), icon: FileText, admin: true },
     { to: "/admin/cms/banners", label: t("sidebarNav.items.banners"), icon: Image, admin: true },
   ];
@@ -92,6 +93,7 @@ function Cms() {
     visionAr: "",
     descriptionEn: "",
     descriptionAr: "",
+    teamPhoto: "",
   });
   const [faqDrafts, setFaqDrafts] = useState([]);
   const [newFaq, setNewFaq] = useState({ questionEn: "", questionAr: "", answerEn: "", answerAr: "" });
@@ -137,6 +139,7 @@ function Cms() {
         visionAr: vision.ar,
         descriptionEn: description.en,
         descriptionAr: description.ar,
+        teamPhoto: typeof c.teamPhoto === "string" ? c.teamPhoto : "",
       });
     }
   }, [aboutSection?.id, aboutSection?.updatedAt]);
@@ -388,6 +391,16 @@ function Cms() {
                     dir={contentLang === "ar" ? "rtl" : "ltr"}
                   />
                 </div>
+                <div>
+                  <label className={labelCls}>{t("dashboard.admin.pages.cms.teamPhoto", { defaultValue: "Team photo URL" })}</label>
+                  <input
+                    value={about.teamPhoto || ""}
+                    onChange={(e) => setAbout((p) => ({ ...p, teamPhoto: e.target.value }))}
+                    className={field}
+                    dir="ltr"
+                    placeholder="https://..."
+                  />
+                </div>
               </div>
               <button
                 type="button"
@@ -399,6 +412,7 @@ function Cms() {
                         mission: joinLocalized(about.missionEn, about.missionAr),
                         vision: joinLocalized(about.visionEn, about.visionAr),
                         description: joinLocalized(about.descriptionEn, about.descriptionAr),
+                        teamPhoto: about.teamPhoto || undefined,
                       }),
                     t("dashboard.admin.pages.cms.aboutSaved")
                   )

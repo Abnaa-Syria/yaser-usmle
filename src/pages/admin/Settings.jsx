@@ -121,6 +121,10 @@ function Settings() {
     logoPrimaryUrl: "",
     logoLightUrl: "",
     logoMarkUrl: "",
+    footerTaglineEn: "",
+    footerTaglineAr: "",
+    footerLocationEn: "",
+    footerLocationAr: "",
     enableRegistration: true,
     maintenanceMode: false,
     theme: "dark",
@@ -152,6 +156,10 @@ function Settings() {
       logoPrimaryUrl: g("LOGO_PRIMARY_URL", ""),
       logoLightUrl: g("LOGO_LIGHT_URL", ""),
       logoMarkUrl: g("LOGO_MARK_URL", ""),
+      footerTaglineEn: g("FOOTER_TAGLINE_EN", prev.footerTaglineEn),
+      footerTaglineAr: g("FOOTER_TAGLINE_AR", prev.footerTaglineAr),
+      footerLocationEn: g("FOOTER_LOCATION_EN", prev.footerLocationEn),
+      footerLocationAr: g("FOOTER_LOCATION_AR", prev.footerLocationAr),
       enableRegistration: settingToBool(rows.find((s) => s.key === "ENABLE_REGISTRATION")?.value, prev.enableRegistration),
       maintenanceMode: settingToBool(rows.find((s) => s.key === "MAINTENANCE_MODE")?.value, prev.maintenanceMode),
       theme: g("DEFAULT_THEME", prev.theme) || prev.theme,
@@ -176,6 +184,10 @@ function Settings() {
     LOGO_PRIMARY_URL: settings.logoPrimaryUrl,
     LOGO_LIGHT_URL: settings.logoLightUrl,
     LOGO_MARK_URL: settings.logoMarkUrl,
+    FOOTER_TAGLINE_EN: settings.footerTaglineEn,
+    FOOTER_TAGLINE_AR: settings.footerTaglineAr,
+    FOOTER_LOCATION_EN: settings.footerLocationEn,
+    FOOTER_LOCATION_AR: settings.footerLocationAr,
     ENABLE_REGISTRATION: settings.enableRegistration,
     MAINTENANCE_MODE: settings.maintenanceMode,
     DEFAULT_THEME: settings.theme,
@@ -288,6 +300,30 @@ function Settings() {
             <SettingsInputField label={t(`${SK}.twitterUrl`)} value={settings.socialTwitter} onChange={(v) => setSettings((p) => ({ ...p, socialTwitter: v }))} placeholder="https://x.com/..." type="url" />
             <SettingsInputField label={t(`${SK}.instagramUrl`)} value={settings.socialInstagram} onChange={(v) => setSettings((p) => ({ ...p, socialInstagram: v }))} placeholder="https://instagram.com/..." type="url" />
             <SettingsInputField label={t(`${SK}.linkedinUrl`)} value={settings.socialLinkedin} onChange={(v) => setSettings((p) => ({ ...p, socialLinkedin: v }))} placeholder="https://linkedin.com/..." type="url" />
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <SettingsInputField
+              label={t(`${SK}.footerTaglineEn`, { defaultValue: "Footer tagline (EN)" })}
+              value={settings.footerTaglineEn}
+              onChange={(v) => setSettings((p) => ({ ...p, footerTaglineEn: v }))}
+            />
+            <SettingsInputField
+              label={t(`${SK}.footerTaglineAr`, { defaultValue: "Footer tagline (AR)" })}
+              value={settings.footerTaglineAr}
+              onChange={(v) => setSettings((p) => ({ ...p, footerTaglineAr: v }))}
+            />
+            <SettingsInputField
+              label={t(`${SK}.footerLocationEn`, { defaultValue: "Footer location (EN)" })}
+              value={settings.footerLocationEn}
+              onChange={(v) => setSettings((p) => ({ ...p, footerLocationEn: v }))}
+              placeholder="Cairo, Egypt"
+            />
+            <SettingsInputField
+              label={t(`${SK}.footerLocationAr`, { defaultValue: "Footer location (AR)" })}
+              value={settings.footerLocationAr}
+              onChange={(v) => setSettings((p) => ({ ...p, footerLocationAr: v }))}
+              placeholder="القاهرة، مصر"
+            />
           </div>
         </SettingsSection>
 

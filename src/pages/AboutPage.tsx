@@ -37,10 +37,52 @@ export default function AboutPage() {
     return parseAbout(row?.content);
   }, [data?.sections]);
 
+  const aboutHero = useMemo(() => {
+    const row = (data?.sections ?? []).find((s) => s.key === "ABOUT_HERO");
+    return row?.content && typeof row.content === "object" ? row.content : null;
+  }, [data?.sections]);
+
+  const aboutTeach = useMemo(() => {
+    const row = (data?.sections ?? []).find((s) => s.key === "ABOUT_TEACH");
+    return row?.content && typeof row.content === "object" ? row.content : null;
+  }, [data?.sections]);
+
+  const aboutJoin = useMemo(() => {
+    const row = (data?.sections ?? []).find((s) => s.key === "ABOUT_JOIN");
+    return row?.content && typeof row.content === "object" ? row.content : null;
+  }, [data?.sections]);
+
   const mission = pickLocalized(about?.mission, lang);
   const vision = pickLocalized(about?.vision, lang);
   const description = pickLocalized(about?.description, lang);
-  const teamPhoto = about?.teamPhoto || "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=85&w=1400&auto=format&fit=crop";
+  const teamPhoto =
+    pickLocalized(aboutHero?.teamPhoto, lang) ||
+    about?.teamPhoto ||
+    (typeof aboutHero?.teamPhoto === "string" ? aboutHero.teamPhoto : "") ||
+    "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=85&w=1400&auto=format&fit=crop";
+
+  const heroEyebrow = pickLocalized(aboutHero?.eyebrow, lang) || t("publicAbout.eyebrow", { defaultValue: isRtl ? "تعليم طبي يبدأ بالفهم" : "Medical learning that starts with understanding" });
+  const heroPrefix = pickLocalized(aboutHero?.heroPrefix, lang) || t("publicAbout.heroPrefix", { defaultValue: isRtl ? "نبني الفهم الذي يقود إلى" : "Building understanding that leads to" });
+  const heroAccent = pickLocalized(aboutHero?.heroAccent, lang) || t("publicAbout.heroAccent", { defaultValue: isRtl ? "الثقة" : "confidence" });
+  const heroSubtitle = pickLocalized(aboutHero?.subtitle, lang) || t("publicAbout.subtitle");
+  const heroQuote = pickLocalized(aboutHero?.heroQuote, lang) || t("publicAbout.heroQuote", { defaultValue: isRtl ? "لا نريدك أن تحفظ المعلومة فقط؛ نريدك أن تفهم لماذا هي صحيحة." : "We do not want you to only memorize the answer—we want you to understand why it is right." });
+  const primaryCta = pickLocalized(aboutHero?.primaryCtaLabel, lang) || t("publicAbout.cta");
+  const primaryTo = aboutHero?.primaryCtaTo || "/explore";
+  const secondaryCta = pickLocalized(aboutHero?.secondaryCtaLabel, lang) || (isRtl ? "تواصل معنا" : "Contact us");
+  const secondaryTo = aboutHero?.secondaryCtaTo || "/contact";
+
+  const teachItems = Array.isArray(aboutTeach?.items)
+    ? aboutTeach.items.map((item, i) => ({
+        title: pickLocalized(item.title, lang),
+        body: pickLocalized(item.description || item.body, lang),
+        icon: item.icon || "",
+      }))
+    : null;
+
+  const joinTitle = pickLocalized(aboutJoin?.title, lang);
+  const joinSubtitle = pickLocalized(aboutJoin?.subtitle, lang);
+  const joinPrimary = pickLocalized(aboutJoin?.primaryCtaLabel, lang);
+  const joinSecondary = pickLocalized(aboutJoin?.secondaryCtaLabel, lang);
 
   return (
     <div className="min-h-screen bg-[#f4f8fd] pb-20">
@@ -60,21 +102,21 @@ export default function AboutPage() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                {t("publicAbout.eyebrow", { defaultValue: isRtl ? "تعليم طبي يبدأ بالفهم" : "Medical learning that starts with understanding" })}
+                {heroEyebrow}
               </span>
               <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[1.12] tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
-                {t("publicAbout.heroPrefix", { defaultValue: isRtl ? "نبني الفهم الذي يقود إلى" : "Building understanding that leads to" })}{" "}
+                {heroPrefix}{" "}
                 <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">
-                  {t("publicAbout.heroAccent", { defaultValue: isRtl ? "الثقة" : "confidence" })}
+                  {heroAccent}
                 </span>
               </h1>
-              <p className="mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{t("publicAbout.subtitle")}</p>
+              <p className="mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{heroSubtitle}</p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/explore" className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-black text-[#071a38] transition hover:bg-cyan-50">
-                  {t("publicAbout.cta")}<Arrow className="h-4 w-4" aria-hidden />
+                <Link to={primaryTo} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-black text-[#071a38] transition hover:bg-cyan-50">
+                  {primaryCta}<Arrow className="h-4 w-4" aria-hidden />
                 </Link>
-                <Link to="/contact" className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[.06] px-5 py-3.5 text-sm font-black text-white transition hover:bg-white/[.1]">
-                  {isRtl ? "تواصل معنا" : "Contact us"}
+                <Link to={secondaryTo} className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[.06] px-5 py-3.5 text-sm font-black text-white transition hover:bg-white/[.1]">
+                  {secondaryCta}
                 </Link>
               </div>
             </div>
@@ -93,7 +135,7 @@ export default function AboutPage() {
                 <div className="absolute inset-2 rounded-[1.55rem] bg-gradient-to-t from-[#06152f]/90 via-[#06152f]/15 to-transparent" />
                 <div className="absolute inset-x-8 bottom-8">
                   <Quote className="h-7 w-7 text-cyan-300" aria-hidden />
-                  <p className="mt-3 max-w-md text-lg font-black leading-8 text-white">{t("publicAbout.heroQuote", { defaultValue: isRtl ? "لا نريدك أن تحفظ المعلومة فقط؛ نريدك أن تفهم لماذا هي صحيحة." : "We do not want you to only memorize the answer—we want you to understand why it is right." })}</p>
+                  <p className="mt-3 max-w-md text-lg font-black leading-8 text-white">{heroQuote}</p>
                 </div>
               </div>
               <div className="absolute -bottom-5 -start-5 rounded-2xl border border-white/10 bg-blue-600 p-4 text-white shadow-xl">
@@ -136,16 +178,54 @@ export default function AboutPage() {
 
         <section className="py-20">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-black uppercase tracking-[.2em] text-blue-700">{isRtl ? "منهجنا في التعليم" : "HOW WE TEACH"}</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">{isRtl ? "كل جزء في المنصة يخدم هدفاً تعليمياً واضحاً" : "Every part of the platform serves a clear learning goal"}</h2>
-            <p className="mt-4 text-sm font-medium leading-7 text-slate-500">{isRtl ? "من طريقة شرح المفاهيم إلى التدريب وقياس التقدم، صممنا التجربة لتساعدك على بناء معرفة قابلة للتطبيق." : "From concept teaching to practice and progress tracking, the experience is built to create knowledge you can apply."}</p>
+            <p className="text-[10px] font-black uppercase tracking-[.2em] text-blue-700">
+              {pickLocalized(aboutTeach?.eyebrow, lang) || (isRtl ? "منهجنا في التعليم" : "HOW WE TEACH")}
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              {pickLocalized(aboutTeach?.title, lang) || (isRtl ? "كل جزء في المنصة يخدم هدفاً تعليمياً واضحاً" : "Every part of the platform serves a clear learning goal")}
+            </h2>
+            <p className="mt-4 text-sm font-medium leading-7 text-slate-500">
+              {pickLocalized(aboutTeach?.subtitle, lang) ||
+                (isRtl
+                  ? "من طريقة شرح المفاهيم إلى التدريب وقياس التقدم، صممنا التجربة لتساعدك على بناء معرفة قابلة للتطبيق."
+                  : "From concept teaching to practice and progress tracking, the experience is built to create knowledge you can apply.")}
+            </p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {[
-              { Icon: Brain, number: "01", title: isRtl ? "الفهم قبل الحفظ" : "Understand before memorizing", body: isRtl ? "نشرح الآليات والعلاقات حتى تصبح المعلومة منطقية وأسهل في الاسترجاع." : "We explain mechanisms and relationships so knowledge becomes logical and easier to recall." },
-              { Icon: BookOpenCheck, number: "02", title: isRtl ? "تعلم منظم حسب الأنظمة" : "Systems-based structure", body: isRtl ? "نرتب المحتوى في مسارات واضحة تربط العلوم الأساسية بالسياق السريري." : "Content follows clear paths connecting foundational science with clinical context." },
-              { Icon: ChartNoAxesCombined, number: "03", title: isRtl ? "تقدم يمكن قياسه" : "Progress you can measure", body: isRtl ? "الاختبارات والفلاش كاردز وخطة المذاكرة تساعدك على معرفة موقعك والخطوة التالية." : "Quizzes, flashcards, and study planning show where you stand and what comes next." },
-            ].map(({ Icon, number, title, body }) => (
+            {(teachItems && teachItems.length > 0
+              ? teachItems.map((item, i) => ({
+                  Icon: [Brain, BookOpenCheck, ChartNoAxesCombined][i % 3],
+                  number: String(i + 1).padStart(2, "0"),
+                  title: item.title,
+                  body: item.body,
+                }))
+              : [
+                  {
+                    Icon: Brain,
+                    number: "01",
+                    title: isRtl ? "الفهم قبل الحفظ" : "Understand before memorizing",
+                    body: isRtl
+                      ? "نشرح الآليات والعلاقات حتى تصبح المعلومة منطقية وأسهل في الاسترجاع."
+                      : "We explain mechanisms and relationships so knowledge becomes logical and easier to recall.",
+                  },
+                  {
+                    Icon: BookOpenCheck,
+                    number: "02",
+                    title: isRtl ? "تعلم منظم حسب الأنظمة" : "Systems-based structure",
+                    body: isRtl
+                      ? "نرتب المحتوى في مسارات واضحة تربط العلوم الأساسية بالسياق السريري."
+                      : "Content follows clear paths connecting foundational science with clinical context.",
+                  },
+                  {
+                    Icon: ChartNoAxesCombined,
+                    number: "03",
+                    title: isRtl ? "تقدم يمكن قياسه" : "Progress you can measure",
+                    body: isRtl
+                      ? "الاختبارات والفلاش كاردز وخطة المذاكرة تساعدك على معرفة موقعك والخطوة التالية."
+                      : "Quizzes, flashcards, and study planning show where you stand and what comes next.",
+                  },
+                ]
+            ).map(({ Icon, number, title, body }) => (
               <article key={title} className="group relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-[0_12px_35px_rgba(15,23,42,.04)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl">
                 <span className="absolute -end-2 -top-5 text-[6rem] font-black leading-none text-blue-500/[.07]">{number}</span>
                 <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[#071a38] text-cyan-300"><Icon className="h-5 w-5" aria-hidden /></span>
@@ -160,11 +240,25 @@ export default function AboutPage() {
           <div className="grid items-center gap-8 p-8 sm:p-10 lg:grid-cols-[1fr_auto]">
             <div className="flex items-start gap-5">
               <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-cyan-300 sm:flex"><Users className="h-6 w-6" aria-hidden /></span>
-              <div><p className="text-[10px] font-black uppercase tracking-[.18em] text-cyan-200">YASER USMLE</p><h2 className="mt-2 text-2xl font-black sm:text-3xl">{t("publicAbout.joinTitle")}</h2><p className="mt-3 max-w-2xl text-sm font-medium leading-7 text-slate-400">{isRtl ? "ابدأ بمسار يناسب مرحلتك، وتعلّم داخل تجربة تجمع المحتوى والتدريب والمتابعة." : "Start with a path that fits your stage and learn through one experience combining content, practice, and progress."}</p></div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[.18em] text-cyan-200">YASER USMLE</p>
+                <h2 className="mt-2 text-2xl font-black sm:text-3xl">{joinTitle || t("publicAbout.joinTitle")}</h2>
+                <p className="mt-3 max-w-2xl text-sm font-medium leading-7 text-slate-400">
+                  {joinSubtitle ||
+                    (isRtl
+                      ? "ابدأ بمسار يناسب مرحلتك، وتعلّم داخل تجربة تجمع المحتوى والتدريب والمتابعة."
+                      : "Start with a path that fits your stage and learn through one experience combining content, practice, and progress.")}
+                </p>
+              </div>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link to="/signup" className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-black text-[#071a38] transition hover:bg-cyan-50">{t("header.actions.signUp")}<Arrow className="h-4 w-4" /></Link>
-              <Link to="/faq" className="rounded-xl border border-white/15 px-5 py-3.5 text-sm font-black transition hover:bg-white/[.08]">{t("footer.community.faq")}</Link>
+              <Link to={aboutJoin?.primaryCtaTo || "/signup"} className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-black text-[#071a38] transition hover:bg-cyan-50">
+                {joinPrimary || t("header.actions.signUp")}
+                <Arrow className="h-4 w-4" />
+              </Link>
+              <Link to={aboutJoin?.secondaryCtaTo || "/faq"} className="rounded-xl border border-white/15 px-5 py-3.5 text-sm font-black transition hover:bg-white/[.08]">
+                {joinSecondary || t("footer.community.faq")}
+              </Link>
             </div>
           </div>
           <div id="policies" className="flex flex-col justify-between gap-3 border-t border-white/10 px-8 py-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:px-10">

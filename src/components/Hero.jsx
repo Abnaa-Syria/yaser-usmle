@@ -169,7 +169,7 @@ export default function Hero({ cmsContent, stats }) {
               <div className="absolute -inset-3 rounded-[2.2rem] border border-white/10 bg-white/[0.04] backdrop-blur-sm" aria-hidden />
               <div className="group relative aspect-[4/3] overflow-hidden rounded-[1.8rem] border border-white/15 bg-gradient-to-br from-blue-950 to-blue-800 shadow-[0_35px_75px_rgba(0,0,0,.35)]">
                 {currentBanner ? (
-                  <img src={currentBanner.imageUrl} alt={currentBanner.title || t("hero.bannerAlt", { defaultValue: "Yaser USMLE course" })} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]" loading="eager" />
+                  <img src={currentBanner.imageUrl} alt={(isRtl ? (currentBanner.titleAr || currentBanner.title) : (currentBanner.title || currentBanner.titleAr)) || t("hero.bannerAlt", { defaultValue: "Yaser USMLE course" })} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]" loading="eager" />
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center bg-[radial-gradient(circle_at_50%_35%,rgba(59,130,246,.55),transparent_42%),linear-gradient(145deg,#0b2b61,#071733)] text-white">
                     <div className="flex h-24 w-24 items-center justify-center rounded-[2rem] border border-white/15 bg-white/10 backdrop-blur-md"><Brain className="h-12 w-12 text-cyan-200" aria-hidden /></div>

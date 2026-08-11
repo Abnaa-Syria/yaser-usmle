@@ -61,6 +61,12 @@ export default function Footer() {
   const isRtl = i18n.dir() === "rtl";
   const { settings: site } = useSiteSettings();
   const mailto = `mailto:${site.contactEmail}`;
+  const footerTagline =
+    (isRtl ? site.footerTaglineAr || site.footerTaglineEn : site.footerTaglineEn || site.footerTaglineAr) ||
+    t("footer.brand.description");
+  const footerLocation =
+    (isRtl ? site.footerLocationAr || site.footerLocationEn : site.footerLocationEn || site.footerLocationAr) ||
+    t("footer.brand.location", { defaultValue: isRtl ? "القاهرة، مصر" : "Cairo, Egypt" });
 
   const cols = [
     {
@@ -126,7 +132,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-8">
           <div className="lg:col-span-2">
             <BrandLogo variant="light" alt={site.siteName || t("footer.brand.logoAlt")} className="h-11 w-auto" />
-            <p className="mt-4 max-w-sm text-sm leading-7 text-slate-400">{t("footer.brand.description")}</p>
+            <p className="mt-4 max-w-sm text-sm leading-7 text-slate-400">{footerTagline}</p>
 
             <div className="mt-5 space-y-2 text-sm text-slate-400">
               {site.contactEmail ? (
@@ -137,7 +143,7 @@ export default function Footer() {
               ) : null}
               <p className="inline-flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0 text-[var(--yu-blue-400)]" aria-hidden />
-                {t("footer.brand.location", { defaultValue: isRtl ? "القاهرة، مصر" : "Cairo, Egypt" })}
+                {footerLocation}
               </p>
             </div>
 

@@ -7,7 +7,7 @@ import SlideOver from "../../components/ui/SlideOver";
 import { useAdminBanners, useCreateBanner, useDeleteBanner, useUpdateBanner } from "../../features/admin/cms/hooks";
 import { getErrorMessage } from "../../api/error";
 
-const emptyForm = { title: "", link: "", imageUrl: "", order: "0", isActive: true };
+const emptyForm = { title: "", titleAr: "", link: "", imageUrl: "", order: "0", isActive: true };
 
 function BannerPreview({ banners }) {
   const active = (banners || []).filter((b) => b.isActive).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -83,6 +83,7 @@ function CmsBanners() {
     setEditingId(banner.id);
     setForm({
       title: banner.title || "",
+      titleAr: banner.titleAr || "",
       link: banner.link || "",
       imageUrl: banner.imageUrl || "",
       order: String(banner.order ?? 0),
@@ -100,6 +101,7 @@ function CmsBanners() {
 
     const body = {
       title: form.title.trim() || undefined,
+      titleAr: form.titleAr.trim() || undefined,
       imageUrl: form.imageUrl.trim(),
       link: form.link.trim() || undefined,
       isActive: form.isActive,
@@ -263,11 +265,21 @@ function CmsBanners() {
       >
         <form onSubmit={submitForm} className="space-y-4">
           <label className="block space-y-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">
-            {t("adminPages.cmsBanners.form.title")}
+            {t("adminPages.cmsBanners.form.title")} (EN)
             <input
               value={form.title}
               onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
               className="h-11 w-full rounded-lg border border-slate-200 px-3 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+              dir="ltr"
+            />
+          </label>
+          <label className="block space-y-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">
+            {t("adminPages.cmsBanners.form.titleAr", { defaultValue: "Title (AR)" })}
+            <input
+              value={form.titleAr}
+              onChange={(e) => setForm((prev) => ({ ...prev, titleAr: e.target.value }))}
+              className="h-11 w-full rounded-lg border border-slate-200 px-3 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+              dir="rtl"
             />
           </label>
           <label className="block space-y-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">

@@ -32,11 +32,13 @@ const PAGE_META = [
   { slug: "library", route: "/library", labelEn: "Resource Library", labelAr: "المكتبة" },
   { slug: "user-guide", route: "/guide", labelEn: "User Guide", labelAr: "دليل الاستخدام" },
   { slug: "terms", route: "/terms", labelEn: "Terms & Conditions", labelAr: "الشروط والأحكام" },
+  { slug: "privacy", route: "/privacy", labelEn: "Privacy Policy", labelAr: "سياسة الخصوصية" },
+  { slug: "refund-policy", route: "/refund-policy", labelEn: "Refund Policy", labelAr: "سياسة الاسترداد" },
   { slug: "teach", route: "/teach", labelEn: "Become Instructor", labelAr: "كن معلّمًا" },
 ];
 
 function emptySection() {
-  return { id: `sec-${Date.now()}`, heading: "", body: "", listItems: [] };
+  return { id: `sec-${Date.now()}`, heading: "", body: "", listItems: [], imageUrl: "", listText: "" };
 }
 
 function sectionsFromRaw(raw) {
@@ -44,14 +46,16 @@ function sectionsFromRaw(raw) {
     ...s,
     listItems: s.listItems || [],
     listText: (s.listItems || []).join("\n"),
+    imageUrl: s.imageUrl || "",
   }));
 }
 
 function sectionsToPayload(sections) {
-  return sections.map(({ id, heading, body, listText }) => ({
+  return sections.map(({ id, heading, body, listText, imageUrl }) => ({
     id,
     heading: heading || "",
     body: body || "",
+    imageUrl: String(imageUrl || "").trim(),
     listItems: String(listText || "")
       .split("\n")
       .map((l) => l.trim())
@@ -333,6 +337,32 @@ function PageEditor({ page, onSaved }) {
                 dir={langTab === "ar" ? "rtl" : "ltr"}
                 placeholder="- Item one&#10;- Item two"
               />
+            </div>
+            <div>
+              <label className={labelCls}>
+                {t("adminPages.cmsPages.sectionImage", { defaultValue: "Image URL (optional)" })}
+              </label>
+              <input
+                value={section.imageUrl || ""}
+                onChange={(e) =>
+                  setSections((list) =>
+                    list.map((s) => (s.id === section.id ? { ...s, imageUrl: e.target.value } : s))
+                  )
+                }
+                className={field}
+                dir="ltr"
+                placeholder="https://… or /uploads/…"
+              />
+              {section.imageUrl ? (
+                <img
+                  src={section.imageUrl}
+                  alt=""
+                  className="mt-3 h-28 w-full rounded-xl object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              ) : null}
             </div>
           </div>
         ))}

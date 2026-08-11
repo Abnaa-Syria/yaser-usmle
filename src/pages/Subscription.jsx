@@ -5,6 +5,7 @@ import { Check, Zap, ArrowLeft, ArrowRight, Sparkles, BookOpen, ShieldCheck, Lay
 import { usePublicPackages } from "../features/public/hooks";
 import useAuthStore from "../store/authStore";
 import { APP_ROLES, normalizeRole } from "../config/permissions";
+import { useCatalogHero } from "../hooks/useCatalogHero";
 import { useSeo } from "../utils/seo";
 
 function parseDescription(description) {
@@ -132,10 +133,20 @@ export default function Subscription() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const user = useAuthStore((s) => s.user);
   const role = normalizeRole(user?.role);
+  const hero = useCatalogHero(
+    "PACKAGES_HERO",
+    {
+      eyebrow: t("subscription.eyebrow", { defaultValue: isRtl ? "قيمة أكبر لمسار تعليمي متكامل" : "More value for a complete learning path" }),
+      titlePrefix: t("subscription.titlePrefix"),
+      titleAccent: t("subscription.titleAccent"),
+      subtitle: t("subscription.subtitle"),
+    },
+    i18n.language
+  );
 
   useSeo({
     title: t("header.nav.packages", { defaultValue: "Packages" }),
-    description: t("subscription.subtitle", {
+    description: hero.subtitle || t("subscription.subtitle", {
       defaultValue: "Choose a Yaser USMLE package with bundled course access and manual payment review.",
     }),
     path: "/packages",
@@ -167,13 +178,13 @@ export default function Subscription() {
         <div className="relative mx-auto max-w-[1180px] px-4 text-center md:px-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" aria-hidden />
-            {t("subscription.eyebrow", { defaultValue: isRtl ? "قيمة أكبر لمسار تعليمي متكامل" : "More value for a complete learning path" })}
+            {hero.eyebrow}
           </span>
           <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-[1.12] tracking-[-0.045em] sm:text-5xl lg:text-[3.7rem]">
-            {t("subscription.titlePrefix")}{" "}
-            <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{t("subscription.titleAccent")}</span>
+            {hero.titlePrefix}{" "}
+            <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{hero.titleAccent}</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{t("subscription.subtitle")}</p>
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{hero.subtitle}</p>
 
           <div className="mx-auto mt-9 flex max-w-3xl flex-wrap justify-center gap-3">
             {[

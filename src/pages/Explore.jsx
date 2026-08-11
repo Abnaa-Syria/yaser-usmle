@@ -22,6 +22,7 @@ import { APP_ROLES, normalizeRole } from "../config/permissions";
 import { useToggleWishlist, useWishlist } from "../features/student/wishlist/hooks";
 import { useSeo } from "../utils/seo";
 import { stripHtml } from "../utils/htmlContent";
+import { useCatalogHero } from "../hooks/useCatalogHero";
 
 const FALLBACK_THUMB =
   "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=85&w=1200&auto=format&fit=crop";
@@ -167,9 +168,25 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
 export default function Explore() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
+  const hero = useCatalogHero(
+    "EXPLORE_HERO",
+    {
+      eyebrow: t("explore.eyebrow", { defaultValue: isRtl ? "مسارات تعليمية مصممة لـ Step 1" : "Learning paths built for Step 1" }),
+      titlePrefix: t("explore.titlePrefix"),
+      titleAccent: t("explore.titleAccent"),
+      subtitle: t("explore.subtitle"),
+      searchPlaceholder: t("explore.searchPlaceholder"),
+      pillars: [
+        { title: isRtl ? "فهم مترابط" : "Connected understanding", body: isRtl ? "شرح يربط العلوم الأساسية بالتطبيق السريري." : "Teaching that connects basic science to clinical reasoning." },
+        { title: isRtl ? "مسارات منظمة" : "Structured paths", body: isRtl ? "محتوى مرتب حسب الأنظمة ومستوى التحضير." : "Content organized by systems and preparation stage." },
+        { title: isRtl ? "تدريب عملي" : "Practice built in", body: isRtl ? "أسئلة وتمارين تدعم الاحتفاظ بالمعلومة." : "Questions and drills that reinforce retention." },
+      ],
+    },
+    i18n.language
+  );
   useSeo({
     title: t("explore.title", { defaultValue: "Courses" }),
-    description: t("explore.subtitle", {
+    description: hero.subtitle || t("explore.subtitle", {
       defaultValue: "Browse Yaser USMLE courses and choose the right access option for your Step 1 preparation.",
     }),
     path: "/explore",
@@ -269,14 +286,14 @@ export default function Explore() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                {t("explore.eyebrow", { defaultValue: isRtl ? "مسارات تعليمية مصممة لـ Step 1" : "Learning paths built for Step 1" })}
+                {hero.eyebrow}
               </span>
               <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[1.12] tracking-[-0.045em] sm:text-5xl lg:text-[3.7rem]">
-                {t("explore.titlePrefix")}{" "}
-                <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{t("explore.titleAccent")}</span>
+                {hero.titlePrefix}{" "}
+                <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{hero.titleAccent}</span>
               </h1>
               <p className="mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">
-                {t("explore.subtitle")}
+                {hero.subtitle}
               </p>
 
               <div className="mt-8 max-w-2xl rounded-2xl border border-white/10 bg-white/[.08] p-2 shadow-2xl backdrop-blur-md">
@@ -286,7 +303,7 @@ export default function Explore() {
                     type="search"
                     value={searchInput}
                     onChange={(event) => setSearchInput(event.target.value)}
-                    placeholder={t("explore.searchPlaceholder")}
+                    placeholder={hero.searchPlaceholder || t("explore.searchPlaceholder")}
                     className="h-14 w-full rounded-xl border-0 bg-white pe-5 ps-12 text-sm font-semibold text-slate-900 outline-none ring-0 placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-300"
                   />
                 </div>
@@ -294,16 +311,15 @@ export default function Explore() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-              {[
-                { Icon: Brain, title: isRtl ? "فهم مترابط" : "Connected understanding", body: isRtl ? "شرح يربط العلوم الأساسية بالتطبيق السريري." : "Teaching that connects basic science to clinical reasoning." },
-                { Icon: BookOpen, title: isRtl ? "مسارات منظمة" : "Structured paths", body: isRtl ? "محتوى مرتب حسب الأنظمة ومستوى التحضير." : "Content organized by systems and preparation stage." },
-                { Icon: ClipboardCheck, title: isRtl ? "تطبيق مستمر" : "Active practice", body: isRtl ? "اختبارات ومراجعات تثبّت ما تتعلمه." : "Assessments and reviews that reinforce every concept." },
-              ].map(({ Icon, title, body }) => (
-                <div key={title} className="flex items-center gap-4 rounded-[1.35rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-sm">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 to-cyan-300 text-[#071a38]"><Icon className="h-5 w-5" aria-hidden /></span>
-                  <div><p className="text-sm font-black">{title}</p><p className="mt-1 text-[11px] font-medium leading-5 text-slate-400">{body}</p></div>
-                </div>
-              ))}
+              {hero.pillars.slice(0, 3).map((pillar, i) => {
+                const Icon = [Brain, BookOpen, ClipboardCheck][i % 3];
+                return (
+                  <div key={pillar.key || pillar.title || i} className="flex items-center gap-4 rounded-[1.35rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-sm">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 to-cyan-300 text-[#071a38]"><Icon className="h-5 w-5" aria-hidden /></span>
+                    <div><p className="text-sm font-black">{pillar.title}</p><p className="mt-1 text-[11px] font-medium leading-5 text-slate-400">{pillar.body}</p></div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

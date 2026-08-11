@@ -26,6 +26,14 @@ export async function createSection(body) {
   return response?.data?.data;
 }
 
+export async function upsertSectionByKey(key, body) {
+  const response = await client.put(
+    `${endpoints.admin.cms}/sections/key/${encodeURIComponent(key)}`,
+    body
+  );
+  return response?.data?.data;
+}
+
 export async function updateSection({ id, body }) {
   const response = await client.patch(`${endpoints.admin.cms}/sections/${id}`, body);
   return response?.data?.data;
@@ -66,7 +74,6 @@ export async function fetchBanners() {
   const data = response?.data?.data;
   return data?.banners || (Array.isArray(data) ? data : []);
 }
-
 
 export async function createBanner(body) {
   const response = await client.post(`${endpoints.admin.cms}/banners`, body);

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { BookOpen, ArrowRight, ArrowLeft, Search, Sparkles, Brain, Stethoscope, Clock3, UserRound, RotateCcw, Layers3 } from "lucide-react";
 import { usePublicPosts } from "../features/public/hooks";
+import { useCatalogHero } from "../hooks/useCatalogHero";
 import { localizedPostFields } from "../utils/cmsLocale";
 import { useSeo } from "../utils/seo";
 
@@ -27,15 +28,32 @@ export default function BlogsPage() {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const { data, isLoading, isError } = usePublicPosts({ page, limit: 9, search });
+  const hero = useCatalogHero(
+    "BLOGS_HERO",
+    {
+      eyebrow: t("publicBlogs.eyebrow"),
+      titlePrefix: t("publicBlogs.heroPrefix"),
+      titleAccent: t("publicBlogs.heroAccent"),
+      subtitle: t("publicBlogs.subtitle"),
+      searchPlaceholder: t("publicBlogs.searchPlaceholder"),
+      pillars: [
+        { key: "concepts", title: t("publicBlogs.pillars.concepts") },
+        { key: "clinical", title: t("publicBlogs.pillars.clinical") },
+        { key: "strategy", title: t("publicBlogs.pillars.strategy") },
+      ],
+    },
+    i18n.language
+  );
 
   const posts = data?.posts ?? [];
   const meta = data?.meta;
   const featured = posts[0];
   const remaining = posts.slice(1);
+  const pillarIcons = [Brain, Stethoscope, Layers3];
 
   useSeo({
     title: t("publicBlogs.title"),
-    description: t("publicBlogs.subtitle"),
+    description: hero.subtitle || t("publicBlogs.subtitle"),
     path: "/blogs",
   });
 
@@ -73,23 +91,26 @@ export default function BlogsPage() {
           </nav>
           <div className="mt-12 grid items-end gap-10 lg:grid-cols-[1fr_.8fr]">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md"><Sparkles className="h-3.5 w-3.5" />{t("publicBlogs.eyebrow")}</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md"><Sparkles className="h-3.5 w-3.5" />{hero.eyebrow}</span>
               <h1 className="mt-6 text-4xl font-black leading-[1.12] tracking-[-0.045em] sm:text-5xl lg:text-[3.55rem]">
-                {t("publicBlogs.heroPrefix")}{" "}<span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{t("publicBlogs.heroAccent")}</span>
+                {hero.titlePrefix}{" "}<span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{hero.titleAccent}</span>
               </h1>
-              <p className="mt-6 max-w-3xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{t("publicBlogs.subtitle")}</p>
+              <p className="mt-6 max-w-3xl text-sm font-medium leading-8 text-slate-300 sm:text-base">{hero.subtitle}</p>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              {[{ Icon: Brain, key: "concepts" }, { Icon: Stethoscope, key: "clinical" }, { Icon: Layers3, key: "strategy" }].map(({ Icon, key }) => (
-                <div key={key} className="rounded-2xl border border-white/10 bg-white/[.06] p-4 text-center backdrop-blur-md"><Icon className="mx-auto h-5 w-5 text-cyan-300" /><p className="mt-3 text-[10px] font-black text-slate-300">{t(`publicBlogs.pillars.${key}`)}</p></div>
-              ))}
+              {hero.pillars.slice(0, 3).map((pillar, i) => {
+                const Icon = pillarIcons[i % pillarIcons.length];
+                return (
+                  <div key={pillar.key || pillar.title || i} className="rounded-2xl border border-white/10 bg-white/[.06] p-4 text-center backdrop-blur-md"><Icon className="mx-auto h-5 w-5 text-cyan-300" /><p className="mt-3 text-[10px] font-black text-slate-300">{pillar.title}</p></div>
+                );
+              })}
             </div>
           </div>
           <form onSubmit={handleSearch} className="mt-10 flex max-w-3xl flex-col gap-2 rounded-2xl border border-white/10 bg-white/[.08] p-2 backdrop-blur-xl sm:flex-row">
             <label className="sr-only" htmlFor="blog-search">{t("publicBlogs.searchLabel")}</label>
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute start-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-              <input id="blog-search" value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder={t("publicBlogs.searchPlaceholder")} className="h-12 w-full rounded-xl border border-white/10 bg-[#06152f]/80 pe-4 ps-11 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-300/60" />
+              <input id="blog-search" value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder={hero.searchPlaceholder || t("publicBlogs.searchPlaceholder")} className="h-12 w-full rounded-xl border border-white/10 bg-[#06152f]/80 pe-4 ps-11 text-sm font-semibold text-white outline-none placeholder:text-slate-500 focus:border-cyan-300/60" />
             </div>
             <button type="submit" className="h-12 rounded-xl bg-white px-6 text-sm font-black text-[#071a38] transition hover:bg-cyan-50">{t("publicBlogs.searchButton")}</button>
           </form>

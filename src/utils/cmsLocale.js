@@ -42,12 +42,19 @@ export function parseCmsSections(raw) {
       const o = item;
       const heading = typeof o.heading === "string" ? o.heading : "";
       const body = typeof o.body === "string" ? o.body : "";
+      const imageUrl = typeof o.imageUrl === "string" ? o.imageUrl.trim() : "";
       const id = typeof o.id === "string" ? o.id : heading.slice(0, 24) || crypto.randomUUID?.() || String(Math.random());
       const listItems = Array.isArray(o.listItems)
         ? o.listItems.filter((x) => typeof x === "string" && x.trim())
         : [];
-      if (!heading && !body && listItems.length === 0) return null;
-      return { id, heading, body, listItems };
+      if (!heading && !body && listItems.length === 0 && !imageUrl) return null;
+      return { id, heading, body, listItems, imageUrl };
     })
     .filter(Boolean);
+}
+
+/** Find a HomePageSection by key from landing-page payload. */
+export function findLandingSection(sections, key) {
+  if (!Array.isArray(sections) || !key) return null;
+  return sections.find((s) => s?.key === key) || null;
 }

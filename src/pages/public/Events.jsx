@@ -5,6 +5,7 @@ import { Sparkles, Calendar, Search, Loader2 } from "lucide-react";
 import client from "../../api/client";
 import endpoints from "../../api/endpoints";
 import EventCard from "../../components/public/EventCard";
+import { useCatalogHero } from "../../hooks/useCatalogHero";
 
 function GridSkeleton() {
   return (
@@ -27,6 +28,18 @@ function GridSkeleton() {
 export default function Events() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.language?.startsWith("ar");
+  const hero = useCatalogHero(
+    "EVENTS_HERO",
+    {
+      eyebrow: isRtl ? "ملتقى الفعاليات والأخبار" : "Events & News Hub",
+      titlePrefix: isRtl ? "فعاليات وندوات Yaser USMLE" : "Yaser USMLE Events & Seminars",
+      subtitle: isRtl
+        ? "تابع أحدث ندوات USMLE Step 1 وورش حل الأسئلة والجلسات الطبية المباشرة مع محاضرين خبراء."
+        : "Keep up with the latest USMLE Step 1 seminars, question workshops, and live medical sessions led by expert educators.",
+      searchPlaceholder: isRtl ? "ابحث عن ندوة، محاضرة أو مكان..." : "Search webinars, seminars, rooms...",
+    },
+    i18n.language
+  );
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -80,15 +93,13 @@ export default function Events() {
         <div className="relative mx-auto max-w-5xl px-4 md:px-6 text-center space-y-4">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-orange-400">
             <Sparkles className="h-3.5 w-3.5 text-[var(--yu-blue-700)]" />
-            {isRtl ? "ملتقى الفعاليات والأخبار" : "Events & News Hub"}
+            {hero.eyebrow}
           </span>
           <h1 className="text-3xl font-black tracking-tight text-white md:text-4xl">
-            {isRtl ? "فعاليات وندوات Yaser USMLE" : "Yaser USMLE Events & Seminars"}
+            {[hero.titlePrefix, hero.titleAccent].filter(Boolean).join(" ")}
           </h1>
           <p className="mx-auto max-w-2xl text-slate-350 text-sm leading-relaxed md:text-base">
-            {isRtl
-              ? "تابع أحدث ندوات USMLE Step 1 وورش حل الأسئلة والجلسات الطبية المباشرة مع محاضرين خبراء."
-              : "Keep up with the latest USMLE Step 1 seminars, question workshops, and live medical sessions led by expert educators."}
+            {hero.subtitle}
           </p>
 
           {/* Search bar */}
@@ -99,7 +110,7 @@ export default function Events() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={isRtl ? "ابحث عن ندوة، محاضرة أو مكان..." : "Search webinars, seminars, rooms..."}
+                placeholder={hero.searchPlaceholder}
                 className="h-11 w-full rounded-2xl border border-slate-700 bg-slate-800/80 px-4 ps-10 text-sm text-white placeholder-slate-500 outline-none focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)]/30 transition"
               />
             </div>

@@ -17,6 +17,7 @@ import {
   updateFaqItem,
   updatePost,
   updateSection,
+  upsertSectionByKey,
   fetchCmsPages,
   fetchCmsPage,
   updateCmsPage,
@@ -74,6 +75,14 @@ export function useUpdateSection() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateSection,
+    onSuccess: () => invalidateCms(queryClient),
+  });
+}
+
+export function useUpsertSectionByKey() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ key, body }) => upsertSectionByKey(key, body),
     onSuccess: () => invalidateCms(queryClient),
   });
 }

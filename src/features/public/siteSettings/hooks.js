@@ -11,6 +11,10 @@ function mergeWithFallback(data) {
     logoMarkUrl: base.logoMarkUrl || SITE_SETTINGS_FALLBACK.logoMarkUrl,
     contactEmail: base.contactEmail || SITE_SETTINGS_FALLBACK.contactEmail,
     phoneNumber: base.phoneNumber ?? SITE_SETTINGS_FALLBACK.phoneNumber,
+    footerTaglineEn: base.footerTaglineEn || "",
+    footerTaglineAr: base.footerTaglineAr || "",
+    footerLocationEn: base.footerLocationEn || "",
+    footerLocationAr: base.footerLocationAr || "",
     social: {
       ...SITE_SETTINGS_FALLBACK.social,
       ...(base.social && typeof base.social === "object" ? base.social : {}),

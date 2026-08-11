@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Search, Sparkles, Users } from "lucide-react";
 import InstructorCard from "../components/public/InstructorCard";
 import { usePublicInstructors } from "../features/public/instructors/hooks";
+import { useCatalogHero } from "../hooks/useCatalogHero";
 
 function CardSkeleton() {
   return (
@@ -24,8 +25,21 @@ export default function Instructors() {
   const [search, setSearch] = useState("");
   const [q, setQ] = useState("");
   const { data, isLoading, isError, refetch } = usePublicInstructors({ search: q, limit: 48 });
+  const hero = useCatalogHero(
+    "INSTRUCTORS_HERO",
+    {
+      eyebrow: t("publicInstructors.badge", { defaultValue: "Expert instructors" }),
+      titlePrefix: t("publicInstructors.title", { defaultValue: "Meet our instructors" }),
+      subtitle: t("publicInstructors.subtitle", {
+        defaultValue: "Browse profiles, explore their courses, and book a private 1-on-1 session.",
+      }),
+      searchPlaceholder: t("publicInstructors.searchPlaceholder", { defaultValue: "Search by name or specialty…" }),
+    },
+    i18n.language
+  );
 
   const instructors = useMemo(() => data?.instructors ?? [], [data]);
+  const heroTitle = [hero.titlePrefix, hero.titleAccent].filter(Boolean).join(" ");
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -39,15 +53,13 @@ export default function Instructors() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-yu-blue-700 shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
-              {t("publicInstructors.badge", { defaultValue: "Expert instructors" })}
+              {hero.eyebrow}
             </span>
             <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-              {t("publicInstructors.title", { defaultValue: "Meet our instructors" })}
+              {heroTitle}
             </h1>
             <p className="mt-3 text-base leading-relaxed text-slate-600 md:text-lg">
-              {t("publicInstructors.subtitle", {
-                defaultValue: "Browse profiles, explore their courses, and book a private 1-on-1 session.",
-              })}
+              {hero.subtitle}
             </p>
           </div>
 
@@ -57,7 +69,7 @@ export default function Instructors() {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={t("publicInstructors.searchPlaceholder", { defaultValue: "Search by name or specialty…" })}
+                placeholder={hero.searchPlaceholder}
                 className="h-12 w-full rounded-xl border border-slate-200 bg-white py-3 pe-4 ps-10 text-sm shadow-sm outline-none focus:border-yu-blue-700"
               />
             </div>

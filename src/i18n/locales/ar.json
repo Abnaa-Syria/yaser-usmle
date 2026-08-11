@@ -2753,7 +2753,7 @@
       "uncategorized": "بدون تصنيف"
     },
     "filterByCategory": "تصفية حسب التصنيف",
-    "filterHint": "اختر تصنيفاً لعرض دوراته، أو اعرض الكل مجمّعاً حسب النظام.",
+    "filterHint": "اختر تصنيفاً لعرض الدورات الخاصة به.",
     "categoryCourseCount": "{{count}} دورة",
     "viewCategoryOnly": "عرض التصنيف فقط",
     "courses": {

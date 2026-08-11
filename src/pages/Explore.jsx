@@ -24,7 +24,6 @@ import {
   Pill,
   Microscope,
   Bone,
-  LayoutGrid,
 } from "lucide-react";
 import { usePublicCategories, usePublicCourses } from "../features/public/hooks";
 import useAuthStore from "../store/authStore";
@@ -259,11 +258,10 @@ export default function Explore() {
 
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [page, setPage] = useState(1);
-  const groupedView = activeCategory === "all" && !debouncedSearch;
-  const limit = groupedView ? 60 : 12;
+  const limit = 12;
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchInput.trim()), 350);
@@ -276,12 +274,21 @@ export default function Explore() {
 
   const { data: categories = [], isLoading: categoriesLoading } = usePublicCategories();
 
-  const { data, isLoading, isFetching } = usePublicCourses({
-    page,
-    limit,
-    search: debouncedSearch || undefined,
-    category: activeCategory !== "all" ? activeCategory : undefined,
-  });
+  useEffect(() => {
+    if (!categories.length) return;
+    const stillValid = categories.some((cat) => cat.slug === activeCategory);
+    if (!stillValid) setActiveCategory(categories[0].slug);
+  }, [categories, activeCategory]);
+
+  const { data, isLoading, isFetching } = usePublicCourses(
+    {
+      page,
+      limit,
+      search: debouncedSearch || undefined,
+      category: activeCategory || undefined,
+    },
+    { enabled: !!activeCategory }
+  );
   const courses = data?.courses ?? [];
   const meta = data?.meta;
 
@@ -293,24 +300,17 @@ export default function Explore() {
     }));
   }, [courses, t, isRtl]);
 
-  const categoryTabs = useMemo(() => {
-    const tabs = [
-      {
-        id: "all",
-        label: t("explore.categories.all"),
-        icon: "LayoutGrid",
-        count: meta?.total,
-      },
-      ...categories.map((cat) => ({
+  const categoryTabs = useMemo(
+    () =>
+      categories.map((cat) => ({
         id: cat.slug,
         label: categoryLabel(cat, isRtl),
         icon: cat.icon || "Folder",
         count: cat.courseCount,
         description: isRtl ? cat.descriptionAr || cat.description : cat.description || cat.descriptionAr,
       })),
-    ];
-    return tabs;
-  }, [categories, isRtl, meta?.total, t]);
+    [categories, isRtl]
+  );
 
   const sorted = useMemo(() => {
     const list = [...displayCourses];
@@ -324,47 +324,8 @@ export default function Explore() {
     return list;
   }, [displayCourses, sortBy]);
 
-  const groupedSections = useMemo(() => {
-    if (!groupedView) return null;
-    const bySlug = new Map();
-    for (const course of sorted) {
-      const slug = course.category?.slug || "uncategorized";
-      if (!bySlug.has(slug)) bySlug.set(slug, []);
-      bySlug.get(slug).push(course);
-    }
-
-    const sections = [];
-    for (const cat of categories) {
-      const items = bySlug.get(cat.slug);
-      if (!items?.length) continue;
-      sections.push({
-        id: cat.slug,
-        title: categoryLabel(cat, isRtl),
-        description: isRtl ? cat.descriptionAr || cat.description : cat.description || cat.descriptionAr,
-        icon: cat.icon || "Folder",
-        count: items.length,
-        courses: items,
-      });
-      bySlug.delete(cat.slug);
-    }
-
-    const leftovers = [...bySlug.entries()];
-    for (const [slug, items] of leftovers) {
-      if (!items.length) continue;
-      const sample = items[0]?.category;
-      sections.push({
-        id: slug,
-        title: categoryLabel(sample, isRtl) || t("explore.categories.uncategorized", { defaultValue: isRtl ? "بدون تصنيف" : "Uncategorized" }),
-        description: null,
-        icon: sample?.icon || "Folder",
-        count: items.length,
-        courses: items,
-      });
-    }
-    return sections;
-  }, [groupedView, sorted, categories, isRtl, t]);
-
   const activeTab = categoryTabs.find((tab) => tab.id === activeCategory);
+  const defaultCategorySlug = categories[0]?.slug || "";
   const totalPages = Math.max(1, meta?.totalPages ?? 1);
 
   return (
@@ -427,19 +388,17 @@ export default function Explore() {
               </p>
               <p className="mt-1 text-xs font-medium text-slate-500">
                 {t("explore.filterHint", {
-                  defaultValue: isRtl
-                    ? "اختر تصنيفاً لعرض دوراته، أو اعرض الكل مجمّعاً حسب النظام."
-                    : "Pick a category to see its courses, or browse all grouped by system.",
+                  defaultValue: isRtl ? "اختر تصنيفاً لعرض الدورات الخاصة به." : "Pick a category to see its courses.",
                 })}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              {(activeCategory !== "all" || searchInput) ? (
+              {searchInput ? (
                 <button
                   type="button"
                   onClick={() => {
                     setSearchInput("");
-                    setActiveCategory("all");
+                    if (defaultCategorySlug) setActiveCategory(defaultCategorySlug);
                     setPage(1);
                   }}
                   className="flex h-11 items-center gap-2 rounded-xl border border-slate-200 px-3 text-xs font-black text-slate-500 transition hover:text-blue-700"
@@ -482,11 +441,7 @@ export default function Explore() {
                         : "bg-slate-50 text-slate-600 hover:bg-blue-50 hover:text-blue-700"
                     }`}
                   >
-                    {tab.id === "all" ? (
-                      <LayoutGrid className="h-3.5 w-3.5" aria-hidden />
-                    ) : (
-                      <CategoryGlyph name={tab.icon} className="h-3.5 w-3.5" />
-                    )}
+                    <CategoryGlyph name={tab.icon} className="h-3.5 w-3.5" />
                     <span>{tab.label}</span>
                     {typeof tab.count === "number" ? (
                       <span
@@ -508,9 +463,7 @@ export default function Explore() {
           <div>
             <p className="text-[10px] font-black uppercase tracking-[.2em] text-blue-700">{isRtl ? "كتالوج Yaser USMLE" : "YASER USMLE CATALOG"}</p>
             <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
-              {activeCategory === "all"
-                ? (isRtl ? "اختر الدورة المناسبة لمرحلتك" : "Choose the course for your stage")
-                : activeTab?.label || (isRtl ? "دورات التصنيف" : "Category courses")}
+              {activeTab?.label || (isRtl ? "دورات التصنيف" : "Category courses")}
             </h2>
             {activeTab?.description ? (
               <p className="mt-2 max-w-2xl text-sm font-medium text-slate-500">{activeTab.description}</p>
@@ -521,85 +474,46 @@ export default function Explore() {
           </p>
         </div>
 
-        {isLoading ? (
+        {isLoading || !activeCategory ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, index) => <CourseCardSkeleton key={index} />)}
           </div>
         ) : sorted.length > 0 ? (
           <>
-            {groupedView && groupedSections?.length ? (
-              <div className="space-y-12">
-                {groupedSections.map((section) => (
-                  <section key={section.id} id={`cat-${section.id}`} className="scroll-mt-28">
-                    <div className="mb-5 flex flex-wrap items-end justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-4 backdrop-blur-sm sm:px-5">
-                      <div className="flex items-start gap-3">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#071a38] to-blue-600 text-white shadow-md">
-                          <CategoryGlyph name={section.icon} className="h-5 w-5" />
-                        </span>
-                        <div>
-                          <h3 className="text-lg font-black tracking-tight text-slate-950">{section.title}</h3>
-                          {section.description ? (
-                            <p className="mt-1 max-w-2xl text-xs font-medium leading-5 text-slate-500">{section.description}</p>
-                          ) : null}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-blue-50 px-3 py-1 text-[11px] font-black text-blue-700">
-                          {t("explore.categoryCourseCount", {
-                            count: section.count,
-                            defaultValue: isRtl ? `${section.count} دورة` : `${section.count} courses`,
-                          })}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setActiveCategory(section.id)}
-                          className="rounded-xl border border-slate-200 px-3 py-1.5 text-[11px] font-black text-slate-600 transition hover:border-blue-200 hover:text-blue-700"
-                        >
-                          {t("explore.viewCategoryOnly", { defaultValue: isRtl ? "عرض التصنيف فقط" : "View category only" })}
-                        </button>
-                      </div>
-                    </div>
-                    <CourseGrid
-                      courses={section.courses}
-                      isRtl={isRtl}
-                      isStudent={isStudent}
-                      wishlistIds={wishlistIds}
-                      onToggleWishlist={handleToggleWishlist}
-                      dimmed={isFetching}
-                    />
-                  </section>
-                ))}
-              </div>
-            ) : (
-              <CourseGrid
-                courses={sorted}
-                isRtl={isRtl}
-                isStudent={isStudent}
-                wishlistIds={wishlistIds}
-                onToggleWishlist={handleToggleWishlist}
-                dimmed={isFetching}
-              />
-            )}
+            <CourseGrid
+              courses={sorted}
+              isRtl={isRtl}
+              isStudent={isStudent}
+              wishlistIds={wishlistIds}
+              onToggleWishlist={handleToggleWishlist}
+              dimmed={isFetching}
+            />
 
-            {!groupedView ? (
-              <div className="mt-12 flex flex-col items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row">
-                <p className="px-2 text-sm font-bold text-slate-500">{t("explore.pagination.page", { page, totalPages })}</p>
-                <div className="flex w-full gap-2 sm:w-auto">
-                  <button type="button" disabled={page <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))} className="flex-1 rounded-xl border border-slate-200 px-5 py-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:text-blue-700 disabled:opacity-40 sm:flex-none">
-                    {t("explore.pagination.prev")}
-                  </button>
-                  <button type="button" disabled={page >= totalPages} onClick={() => setPage((value) => value + 1)} className="flex-1 rounded-xl bg-[#071a38] px-5 py-3 text-sm font-black text-white transition hover:bg-blue-700 disabled:opacity-40 sm:flex-none">
-                    {t("explore.pagination.next")}
-                  </button>
-                </div>
+            <div className="mt-12 flex flex-col items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row">
+              <p className="px-2 text-sm font-bold text-slate-500">{t("explore.pagination.page", { page, totalPages })}</p>
+              <div className="flex w-full gap-2 sm:w-auto">
+                <button type="button" disabled={page <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))} className="flex-1 rounded-xl border border-slate-200 px-5 py-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:text-blue-700 disabled:opacity-40 sm:flex-none">
+                  {t("explore.pagination.prev")}
+                </button>
+                <button type="button" disabled={page >= totalPages} onClick={() => setPage((value) => value + 1)} className="flex-1 rounded-xl bg-[#071a38] px-5 py-3 text-sm font-black text-white transition hover:bg-blue-700 disabled:opacity-40 sm:flex-none">
+                  {t("explore.pagination.next")}
+                </button>
               </div>
-            ) : null}
+            </div>
           </>
         ) : (
           <div className="flex min-h-96 flex-col items-center justify-center rounded-[2rem] border border-dashed border-slate-300 bg-white px-6 text-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-400"><SlidersHorizontal className="h-7 w-7" aria-hidden /></span>
             <p className="mt-5 text-lg font-black text-slate-700">{t("explore.noResults")}</p>
-            <button type="button" onClick={() => { setSearchInput(""); setActiveCategory("all"); setPage(1); }} className="mt-4 inline-flex items-center gap-2 text-sm font-black text-blue-700">
+            <button
+              type="button"
+              onClick={() => {
+                setSearchInput("");
+                if (defaultCategorySlug) setActiveCategory(defaultCategorySlug);
+                setPage(1);
+              }}
+              className="mt-4 inline-flex items-center gap-2 text-sm font-black text-blue-700"
+            >
               <RotateCcw className="h-4 w-4" aria-hidden />{t("explore.clearFilters")}
             </button>
           </div>

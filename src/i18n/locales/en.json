@@ -2753,7 +2753,7 @@
       "uncategorized": "Uncategorized"
     },
     "filterByCategory": "Filter by category",
-    "filterHint": "Pick a category to see its courses, or browse all grouped by system.",
+    "filterHint": "Pick a category to see its courses.",
     "categoryCourseCount": "{{count}} courses",
     "viewCategoryOnly": "View category only",
     "courses": {

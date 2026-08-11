@@ -32,10 +32,11 @@ export function usePublicCategories() {
   });
 }
 
-export function usePublicCourses(params: PublicCoursesQuery) {
+export function usePublicCourses(params: PublicCoursesQuery, options: { enabled?: boolean } = {}) {
   return useQuery({
     queryKey: ["public", "courses", params],
     queryFn: () => fetchPublicCourses(params),
+    enabled: options.enabled !== false,
     retry: false,
   });
 }

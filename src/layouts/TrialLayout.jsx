@@ -42,12 +42,17 @@ export default function TrialLayout() {
 
   useEffect(() => {
     if (!isError) return;
+    const status = error?.response?.status;
     const msg = String(error?.response?.data?.message || error?.message || "");
     if (
+      status === 401 ||
+      status === 403 ||
+      status === 500 ||
       msg.includes("stopped by an administrator") ||
       msg.includes("does not match this device") ||
       msg.includes("already ended") ||
-      msg.includes("expired")
+      msg.includes("expired") ||
+      msg.includes("invalid")
     ) {
       clearSession();
     }
@@ -57,7 +62,7 @@ export default function TrialLayout() {
   if (!accessToken) return <Navigate to="/login" replace />;
 
   const revoked = me?.status === "REVOKED" || me?.revoked;
-  const expired = Boolean(me?.expired) || revoked || (isError && !me);
+  const expired = Boolean(me?.expired) || revoked;
   const remainingDays = me?.remainingDays ?? 0;
   const remainingMs = me?.remainingMs ?? 0;
   const expiresAt = me?.expiresAt;

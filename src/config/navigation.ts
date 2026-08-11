@@ -33,6 +33,7 @@ export type NavItem = {
   /** When true, only this path matches (not child routes). */
   exact?: boolean;
   /** Required permission(s) — any match grants access. */
+   /** When true, only this path matches (not child routes). */
   permission?: string | string[];
   feature?: keyof typeof platformFeatures;
 };

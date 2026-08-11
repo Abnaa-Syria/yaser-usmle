@@ -33,6 +33,7 @@ const AdminCmsPosts = lazy(() => import("../pages/admin/CmsPosts"));
 const AdminCmsBanners = lazy(() => import("../pages/admin/CmsBanners"));
 const AdminCmsPages = lazy(() => import("../pages/admin/CmsPages"));
 const AdminCmsHomeSections = lazy(() => import("../pages/admin/CmsHomeSections"));
+const AdminMediaLibrary = lazy(() => import("../pages/shared/MediaLibraryPage"));
 const AdminSettingsRoles = lazy(() => import("../pages/admin/SettingsRoles"));
 const AdminRoleEditor = lazy(() => import("../pages/admin/RoleEditor"));
 const AdminSettingsEmails = lazy(() => import("../pages/admin/SettingsEmails"));
@@ -158,6 +159,7 @@ function AdminRoutes() {
         <Route path="cms/banners" element={wrap(<AdminCmsBanners />, "cms:manage")} />
         <Route path="cms/pages" element={wrap(<AdminCmsPages />, "cms:manage")} />
         <Route path="cms/home-sections" element={wrap(<AdminCmsHomeSections />, "cms:manage")} />
+        <Route path="media" element={wrap(<AdminMediaLibrary />)} />
 
         <Route path="account" element={wrap(<AdminAccount />)} />
         <Route path="settings" element={wrap(<AdminSettings />, "settings:manage")} />

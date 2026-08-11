@@ -58,6 +58,11 @@ const endpoints = {
     paymentApprove: (id) => `/admin/financials/payments/${id}/approve`,
     paymentReject: (id) => `/admin/financials/payments/${id}/reject`,
   },
+  media: {
+    list: "/media",
+    upload: "/media/upload",
+    item: (id) => `/media/${id}`,
+  },
   instructorDashboard: {
     overview: "/instructor/dashboard/overview",
   },

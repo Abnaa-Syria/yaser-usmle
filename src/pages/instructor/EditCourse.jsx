@@ -23,6 +23,7 @@ import CreateExamModal from "./CreateExamModal";
 import ContentStatusBadge from "../../components/ui/ContentStatusBadge";
 import StudentPreviewModal from "./StudentPreviewModal";
 import toast from "react-hot-toast";
+import ImageField from "../../components/ui/ImageField";
 
 const DARK_FORM_LABEL =
   "block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 dark:text-slate-300";
@@ -371,14 +372,11 @@ function DetailsTab({ course, categories, updateMutation, sync, dir }) {
             </select>
           </label>
 
-          <label className="block">
-            <span className={labelClass}>{dir === "rtl" ? "رابط الصورة المصغرة" : "Thumbnail URL"}</span>
-            <input
-              value={form.thumbnail}
-              onChange={(e) => set("thumbnail", e.target.value)}
-              className={inputClass}
-            />
-          </label>
+          <ImageField
+            label={dir === "rtl" ? "الصورة المصغرة" : "Thumbnail"}
+            value={form.thumbnail}
+            onChange={(url) => set("thumbnail", url)}
+          />
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">

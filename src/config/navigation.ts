@@ -16,6 +16,7 @@ import {
   GraduationCap,
   HelpCircle,
   Home,
+  Image,
   LayoutDashboard,
   MessageSquare,
   Settings2,
@@ -355,6 +356,11 @@ export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
             },
           ],
         },
+        {
+          labelKey: "sidebarNav.items.mediaLibrary",
+          path: "/admin/media",
+          icon: Image,
+        },
       ],
     },
     {
@@ -495,6 +501,7 @@ export function getInstructorNavigation(): NavSection[] {
       labelKey: "sidebarNav.sections.academicMatrix",
       items: [
         { labelKey: "sidebarNav.items.myCourses", path: "/instructor/courses", icon: BookOpen },
+        { labelKey: "sidebarNav.items.mediaLibrary", path: "/instructor/media", icon: Image },
         { labelKey: "sidebarNav.items.qna", path: "/instructor/qna", icon: MessageSquare },
         { labelKey: "sidebarNav.items.exams", path: "/instructor/exams", icon: ClipboardList },
       ],

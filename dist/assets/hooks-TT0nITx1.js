@@ -1,0 +1,1 @@
+import{Ln as e,Pi as t,Un as n}from"./index-B2CamRy3.js";async function r(t={}){return(await e.get(n.student.flashcards,{params:t}))?.data?.data??[]}function i(e={},n={}){return t({queryKey:[`student`,`flashcards`,e],queryFn:()=>r(e),enabled:n.enabled!==!1,retry:!1})}export{i as t};

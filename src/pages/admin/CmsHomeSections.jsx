@@ -15,6 +15,7 @@ import PermissionGate from "../../components/ui/PermissionGate";
 import { useAdminSections, useUpsertSectionByKey } from "../../features/admin/cms/hooks";
 import { getErrorMessage } from "../../api/error";
 import { joinLocalized, pickLocalized, splitLocalized } from "../../utils/cmsLocale";
+import ImageField from "../../components/ui/ImageField";
 
 const field =
   "h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--yu-blue-700)] focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white";
@@ -456,10 +457,11 @@ export default function CmsHomeSections() {
                   onAr={(v) => setForm((p) => ({ ...p, heroQuoteAr: v }))}
                   multiline
                 />
-                <div>
-                  <label className={labelCls}>Team photo URL</label>
-                  <input className={field} value={form.teamPhoto} onChange={(e) => setForm((p) => ({ ...p, teamPhoto: e.target.value }))} dir="ltr" />
-                </div>
+                <ImageField
+                  label="Team photo"
+                  value={form.teamPhoto}
+                  onChange={(url) => setForm((p) => ({ ...p, teamPhoto: url }))}
+                />
               </>
             ) : null}
 
@@ -539,10 +541,11 @@ export default function CmsHomeSections() {
                         </div>
                       </>
                     )}
-                    <div>
-                      <label className={labelCls}>Image URL</label>
-                      <input className={field} value={item.imageUrl || ""} onChange={(e) => setItem(item.id, { imageUrl: e.target.value })} dir="ltr" />
-                    </div>
+                    <ImageField
+                      label="Image"
+                      value={item.imageUrl || ""}
+                      onChange={(url) => setItem(item.id, { imageUrl: url })}
+                    />
                   </div>
                 ))}
               </div>

@@ -8,6 +8,7 @@ import {
   normalizeOptions,
   QUESTION_TYPES,
 } from "./examQuestionUtils";
+import ImageField from "../ui/ImageField";
 
 const INPUT =
   "h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-[var(--yu-blue-700)] focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/15 dark:bg-[#12121a] dark:text-slate-100 dark:placeholder:text-slate-500";
@@ -303,17 +304,11 @@ export default function ExamQuestionEditorCard({
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              {label("imageUrl", "Image URL")}
-            </label>
-            <input
-              value={imageUrl}
-              onChange={(e) => mark(setImageUrl)(e.target.value)}
-              className={INPUT}
-              placeholder="https://..."
-            />
-          </div>
+          <ImageField
+            label={label("imageUrl", "Image")}
+            value={imageUrl}
+            onChange={(url) => mark(setImageUrl)(url)}
+          />
           <div>
             <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
               {label("explanation", "Explanation")}

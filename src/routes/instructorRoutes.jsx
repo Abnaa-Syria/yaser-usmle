@@ -16,6 +16,7 @@ import InstructorWallet from "../pages/instructor/Wallet";
 import InstructorPerformance from "../pages/instructor/Performance";
 import InstructorAvailability from "../pages/instructor/Availability";
 import InstructorSettings from "../pages/instructor/Settings";
+import MediaLibraryPage from "../pages/shared/MediaLibraryPage";
 
 function InstructorRoutes() {
   if (!platformFeatures.instructorSelfService) {
@@ -32,6 +33,7 @@ function InstructorRoutes() {
         <Route path="courses" element={<InstructorCourses />} />
         <Route path="courses/new" element={<InstructorCreateCourse />} />
         <Route path="courses/:id/edit" element={<InstructorEditCourse />} />
+        <Route path="media" element={<MediaLibraryPage />} />
         <Route path="homework" element={<Navigate to="/instructor/exams" replace />} />
         <Route path="live-sessions" element={<Navigate to="/access-denied" replace />} />
         <Route

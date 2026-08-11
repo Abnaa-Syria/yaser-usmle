@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useAdminCourses } from "../../features/admin/courses/hooks";
 import { useAdminCategories } from "../../features/admin/categories/hooks";
+import ImageField from "../ui/ImageField";
 
 function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
   const { t, i18n } = useTranslation();
@@ -16,6 +17,7 @@ function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
   const [titleAr, setTitleAr] = useState("");
   const [description, setDescription] = useState("");
   const [descriptionAr, setDescriptionAr] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [price, setPrice] = useState(0);
   const [isActive, setIsActive] = useState(true);
   
@@ -48,6 +50,7 @@ function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
         setTitleAr(packageData.titleAr || "");
         setDescription(packageData.description || "");
         setDescriptionAr(packageData.descriptionAr || "");
+        setCoverImage(packageData.coverImage || "");
         setPrice(packageData.price || 0);
         setIsActive(packageData.isActive !== false);
         
@@ -78,6 +81,7 @@ function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
         setTitleAr("");
         setDescription("");
         setDescriptionAr("");
+        setCoverImage("");
         setPrice(0);
         setIsActive(true);
         setSelectedCourseIds([]);
@@ -136,6 +140,7 @@ function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
       titleAr,
       description,
       descriptionAr,
+      coverImage: coverImage || null,
       price: Number(basePrice),
       isActive,
       courseIds: selectedCourseIds,
@@ -228,6 +233,12 @@ function PackageStepperModal({ open, packageData, onClose, onSave, isSaving }) {
                   />
                 </label>
               </div>
+
+              <ImageField
+                label={isRtl ? "صورة الغلاف" : "Cover image"}
+                value={coverImage}
+                onChange={setCoverImage}
+              />
 
               <label className="block space-y-1.5">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">

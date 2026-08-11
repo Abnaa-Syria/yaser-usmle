@@ -13,6 +13,9 @@ export function resolveBrandAssetUrl(url) {
   }
 }
 
+// Re-export shared helper for callers that already import BrandLogo utilities
+export { resolveMediaUrl } from "../utils/resolveMediaUrl";
+
 const FALLBACKS = {
   primary: APP_BRAND.logoPath,
   light: APP_BRAND.logoLightPath,

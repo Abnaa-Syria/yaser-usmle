@@ -29,6 +29,7 @@ import {
 } from "../../features/admin/cms/hooks";
 import { getErrorMessage } from "../../api/error";
 import { splitLocalized, joinLocalized } from "../../utils/cmsLocale";
+import ImageField from "../../components/ui/ImageField";
 
 const field =
   "h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--yu-blue-700)] focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white";
@@ -391,16 +392,11 @@ function Cms() {
                     dir={contentLang === "ar" ? "rtl" : "ltr"}
                   />
                 </div>
-                <div>
-                  <label className={labelCls}>{t("dashboard.admin.pages.cms.teamPhoto", { defaultValue: "Team photo URL" })}</label>
-                  <input
-                    value={about.teamPhoto || ""}
-                    onChange={(e) => setAbout((p) => ({ ...p, teamPhoto: e.target.value }))}
-                    className={field}
-                    dir="ltr"
-                    placeholder="https://..."
-                  />
-                </div>
+                <ImageField
+                  label={t("dashboard.admin.pages.cms.teamPhoto", { defaultValue: "Team photo" })}
+                  value={about.teamPhoto || ""}
+                  onChange={(url) => setAbout((p) => ({ ...p, teamPhoto: url }))}
+                />
               </div>
               <button
                 type="button"

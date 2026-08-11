@@ -28,6 +28,7 @@ import {
 } from "../../features/admin/exams/hooks";
 import { useAdminUsers } from "../../features/admin/users/hooks";
 import toast from "react-hot-toast";
+import ImageField from "../../components/ui/ImageField";
 import { ExamQuestionBankDrawer } from "../../components/exams/ExamQuestionBank";
 import VdoCipherVideoPicker from "../../components/admin/VdoCipherVideoPicker";
 
@@ -821,17 +822,11 @@ function DetailEditor({ node, onClose }) {
                   className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
                 />
               </label>
-              <label className="block space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  {t("adminPages.courseEditor.fields.thumbnailUrl", { defaultValue: "Thumbnail URL" })}
-                </span>
-                <input
-                  value={formData.thumbnail}
-                  onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                  className="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
-                />
-              </label>
+              <ImageField
+                label={t("adminPages.courseEditor.fields.thumbnailUrl", { defaultValue: "Thumbnail" })}
+                value={formData.thumbnail}
+                onChange={(url) => setFormData({ ...formData, thumbnail: url })}
+              />
 
               <label className="block space-y-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">

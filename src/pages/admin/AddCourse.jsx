@@ -8,6 +8,7 @@ import { useAdminInstructors } from "../../features/admin/instructors/hooks";
 import { useCreateAdminCourse } from "../../features/admin/courses/hooks";
 import { platformFeatures } from "../../config/features";
 import { getErrorMessage } from "../../api/error";
+import ImageField from "../../components/ui/ImageField";
 
 function AddCourse() {
   const { t, i18n } = useTranslation();
@@ -353,15 +354,11 @@ function AddCourse() {
             </div>
           </div>
 
-          <label className="block space-y-1.5">
-            <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{t("adminPages.courseEditor.fields.thumbnailUrl")}</span>
-            <input
-              value={form.thumbnail}
-              onChange={(e) => set("thumbnail", e.target.value)}
-              placeholder="https://example.com/thumbnail.jpg"
-              className={inputClass}
-            />
-          </label>
+          <ImageField
+            label={t("adminPages.courseEditor.fields.thumbnailUrl")}
+            value={form.thumbnail}
+            onChange={(url) => set("thumbnail", url)}
+          />
 
           <label className="block space-y-1.5">
             <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{t("dashboard.admin.courses.introVideoUrl")}</span>

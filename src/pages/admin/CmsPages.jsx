@@ -18,6 +18,7 @@ import { useAdminCmsPages, useUpdateCmsPage } from "../../features/admin/cms/hoo
 import { fetchContactSubmissions, updateContactSubmission } from "../../features/admin/cms/api";
 import { getErrorMessage } from "../../api/error";
 import { parseCmsSections } from "../../utils/cmsLocale";
+import ImageField from "../../components/ui/ImageField";
 
 const field =
   "h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--yu-blue-700)] focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white";
@@ -338,32 +339,15 @@ function PageEditor({ page, onSaved }) {
                 placeholder="- Item one&#10;- Item two"
               />
             </div>
-            <div>
-              <label className={labelCls}>
-                {t("adminPages.cmsPages.sectionImage", { defaultValue: "Image URL (optional)" })}
-              </label>
-              <input
-                value={section.imageUrl || ""}
-                onChange={(e) =>
-                  setSections((list) =>
-                    list.map((s) => (s.id === section.id ? { ...s, imageUrl: e.target.value } : s))
-                  )
-                }
-                className={field}
-                dir="ltr"
-                placeholder="https://… or /uploads/…"
-              />
-              {section.imageUrl ? (
-                <img
-                  src={section.imageUrl}
-                  alt=""
-                  className="mt-3 h-28 w-full rounded-xl object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                />
-              ) : null}
-            </div>
+            <ImageField
+              label={t("adminPages.cmsPages.sectionImage", { defaultValue: "Section image (optional)" })}
+              value={section.imageUrl || ""}
+              onChange={(url) =>
+                setSections((list) =>
+                  list.map((s) => (s.id === section.id ? { ...s, imageUrl: url } : s))
+                )
+              }
+            />
           </div>
         ))}
       </div>

@@ -1,0 +1,1 @@
+function e(e){if(!e||typeof e!=`string`)return``;let t=e.trim();if(!t)return``;if(/^https?:\/\//i.test(t)||t.startsWith(`data:`)||t.startsWith(`blob:`)||!t.startsWith(`/uploads/`))return t;try{return`${new URL(`https://api.alienparts.online/api/v1`).origin}${t}`}catch{return t}}export{e as t};

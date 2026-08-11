@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -14,7 +14,11 @@ import {
   Sparkles,
   Target,
   TrendingUp,
+  Flame,
+  Trophy,
+  Zap,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import useAuthStore from "../../store/authStore";
 import { useMyCourses } from "../../features/student/courses/hooks";
 import { useStudentExams } from "../../features/student/exams/hooks";
@@ -22,6 +26,7 @@ import { useNotifications } from "../../features/student/notifications/hooks";
 import { useStudentFlashcards } from "../../features/student/flashcards/hooks";
 import { useStudyPlans } from "../../features/student/studyPlans/hooks";
 import { useMyCertificates } from "../../features/student/certificates/hooks";
+import { useMyGamification } from "../../features/student/gamification/hooks";
 
 function courseKey(course) {
   return course.courseId ?? course.id;
@@ -168,6 +173,21 @@ export default function StudentOverview() {
   const { data: flashcards = [] } = useStudentFlashcards();
   const { data: studyPlans = [] } = useStudyPlans();
   const { data: certificates = [] } = useMyCertificates();
+  const { data: gami } = useMyGamification();
+  const unlockToastShown = useRef(false);
+
+  useEffect(() => {
+    if (unlockToastShown.current || !gami?.recentUnlocks?.length) return;
+    unlockToastShown.current = true;
+    const first = gami.recentUnlocks[0];
+    const title = isAr ? first.titleAr : first.titleEn;
+    toast.success(
+      t("student.gamification.badgeUnlocked", {
+        title,
+        defaultValue: "Badge unlocked: {{title}}",
+      })
+    );
+  }, [gami?.recentUnlocks, isAr, t]);
 
   const hour = new Date().getHours();
   const greet = t(`student.overview.greet.${greetingKey(hour)}`, {
@@ -353,6 +373,67 @@ export default function StudentOverview() {
           </div>
         </div>
       </motion.section>
+
+      {/* Step Momentum */}
+      {gami?.profile ? (
+        <motion.section
+          initial="hidden"
+          animate="show"
+          custom={1}
+          variants={fadeUp}
+          className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[var(--shadow-sm)] dark:border-white/8 dark:bg-[#0F1E38] sm:p-6"
+        >
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--yu-blue-700)]/15 to-[var(--yu-amber-400)]/20">
+                <Zap className="h-6 w-6 text-[var(--yu-blue-700)]" />
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  {t("student.gamification.brand", { defaultValue: "Step Momentum" })}
+                </p>
+                <p className="mt-0.5 text-lg font-black text-slate-900 dark:text-white">
+                  {t("student.gamification.level", { defaultValue: "Level" })} {gami.profile.level}
+                  <span className="ms-2 text-sm font-bold text-slate-400 tabular-nums">
+                    {gami.profile.totalXp} XP
+                  </span>
+                </p>
+                <div className="mt-2 h-2 w-48 max-w-full overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[var(--yu-blue-700)] to-[var(--yu-amber-400)]"
+                    style={{ width: `${gami.profile.levelProgress || 0}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-orange-200/80 bg-orange-50 px-3 py-2 text-xs font-bold text-orange-700 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-300">
+                <Flame className="h-3.5 w-3.5" />
+                {gami.profile.currentStreak}{" "}
+                {t("student.gamification.streakShort", { defaultValue: "day streak" })}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
+                <Trophy className="h-3.5 w-3.5 text-[var(--yu-amber-500)]" />
+                {t("student.gamification.rankShort", { defaultValue: "Rank" })}{" "}
+                {gami.globalRank ?? "—"}
+              </span>
+              {gami.challenge ? (
+                <span className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--yu-blue-700)]/20 bg-[var(--yu-blue-700)]/5 px-3 py-2 text-xs font-bold text-[var(--yu-blue-700)]">
+                  {gami.challenge.progress}/{gami.challenge.goalTarget}{" "}
+                  {t("student.gamification.challengeShort", { defaultValue: "challenge" })}
+                </span>
+              ) : null}
+              <Link
+                to="/student/momentum"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--yu-blue-700)] px-3.5 py-2 text-xs font-bold text-white hover:bg-[var(--yu-blue-600)]"
+              >
+                {t("student.gamification.openMomentum", { defaultValue: isAr ? "فتح الزخم" : "Open Momentum" })}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </motion.section>
+      ) : null}
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">

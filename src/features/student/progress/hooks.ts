@@ -77,6 +77,7 @@ export function useMarkLessonComplete() {
       void qc.invalidateQueries({ queryKey: ["student", "progress-resume", v.courseId] });
       void qc.invalidateQueries({ queryKey: ["student", "my-courses"] });
       void qc.invalidateQueries({ queryKey: ["student", "progress"] });
+      void qc.invalidateQueries({ queryKey: ["student", "gamification"] });
     },
   });
 }

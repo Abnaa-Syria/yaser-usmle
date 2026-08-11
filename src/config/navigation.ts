@@ -24,6 +24,7 @@ import {
   UserCog,
   Users,
   UserCheck,
+  Zap,
 } from "lucide-react";
 
 export type NavItem = {
@@ -414,6 +415,12 @@ export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
               icon: Settings2,
               permission: "settings:manage",
             },
+            {
+              labelKey: "sidebarNav.items.gamification",
+              path: "/admin/gamification",
+              icon: Settings2,
+              permission: "settings:manage",
+            },
           ],
         },
       ],
@@ -427,6 +434,7 @@ export function getStudentNavigation(): NavSection[] {
       labelKey: "sidebarNav.sections.studentOverview",
       items: [
         { labelKey: "sidebarNav.items.overview", path: "/student", icon: LayoutDashboard, exact: true },
+        { labelKey: "sidebarNav.items.momentum", path: "/student/momentum", icon: Zap },
         { labelKey: "sidebarNav.items.myCourses", path: "/student/classes", icon: BookOpen },
       ],
     },

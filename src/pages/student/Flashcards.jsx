@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Layers, RotateCcw, Shuffle, StepBack, StepForward } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import { useStudentFlashcards } from "../../features/student/flashcards/hooks";
 import { useMyCourses } from "../../features/student/courses/hooks";
 import { useTrialFlashcards, useTrialMe } from "../../features/trial/hooks";
 import { useLearningPanelMode } from "../../hooks/useLearningPanelMode";
+import { useFlashcardSessionXp } from "../../features/student/gamification/hooks";
 
 function titleFor(card, isRtl) {
   const lesson = card?.lesson;
@@ -80,6 +81,9 @@ export default function StudentFlashcards() {
   }, [rawCards, unitId]);
 
   const card = cards[index] || null;
+  const flashXp = useFlashcardSessionXp();
+  const flipsRef = useRef(0);
+  const awardedBuckets = useRef(new Set());
 
   useEffect(() => {
     if (index >= cards.length) {
@@ -87,6 +91,16 @@ export default function StudentFlashcards() {
       setShowBack(false);
     }
   }, [cards.length, index]);
+
+  const awardFlashXpIfNeeded = () => {
+    if (isTrial) return;
+    flipsRef.current += 1;
+    if (flipsRef.current < 5) return;
+    const bucket = Math.floor((flipsRef.current - 1) / 5);
+    if (awardedBuckets.current.has(bucket)) return;
+    awardedBuckets.current.add(bucket);
+    void flashXp.mutateAsync(`review-${bucket}`).catch(() => {});
+  };
 
   const resetDeck = () => {
     setIndex(0);
@@ -198,7 +212,10 @@ export default function StudentFlashcards() {
             </div>
             <button
               type="button"
-              onClick={() => setShowBack((v) => !v)}
+              onClick={() => {
+                setShowBack((v) => !v);
+                awardFlashXpIfNeeded();
+              }}
               className="mt-6 min-h-64 w-full rounded-[1.15rem] border border-slate-200/80 bg-slate-50/80 p-8 text-center text-xl font-bold text-slate-900 transition hover:border-[var(--yu-blue-400)] hover:shadow-[var(--shadow-sm)] dark:border-white/10 dark:bg-[#0C1829] dark:text-white"
             >
               {showBack ? (isRtl ? card.backAr || card.back : card.back) : isRtl ? card.frontAr || card.front : card.front}
@@ -211,7 +228,14 @@ export default function StudentFlashcards() {
             <button type="button" onClick={() => setIndex((v) => Math.max(0, v - 1))} className={studentBtnGhost}>
               <StepBack className="h-4 w-4" /> {t("common.previous", { defaultValue: "Previous" })}
             </button>
-            <button type="button" onClick={() => setShowBack((v) => !v)} className={studentBtnGhost}>
+            <button
+              type="button"
+              onClick={() => {
+                setShowBack((v) => !v);
+                awardFlashXpIfNeeded();
+              }}
+              className={studentBtnGhost}
+            >
               <RotateCcw className="h-4 w-4" /> {t("student.flashcards.flip", { defaultValue: "Flip" })}
             </button>
             <button type="button" onClick={() => setShuffleSeed(Date.now())} className={studentBtnGhost}>

@@ -57,6 +57,9 @@ const endpoints = {
     instructorApplication: (id) => `/admin/instructor-applications/${id}`,
     paymentApprove: (id) => `/admin/financials/payments/${id}/approve`,
     paymentReject: (id) => `/admin/financials/payments/${id}/reject`,
+    gamificationStats: "/admin/gamification/stats",
+    gamificationChallenges: "/admin/gamification/challenges",
+    gamificationSeedBadges: "/admin/gamification/seed-badges",
   },
   media: {
     list: "/media",
@@ -122,6 +125,12 @@ const endpoints = {
     lessonQuestions: (lessonId) => `/student/lessons/${lessonId}/questions`,
     questionAnswers: (questionId) => `/student/questions/${questionId}/answers`,
     courseReviews: (courseId) => `/courses/${courseId}/reviews`,
+    gamificationMe: "/student/gamification/me",
+    gamificationLeaderboard: "/student/gamification/leaderboard",
+    gamificationBadges: "/student/gamification/badges",
+    gamificationChallenge: "/student/gamification/challenges/current",
+    gamificationPrivacy: "/student/gamification/privacy",
+    gamificationFlashcardSession: "/student/gamification/flashcard-session",
   },
   notifications: "/notifications",
   public: {

@@ -99,6 +99,7 @@
       "emailTemplates": "Email Templates",
       "integrations": "Integrations",
       "freeTrial": "Free trial",
+      "gamification": "Step Momentum",
       "myClasses": "My Classes",
       "myCohorts": "My Cohorts",
       "myCourses": "My Courses",
@@ -127,6 +128,7 @@
       "payments": "Payments",
       "wishlist": "Wishlist",
       "progress": "Progress",
+      "momentum": "Momentum",
       "studentAssignment": "Assignment",
       "websiteHome": "Homepage",
       "websiteExplore": "Browse courses",
@@ -248,6 +250,44 @@
       "verifyLink": "Verification link",
       "shareDownload": "Shareable download link",
       "downloadError": "Could not download certificate."
+    },
+    "gamification": {
+      "brand": "Step Momentum",
+      "title": "Preparation Momentum",
+      "subtitle": "Track mastery XP, streaks, badges, and competitive rankings.",
+      "level": "Level",
+      "xpToNext": "{{count}} XP to next level",
+      "streak": "Day streak",
+      "streakShort": "day streak",
+      "longestStreak": "Best streak",
+      "weekXp": "This week",
+      "rank": "Global rank",
+      "rankShort": "Rank",
+      "weeklyChallenge": "Weekly challenge",
+      "challengeDone": "Challenge completed!",
+      "challengeShort": "challenge",
+      "leaderboard": "Leaderboard",
+      "scopeGlobal": "Platform",
+      "scopeCourse": "Course",
+      "pickCourse": "Select course",
+      "periodWeek": "This week",
+      "periodAll": "All time",
+      "colRank": "Rank",
+      "colName": "Learner",
+      "colLevel": "Level",
+      "colXp": "XP",
+      "you": "You",
+      "emptyBoard": "No ranked learners yet — complete a lesson to start.",
+      "yourRank": "Your rank: #{{rank}} · {{xp}} XP",
+      "badges": "Mastery badges",
+      "recentXp": "Recent XP",
+      "noXpYet": "Complete lessons and exams to earn XP.",
+      "privacyLink": "Leaderboard privacy settings",
+      "badgeUnlocked": "Badge unlocked: {{title}}",
+      "openMomentum": "Open Momentum",
+      "lessonXpHint": "+15 XP when you complete this lesson",
+      "lessonXpToast": "+{{amount}} XP for completing this lesson",
+      "examXpToast": "You earned {{amount}} XP for this exam"
     },
     "tickets": {
       "title": "Support",
@@ -3155,7 +3195,14 @@
     "nav": {
       "profile": "Profile",
       "security": "Security",
+      "privacy": "Leaderboard",
       "notifications": "Notifications"
+    },
+    "privacy": {
+      "title": "Leaderboard privacy",
+      "description": "By default the board shows your first name and last initial. Hide your name to appear as Anonymous learner.",
+      "hideName": "Hide my name on leaderboards",
+      "hideNameHint": "Your XP and rank still appear."
     },
     "profile": {
       "fullName": "Full Name",
@@ -4463,6 +4510,22 @@
       "tagline": "Operate the platform with clarity",
       "controlCenter": "Control center",
       "adminFallback": "Admin"
+    },
+    "gamification": {
+      "title": "Step Momentum",
+      "subtitle": "Weekly challenges, badge seed, and active learner stats.",
+      "activePlayers": "Active players (XP > 0)",
+      "topXp": "Highest total XP",
+      "currentChallenge": "Current weekly challenge",
+      "noChallenge": "No active challenge",
+      "seedBadges": "Seed / refresh badges",
+      "seeded": "Badge definitions seeded",
+      "createChallenge": "Create weekly challenge",
+      "challengeList": "Recent challenges",
+      "emptyChallenges": "No challenges yet.",
+      "created": "Challenge created",
+      "createFailed": "Could not create challenge",
+      "save": "Create challenge"
     }
   }
 }

@@ -422,6 +422,14 @@ export default function TakeExam() {
               <p className="mt-0.5 text-xs text-slate-500">{t("takeExam.result.passing")}</p>
             </div>
           </div>
+          {result.xp?.amount ? (
+            <p className="mt-4 text-sm font-bold text-[var(--yu-blue-700)]">
+              {t("student.gamification.examXpToast", {
+                amount: result.xp.amount,
+                defaultValue: "You earned {{amount}} XP for this exam",
+              })}
+            </p>
+          ) : null}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             {result.id ? (
               <Link

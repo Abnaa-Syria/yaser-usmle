@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Eye, EyeOff, Lock, Save, ShieldCheck, User } from "lucide-react";
+import { Eye, EyeOff, Lock, Save, ShieldCheck, User, Trophy } from "lucide-react";
 import PageHeader from "../components/dashboard/PageHeader";
 import {
   StudentSurface,
@@ -12,6 +12,7 @@ import {
 } from "../components/student/ui";
 import useAuthStore from "../store/authStore";
 import { useChangePassword, useProfileMe, useUpdateProfile } from "../features/student/profile/hooks";
+import { useMyGamification, usePatchGamificationPrivacy } from "../features/student/gamification/hooks";
 import { getErrorMessage } from "../api/error";
 import ProfileAvatarEditor from "../components/profile/ProfileAvatarEditor";
 
@@ -80,8 +81,9 @@ function PasswordField({ label, error, placeholder, ...rest }) {
 
 /* ── Nav items ── */
 const NAV = [
-  { key: "profile",       icon: User,         label: "settings.nav.profile"  },
-  { key: "security",      icon: ShieldCheck,  label: "settings.nav.security" },
+  { key: "profile",  icon: User,        label: "settings.nav.profile" },
+  { key: "security", icon: ShieldCheck, label: "settings.nav.security" },
+  { key: "privacy",  icon: Trophy,      label: "settings.nav.privacy" },
 ];
 
 /* ── Profile section ── */
@@ -283,7 +285,71 @@ function NotificationsSection() {
   );
 }
 
-const SECTIONS = { profile: ProfileSection, security: SecuritySection };
+/* ── Leaderboard privacy ── */
+function PrivacySection() {
+  const { t } = useTranslation();
+  const { data: gami } = useMyGamification();
+  const patchPrivacy = usePatchGamificationPrivacy();
+  const [optOut, setOptOut] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (gami?.profile) setOptOut(!!gami.profile.displayNameOptOut);
+  }, [gami?.profile]);
+
+  const onToggle = async () => {
+    const next = !optOut;
+    setOptOut(next);
+    try {
+      await patchPrivacy.mutateAsync(next);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      setOptOut(!next);
+    }
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center gap-2 text-base font-black text-slate-900 dark:text-white">
+        <Trophy className="h-4 w-4 text-[var(--yu-blue-700)]" />
+        {t("settings.privacy.title", { defaultValue: "Leaderboard privacy" })}
+      </div>
+      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+        {t("settings.privacy.description", {
+          defaultValue: "By default the board shows your first name and last initial. Hide your name to appear as Anonymous learner.",
+        })}
+      </p>
+      <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200/80 bg-slate-50/80 px-4 py-3.5 dark:border-white/8 dark:bg-[#0C1829]/60">
+        <div>
+          <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
+            {t("settings.privacy.hideName", { defaultValue: "Hide my name on leaderboards" })}
+          </p>
+          <p className="text-xs font-medium text-slate-500">
+            {t("settings.privacy.hideNameHint", { defaultValue: "Your XP and rank still appear." })}
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={optOut}
+          onClick={() => void onToggle()}
+          disabled={patchPrivacy.isPending}
+          className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--yu-blue-700)] focus:ring-offset-2
+            ${optOut ? "bg-[var(--yu-blue-700)]" : "bg-slate-300 dark:bg-white/15"}`}
+        >
+          <span
+            className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all duration-200
+              ${optOut ? "start-[22px]" : "start-0.5"}`}
+          />
+        </button>
+      </div>
+      {saved ? <p className="text-sm font-bold text-emerald-600">{t("settings.saved")}</p> : null}
+    </div>
+  );
+}
+
+const SECTIONS = { profile: ProfileSection, security: SecuritySection, privacy: PrivacySection };
 
 export default function Settings() {
   const { t }       = useTranslation();

@@ -39,6 +39,7 @@ const AdminRoleEditor = lazy(() => import("../pages/admin/RoleEditor"));
 const AdminSettingsEmails = lazy(() => import("../pages/admin/SettingsEmails"));
 const AdminSettingsIntegrations = lazy(() => import("../pages/admin/SettingsIntegrations"));
 const AdminSettingsTrial = lazy(() => import("../pages/admin/SettingsTrial"));
+const AdminGamification = lazy(() => import("../pages/admin/Gamification"));
 const AdminAddExam = lazy(() => import("../pages/admin/AddExam"));
 const AdminExamEditor = lazy(() => import("../pages/admin/ExamEditor"));
 const AdminExamSubmissions = lazy(() => import("../pages/admin/ExamSubmissions"));
@@ -169,6 +170,7 @@ function AdminRoutes() {
         <Route path="settings/emails" element={wrap(<AdminSettingsEmails />, "settings:manage")} />
         <Route path="settings/integrations" element={wrap(<AdminSettingsIntegrations />, "settings:manage")} />
         <Route path="settings/trial" element={wrap(<AdminSettingsTrial />, "settings:manage")} />
+        <Route path="gamification" element={wrap(<AdminGamification />, "settings:manage")} />
         <Route path="audit-logs" element={wrap(<AdminAuditLogs />, "audit:read")} />
 
         <Route path="users/:id" element={wrap(<AdminUserDetail />, "user:manage")} />

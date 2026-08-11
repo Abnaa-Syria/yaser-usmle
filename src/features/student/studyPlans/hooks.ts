@@ -56,7 +56,10 @@ export function useUpdateStudyPlanItem() {
   return useMutation({
     mutationFn: ({ planId, itemId, body }: { planId: string; itemId: string; body: Record<string, unknown> }) =>
       updateStudyPlanItem(planId, itemId, body),
-    onSuccess: () => qc.invalidateQueries({ queryKey: STUDY_PLANS_KEY }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: STUDY_PLANS_KEY });
+      void qc.invalidateQueries({ queryKey: ["student", "gamification"] });
+    },
   });
 }
 

@@ -82,6 +82,14 @@ export default function ExamResult() {
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                 {t("examResult.passingLine", { passing: result.exam?.passingScore ?? "—" })}
               </p>
+              {result.xp?.amount ? (
+                <p className="mt-2 text-sm font-bold text-[var(--yu-blue-700)]">
+                  {t("student.gamification.examXpToast", {
+                    amount: result.xp.amount,
+                    defaultValue: "You earned {{amount}} XP for this exam",
+                  })}
+                </p>
+              ) : null}
             </div>
           </div>
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">

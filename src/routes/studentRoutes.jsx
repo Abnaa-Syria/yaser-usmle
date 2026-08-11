@@ -7,6 +7,7 @@ import { RouteSuspense } from "../components/LoadingFallback";
 import StudentLayout from "../layouts/StudentLayout";
 
 const StudentOverview = lazy(() => import("../pages/student/Overview"));
+const StudentMomentum = lazy(() => import("../pages/student/Momentum"));
 const MyClasses = lazy(() => import("../pages/MyClasses"));
 const RecordingsLibrary = lazy(() => import("../pages/student/RecordingsLibrary"));
 const RecordingPlayer = lazy(() => import("../pages/student/RecordingPlayer"));
@@ -56,6 +57,7 @@ function StudentRoutes() {
 
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={wrap(<StudentOverview />)} />
+          <Route path="momentum" element={wrap(<StudentMomentum />)} />
           <Route path="classes" element={wrap(<MyClasses />)} />
           <Route path="live-sessions" element={<Navigate to="/student/classes" replace />} />
           <Route path="live-sessions/:id" element={<Navigate to="/student/classes" replace />} />

@@ -99,6 +99,7 @@
       "emailTemplates": "قوالب البريد",
       "integrations": "الربط",
       "freeTrial": "التجربة المجانية",
+      "gamification": "زخم الخطوة",
       "myClasses": "حصصي",
       "myCourses": "كورساتي",
       "qna": "الأسئلة والأجوبة",
@@ -126,6 +127,7 @@
       "payments": "المدفوعات",
       "wishlist": "المفضلة",
       "progress": "التقدم",
+      "momentum": "الزخم",
       "studentHomework": "الاسايمينت",
       "websiteHome": "الصفحة الرئيسية",
       "websiteExplore": "استكشاف الكورسات",
@@ -248,6 +250,44 @@
       "verifyLink": "رابط التحقق",
       "shareDownload": "رابط تحميل قابل للمشاركة",
       "downloadError": "تعذّر تحميل الشهادة."
+    },
+    "gamification": {
+      "brand": "زخم الخطوة",
+      "title": "زخم التحضير",
+      "subtitle": "تتبع نقاط الإتقان والسلسلة والشارات والترتيب التنافسي.",
+      "level": "المستوى",
+      "xpToNext": "{{count}} نقطة للمستوى التالي",
+      "streak": "سلسلة الأيام",
+      "streakShort": "يوم متواصل",
+      "longestStreak": "أفضل سلسلة",
+      "weekXp": "هذا الأسبوع",
+      "rank": "الترتيب العام",
+      "rankShort": "الترتيب",
+      "weeklyChallenge": "التحدي الأسبوعي",
+      "challengeDone": "اكتمل التحدي!",
+      "challengeShort": "تحدي",
+      "leaderboard": "لوحة الترتيب",
+      "scopeGlobal": "المنصة",
+      "scopeCourse": "الكورس",
+      "pickCourse": "اختر كورساً",
+      "periodWeek": "هذا الأسبوع",
+      "periodAll": "كل الأوقات",
+      "colRank": "الرتبة",
+      "colName": "المتعلّم",
+      "colLevel": "المستوى",
+      "colXp": "النقاط",
+      "you": "أنت",
+      "emptyBoard": "لا يوجد ترتيب بعد — أكمل درساً للبدء.",
+      "yourRank": "ترتيبك: #{{rank}} · {{xp}} نقطة",
+      "badges": "شارات الإتقان",
+      "recentXp": "أحدث النقاط",
+      "noXpYet": "أكمل الدروس والامتحانات لكسب النقاط.",
+      "privacyLink": "إعدادات خصوصية الترتيب",
+      "badgeUnlocked": "شارة جديدة: {{title}}",
+      "openMomentum": "فتح الزخم",
+      "lessonXpHint": "+15 نقطة عند إكمال هذا الدرس",
+      "lessonXpToast": "+{{amount}} نقطة لإكمال الدرس",
+      "examXpToast": "حصلت على {{amount}} نقطة من هذا الامتحان"
     },
     "tickets": {
       "title": "الدعم",
@@ -3154,7 +3194,14 @@
     "nav": {
       "profile": "الملف الشخصي",
       "security": "الأمان",
+      "privacy": "لوحة الترتيب",
       "notifications": "الإشعارات"
+    },
+    "privacy": {
+      "title": "خصوصية لوحة الترتيب",
+      "description": "افتراضياً يظهر الاسم الأول والحرف الأول من العائلة. يمكنك إخفاء اسمك ليظهر كمتعلّم مجهول.",
+      "hideName": "إخفاء اسمي من لوحات الترتيب",
+      "hideNameHint": "تبقى نقاطك وترتيبك ظاهرين."
     },
     "profile": {
       "fullName": "الاسم الكامل",
@@ -4463,6 +4510,22 @@
       "tagline": "إدارة المنصة باحتراف",
       "controlCenter": "مركز التحكم",
       "adminFallback": "مسؤول"
+    },
+    "gamification": {
+      "title": "زخم الخطوة",
+      "subtitle": "التحديات الأسبوعية وبذر الشارات وإحصاءات المتعلمين النشطين.",
+      "activePlayers": "اللاعبون النشطون (نقاط > 0)",
+      "topXp": "أعلى مجموع نقاط",
+      "currentChallenge": "التحدي الأسبوعي الحالي",
+      "noChallenge": "لا يوجد تحدٍ نشط",
+      "seedBadges": "بذر / تحديث الشارات",
+      "seeded": "تم بذر تعريفات الشارات",
+      "createChallenge": "إنشاء تحدٍ أسبوعي",
+      "challengeList": "التحديات الأخيرة",
+      "emptyChallenges": "لا توجد تحديات بعد.",
+      "created": "تم إنشاء التحدي",
+      "createFailed": "تعذّر إنشاء التحدي",
+      "save": "إنشاء التحدي"
     }
   }
 }

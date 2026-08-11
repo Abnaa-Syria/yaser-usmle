@@ -45,6 +45,7 @@ export function useSubmitStudentExam() {
     onSuccess: (_, { examId }) => {
       void qc.invalidateQueries({ queryKey: ["student", "exam", examId] });
       void qc.invalidateQueries({ queryKey: ["student", "exams"] });
+      void qc.invalidateQueries({ queryKey: ["student", "gamification"] });
     },
   });
 }

@@ -19,6 +19,7 @@ import { useClaimCertificate, useDownloadStudentCertificate, useMyCertificates }
 import { getErrorMessage } from "../api/error";
 import { downloadBlob, getStaticCertificateUrl } from "../utils/certificate";
 import { sanitizeRichHtml } from "../utils/htmlContent";
+import toast from "react-hot-toast";
 
 const TYPE_ICON = {
   video: <Play className="h-3.5 w-3.5" />,
@@ -239,8 +240,17 @@ export default function CourseView() {
   const handleMarkDone = async () => {
     if (!courseId || !activeLesson) return;
     try {
-      await markComplete.mutateAsync({ lessonId: activeLesson.id, courseId });
+      const data = await markComplete.mutateAsync({ lessonId: activeLesson.id, courseId });
       await refetchCompleted();
+      const xpAmount = data?.xp?.awarded ? data.xp.amount : data?.xp?.amount;
+      if (data?.xp?.awarded && xpAmount) {
+        toast.success(
+          t("student.gamification.lessonXpToast", {
+            amount: xpAmount,
+            defaultValue: "+{{amount}} XP for completing this lesson",
+          })
+        );
+      }
     } catch {
       /* toast optional */
     }
@@ -483,8 +493,15 @@ export default function CourseView() {
                   onClick={() => void handleMarkDone()}
                   className="rounded-xl bg-yu-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-yu-blue-600 disabled:opacity-50"
                 >
-                  {doneSet.has(activeLesson.id) ? t("courseView.markedDone") : t("courseView.markComplete", { defaultValue: "Mark complete" })}
+                  {doneSet.has(activeLesson.id)
+                    ? t("courseView.markedDone")
+                    : t("courseView.markComplete", { defaultValue: "Mark complete" })}
                 </button>
+                {!doneSet.has(activeLesson.id) ? (
+                  <p className="w-full text-center text-[11px] font-semibold text-slate-400 sm:w-auto">
+                    {t("student.gamification.lessonXpHint", { defaultValue: "+15 XP when you complete this lesson" })}
+                  </p>
+                ) : null}
                 {lessonNav.next ? (
                   <button
                     type="button"

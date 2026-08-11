@@ -15,6 +15,7 @@ export function useClaimCertificate() {
     mutationFn: claimCourseCertificate,
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["student", "certificates"] });
+      void qc.invalidateQueries({ queryKey: ["student", "gamification"] });
     },
   });
 }

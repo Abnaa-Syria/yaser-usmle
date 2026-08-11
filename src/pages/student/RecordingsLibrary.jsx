@@ -7,6 +7,7 @@ import EmptyState from "../../components/dashboard/EmptyState";
 import { StudentBadge, StudentToolbar, studentFieldClass, studentSelectClass, studentBtnPrimary } from "../../components/student/ui";
 import { useStudentRecordings } from "../../features/student/recordings/hooks";
 import { getErrorMessage } from "../../api/error";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 const THUMB_GRADIENTS = [
   "from-[var(--yu-blue-950)] to-[var(--yu-blue-700)]",
@@ -24,8 +25,8 @@ function RecordingCard({ item, gradientClass }) {
       className="group flex flex-col overflow-hidden rounded-[1.35rem] border border-slate-200/80 bg-white/90 shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:border-[var(--yu-blue-200)] hover:shadow-[var(--shadow-md)] dark:border-white/8 dark:bg-[#0F1E38]/85"
     >
       <div className={`relative overflow-hidden bg-gradient-to-br ${gradientClass}`} style={{ paddingTop: "56.25%" }}>
-        {item.thumbnailUrl ? (
-          <img src={item.thumbnailUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" />
+        {resolveMediaUrl(item.thumbnailUrl) ? (
+          <img src={resolveMediaUrl(item.thumbnailUrl)} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90" />
         ) : null}
         <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition group-hover:opacity-100">
           <Play className="h-12 w-12 text-white" />

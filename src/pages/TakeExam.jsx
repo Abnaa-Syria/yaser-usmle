@@ -7,6 +7,7 @@ import { useStartStudentExam, useStudentExam, useSubmitStudentExam } from "../fe
 import { useStartTrialExam, useSubmitTrialExam, useTrialExam } from "../features/trial/hooks";
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
 import { getErrorMessage } from "../api/error";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function formatTime(secs) {
   const m = Math.floor(secs / 60)
@@ -585,7 +586,7 @@ export default function TakeExam() {
             </div>
             <div className="p-6 md:p-8">
               {current.imageUrl ? (
-                <img src={current.imageUrl} alt="" className="mb-4 max-h-72 w-full rounded-xl object-contain" />
+                <img src={resolveMediaUrl(current.imageUrl)} alt="" className="mb-4 max-h-72 w-full rounded-xl object-contain" />
               ) : null}
               <p className="text-sm leading-relaxed text-slate-600">{current.questionText}</p>
 

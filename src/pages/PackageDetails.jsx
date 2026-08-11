@@ -6,6 +6,7 @@ import { usePublicPackage } from "../features/public/hooks";
 import useAuthStore from "../store/authStore";
 import { APP_ROLES, normalizeRole } from "../config/permissions";
 import { useSeo, absoluteUrl } from "../utils/seo";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function durationLabel(tier) {
   if (!tier) return "Lifetime";
@@ -35,7 +36,7 @@ export default function PackageDetails() {
     title,
     description: description || "Choose a Yaser USMLE course bundle and request access through manual payment review.",
     path: id ? `/packages/${id}` : "/packages",
-    image: pkg?.coverImage,
+    image: resolveMediaUrl(pkg?.coverImage) || undefined,
     jsonLd: pkg
       ? {
           "@context": "https://schema.org",

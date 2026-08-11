@@ -7,6 +7,7 @@ import useAuthStore from "../store/authStore";
 import { APP_ROLES, normalizeRole } from "../config/permissions";
 import { useCatalogHero } from "../hooks/useCatalogHero";
 import { useSeo } from "../utils/seo";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function parseDescription(description) {
   if (!description) return [];
@@ -46,7 +47,8 @@ function PlanCard({ pkg, onGetStarted }) {
   const originalPrice = Number(pkg.originalPrice || 0);
   const savings = originalPrice > price ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
   const title = isRtl ? (pkg.titleAr || pkg.title) : pkg.title;
-  const coverImage = pkg.coverImage || "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=85&w=1200&auto=format&fit=crop";
+  const coverFallback = "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=85&w=1200&auto=format&fit=crop";
+  const coverImage = resolveMediaUrl(pkg.coverImage) || coverFallback;
 
   return (
     <article className={`group relative flex h-full flex-col overflow-hidden rounded-[2rem] border bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(15,23,42,.13)] ${highlighted ? "border-blue-300 shadow-[0_24px_65px_rgba(37,99,235,.15)]" : "border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,.06)]"}`}>
@@ -63,7 +65,7 @@ function PlanCard({ pkg, onGetStarted }) {
           alt=""
           onError={(event) => {
             event.currentTarget.onerror = null;
-            event.currentTarget.src = "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=85&w=1200&auto=format&fit=crop";
+            event.currentTarget.src = coverFallback;
           }}
           className="h-full w-full object-cover opacity-55 transition duration-700 group-hover:scale-105"
         />

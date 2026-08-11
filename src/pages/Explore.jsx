@@ -32,6 +32,7 @@ import { useToggleWishlist, useWishlist } from "../features/student/wishlist/hoo
 import { useSeo } from "../utils/seo";
 import { stripHtml } from "../utils/htmlContent";
 import { useCatalogHero } from "../hooks/useCatalogHero";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 const FALLBACK_THUMB =
   "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=85&w=1200&auto=format&fit=crop";
@@ -101,7 +102,10 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
   const purchaseCount = Number(course._count?.purchases ?? 0);
   const Arrow = isRtl ? ArrowLeft : ArrowRight;
 
-  const imageSrc = course.thumbnail || course.instructor?.avatar || FALLBACK_THUMB;
+  const imageSrc =
+    resolveMediaUrl(course.thumbnail) ||
+    resolveMediaUrl(course.instructor?.avatar) ||
+    FALLBACK_THUMB;
   const typeLabel = t("explore.categories.recorded", { defaultValue: isRtl ? "مسجّل تفاعلي" : "Recorded" });
   const catLabel = course.categoryLabel || categoryLabel(course.category, isRtl);
 

@@ -4,6 +4,7 @@ import { ArrowUpRight, BookOpen, TrendingUp, User } from "lucide-react";
 import PageHeader from "../components/dashboard/PageHeader";
 import EmptyState from "../components/dashboard/EmptyState";
 import { useMyCourses } from "../features/student/courses/hooks";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 export default function MyClasses() {
   const { t, i18n } = useTranslation();
@@ -83,9 +84,9 @@ export default function MyClasses() {
                 className="group flex flex-col overflow-hidden rounded-[1.35rem] border border-slate-200/80 bg-white shadow-[var(--shadow-sm)] transition duration-300 hover:-translate-y-1 hover:border-[var(--yu-blue-200)] hover:shadow-[var(--shadow-md)] dark:border-white/8 dark:bg-[#0F1E38]"
               >
                 <div className="relative h-40 overflow-hidden bg-[linear-gradient(145deg,#0F2448,#1B4FBF)]">
-                  {c.thumbnail ? (
+                  {resolveMediaUrl(c.thumbnail) ? (
                     <img
-                      src={c.thumbnail}
+                      src={resolveMediaUrl(c.thumbnail)}
                       alt=""
                       className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.04]"
                     />

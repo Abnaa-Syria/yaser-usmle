@@ -15,6 +15,7 @@ import {
 import { formatSessionPrice } from "../components/student/PrivateSessionPayModal";
 import PrivateSessionRequestForm from "../components/public/PrivateSessionRequestForm";
 import { platformFeatures } from "../config/features";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 import {
   usePublicInstructor,
   usePublicInstructorCourses,
@@ -102,8 +103,8 @@ export default function InstructorProfile() {
 
           <div className="mt-8 flex flex-col items-center gap-6 text-center md:flex-row md:text-start">
             <div className="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-slate-800 ring-4 ring-[var(--yu-blue-700)]/30 shadow-2xl">
-              {instructor.avatar ? (
-                <img src={instructor.avatar} alt={instructor.fullName} className="h-full w-full object-cover" />
+              {resolveMediaUrl(instructor.avatar) ? (
+                <img src={resolveMediaUrl(instructor.avatar)} alt={instructor.fullName} className="h-full w-full object-cover" />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-orange-500 to-amber-600">
                   <GraduationCap className="h-9 w-9 opacity-80 mb-1" />

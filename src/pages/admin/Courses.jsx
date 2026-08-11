@@ -14,6 +14,7 @@ import { useDeleteAdminCourse, useSubmitCourseForReview, useUpdateAdminCourse } 
 import { getErrorMessage } from "../../api/error";
 import client from "../../api/client";
 import { platformFeatures } from "../../config/features";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 function Courses() {
   const { t, i18n } = useTranslation();
@@ -111,8 +112,8 @@ function Courses() {
             render: (value, row) => (
               <div className="group/item relative flex items-center gap-3">
                 <Link to={`/admin/courses/${row.id}/edit`} className="h-12 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100 border border-slate-200 relative dark:bg-[#252530] dark:border-white/5">
-                  {row.thumbnail ? (
-                    <img src={row.thumbnail} alt="" className="h-full w-full object-cover" />
+                  {resolveMediaUrl(row.thumbnail) ? (
+                    <img src={resolveMediaUrl(row.thumbnail)} alt="" className="h-full w-full object-cover" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-slate-100 dark:bg-white/5">
                       <Play className="h-5 w-5 text-slate-400" />

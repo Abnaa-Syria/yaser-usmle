@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Calendar, GraduationCap, Clock, BookOpen, Loader2, Sparkles, Stethoscope } from "lucide-react";
 import client from "../api/client";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function HomeNewsBoard() {
   const { i18n } = useTranslation();
@@ -101,7 +102,7 @@ function HomeNewsBoard() {
     }`}>
       <a href={`/blogs/${post.slug}`} className={`relative block overflow-hidden bg-slate-100 ${horizontal ? "min-h-56 sm:min-h-full" : "h-64 shrink-0 lg:h-[270px]"}`}>
         <img
-          src={post.thumbnail || fallbackImage}
+          src={resolveMediaUrl(post.thumbnail) || fallbackImage}
           onError={handleImageError}
           alt={getTitle(post)}
           className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
@@ -191,7 +192,7 @@ function HomeNewsBoard() {
             <div className={`grid gap-6 ${gridPosts.length > 0 ? "lg:grid-cols-12" : ""}`}>
               <article className={`group relative min-h-[510px] overflow-hidden rounded-[2rem] bg-[#071a38] shadow-[0_24px_65px_rgba(15,35,75,.16)] ${gridPosts.length > 0 ? "lg:col-span-7" : ""}`}>
                 <img
-                  src={featuredPost.thumbnail || fallbackImage}
+                  src={resolveMediaUrl(featuredPost.thumbnail) || fallbackImage}
                   onError={handleImageError}
                   alt={getTitle(featuredPost)}
                   className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-[1.03]"

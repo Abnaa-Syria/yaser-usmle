@@ -5,6 +5,7 @@ import { usePublicPost } from "../features/public/hooks";
 import { localizedPostFields } from "../utils/cmsLocale";
 import SocialShare from "../components/SocialShare";
 import { absoluteUrl, useSeo } from "../utils/seo";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null;
@@ -128,9 +129,9 @@ export default function BlogPostPage() {
 
         {post ? (
           <article className="mt-8 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
-            {post.thumbnail ? (
+            {resolveMediaUrl(post.thumbnail) ? (
               <div className="max-h-[420px] overflow-hidden">
-                <img src={post.thumbnail} alt="" className="h-full w-full object-cover" />
+                <img src={resolveMediaUrl(post.thumbnail)} alt="" className="h-full w-full object-cover" />
               </div>
             ) : null}
             <div className="p-6 md:p-10">

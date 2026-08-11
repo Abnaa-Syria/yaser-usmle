@@ -2,6 +2,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { BookOpen, Play } from "lucide-react";
 import { useTrialMe } from "../../features/trial/hooks";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 const FALLBACK =
   "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=85&w=800&auto=format&fit=crop";
@@ -40,7 +41,7 @@ export default function TrialClasses() {
               className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-white/8 dark:bg-[#0F1E38]"
             >
               <div className="relative aspect-[16/9] bg-slate-100 dark:bg-white/5">
-                <img src={course.thumbnail || course.coverImage || FALLBACK} alt="" className="h-full w-full object-cover" />
+                <img src={resolveMediaUrl(course.thumbnail || course.coverImage) || FALLBACK} alt="" className="h-full w-full object-cover" />
                 <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-black text-white">
                   <BookOpen className="h-3 w-3" />
                   {t("trial.badge")}

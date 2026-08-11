@@ -6,6 +6,7 @@ import { usePublicPosts } from "../features/public/hooks";
 import { useCatalogHero } from "../hooks/useCatalogHero";
 import { localizedPostFields } from "../utils/cmsLocale";
 import { useSeo } from "../utils/seo";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 const FALLBACK_COVERS = [
   "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1400&q=85",
@@ -134,7 +135,7 @@ export default function BlogsPage() {
           return (
             <Link to={`/blogs/${featured.slug}`} className="group grid min-h-[430px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_65px_rgba(15,23,42,.11)] lg:grid-cols-[1.18fr_.82fr]">
               <div className="relative min-h-[280px] overflow-hidden bg-slate-200 lg:min-h-full">
-                <img src={featured.thumbnail || FALLBACK_COVERS[0]} onError={(event) => { event.currentTarget.src = FALLBACK_COVERS[0]; }} alt={title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                <img src={resolveMediaUrl(featured.thumbnail) || FALLBACK_COVERS[0]} onError={(event) => { event.currentTarget.src = FALLBACK_COVERS[0]; }} alt={title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#071a38]/60 via-transparent to-transparent" />
                 <span className="absolute start-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[9px] font-black text-blue-800 backdrop-blur">{t("publicBlogs.featured")}</span>
               </div>
@@ -161,7 +162,7 @@ export default function BlogsPage() {
                 const fallback = FALLBACK_COVERS[(index + 1) % FALLBACK_COVERS.length];
                 return (
                   <Link key={post.id} to={`/blogs/${post.slug}`} className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,.05)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_20px_45px_rgba(15,23,42,.1)]">
-                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100"><img src={post.thumbnail || fallback} onError={(event) => { event.currentTarget.src = fallback; }} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /><span className="absolute start-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[9px] font-black text-blue-800 backdrop-blur">{categoryLabel(post.category)}</span></div>
+                    <div className="relative aspect-[16/10] overflow-hidden bg-slate-100"><img src={resolveMediaUrl(post.thumbnail) || fallback} onError={(event) => { event.currentTarget.src = fallback; }} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /><span className="absolute start-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[9px] font-black text-blue-800 backdrop-blur">{categoryLabel(post.category)}</span></div>
                     <div className="flex flex-1 flex-col p-6">
                       <h3 className="line-clamp-2 text-lg font-black leading-snug text-slate-950 transition group-hover:text-blue-700">{title}</h3>
                       <p className="mt-3 line-clamp-3 flex-1 text-xs font-medium leading-6 text-slate-500">{postExcerpt(post, isRtl, t("publicBlogs.defaultExcerpt"))}</p>

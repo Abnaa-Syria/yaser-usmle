@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, CalendarClock, Star, Briefcase, GraduationCap } from "lucide-react";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 function initials(name = "") {
   const parts = String(name).trim().split(/\s+/).filter(Boolean);
@@ -49,9 +50,9 @@ export default function InstructorCard({ instructor, isRtl }) {
 
         {/* Avatar with dynamic glow */}
         <div className="relative mx-auto flex h-28 w-28 items-center justify-center overflow-hidden rounded-3xl bg-white shadow-lg ring-4 ring-white transition-transform duration-300 group-hover:scale-105 dark:bg-[#1E293B] dark:ring-[#1E293B]">
-          {instructor.avatar ? (
+          {resolveMediaUrl(instructor.avatar) ? (
             <img 
-              src={instructor.avatar} 
+              src={resolveMediaUrl(instructor.avatar)} 
               alt={instructor.fullName} 
               className="h-full w-full object-cover" 
             />

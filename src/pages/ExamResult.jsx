@@ -7,6 +7,7 @@ import { StudentSurface, StudentBadge, studentBtnPrimary, studentBtnGhost } from
 import { useExamResult } from "../features/student/exams/hooks";
 import { useTrialExamResult } from "../features/trial/hooks";
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 export default function ExamResult() {
   const { t } = useTranslation();
@@ -110,7 +111,7 @@ export default function ExamResult() {
                 </p>
               ) : null}
               {a.question?.imageUrl ? (
-                <img src={a.question.imageUrl} alt="" className="mt-2 max-h-48 rounded-lg object-contain" />
+                <img src={resolveMediaUrl(a.question.imageUrl)} alt="" className="mt-2 max-h-48 rounded-lg object-contain" />
               ) : null}
               {a.question?.explanation ? (
                 <p className="mt-2 rounded-xl bg-slate-50/80 p-2 text-xs text-slate-600 dark:bg-[#0C1829] dark:text-slate-300">

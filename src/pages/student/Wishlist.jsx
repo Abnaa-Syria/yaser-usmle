@@ -6,6 +6,7 @@ import EmptyState from "../../components/dashboard/EmptyState";
 import { studentBtnGhost, studentBtnPrimary } from "../../components/student/ui";
 import { useToggleWishlist, useWishlist } from "../../features/student/wishlist/hooks";
 import { getErrorMessage } from "../../api/error";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function Wishlist() {
   const { t } = useTranslation();
@@ -56,8 +57,8 @@ export default function Wishlist() {
                 key={row.id || courseId}
                 className="group flex flex-col overflow-hidden rounded-[1.35rem] border border-slate-200/80 bg-white shadow-[var(--shadow-sm)] transition duration-300 hover:-translate-y-1 hover:border-[var(--yu-blue-200)] hover:shadow-[var(--shadow-md)] dark:border-white/8 dark:bg-[#0F1E38]"
               >
-                {course.thumbnail ? (
-                  <img src={course.thumbnail} alt="" className="h-36 w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
+                {resolveMediaUrl(course.thumbnail) ? (
+                  <img src={resolveMediaUrl(course.thumbnail)} alt="" className="h-36 w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                 ) : (
                   <div className="flex h-36 items-center justify-center bg-[linear-gradient(145deg,#0F2448,#1B4FBF)]">
                     <Heart className="h-8 w-8 text-white/35" />

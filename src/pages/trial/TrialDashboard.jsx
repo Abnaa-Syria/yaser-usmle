@@ -11,6 +11,7 @@ import {
   UserPlus,
 } from "lucide-react";
 import { useTrialMe } from "../../features/trial/hooks";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 const FALLBACK =
   "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=85&w=800&auto=format&fit=crop";
@@ -162,7 +163,7 @@ export default function TrialDashboard() {
                 className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-white/8 dark:bg-[#0F1E38]"
               >
                 <div className="relative aspect-[16/9] bg-slate-100 dark:bg-white/5">
-                  <img src={course.thumbnail || course.coverImage || FALLBACK} alt="" className="h-full w-full object-cover" />
+                  <img src={resolveMediaUrl(course.thumbnail || course.coverImage) || FALLBACK} alt="" className="h-full w-full object-cover" />
                 </div>
                 <div className="space-y-3 p-4">
                   <h3 className="line-clamp-2 text-sm font-black text-slate-900 dark:text-white">{title}</h3>

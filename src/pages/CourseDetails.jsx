@@ -26,6 +26,7 @@ import PublicCourseCurriculum from "../components/public/PublicCourseCurriculum"
 import { absoluteUrl, useSeo } from "../utils/seo";
 import { platformFeatures } from "../config/features";
 import { sanitizeRichHtml } from "../utils/htmlContent";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function Stars({ rating, max = 5, size = "h-4 w-4" }) {
   return (
@@ -145,7 +146,7 @@ export default function CourseDetails() {
     title: seoTitle,
     description: seoDescription,
     path: coursePath,
-    image: course?.coverImage || course?.thumbnail,
+    image: resolveMediaUrl(course?.coverImage || course?.thumbnail) || undefined,
     jsonLd: course
       ? {
           "@context": "https://schema.org",
@@ -333,8 +334,12 @@ export default function CourseDetails() {
           <aside className="lg:col-span-1">
             <div className="sticky top-24 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-lg">
               <div className="relative overflow-hidden bg-gradient-to-br from-yu-blue-950 to-yu-blue-700" style={{ paddingTop: "56.25%" }}>
-                {course.thumbnail ? (
-                  <img src={course.thumbnail} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                {resolveMediaUrl(course.thumbnail || course.coverImage) ? (
+                  <img
+                    src={resolveMediaUrl(course.thumbnail || course.coverImage)}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
                 ) : (
                   <>
                     <div className="absolute -end-8 -top-8 h-28 w-28 rounded-full bg-white/10" />

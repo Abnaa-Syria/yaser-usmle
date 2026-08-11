@@ -2749,8 +2749,13 @@
     "categories": {
       "all": "All Courses",
       "hybrid": "Live Cohorts",
-      "recorded": "Recorded"
+      "recorded": "Recorded",
+      "uncategorized": "Uncategorized"
     },
+    "filterByCategory": "Filter by category",
+    "filterHint": "Pick a category to see its courses, or browse all grouped by system.",
+    "categoryCourseCount": "{{count}} courses",
+    "viewCategoryOnly": "View category only",
     "courses": {
       "hsk1": {
         "title": "General Pathology Foundations",

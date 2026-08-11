@@ -2749,8 +2749,13 @@
     "categories": {
       "all": "جميع الدورات",
       "hybrid": "مجموعات حية",
-      "recorded": "دورات مسجّلة"
+      "recorded": "دورات مسجّلة",
+      "uncategorized": "بدون تصنيف"
     },
+    "filterByCategory": "تصفية حسب التصنيف",
+    "filterHint": "اختر تصنيفاً لعرض دوراته، أو اعرض الكل مجمّعاً حسب النظام.",
+    "categoryCourseCount": "{{count}} دورة",
+    "viewCategoryOnly": "عرض التصنيف فقط",
     "courses": {
       "hsk1": {
         "title": "أساسيات الباثولوجي العام",

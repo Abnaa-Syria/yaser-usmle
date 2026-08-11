@@ -135,6 +135,7 @@ const endpoints = {
   notifications: "/notifications",
   public: {
     courses: "/courses",
+    categories: "/categories",
     instructors: "/instructors",
     instructor: (id) => `/instructors/${id}`,
     instructorCourses: (id) => `/instructors/${id}/courses`,

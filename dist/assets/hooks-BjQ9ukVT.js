@@ -1,1 +1,0 @@
-import{Fi as e,Ln as t,Un as n}from"./index-BZQ2hGN6.js";async function r(e={}){return(await t.get(n.student.flashcards,{params:e}))?.data?.data??[]}function i(t={},n={}){return e({queryKey:[`student`,`flashcards`,t],queryFn:()=>r(t),enabled:n.enabled!==!1,retry:!1})}export{i as t};

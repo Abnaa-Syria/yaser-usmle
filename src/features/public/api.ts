@@ -13,6 +13,7 @@ export type PublicCoursesQuery = {
   page?: number;
   limit?: number;
   search?: string;
+  category?: string;
 };
 
 export type PublicPostsQuery = {
@@ -21,6 +22,12 @@ export type PublicPostsQuery = {
   search?: string;
   category?: string;
 };
+
+export async function fetchPublicCategories() {
+  const res = await client.get(endpoints.public.categories);
+  const data = res?.data?.data;
+  return Array.isArray(data) ? data : [];
+}
 
 export async function fetchRecommendedCourses(params: { filter?: string; limit?: number } = {}): Promise<RecommendedCoursesResult> {
   const res = await client.get(`${endpoints.public.courses}/recommended`, {

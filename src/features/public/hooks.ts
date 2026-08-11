@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   fetchPublicCourseById,
   fetchPublicCourses,
+  fetchPublicCategories,
   fetchPublicPackageById,
   fetchPublicPackages,
   fetchPublicLandingPage,
@@ -17,6 +18,15 @@ export function useRecommendedCourses(filter = "bestseller", limit = 8) {
   return useQuery({
     queryKey: ["public", "courses", "recommended", filter, limit],
     queryFn: () => fetchRecommendedCourses({ filter, limit }),
+    retry: false,
+    staleTime: 60_000,
+  });
+}
+
+export function usePublicCategories() {
+  return useQuery({
+    queryKey: ["public", "categories"],
+    queryFn: fetchPublicCategories,
     retry: false,
     staleTime: 60_000,
   });

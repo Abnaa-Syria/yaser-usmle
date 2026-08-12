@@ -9,7 +9,9 @@ export async function fetchAdminLessonResources(lessonId) {
 export async function uploadAdminLessonResource(lessonId, file, title) {
   const form = new FormData();
   form.append("file", file);
-  if (title?.trim()) form.append("title", title.trim());
+  // Always send a UTF-8 title from the browser (File.name is reliable for Arabic).
+  const safeTitle = (title?.trim() || file?.name || "").trim();
+  if (safeTitle) form.append("title", safeTitle);
   const response = await client.post(`/admin/lessons/${lessonId}/resources/upload`, form);
   return response?.data?.data;
 }

@@ -47,7 +47,7 @@ export default function AdminFlashcards() {
     }
     try {
       // Admin units live at GET /admin/units?courseId=… (not /admin/courses/:id/units)
-      const res = await client.get(`/admin/units`, { params: { courseId: cid } });
+      const res = await client.get(`/admin/units`, { params: { courseId: cid, limit: 500 } });
       setUnits(asArray(res?.data?.data));
     } catch {
       setUnits([]);
@@ -63,7 +63,7 @@ export default function AdminFlashcards() {
       return;
     }
     try {
-      const res = await client.get(`/admin/lessons`, { params: { unitId: uid } });
+      const res = await client.get(`/admin/lessons`, { params: { unitId: uid, limit: 500 } });
       setLessons(asArray(res?.data?.data));
     } catch {
       setLessons([]);

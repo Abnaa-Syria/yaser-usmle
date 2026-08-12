@@ -7,8 +7,6 @@ import {
   ChevronDown,
   SlidersHorizontal,
   Star,
-  ArrowRight,
-  ArrowLeft,
   Sparkles,
   Heart,
   BookOpen,
@@ -94,7 +92,6 @@ function CourseCardSkeleton() {
 function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlist }) {
   const { t } = useTranslation();
   const purchaseCount = Number(course._count?.purchases ?? 0);
-  const Arrow = isRtl ? ArrowLeft : ArrowRight;
 
   const imageSrc =
     resolveMediaUrl(course.thumbnail) ||
@@ -102,10 +99,15 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
     FALLBACK_THUMB;
   const typeLabel = t("explore.categories.recorded", { defaultValue: isRtl ? "مسجّل تفاعلي" : "Recorded" });
   const catLabel = course.categoryLabel || categoryLabel(course.category, isRtl);
+  const title = isRtl ? course.titleAr || course.title : course.title;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white shadow-[0_12px_35px_rgba(15,23,42,.055)] transition-all duration-500 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-[0_24px_55px_rgba(15,23,42,.11)]">
-      <Link to={`/courses/${course.id}`} className="relative block aspect-[16/9] overflow-hidden bg-[#dce8f7]">
+    <Link
+      to={`/courses/${course.id}`}
+      className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white shadow-[0_12px_35px_rgba(15,23,42,.055)] transition-all duration-500 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-[0_24px_55px_rgba(15,23,42,.11)]"
+      aria-label={title}
+    >
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#dce8f7]">
         {showWishlist ? (
           <button
             type="button"
@@ -122,7 +124,7 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
         ) : null}
         <img
           src={imageSrc}
-          alt={course.title}
+          alt=""
           onError={(event) => {
             event.currentTarget.onerror = null;
             event.currentTarget.src = FALLBACK_THUMB;
@@ -140,12 +142,12 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
           <BookOpen className="h-3.5 w-3.5 text-cyan-300" />
           {typeLabel}
         </span>
-      </Link>
+      </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <Link to={`/courses/${course.id}`} className="line-clamp-2 text-lg font-black leading-7 tracking-tight text-slate-950 transition hover:text-blue-700">
-          {isRtl ? course.titleAr || course.title : course.title}
-        </Link>
+        <h3 className="line-clamp-2 text-lg font-black leading-7 tracking-tight text-slate-950 transition group-hover:text-blue-700">
+          {title}
+        </h3>
 
         <p className="mt-2 text-xs font-bold text-slate-500">
           {t("recommendedCourses.withInstructor", { defaultValue: isRtl ? "مع" : "With" })}{" "}
@@ -160,7 +162,7 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
           </p>
         ) : null}
 
-        <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4 text-[11px] font-bold text-slate-500">
+        <div className="mt-auto flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4 text-[11px] font-bold text-slate-500">
           {purchaseCount >= 3 ? (
             <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-amber-700">
               <Sparkles className="h-3 w-3" />
@@ -177,14 +179,8 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
             {t("explore.enrollmentsLabel", { defaultValue: isRtl ? "متعلّم" : "learners" })}
           </span>
         </div>
-
-        <div className="mt-auto flex items-end justify-end gap-4 pt-5">
-          <Link to={`/courses/${course.id}`} aria-label={t("explore.enroll")} className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#071a38] text-white transition group-hover:bg-blue-700">
-            <Arrow className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
-    </article>
+    </Link>
   );
 }
 

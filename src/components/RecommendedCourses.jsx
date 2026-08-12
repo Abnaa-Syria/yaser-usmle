@@ -113,72 +113,61 @@ function RecommendedCourseCard({ course, isRtl, index }) {
   );
 
   return (
-    <motion.article
+    <motion.div
       layout
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 12 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/70 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-[0_28px_70px_rgba(22,57,120,0.15)]"
+      className="h-full"
     >
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <div className="h-full transition-transform duration-700 ease-out group-hover:scale-[1.035]">
-          <CourseCover course={course} index={index} typeLabel={typeLabel} />
-        </div>
-        {course.isBestSeller ? (
-          <span className="absolute bottom-4 start-4 inline-flex items-center gap-1.5 rounded-full bg-amber-300 px-3 py-1.5 text-[10px] font-black text-amber-950 shadow-lg">
-            <Sparkles className="h-3 w-3" aria-hidden />
-            {t("recommendedCourses.bestSeller", { defaultValue: isRtl ? "الأكثر مبيعاً" : "Best Seller" })}
-          </span>
-        ) : null}
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
-            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-            {ratingDisplay}
-            <span className="text-slate-300">/ 5</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-400">
-            <Users className="h-3.5 w-3.5" />
-            {learners} {t("recommendedCourses.learners", { defaultValue: isRtl ? "متعلّم" : "learners" })}
-          </span>
+      <Link
+        to={`/courses/${course.id}`}
+        className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/70 bg-white shadow-[0_14px_40px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-[0_28px_70px_rgba(22,57,120,0.15)]"
+        aria-label={course.title}
+      >
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <div className="h-full transition-transform duration-700 ease-out group-hover:scale-[1.035]">
+            <CourseCover course={course} index={index} typeLabel={typeLabel} />
+          </div>
+          {course.isBestSeller ? (
+            <span className="absolute bottom-4 start-4 inline-flex items-center gap-1.5 rounded-full bg-amber-300 px-3 py-1.5 text-[10px] font-black text-amber-950 shadow-lg">
+              <Sparkles className="h-3 w-3" aria-hidden />
+              {t("recommendedCourses.bestSeller", { defaultValue: isRtl ? "الأكثر مبيعاً" : "Best Seller" })}
+            </span>
+          ) : null}
         </div>
 
-        <Link
-          to={`/courses/${course.id}`}
-          className="line-clamp-2 min-h-[3.5rem] text-lg font-black leading-7 tracking-tight text-slate-950 transition hover:text-blue-700"
-        >
-          {course.title}
-        </Link>
+        <div className="flex flex-1 flex-col p-6">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+              {ratingDisplay}
+              <span className="text-slate-300">/ 5</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-400">
+              <Users className="h-3.5 w-3.5" />
+              {learners} {t("recommendedCourses.learners", { defaultValue: isRtl ? "متعلّم" : "learners" })}
+            </span>
+          </div>
 
-        <p className="mt-2 text-xs font-semibold text-slate-500">
-          {t("recommendedCourses.withInstructor", { defaultValue: isRtl ? "مع" : "With" })}{" "}
-          <span className="text-slate-800">{instructorName}</span>
-        </p>
+          <h3 className="line-clamp-2 min-h-[3.5rem] text-lg font-black leading-7 tracking-tight text-slate-950 transition group-hover:text-blue-700">
+            {course.title}
+          </h3>
 
-        <div className="mt-5 flex items-center gap-2 border-y border-slate-100 py-3 text-[10px] font-bold text-slate-500">
-          <span className="inline-flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-blue-600" aria-hidden />{isRtl ? "محتوى عالي العائد" : "High-yield content"}</span>
-          <span className="h-3 w-px bg-slate-200" />
-          <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5 text-blue-600" aria-hidden />{isRtl ? "وصول مرن" : "Flexible access"}</span>
+          <p className="mt-2 text-xs font-semibold text-slate-500">
+            {t("recommendedCourses.withInstructor", { defaultValue: isRtl ? "مع" : "With" })}{" "}
+            <span className="text-slate-800">{instructorName}</span>
+          </p>
+
+          <div className="mt-auto flex items-center gap-2 border-t border-slate-100 pt-4 text-[10px] font-bold text-slate-500">
+            <span className="inline-flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-blue-600" aria-hidden />{isRtl ? "محتوى عالي العائد" : "High-yield content"}</span>
+            <span className="h-3 w-px bg-slate-200" />
+            <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5 text-blue-600" aria-hidden />{isRtl ? "وصول مرن" : "Flexible access"}</span>
+          </div>
         </div>
-
-        <div className="mt-auto flex items-end justify-end gap-4 pt-5">
-          <Link
-            to={`/courses/${course.id}`}
-            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg transition duration-300 hover:scale-105 hover:bg-blue-700"
-            aria-label={t("recommendedCourses.subscribeNow", { defaultValue: isRtl ? "اشترك الآن" : "Enroll Now" })}
-          >
-            {isRtl ? (
-              <ArrowLeft className="h-4 w-4" />
-            ) : (
-              <ArrowRight className="h-4 w-4" />
-            )}
-          </Link>
-        </div>
-      </div>
-    </motion.article>
+      </Link>
+    </motion.div>
   );
 }
 

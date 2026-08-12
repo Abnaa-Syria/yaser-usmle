@@ -1,7 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Award, BookOpen, ChevronDown, ChevronLeft, ChevronRight, ClipboardCheck, Download, FileText, Loader2, Menu, Play, X } from "lucide-react";
+import {
+  ArrowLeft,
+  Award,
+  BookOpen,
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ClipboardList,
+  Download,
+  FileText,
+  Layers,
+  Loader2,
+  Menu,
+  Play,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useCourseUnits } from "../features/student/courses/hooks";
 import {
@@ -21,69 +40,113 @@ import { downloadBlob } from "../utils/certificate";
 import { sanitizeRichHtml } from "../utils/htmlContent";
 import toast from "react-hot-toast";
 
-const TYPE_ICON = {
-  video: <Play className="h-3.5 w-3.5" />,
-  pdf: <FileText className="h-3.5 w-3.5" />,
-  default: <ClipboardCheck className="h-3.5 w-3.5" />,
-};
-const TYPE_COLOR = {
-  video: "text-yu-blue-700 bg-yu-blue-100",
-  pdf: "text-blue-500 bg-blue-50",
-  default: "text-yu-blue-500-dark bg-yu-blue-100",
-};
+function ProgressRing({ value, size = 56, stroke = 5 }) {
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (Math.min(100, Math.max(0, value)) / 100) * circumference;
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="currentColor" strokeWidth={stroke} className="text-slate-200 dark:text-white/10" />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          className="text-[var(--yu-blue-600)] transition-[stroke-dashoffset] duration-700"
+        />
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center text-[11px] font-black tabular-nums text-slate-800 dark:text-white">
+        {Math.round(value)}%
+      </span>
+    </div>
+  );
+}
 
-function LessonRow({ lesson, active, done, onSelect }) {
+function LessonRow({ lesson, active, done, onSelect, index }) {
   const hasVideo = lessonHasPlayableVideo(lesson);
-  const type = hasVideo ? "video" : "default";
   return (
     <button
       type="button"
       onClick={() => onSelect?.(lesson)}
-      className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-start transition-colors ${
-        active ? "bg-yu-blue-100 font-semibold text-yu-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-      }`}
+      className={[
+        "group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-start transition-all",
+        active
+          ? "bg-[var(--yu-blue-700)] text-white shadow-[var(--shadow-cta)]"
+          : "text-slate-600 hover:bg-white hover:shadow-sm dark:text-slate-300 dark:hover:bg-white/5",
+      ].join(" ")}
     >
-      <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] ${TYPE_COLOR[type]}`}>{TYPE_ICON[type]}</span>
-      <span className="flex-1 truncate text-xs">{lesson.title}</span>
-      {done ? <span className="h-2 w-2 shrink-0 rounded-full bg-green-400" /> : null}
+      <span
+        className={[
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[11px] font-black tabular-nums",
+          active ? "bg-white/20 text-white" : done ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" : "bg-slate-100 text-slate-500 dark:bg-white/5",
+        ].join(" ")}
+      >
+        {done && !active ? <Check className="h-3.5 w-3.5" /> : index}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className={`block truncate text-xs font-bold ${active ? "text-white" : "text-slate-800 dark:text-slate-100"}`}>{lesson.title}</span>
+        <span className={`mt-0.5 block text-[10px] font-medium ${active ? "text-white/70" : "text-slate-400"}`}>
+          {hasVideo ? "Video" : "Lesson"}
+        </span>
+      </span>
+      {hasVideo && !active ? <Play className="h-3.5 w-3.5 shrink-0 text-slate-300 group-hover:text-[var(--yu-blue-600)]" /> : null}
     </button>
   );
 }
 
-function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false }) {
+function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false, lessonIndexMap }) {
   const lessons = unit.lessons || [];
   const sections = (unit.sections || []).filter((s) => (s.lessons || []).length > 0);
   const hasSections = sections.length > 0;
-  const containsActive = lessons.some((l) => l.id === activeId);
+  const containsActive = lessons.some((l) => l.id === activeId) || sections.some((s) => (s.lessons || []).some((l) => l.id === activeId));
   const [open, setOpen] = useState(defaultOpen || containsActive);
+  const doneInUnit = lessons.filter((l) => doneSet.has(l.id)).length;
 
   useEffect(() => {
     if (containsActive) setOpen(true);
   }, [containsActive, activeId, unit.id]);
 
   const renderLesson = (lesson) => (
-    <LessonRow key={lesson.id} lesson={lesson} active={lesson.id === activeId} done={doneSet.has(lesson.id)} onSelect={onSelect} />
+    <LessonRow
+      key={lesson.id}
+      lesson={lesson}
+      index={(lessonIndexMap?.get(lesson.id) ?? 0) + 1}
+      active={lesson.id === activeId}
+      done={doneSet.has(lesson.id)}
+      onSelect={onSelect}
+    />
   );
 
   return (
-    <div className="border-b border-slate-100 last:border-0">
+    <div className="border-b border-slate-100/80 last:border-0 dark:border-white/5">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-start text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50"
+        className="flex w-full items-center justify-between gap-2 px-4 py-3.5 text-start transition-colors hover:bg-white/60 dark:hover:bg-white/[0.03]"
       >
-        <span className="flex-1 truncate">{unit.title}</span>
-        <ChevronDown className={`h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-sm font-bold text-slate-900 dark:text-white">{unit.title}</span>
+          <span className="mt-0.5 block text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+            {doneInUnit}/{lessons.length || 0}
+          </span>
+        </span>
+        <ChevronDown className={`h-4 w-4 shrink-0 text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
       <AnimatePresence initial={false}>
         {open ? (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-            <div className="space-y-0.5 px-3 pb-3">
+            <div className="space-y-1 px-3 pb-3">
               {hasSections
                 ? sections.map((section) => (
                     <div key={section.id} className="pt-1">
                       {sections.length > 1 || section.title ? (
-                        <p className="px-1 pb-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">{section.title}</p>
+                        <p className="px-2 pb-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">{section.title}</p>
                       ) : null}
                       {(section.lessons || []).map((lesson) => renderLesson(lesson))}
                     </div>
@@ -97,8 +160,112 @@ function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false }) {
   );
 }
 
+function ToolTile({ to, icon: Icon, title, hint, tone = "blue", disabled }) {
+  const tones = {
+    blue: "from-[var(--yu-blue-700)]/12 via-[var(--yu-blue-500)]/5 to-transparent text-[var(--yu-blue-700)]",
+    amber: "from-amber-500/15 via-amber-400/5 to-transparent text-amber-700",
+    emerald: "from-emerald-500/12 via-emerald-400/5 to-transparent text-emerald-700",
+  };
+  const className = [
+    "group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 p-4 text-start shadow-[var(--shadow-sm)] transition duration-300",
+    "hover:-translate-y-0.5 hover:border-[var(--yu-blue-200)] hover:shadow-[var(--shadow-md)]",
+    "dark:border-white/8 dark:bg-[#0F1E38]/90",
+    disabled ? "pointer-events-none opacity-55" : "",
+  ].join(" ");
+
+  const body = (
+    <>
+      <div className={`absolute -end-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br opacity-80 blur-2xl ${tones[tone]}`} aria-hidden />
+      <div className={`relative mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${tones[tone]}`}>
+        <Icon className="h-5 w-5" />
+      </div>
+      <p className="relative text-sm font-black text-slate-900 dark:text-white">{title}</p>
+      <p className="relative mt-1 text-xs font-medium leading-5 text-slate-500">{hint}</p>
+      <span className="relative mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[var(--yu-blue-700)] opacity-0 transition group-hover:opacity-100">
+        Open <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" />
+      </span>
+    </>
+  );
+
+  if (disabled) return <div className={className}>{body}</div>;
+  return (
+    <Link to={to} className={className}>
+      {body}
+    </Link>
+  );
+}
+
+function CertificatePanel({
+  t,
+  hasCertificate,
+  existingCert,
+  certClaimErr,
+  claimingCert,
+  downloadingCert,
+  onClaim,
+  onDownload,
+}) {
+  return (
+    <div className="mx-4 mb-4 overflow-hidden rounded-2xl border border-[var(--yu-blue-200)] bg-gradient-to-br from-[var(--yu-blue-50)] to-white p-4 dark:border-[var(--yu-blue-800)] dark:from-[var(--yu-blue-700)]/20 dark:to-[#0C1829]">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--yu-blue-700)] text-white shadow-[var(--shadow-cta)]">
+          <Award className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-black text-[var(--yu-blue-800)] dark:text-[var(--yu-blue-200)]">
+            {t("courseView.certificate.completeTitle", { defaultValue: "Course completed!" })}
+          </p>
+          {hasCertificate ? (
+            <p className="mt-1 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+              {t("courseView.certificate.issued", { defaultValue: "Certificate issued" })}
+              {existingCert?.issuedAt ? ` · ${new Date(existingCert.issuedAt).toLocaleDateString()}` : ""}
+            </p>
+          ) : (
+            <p className="mt-1 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+              {t("courseView.certificate.ready", { defaultValue: "Claim your certificate of completion." })}
+            </p>
+          )}
+          {certClaimErr ? <p className="mt-1 text-[11px] text-red-600">{certClaimErr}</p> : null}
+          {!hasCertificate ? (
+            <button
+              type="button"
+              disabled={claimingCert}
+              onClick={onClaim}
+              className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[var(--yu-blue-700)] px-3 py-2.5 text-xs font-bold text-white shadow-[var(--shadow-cta)] hover:bg-[var(--yu-blue-600)] disabled:opacity-50"
+            >
+              {claimingCert ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
+              {t("courseView.certificate.claim", { defaultValue: "Claim certificate" })}
+            </button>
+          ) : (
+            <div className="mt-3 space-y-2">
+              <button
+                type="button"
+                disabled={downloadingCert}
+                onClick={onDownload}
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[var(--yu-blue-700)] px-3 py-2.5 text-xs font-bold text-white shadow-[var(--shadow-cta)] hover:bg-[var(--yu-blue-600)] disabled:opacity-50"
+              >
+                {downloadingCert ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
+                {t("courseView.certificate.download", { defaultValue: "Download certificate" })}
+              </button>
+              {existingCert?.links?.verifyUrl ? (
+                <Link to={existingCert.links.verifyUrl} className="block text-center text-[11px] font-semibold text-[var(--yu-blue-700)] hover:underline">
+                  {t("courseView.certificate.verifyLink", { defaultValue: "Verification link" })}
+                </Link>
+              ) : null}
+              <Link to="/student/certificates" className="block text-center text-[11px] font-semibold text-slate-500 hover:underline">
+                {t("courseView.certificate.viewAll", { defaultValue: "View all certificates" })}
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CourseView() {
   const { t, i18n } = useTranslation();
+  const isRtl = i18n.language?.startsWith("ar");
   const { id: courseId } = useParams();
 
   const {
@@ -113,7 +280,6 @@ export default function CourseView() {
   const doneSet = useMemo(() => new Set(completedIds), [completedIds]);
 
   const markComplete = useMarkLessonComplete();
-  /** Only `mutate` is stable; the full mutation object changes every render and must not be a hook dependency. */
   const { mutate: trackLessonAccess } = useTrackLessonAccess();
 
   const flatLessons = useMemo(
@@ -121,8 +287,8 @@ export default function CourseView() {
       (units || []).flatMap((u) =>
         (u.sections || []).flatMap((section) =>
           (section.lessons || []).map((l) => ({
-          ...l,
-          unitTitle: u.title,
+            ...l,
+            unitTitle: u.title,
             unitId: u.id,
             sectionTitle: section.title || null,
           }))
@@ -131,18 +297,25 @@ export default function CourseView() {
     [units]
   );
 
+  const lessonIndexMap = useMemo(() => {
+    const map = new Map();
+    flatLessons.forEach((l, i) => map.set(l.id, i));
+    return map;
+  }, [flatLessons]);
+
   const hasLessons = flatLessons.length > 0;
 
   const [activeLesson, setActiveLesson] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const lessonNav = useMemo(() => {
-    if (!activeLesson?.id || flatLessons.length === 0) return { prev: null, next: null };
+    if (!activeLesson?.id || flatLessons.length === 0) return { prev: null, next: null, index: 0 };
     const idx = flatLessons.findIndex((l) => l.id === activeLesson.id);
-    if (idx < 0) return { prev: null, next: null };
+    if (idx < 0) return { prev: null, next: null, index: 0 };
     return {
       prev: idx > 0 ? flatLessons[idx - 1] : null,
       next: idx < flatLessons.length - 1 ? flatLessons[idx + 1] : null,
+      index: idx,
     };
   }, [activeLesson?.id, flatLessons]);
 
@@ -156,7 +329,6 @@ export default function CourseView() {
 
   useEffect(() => {
     if (!courseId || !activeLesson?.id) return;
-    // Lightweight "opened lesson" ping — real % comes from the player.
     trackLessonAccess({ lessonId: activeLesson.id, courseId, watchPercentage: 0, timeSpentDelta: 0 });
   }, [courseId, activeLesson?.id, trackLessonAccess]);
 
@@ -203,6 +375,8 @@ export default function CourseView() {
   const isCourseComplete = Boolean(stats?.isCourseCompleted) || pct >= 100;
   const hasCertificate = certificates.some((c) => c.courseId === courseId);
   const existingCert = certificates.find((c) => c.courseId === courseId);
+  const lessonDone = activeLesson ? doneSet.has(activeLesson.id) : false;
+  const hasVideo = activeLesson ? lessonHasPlayableVideo(activeLesson) : false;
 
   const handleClaimCertificate = async () => {
     if (!courseId) return;
@@ -247,9 +421,53 @@ export default function CourseView() {
         );
       }
     } catch {
-      /* toast optional */
+      /* ignore */
     }
   };
+
+  const curriculum = (
+    <>
+      <div className="border-b border-slate-100/80 p-5 dark:border-white/5">
+        <div className="flex items-center gap-4">
+          <ProgressRing value={pct} />
+          <div className="min-w-0">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
+              {t("courseView.sidebarTitle")}
+            </p>
+            <p className="mt-1 text-sm font-black text-slate-900 dark:text-white">
+              {completedCount}/{flatLessons.length || 0}{" "}
+              <span className="font-semibold text-slate-500">{t("courseView.lessonsCompleted")}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      {isCourseComplete ? (
+        <CertificatePanel
+          t={t}
+          hasCertificate={hasCertificate}
+          existingCert={existingCert}
+          certClaimErr={certClaimErr}
+          claimingCert={claimingCert}
+          downloadingCert={downloadingCert}
+          onClaim={() => void handleClaimCertificate()}
+          onDownload={() => void handleDownloadCertificate()}
+        />
+      ) : null}
+      <div className="max-h-[calc(100vh-14rem)] overflow-y-auto pb-4">
+        {units.map((u, idx) => (
+          <UnitBlock
+            key={u.id}
+            unit={u}
+            activeId={activeLesson?.id}
+            doneSet={doneSet}
+            defaultOpen={idx === 0}
+            lessonIndexMap={lessonIndexMap}
+            onSelect={(l) => setActiveLesson(l)}
+          />
+        ))}
+      </div>
+    </>
+  );
 
   if (!courseId) {
     return (
@@ -257,7 +475,7 @@ export default function CourseView() {
         <BookOpen className="mx-auto h-12 w-12 text-slate-300" />
         <h1 className="mt-4 text-xl font-bold text-slate-900">{t("courseView.needCohort.title")}</h1>
         <p className="mt-2 text-sm text-slate-600">{t("courseView.needCohort.body")}</p>
-        <Link to="/student/classes" className="mt-6 inline-block rounded-xl bg-yu-blue-700 px-6 py-3 text-sm font-bold text-white hover:bg-yu-blue-600">
+        <Link to="/student/classes" className="mt-6 inline-block rounded-xl bg-[var(--yu-blue-700)] px-6 py-3 text-sm font-bold text-white hover:bg-[var(--yu-blue-600)]">
           {t("courseView.needCohort.cta")}
         </Link>
       </div>
@@ -265,7 +483,12 @@ export default function CourseView() {
   }
 
   if (unitsLoading) {
-    return <div className="py-20 text-center text-slate-500">{t("dashboard.common.loading", { defaultValue: "Loading…" })}</div>;
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center gap-3 text-slate-500">
+        <Loader2 className="h-5 w-5 animate-spin text-[var(--yu-blue-700)]" />
+        {t("dashboard.common.loading", { defaultValue: "Loading…" })}
+      </div>
+    );
   }
 
   if (unitsError) {
@@ -275,14 +498,10 @@ export default function CourseView() {
         <h1 className="mt-4 text-xl font-bold text-slate-900">{t("courseView.loadErrorTitle", { defaultValue: "Could not load this course" })}</h1>
         <p className="mt-2 text-sm text-slate-600">{t("courseView.loadErrorBody", { defaultValue: "Check your connection and try again." })}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => void refetchUnits()}
-            className="rounded-xl bg-yu-blue-700 px-5 py-2.5 text-sm font-bold text-white hover:bg-yu-blue-600"
-          >
+          <button type="button" onClick={() => void refetchUnits()} className="rounded-xl bg-[var(--yu-blue-700)] px-5 py-2.5 text-sm font-bold text-white hover:bg-[var(--yu-blue-600)]">
             {t("takeExam.retry", { defaultValue: "Retry" })}
           </button>
-          <Link to="/student/classes" className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-yu-blue-700">
+          <Link to="/student/classes" className="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700">
             {t("courseView.needCohort.cta")}
           </Link>
         </div>
@@ -296,7 +515,7 @@ export default function CourseView() {
         <BookOpen className="mx-auto h-12 w-12 text-slate-300" />
         <h1 className="mt-4 text-xl font-bold text-slate-900">{t("courseView.emptyCurriculumTitle", { defaultValue: "No lessons yet" })}</h1>
         <p className="mt-2 text-sm text-slate-600">{t("courseView.emptyCurriculumBody", { defaultValue: "This course has no published curriculum, or you may need to refresh." })}</p>
-        <Link to="/student/classes" className="mt-6 inline-block rounded-xl bg-yu-blue-700 px-6 py-3 text-sm font-bold text-white hover:bg-yu-blue-600">
+        <Link to="/student/classes" className="mt-6 inline-block rounded-xl bg-[var(--yu-blue-700)] px-6 py-3 text-sm font-bold text-white hover:bg-[var(--yu-blue-600)]">
           {t("courseView.needCohort.cta")}
         </Link>
       </div>
@@ -304,265 +523,296 @@ export default function CourseView() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <div className="border-b border-slate-200 bg-white px-4 py-3 md:px-6">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-          <Link to="/student/classes" className="inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-yu-blue-700">
-            <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
+    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#F7F9FC_0%,#EEF3FA_45%,#F8FAFC_100%)] text-slate-900 dark:bg-[linear-gradient(180deg,#07111F_0%,#0B1730_50%,#0A1424_100%)] dark:text-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.12),transparent_60%)]" aria-hidden />
+
+      <header className="relative z-10 border-b border-white/60 bg-white/70 px-4 py-3 backdrop-blur-xl dark:border-white/5 dark:bg-[#0B1730]/70 md:px-6">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3">
+          <Link
+            to="/student/classes"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 px-3 py-1.5 text-xs font-bold text-slate-600 shadow-sm transition hover:border-[var(--yu-blue-200)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 rtl:rotate-180" />
             {t("courseView.backToClasses")}
           </Link>
-          <button type="button" className="rounded-lg p-2 md:hidden" onClick={() => setSidebarOpen(true)}>
-            <Menu className="h-5 w-5" />
+          <div className="hidden items-center gap-2 text-xs font-semibold text-slate-500 sm:flex">
+            <Sparkles className="h-3.5 w-3.5 text-[var(--yu-blue-600)]" />
+            {lessonNav.index + 1} / {flatLessons.length}
+          </div>
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm md:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <Menu className="h-4 w-4" />
+            {t("courseView.sidebarTitle")}
           </button>
         </div>
-      </div>
+      </header>
 
-      <div className="mx-auto flex max-w-7xl flex-1 bg-white">
-        <aside className="hidden w-72 shrink-0 border-e border-slate-200 bg-white md:block md:min-h-[calc(100vh-8rem)]">
-          <div className="border-b border-slate-100 p-4">
-            <h2 className="text-sm font-bold text-slate-900">{t("courseView.sidebarTitle")}</h2>
-            <div className="mt-3 space-y-1">
-              <div className="flex justify-between text-xs text-slate-500">
-                <span>
-                  {completedCount} {t("courseView.lessonsCompleted")}
-                </span>
-                <span className="font-semibold text-yu-blue-700">{pct}%</span>
-              </div>
-              <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
-                <div className="h-full rounded-full bg-yu-blue-700 transition-all" style={{ width: `${Math.min(100, pct)}%` }} />
-              </div>
-            </div>
-            {isCourseComplete ? (
-              <div className="mt-4 rounded-xl border border-yu-blue-700/30 bg-yu-blue-100/50 p-3">
-                <div className="flex items-start gap-2">
-                  <Award className="mt-0.5 h-4 w-4 shrink-0 text-yu-blue-700" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-bold text-yu-blue-700">
-                      {t("courseView.certificate.completeTitle", { defaultValue: "Course completed!" })}
-                    </p>
-                    {hasCertificate ? (
-                      <p className="mt-1 text-[11px] text-slate-600">
-                        {t("courseView.certificate.issued", { defaultValue: "Certificate issued" })}
-                        {existingCert?.issuedAt ? ` · ${new Date(existingCert.issuedAt).toLocaleDateString()}` : ""}
-                      </p>
-                    ) : (
-                      <p className="mt-1 text-[11px] text-slate-600">{t("courseView.certificate.ready", { defaultValue: "Claim your certificate of completion." })}</p>
-                    )}
-                    {certClaimErr ? <p className="mt-1 text-[11px] text-red-600">{certClaimErr}</p> : null}
-                    {!hasCertificate ? (
-                      <button
-                        type="button"
-                        disabled={claimingCert}
-                        onClick={() => void handleClaimCertificate()}
-                        className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-yu-blue-700 px-3 py-2 text-xs font-bold text-white hover:bg-yu-blue-600 disabled:opacity-50"
-                      >
-                        {claimingCert ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
-                        {t("courseView.certificate.claim", { defaultValue: "Claim certificate" })}
-                      </button>
-                    ) : (
-                      <div className="mt-2 space-y-2">
-                        <button
-                          type="button"
-                          disabled={downloadingCert}
-                          onClick={() => void handleDownloadCertificate()}
-                          className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-yu-blue-700 px-3 py-2 text-xs font-bold text-white hover:bg-yu-blue-600 disabled:opacity-50"
-                        >
-                          {downloadingCert ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
-                          {t("courseView.certificate.download", { defaultValue: "Download certificate" })}
-                        </button>
-                        {existingCert?.links?.verifyUrl ? (
-                          <Link
-                            to={existingCert.links.verifyUrl}
-                            className="block text-center text-[11px] font-semibold text-yu-blue-700 hover:underline"
-                          >
-                            {t("courseView.certificate.verifyLink", { defaultValue: "Verification link" })}
-                          </Link>
-                        ) : null}
-                        <Link
-                          to="/student/certificates"
-                          className="block text-center text-[11px] font-semibold text-slate-500 hover:underline"
-                        >
-                          {t("courseView.certificate.viewAll", { defaultValue: "View all certificates" })}
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : null}
-          </div>
-          <div className="max-h-[calc(100vh-10rem)] overflow-y-auto">
-            {units.map((u, idx) => (
-              <UnitBlock key={u.id} unit={u} activeId={activeLesson?.id} doneSet={doneSet} defaultOpen={idx === 0} onSelect={(l) => setActiveLesson(l)} />
-            ))}
-          </div>
+      <div className="relative z-10 mx-auto flex max-w-[1400px] gap-0 lg:gap-6 lg:px-6 lg:py-6">
+        <aside className="hidden w-[300px] shrink-0 overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-white/80 shadow-[var(--shadow-sm)] backdrop-blur-xl dark:border-white/8 dark:bg-[#0F1E38]/85 lg:block">
+          {curriculum}
         </aside>
 
-        {sidebarOpen ? (
-          <div className="fixed inset-0 z-40 flex md:hidden">
-            <button type="button" className="absolute inset-0 bg-black/40" aria-label="close" onClick={() => setSidebarOpen(false)} />
-            <div className="relative z-50 flex h-full w-[85%] max-w-sm flex-col bg-white shadow-xl">
-              <div className="flex items-center justify-between border-b border-slate-100 p-3">
-                <span className="text-sm font-bold">{t("courseView.sidebarTitle")}</span>
-                <button type="button" onClick={() => setSidebarOpen(false)} className="rounded-lg p-1 hover:bg-slate-100">
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto">
-                {units.map((u, idx) => (
-                  <UnitBlock
-                    key={u.id}
-                    unit={u}
-                    activeId={activeLesson?.id}
-                    doneSet={doneSet}
-                    defaultOpen={idx === 0}
-                    onSelect={(l) => {
-                      setActiveLesson(l);
-                      setSidebarOpen(false);
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : null}
-
-        <main className="flex-1 bg-white px-4 py-6 md:px-8">
-          {activeLesson ? (
-            <motion.div key={activeLesson.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-              <div
-                className={`relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm ${
-                  lessonHasPlayableVideo(activeLesson) ? "bg-slate-900" : ""
-                }`}
-                style={{ paddingTop: lessonHasPlayableVideo(activeLesson) ? "56.25%" : "auto" }}
+        <AnimatePresence>
+          {sidebarOpen ? (
+            <div className="fixed inset-0 z-50 flex lg:hidden">
+              <motion.button
+                type="button"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-slate-900/45 backdrop-blur-sm"
+                aria-label="close"
+                onClick={() => setSidebarOpen(false)}
+              />
+              <motion.div
+                initial={{ x: isRtl ? "100%" : "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: isRtl ? "100%" : "-100%" }}
+                transition={{ type: "spring", damping: 28, stiffness: 280 }}
+                className="relative z-50 flex h-full w-[88%] max-w-sm flex-col bg-white shadow-2xl dark:bg-[#0F1E38]"
               >
-                {lessonHasPlayableVideo(activeLesson) ? (
-                  <LessonVideoPlayer
-                    lessonId={activeLesson.id}
-                    title={activeLesson.title}
-                    videoUrl={activeLesson.videoUrl}
-                    vdoCipherVideoId={activeLesson.vdoCipherVideoId}
-                    onProgress={handleVideoProgress}
-                    onEnded={handleVideoEnded}
-                  />
+                <div className="flex items-center justify-between border-b border-slate-100 p-4 dark:border-white/8">
+                  <span className="text-sm font-black">{t("courseView.sidebarTitle")}</span>
+                  <button type="button" onClick={() => setSidebarOpen(false)} className="rounded-lg p-1.5 hover:bg-slate-100 dark:hover:bg-white/5">
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="flex-1 overflow-y-auto">
+                  {units.map((u, idx) => (
+                    <UnitBlock
+                      key={u.id}
+                      unit={u}
+                      activeId={activeLesson?.id}
+                      doneSet={doneSet}
+                      defaultOpen={idx === 0}
+                      lessonIndexMap={lessonIndexMap}
+                      onSelect={(l) => {
+                        setActiveLesson(l);
+                        setSidebarOpen(false);
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          ) : null}
+        </AnimatePresence>
+
+        <main className="min-w-0 flex-1 px-4 py-5 lg:px-0 lg:py-0">
+          {activeLesson ? (
+            <motion.div key={activeLesson.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+              {/* Cinema player */}
+              <section
+                className={[
+                  "relative overflow-hidden rounded-[1.6rem] border border-slate-200/80 shadow-[0_20px_60px_-28px_rgba(15,23,42,0.35)]",
+                  hasVideo ? "border-slate-900/20 bg-slate-950" : "bg-white dark:border-white/8 dark:bg-[#0F1E38]",
+                ].join(" ")}
+              >
+                {hasVideo ? (
+                  <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                    <LessonVideoPlayer
+                      lessonId={activeLesson.id}
+                      title={activeLesson.title}
+                      videoUrl={activeLesson.videoUrl}
+                      vdoCipherVideoId={activeLesson.vdoCipherVideoId}
+                      onProgress={handleVideoProgress}
+                      onEnded={handleVideoEnded}
+                    />
+                  </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-slate-50 to-white py-16">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-yu-blue-100">
-                      <Play className="h-7 w-7 text-yu-blue-700" />
+                  <div className="relative flex min-h-[240px] flex-col items-center justify-center gap-4 overflow-hidden px-6 py-16">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(37,99,235,0.12),transparent_45%),radial-gradient(circle_at_70%_80%,rgba(14,165,233,0.08),transparent_40%)]" aria-hidden />
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] shadow-inner"
+                    >
+                      <BookOpen className="h-7 w-7 text-[var(--yu-blue-700)]" />
+                    </motion.div>
+                    <div className="relative text-center">
+                      <p className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                        {t("courseView.readingLesson", { defaultValue: isRtl ? "درس قراءة" : "Reading lesson" })}
+                      </p>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {t("courseView.videoPlaceholder", { defaultValue: "No video for this lesson." })}
+                      </p>
                     </div>
-                    <p className="text-sm font-medium text-slate-500">{t("courseView.videoPlaceholder", { defaultValue: "No video for this lesson." })}</p>
                   </div>
                 )}
-              </div>
-              <div className="mt-5 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-              <h1 className="text-xl font-bold text-slate-900 md:text-2xl">{activeLesson.title}</h1>
-              <p className="mt-1 text-xs text-slate-500">
-                {[activeLesson.unitTitle, activeLesson.sectionTitle].filter(Boolean).join(" · ")}
-              </p>
-              {activeLesson.description || activeLesson.content ? (
-                <div className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
-                  {activeLesson.description ? <p>{activeLesson.description}</p> : null}
-                  {activeLesson.content ? (
-                    <div
-                      className="course-rich-html space-y-2 [&_a]:text-yu-blue-700 [&_a]:underline [&_img]:max-w-full [&_img]:rounded-lg"
-                      dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(activeLesson.content) }}
-                    />
+              </section>
+
+              {/* Lesson command bar */}
+              <section className="mt-5 overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/90 shadow-[var(--shadow-sm)] backdrop-blur-xl dark:border-white/8 dark:bg-[#0F1E38]/90">
+                <div className="border-b border-slate-100/80 px-5 py-5 dark:border-white/5 sm:px-6">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {lessonDone ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+                            <CheckCircle2 className="h-3 w-3" />
+                            {t("courseView.markedDone")}
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--yu-blue-50)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/20 dark:text-[var(--yu-blue-200)]">
+                            <Sparkles className="h-3 w-3" />
+                            {t("courseView.inProgress", { defaultValue: isRtl ? "قيد الدراسة" : "In progress" })}
+                          </span>
+                        )}
+                        <span className="text-[11px] font-semibold text-slate-400">
+                          {lessonNav.index + 1} / {flatLessons.length}
+                        </span>
+                      </div>
+                      <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">{activeLesson.title}</h1>
+                      <p className="mt-1.5 text-sm font-medium text-slate-500">
+                        {[activeLesson.unitTitle, activeLesson.sectionTitle].filter(Boolean).join(" · ")}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 lg:justify-end">
+                      {lessonNav.prev ? (
+                        <button
+                          type="button"
+                          onClick={() => setActiveLesson(lessonNav.prev)}
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-[var(--yu-blue-200)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+                        >
+                          <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
+                          {t("courseView.prev")}
+                        </button>
+                      ) : null}
+                      <button
+                        type="button"
+                        disabled={markComplete.isPending || lessonDone}
+                        onClick={() => void handleMarkDone()}
+                        className={[
+                          "inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold shadow-[var(--shadow-cta)] transition disabled:cursor-not-allowed disabled:opacity-55",
+                          lessonDone
+                            ? "bg-emerald-600 text-white"
+                            : "bg-[var(--yu-blue-700)] text-white hover:bg-[var(--yu-blue-600)]",
+                        ].join(" ")}
+                      >
+                        {markComplete.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : lessonDone ? <CheckCircle2 className="h-4 w-4" /> : <Check className="h-4 w-4" />}
+                        {lessonDone
+                          ? t("courseView.markedDone")
+                          : t("courseView.markComplete", { defaultValue: "Mark complete" })}
+                      </button>
+                      {lessonNav.next ? (
+                        <button
+                          type="button"
+                          onClick={() => setActiveLesson(lessonNav.next)}
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3.5 py-2.5 text-sm font-bold text-[var(--yu-blue-800)] transition hover:bg-[var(--yu-blue-100)] dark:border-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/20 dark:text-[var(--yu-blue-200)]"
+                        >
+                          {t("courseView.next")}
+                          <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+                        </button>
+                      ) : (
+                        <span className="text-xs font-semibold text-slate-400">{t("courseView.lastLessonHint")}</span>
+                      )}
+                    </div>
+                  </div>
+                  {!lessonDone ? (
+                    <p className="mt-3 text-[11px] font-semibold text-slate-400">
+                      {t("student.gamification.lessonXpHint", { defaultValue: "+15 XP when you complete this lesson" })}
+                    </p>
                   ) : null}
                 </div>
-              ) : null}
 
-              <div className="mt-6 flex flex-wrap items-center gap-2">
-                {lessonNav.prev ? (
-                  <button
-                    type="button"
-                    onClick={() => setActiveLesson(lessonNav.prev)}
-                    className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
-                  >
-                    <ChevronLeft className="h-4 w-4 rtl:rotate-180" aria-hidden />
-                    {t("courseView.prev")}
-                  </button>
-                ) : null}
-                <button
-                  type="button"
-                  disabled={markComplete.isPending || doneSet.has(activeLesson.id)}
-                  onClick={() => void handleMarkDone()}
-                  className="rounded-xl bg-yu-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-yu-blue-600 disabled:opacity-50"
-                >
-                  {doneSet.has(activeLesson.id)
-                    ? t("courseView.markedDone")
-                    : t("courseView.markComplete", { defaultValue: "Mark complete" })}
-                </button>
-                {!doneSet.has(activeLesson.id) ? (
-                  <p className="w-full text-center text-[11px] font-semibold text-slate-400 sm:w-auto">
-                    {t("student.gamification.lessonXpHint", { defaultValue: "+15 XP when you complete this lesson" })}
-                  </p>
-                ) : null}
-                {lessonNav.next ? (
-                  <button
-                    type="button"
-                    onClick={() => setActiveLesson(lessonNav.next)}
-                    className="inline-flex items-center gap-1 rounded-xl border border-yu-blue-700 bg-yu-blue-100 px-4 py-2 text-sm font-bold text-yu-blue-700 hover:bg-yu-blue-100/80"
-                  >
-                    {t("courseView.next")}
-                    <ChevronRight className="h-4 w-4 rtl:rotate-180" aria-hidden />
-                  </button>
-                ) : (
-                  <p className="w-full text-sm text-slate-500 sm:w-auto">{t("courseView.lastLessonHint")}</p>
+                {(activeLesson.description || activeLesson.content) && (
+                  <div className="space-y-3 border-b border-slate-100/80 px-5 py-5 text-sm leading-7 text-slate-600 dark:border-white/5 dark:text-slate-300 sm:px-6">
+                    {activeLesson.description ? <p className="font-medium">{activeLesson.description}</p> : null}
+                    {activeLesson.content ? (
+                      <div
+                        className="course-rich-html space-y-2 [&_a]:font-semibold [&_a]:text-[var(--yu-blue-700)] [&_a]:underline [&_img]:max-w-full [&_img]:rounded-xl"
+                        dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(activeLesson.content) }}
+                      />
+                    ) : null}
+                  </div>
                 )}
-              </div>
 
-              <div className="mt-6 grid gap-3 md:grid-cols-3">
-                <Link
-                  to={`/student/exams?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`}
-                  className="rounded-xl border border-slate-200 bg-white p-4 text-sm hover:border-yu-blue-700"
-                >
-                  <p className="font-bold text-slate-900">{t("courseView.lessonQuiz", { defaultValue: "Lecture quiz" })}</p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    {lessonExams.length
-                      ? t("courseView.lessonQuizCount", { count: lessonExams.length, defaultValue: "{{count}} available" })
-                      : t("courseView.lessonQuizEmpty", { defaultValue: "No quiz linked yet" })}
-                  </p>
-                </Link>
-                <Link
-                  to={`/student/flashcards?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`}
-                  className="rounded-xl border border-slate-200 bg-white p-4 text-sm hover:border-yu-blue-700"
-                >
-                  <p className="font-bold text-slate-900">{t("courseView.lessonFlashcards", { defaultValue: "Lecture flashcards" })}</p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    {lessonFlashcardCount
-                      ? t("courseView.lessonFlashcardsCount", { count: lessonFlashcardCount, defaultValue: "{{count}} cards" })
-                      : t("courseView.lessonFlashcardsEmpty", { defaultValue: "No cards linked yet" })}
-                  </p>
-                </Link>
-                <Link
-                  to="/student/study-plan"
-                  className="rounded-xl border border-slate-200 bg-white p-4 text-sm hover:border-yu-blue-700"
-                >
-                  <p className="font-bold text-slate-900">{t("courseView.addToStudyPlan", { defaultValue: "Study plan" })}</p>
-                  <p className="mt-1 text-xs text-slate-500">{t("courseView.addToStudyPlanHint", { defaultValue: "Create or update your personal tasks." })}</p>
-                </Link>
-              </div>
+                <div className="grid gap-3 p-5 sm:grid-cols-3 sm:px-6">
+                  <ToolTile
+                    to={`/student/flashcards?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`}
+                    icon={Layers}
+                    tone="blue"
+                    title={t("courseView.lessonFlashcards", { defaultValue: "Lecture flashcards" })}
+                    hint={
+                      lessonFlashcardCount
+                        ? t("courseView.lessonFlashcardsCount", { count: lessonFlashcardCount, defaultValue: "{{count}} cards" })
+                        : t("courseView.lessonFlashcardsEmpty", { defaultValue: "Review key points for this lecture" })
+                    }
+                  />
+                  <ToolTile
+                    to={`/student/exams?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`}
+                    icon={ClipboardList}
+                    tone="amber"
+                    title={t("courseView.lessonQuiz", { defaultValue: "Lecture quiz" })}
+                    hint={
+                      lessonExams.length
+                        ? t("courseView.lessonQuizCount", { count: lessonExams.length, defaultValue: "{{count}} available" })
+                        : t("courseView.lessonQuizEmpty", { defaultValue: "No quiz linked yet" })
+                    }
+                    disabled={lessonExams.length === 0}
+                  />
+                  <ToolTile
+                    to="/student/study-plan"
+                    icon={CalendarDays}
+                    tone="emerald"
+                    title={t("courseView.addToStudyPlan", { defaultValue: "Study plan" })}
+                    hint={t("courseView.addToStudyPlanHint", { defaultValue: "Schedule this lecture in your week" })}
+                  />
+                </div>
+              </section>
 
-              <div className="mt-6 rounded-xl border border-slate-100 bg-slate-50/80 p-4">
-                <h3 className="text-sm font-bold text-slate-900">{t("courseView.tabs.materials")}</h3>
+              {/* Materials */}
+              <section className="mt-5 overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/90 shadow-[var(--shadow-sm)] backdrop-blur-xl dark:border-white/8 dark:bg-[#0F1E38]/90">
+                <div className="flex items-center justify-between border-b border-slate-100/80 px-5 py-4 dark:border-white/5 sm:px-6">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[var(--yu-blue-700)]" />
+                    <h3 className="text-sm font-black text-slate-900 dark:text-white">{t("courseView.tabs.materials")}</h3>
+                  </div>
+                  {resources.length ? (
+                    <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-bold text-slate-500 dark:bg-white/5">{resources.length}</span>
+                  ) : null}
+                </div>
                 {resources.length === 0 ? (
-                  <p className="mt-2 text-sm text-slate-500">{t("courseView.noMaterials")}</p>
+                  <div className="px-5 py-10 text-center sm:px-6">
+                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-300 dark:bg-white/5">
+                      <FileText className="h-5 w-5" />
+                    </div>
+                    <p className="text-sm font-medium text-slate-500">{t("courseView.noMaterials")}</p>
+                  </div>
                 ) : (
-                  <ul className="mt-2 space-y-2">
+                  <ul className="divide-y divide-slate-100 dark:divide-white/5">
                     {resources.map((r) => (
-                      <li key={r.id} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
-                        <span className="font-medium text-slate-800">{r.title}</span>
-                        <a href={r.fileUrl || r.externalUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold text-yu-blue-700 hover:underline">
+                      <li key={r.id} className="flex items-center justify-between gap-3 px-5 py-3.5 sm:px-6">
+                        <div className="flex min-w-0 items-center gap-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--yu-blue-50)] text-[var(--yu-blue-700)] dark:bg-[var(--yu-blue-700)]/20">
+                            <FileText className="h-4 w-4" />
+                          </span>
+                          <span className="truncate text-sm font-bold text-slate-800 dark:text-slate-100">{r.title}</span>
+                        </div>
+                        <a
+                          href={r.fileUrl || r.externalUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-bold text-[var(--yu-blue-700)] transition hover:bg-[var(--yu-blue-50)] dark:border-white/10"
+                        >
+                          <Download className="h-3.5 w-3.5" />
                           {t("courseView.download")}
                         </a>
                       </li>
                     ))}
                   </ul>
                 )}
-              </div>
-              </div>
+              </section>
 
-              {activeLesson?.id ? <LessonQna lessonId={activeLesson.id} /> : null}
+              {activeLesson?.id ? (
+                <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/90 shadow-[var(--shadow-sm)] backdrop-blur-xl dark:border-white/8 dark:bg-[#0F1E38]/90">
+                  <LessonQna lessonId={activeLesson.id} />
+                </div>
+              ) : null}
             </motion.div>
           ) : (
             <p className="text-slate-500">{t("courseView.pickLesson")}</p>

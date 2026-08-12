@@ -11,6 +11,12 @@ import { BrandRuntimeAssets } from "./components/BrandLogo";
 import "./index.css";
 import "./i18n/i18n";
 
+try {
+  sessionStorage.removeItem("yu_chunk_reload");
+} catch {
+  // ignore
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -19,6 +19,8 @@ import { motion } from "framer-motion";
 import { pickLocalized } from "../utils/cmsLocale";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 import client from "../api/client";
+import useAuthStore from "../store/authStore";
+import { useMyCourses } from "../features/student/courses/hooks";
 
 const STATS_CONFIG = [
   {
@@ -60,6 +62,17 @@ export default function Hero({ cmsContent, stats }) {
   const isRtl = i18n.dir() === "rtl";
   const lang = i18n.language;
   const Arrow = isRtl ? ArrowLeft : ArrowRight;
+
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const { data: myCourses = [] } = useMyCourses({ enabled: isAuthenticated });
+  const progressPct = useMemo(() => {
+    if (!myCourses.length) return 0;
+    const sum = myCourses.reduce(
+      (acc, course) => acc + (Number(course.progressPercentage) || 0),
+      0
+    );
+    return Math.min(100, Math.max(0, Math.round(sum / myCourses.length)));
+  }, [myCourses]);
 
   const [banners, setBanners] = useState([]);
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
@@ -187,13 +200,27 @@ export default function Hero({ cmsContent, stats }) {
                 )}
               </div>
 
-              <div className="absolute -bottom-1 start-3 z-20 min-w-[185px] rounded-2xl border border-white/70 bg-white/95 p-4 shadow-[0_18px_45px_rgba(4,18,43,.22)] backdrop-blur-xl sm:-start-5">
-                <div className="flex items-center justify-between gap-5">
-                  <div><p className="text-[10px] font-bold text-slate-500">{isRtl ? "تقدمك هذا الأسبوع" : "Weekly progress"}</p><p className="mt-1 text-2xl font-black text-slate-950">78%</p></div>
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600"><TrendingUp className="h-5 w-5" aria-hidden /></div>
+              {isAuthenticated && (
+                <div className="absolute -bottom-1 start-3 z-20 min-w-[185px] rounded-2xl border border-white/70 bg-white/95 p-4 shadow-[0_18px_45px_rgba(4,18,43,.22)] backdrop-blur-xl sm:-start-5">
+                  <div className="flex items-center justify-between gap-5">
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-500">
+                        {isRtl ? "تقدمك" : "Your progress"}
+                      </p>
+                      <p className="mt-1 text-2xl font-black text-slate-950">{progressPct}%</p>
+                    </div>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                      <TrendingUp className="h-5 w-5" aria-hidden />
+                    </div>
+                  </div>
+                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400 transition-[width] duration-500"
+                      style={{ width: `${progressPct}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100"><div className="h-full w-[78%] rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400" /></div>
-              </div>
+              )}
 
               <div className="absolute -end-1 top-1/2 z-20 hidden -translate-y-1/2 rounded-2xl border border-white/15 bg-[#0b2349]/90 p-3.5 text-white shadow-2xl backdrop-blur-xl sm:block lg:-end-7">
                 <div className="flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/15 text-amber-300"><Star className="h-5 w-5 fill-current" /></div><div><p className="text-lg font-black">4.9/5</p><p className="text-[9px] font-semibold text-blue-200">{isRtl ? "تقييم الطلاب" : "Student rating"}</p></div></div>

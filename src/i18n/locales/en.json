@@ -3174,13 +3174,69 @@
     "titlePrefix": "My",
     "titleAccent": "Progress",
     "subtitle": "Track your learning journey and achievements",
+    "subtitleRich": "Track courses, flashcards, study plan, exams, and momentum — all in one place.",
+    "overallLabel": "Overall progress",
+    "overallHint": "Average across your active tracks",
     "completed": "Completed",
     "lessons": "lessons",
     "myCourses": "Course Progress",
     "recentActivity": "Recent Activity",
+    "recentXp": "Recent XP",
+    "quickStats": "At a glance",
+    "viewAll": "View all",
+    "continue": "Continue",
+    "reviewNow": "Review",
+    "openPlan": "Open plan",
+    "badges": "badges",
     "loadError": "Could not load progress.",
     "noCourses": "No enrolled courses yet.",
     "noActivity": "No recent activity.",
+    "cta": {
+      "flashcards": "Review flashcards",
+      "studyPlan": "Study plan",
+      "momentum": "Momentum"
+    },
+    "domains": {
+      "courses": "Courses",
+      "coursesHint": "{{count}} enrolled · {{completed}} done",
+      "flashcards": "Flashcards",
+      "flashcardsHint": "Due for review",
+      "studyPlan": "Study plan",
+      "studyPlanHint": "Tasks completed",
+      "exams": "Exams",
+      "examsHint": "Submissions & scores",
+      "certificates": "Certificates",
+      "certificatesHint": "Earned certificates",
+      "momentum": "Momentum",
+      "momentumEmpty": "Start studying to earn XP"
+    },
+    "sections": {
+      "flashcards": "Flashcard progress",
+      "studyPlan": "Study plan",
+      "exams": "Exam progress"
+    },
+    "flash": {
+      "due": "Due today",
+      "reviewed": "Reviewed",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "private": "Private cards"
+    },
+    "plan": {
+      "tasks": "tasks done",
+      "task": "Task",
+      "empty": "No open tasks right now."
+    },
+    "exams": {
+      "taken": "Taken",
+      "passed": "Passed",
+      "available": "Available",
+      "avg": "Avg score",
+      "pass": "Pass",
+      "fail": "Fail",
+      "empty": "No exams submitted yet."
+    },
     "stats": {
       "coursesEnrolled": "Courses Enrolled",
       "lessonsCompleted": "Lessons Completed",

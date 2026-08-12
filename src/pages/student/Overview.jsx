@@ -670,9 +670,9 @@ export default function StudentOverview() {
                 {planItemsDue.map((item) => (
                   <div key={item.id} className="rounded-xl bg-slate-50 px-3 py-2.5 dark:bg-white/5">
                     <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{item.title || item.label}</p>
-                    {item.dueDate ? (
+                    {item.scheduledAt ? (
                       <p className="mt-1 text-[10px] font-medium text-slate-400">
-                        {new Date(item.dueDate).toLocaleDateString(isAr ? "ar-EG" : undefined)}
+                        {new Date(item.scheduledAt).toLocaleDateString(isAr ? "ar-EG" : undefined)}
                       </p>
                     ) : null}
                   </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
-import { Save, ShieldAlert, Globe, Lock, Palette, Share2, ImageUp, RotateCcw, Loader2 } from "lucide-react";
+import { Save, ShieldAlert, Globe, Lock, Palette, Share2, ImageUp, RotateCcw, Loader2, Layers } from "lucide-react";
 import PageHeader from "../../components/dashboard/PageHeader";
 import { useAdminSettings, useUpdateAdminSettings } from "../../features/admin/settings/hooks";
 import { uploadAdminLogo } from "../../features/admin/settings/api";
@@ -130,6 +130,9 @@ function Settings() {
     maintenanceMode: false,
     theme: "dark",
     notifications: true,
+    flashcardEasyDays: "30",
+    flashcardMediumDays: "7",
+    flashcardHardDays: "3",
   });
   const [uploadingLogo, setUploadingLogo] = useState("");
 
@@ -165,6 +168,9 @@ function Settings() {
       maintenanceMode: settingToBool(rows.find((s) => s.key === "MAINTENANCE_MODE")?.value, prev.maintenanceMode),
       theme: g("DEFAULT_THEME", prev.theme) || prev.theme,
       notifications: settingToBool(rows.find((s) => s.key === "NOTIFICATIONS_ENABLED")?.value, prev.notifications),
+      flashcardEasyDays: g("FLASHCARD_INTERVAL_EASY_DAYS", prev.flashcardEasyDays) || prev.flashcardEasyDays,
+      flashcardMediumDays: g("FLASHCARD_INTERVAL_MEDIUM_DAYS", prev.flashcardMediumDays) || prev.flashcardMediumDays,
+      flashcardHardDays: g("FLASHCARD_INTERVAL_HARD_DAYS", prev.flashcardHardDays) || prev.flashcardHardDays,
     }));
     setHydrated(true);
   }, [data]);
@@ -238,6 +244,9 @@ function Settings() {
     MAINTENANCE_MODE: settings.maintenanceMode,
     DEFAULT_THEME: settings.theme,
     NOTIFICATIONS_ENABLED: settings.notifications,
+    FLASHCARD_INTERVAL_EASY_DAYS: Number(settings.flashcardEasyDays) || 30,
+    FLASHCARD_INTERVAL_MEDIUM_DAYS: Number(settings.flashcardMediumDays) || 7,
+    FLASHCARD_INTERVAL_HARD_DAYS: Number(settings.flashcardHardDays) || 3,
   });
 
   const handleSave = () => {
@@ -406,6 +415,39 @@ function Settings() {
               description={t(`${SK}.systemNotificationsDesc`)}
               enabled={settings.notifications}
               onChange={() => handleToggle("notifications")}
+            />
+          </div>
+        </SettingsSection>
+
+        <SettingsSection title={t(`${SK}.flashcardSrs`, { defaultValue: isRtl ? "جدولة الفلاش كاردز" : "Flashcard scheduling" })} icon={Layers}>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {t(`${SK}.flashcardSrsHint`, {
+              defaultValue: isRtl
+                ? "عدد الأيام قبل ما تظهر البطاقة للطالب تاني حسب تقييمه: سهل / متوسط / صعب."
+                : "Days before a card shows again after the student rates it Easy / Medium / Hard.",
+            })}
+          </p>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <SettingsInputField
+              label={t(`${SK}.flashcardEasyDays`, { defaultValue: isRtl ? "سهل (أيام)" : "Easy (days)" })}
+              value={settings.flashcardEasyDays}
+              onChange={(v) => setSettings((p) => ({ ...p, flashcardEasyDays: v }))}
+              type="number"
+              placeholder="30"
+            />
+            <SettingsInputField
+              label={t(`${SK}.flashcardMediumDays`, { defaultValue: isRtl ? "متوسط (أيام)" : "Medium (days)" })}
+              value={settings.flashcardMediumDays}
+              onChange={(v) => setSettings((p) => ({ ...p, flashcardMediumDays: v }))}
+              type="number"
+              placeholder="7"
+            />
+            <SettingsInputField
+              label={t(`${SK}.flashcardHardDays`, { defaultValue: isRtl ? "صعب (أيام)" : "Hard (days)" })}
+              value={settings.flashcardHardDays}
+              onChange={(v) => setSettings((p) => ({ ...p, flashcardHardDays: v }))}
+              type="number"
+              placeholder="3"
             />
           </div>
         </SettingsSection>

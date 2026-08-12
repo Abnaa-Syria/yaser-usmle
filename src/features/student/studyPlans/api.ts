@@ -6,7 +6,7 @@ export async function fetchStudyPlans() {
   return res?.data?.data ?? [];
 }
 
-export async function createStudyPlan(body: { title: string; description?: string }) {
+export async function createStudyPlan(body: { title: string; goal?: string; targetDate?: string }) {
   const res = await client.post(endpoints.student.studyPlans, body);
   return res?.data?.data ?? null;
 }

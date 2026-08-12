@@ -10,6 +10,18 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+/** Trial learner routes only — not admin trial settings (/admin/trial/...). */
+function normalizeApiPath(url) {
+  const raw = String(url || "").split("?")[0];
+  return raw.startsWith("/") ? raw : `/${raw}`;
+}
+
+function isTrialStudentApiPath(url) {
+  const path = normalizeApiPath(url);
+  if (path.startsWith("/admin/trial")) return false;
+  return path.startsWith("/trial/") || path.startsWith("/public/trial/");
+}
+
 /* Attach access token to every request */
 api.interceptors.request.use((config) => {
   // Let the browser set multipart boundary — default application/json breaks file uploads.
@@ -25,14 +37,7 @@ api.interceptors.request.use((config) => {
   }
 
   const url = String(config.url || "");
-  const isTrialProtected =
-    url.includes("/trial/me") ||
-    url.includes("/trial/courses") ||
-    url.includes("/trial/lessons") ||
-    url.includes("/trial/recordings") ||
-    url.includes("/trial/exams") ||
-    url.includes("/trial/flashcards");
-  if (isTrialProtected) {
+  if (isTrialStudentApiPath(url)) {
     const trialToken = localStorage.getItem("trialAccessToken");
     if (trialToken) config.headers.Authorization = `Bearer ${trialToken}`;
     return config;
@@ -63,8 +68,7 @@ api.interceptors.response.use(
         trialMsg.includes("does not match this device") ||
         trialMsg.includes("already ended");
       const requestUrl = String(original?.url || "");
-      const isTrialRequest =
-        requestUrl.includes("/trial/") || requestUrl.includes("/public/trial/start");
+      const isTrialRequest = isTrialStudentApiPath(requestUrl);
       if (isTrialRequest && isTrialStopped) {
         localStorage.removeItem("trialAccessToken");
         useTrialStore.getState().clearSession();
@@ -111,14 +115,7 @@ api.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      const isTrialRequest =
-        requestUrl.includes("/trial/me") ||
-        requestUrl.includes("/trial/courses") ||
-        requestUrl.includes("/trial/lessons") ||
-        requestUrl.includes("/trial/recordings") ||
-        requestUrl.includes("/trial/exams") ||
-        requestUrl.includes("/trial/flashcards") ||
-        requestUrl.includes("/public/trial/start");
+      const isTrialRequest = isTrialStudentApiPath(requestUrl);
 
       if (isTrialRequest) {
         localStorage.removeItem("trialAccessToken");

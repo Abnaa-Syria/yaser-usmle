@@ -96,7 +96,11 @@ export default function SettingsTrial() {
   useEffect(() => {
     if (!data?.settings) return;
     setForm({ ...data.settings });
-    setSelectedIds((data.courses || []).map((c) => c.courseId));
+    setSelectedIds(
+      (data.courses || [])
+        .map((c) => c.course?.id || c.courseId)
+        .filter(Boolean)
+    );
   }, [data]);
 
   const allCourses = coursesData?.courses || [];

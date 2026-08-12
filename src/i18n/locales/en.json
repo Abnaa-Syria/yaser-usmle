@@ -2802,9 +2802,10 @@
       "directSubmitError": "Could not submit your cohort payment. Try again.",
       "upgradeLink": "Prefer a subscription? View plans",
       "successTitle": "Order placed",
-      "successBody": "Your cohort purchase is pending. Please transfer the funds using your chosen method and wait for admin approval. You will get access as soon as your payment is confirmed.",
-      "successPendingNote": "If you already had a pending request for this cohort, we kept your existing order.",
-      "successToast": "Payment request submitted. We will confirm your cohort access after review."
+      "successBody": "Your payment is pending. Transfer the funds and wait for admin approval. You will get access once confirmed.",
+      "successPendingNote": "You already had a pending payment for this item — we updated that same request (receipt/method) instead of creating a new row. Check Payments to view it.",
+      "successToast": "Payment request submitted. We will confirm your access after review.",
+      "successToastReused": "Updated your existing pending payment (no new row was added)."
     },
     "breadcrumbExplore": "Explore courses",
     "breadcrumbSubscription": "Plans",

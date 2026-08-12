@@ -112,6 +112,7 @@ const endpoints = {
     downloadCertificate: (id) => `/student/certificates/${id}/download`,
     claimCertificate: (courseId) => `/student/courses/${courseId}/certificates/claim`,
     myPayments: "/student/financials/my-payments",
+    myPaymentProof: (paymentId) => `/student/financials/my-payments/${paymentId}/proof`,
     tickets: "/student/tickets",
     ticketReply: (id) => `/student/tickets/${id}/message`,
     wishlist: "/student/wishlist",

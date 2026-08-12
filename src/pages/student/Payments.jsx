@@ -1,6 +1,8 @@
-﻿import { useTranslation } from "react-i18next";
-import { CreditCard, ExternalLink } from "lucide-react";
+﻿import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { CreditCard, ExternalLink, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import PageHeader from "../../components/dashboard/PageHeader";
 import EmptyState from "../../components/dashboard/EmptyState";
 import {
@@ -9,6 +11,7 @@ import {
   studentBtnPrimary,
 } from "../../components/student/ui";
 import { useMyPayments } from "../../features/student/financials/hooks";
+import { openMyPaymentProof } from "../../features/student/financials/api";
 import { getErrorMessage } from "../../api/error";
 
 const STATUS_TONE = {
@@ -24,10 +27,39 @@ function formatAmount(amount, currency = "USD") {
   return `${Math.round(n).toLocaleString()} ${currency}`;
 }
 
+function hasViewableReceipt(receiptUrl) {
+  if (!receiptUrl || typeof receiptUrl !== "string") return false;
+  if (receiptUrl.startsWith("INSTANT_FREE")) return false;
+  return receiptUrl.includes("/uploads/payment-proofs/") || /^https?:\/\//i.test(receiptUrl);
+}
+
 export default function Payments() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   const { data: payments = [], isLoading, isError, error, refetch } = useMyPayments();
+  const [openingId, setOpeningId] = useState(null);
+
+  const handleViewReceipt = async (payment) => {
+    if (!hasViewableReceipt(payment?.receiptUrl)) return;
+    // External absolute receipts (rare) can open directly.
+    if (/^https?:\/\//i.test(payment.receiptUrl) && !payment.receiptUrl.includes("/uploads/payment-proofs/")) {
+      window.open(payment.receiptUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+    setOpeningId(payment.id);
+    try {
+      await openMyPaymentProof(payment.id);
+    } catch (err) {
+      toast.error(
+        getErrorMessage(
+          err,
+          t("student.payments.receiptOpenError", { defaultValue: isRtl ? "تعذر فتح الإيصال" : "Could not open receipt" })
+        )
+      );
+    } finally {
+      setOpeningId(null);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -77,8 +109,13 @@ export default function Payments() {
             </thead>
             <tbody>
               {payments.map((p) => {
-                const label = p.course?.title || t("student.payments.unknownItem", { defaultValue: "Payment" });
+                const label =
+                  p.course?.title ||
+                  (isRtl ? p.coursePackage?.titleAr || p.coursePackage?.title : p.coursePackage?.title || p.coursePackage?.titleAr) ||
+                  t("student.payments.unknownItem", { defaultValue: "Payment" });
                 const status = String(p.status || "PENDING").toUpperCase();
+                const canView = hasViewableReceipt(p.receiptUrl);
+                const busy = openingId === p.id;
                 return (
                   <tr key={p.id} className="border-b border-slate-50 last:border-0 dark:border-white/5">
                     <td className="px-5 py-3.5 font-semibold text-slate-900 dark:text-white">{label}</td>
@@ -87,18 +124,22 @@ export default function Payments() {
                       <StudentBadge tone={STATUS_TONE[status] || "slate"}>{status}</StudentBadge>
                     </td>
                     <td className="px-5 py-3.5 text-slate-500">
-                      {p.createdAt ? new Date(p.createdAt).toLocaleDateString(isRtl ? "ar" : undefined) : "—"}
+                      {(p.updatedAt || p.createdAt)
+                        ? new Date(p.updatedAt || p.createdAt).toLocaleDateString(isRtl ? "ar" : undefined)
+                        : "—"}
                     </td>
                     <td className="px-5 py-3.5">
-                      {p.receiptUrl ? (
-                        <a
-                          href={p.receiptUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 font-bold text-[var(--yu-blue-700)] hover:underline dark:text-[var(--yu-blue-400)]"
+                      {canView ? (
+                        <button
+                          type="button"
+                          disabled={busy}
+                          onClick={() => void handleViewReceipt(p)}
+                          className="inline-flex items-center gap-1 font-bold text-[var(--yu-blue-700)] hover:underline disabled:opacity-60 dark:text-[var(--yu-blue-400)]"
                         >
-                          {t("student.payments.viewReceipt", { defaultValue: "View" })} <ExternalLink className="h-3.5 w-3.5" />
-                        </a>
+                          {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
+                          {t("student.payments.viewReceipt", { defaultValue: "View" })}
+                          {!busy ? <ExternalLink className="h-3.5 w-3.5" /> : null}
+                        </button>
                       ) : (
                         "—"
                       )}

@@ -1,6 +1,7 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import PageHeader from "../components/dashboard/PageHeader";
@@ -24,9 +25,23 @@ function formatPrice(price) {
   return `${value} USD`;
 }
 
+/** Accept absolute http(s) URLs or uploaded proof paths from our API. */
+function isValidReceiptUrl(url) {
+  const trimmed = String(url || "").trim();
+  if (!trimmed) return false;
+  if (trimmed.startsWith("/uploads/")) return true;
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export default function Checkout() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.language?.startsWith("ar");
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const hydrated = useAuthStore((s) => s.hydrated);
   const isAuth = useAuthStore((s) => s.isAuthenticated);
@@ -183,13 +198,9 @@ export default function Checkout() {
       setLocalError(t("checkout.package.receiptRequired"));
       return;
     }
-    if (url) {
-      try {
-        new URL(url);
-      } catch {
-        setLocalError(t("checkout.package.receiptUrlInvalid"));
-        return;
-      }
+    if (url && !isValidReceiptUrl(url)) {
+      setLocalError(t("checkout.package.receiptUrlInvalid"));
+      return;
     }
     if (!finalAmount && finalAmount !== 0) {
       setLocalError(t("checkout.package.amountInvalid"));
@@ -217,9 +228,17 @@ export default function Checkout() {
           payload.couponCode = couponCode.trim();
         }
         const data = await postStudentPackageCheckout(packageId, payload);
-        setOrderMeta({ reusedPending: Boolean(data?.reusedPending) });
+        const reused = Boolean(data?.reusedPending);
+        setOrderMeta({ reusedPending: reused });
         setFlow("success");
-        toast.success(t("checkout.package.successToast", { defaultValue: "Package payment submitted." }));
+        void queryClient.invalidateQueries({ queryKey: ["student", "payments"] });
+        toast.success(
+          reused
+            ? t("checkout.cohort.successToastReused", {
+                defaultValue: "Updated your existing pending payment (no new row).",
+              })
+            : t("checkout.package.successToast", { defaultValue: "Package payment submitted." })
+        );
       } else {
         if (pricingTierId) {
           payload.pricingTierId = pricingTierId;
@@ -230,9 +249,17 @@ export default function Checkout() {
           payload.couponCode = couponCode.trim();
         }
         const data = await postStudentCourseCheckout(courseId, payload);
-        setOrderMeta({ reusedPending: Boolean(data?.reusedPending) });
+        const reused = Boolean(data?.reusedPending);
+        setOrderMeta({ reusedPending: reused });
         setFlow("success");
-        toast.success(t("checkout.cohort.successToast", { defaultValue: "Payment submitted." }));
+        void queryClient.invalidateQueries({ queryKey: ["student", "payments"] });
+        toast.success(
+          reused
+            ? t("checkout.cohort.successToastReused", {
+                defaultValue: "Updated your existing pending payment (no new row).",
+              })
+            : t("checkout.cohort.successToast", { defaultValue: "Payment submitted." })
+        );
       }
     } catch (e) {
       const status = e?.response?.status;
@@ -268,11 +295,12 @@ export default function Checkout() {
                 <CheckCircle2 className="h-14 w-14 text-emerald-600" aria-hidden />
               </div>
               <p className="text-center text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                {t("checkout.cohort.successBody", { defaultValue: "Your payment is pending review. You will get access once approved." })}
+                {orderMeta.reusedPending
+                  ? t("checkout.cohort.successPendingNote")
+                  : t("checkout.cohort.successBody", {
+                      defaultValue: "Your payment is pending review. You will get access once approved.",
+                    })}
               </p>
-              {orderMeta.reusedPending ? (
-                <p className="text-center text-sm text-slate-500">{t("checkout.cohort.successPendingNote")}</p>
-              ) : null}
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Link to="/student/classes" className={studentBtnPrimary}>
                   {t("checkout.goToClasses")}

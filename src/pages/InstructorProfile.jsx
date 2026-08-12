@@ -199,7 +199,7 @@ export default function InstructorProfile() {
                       </h3>
                       <div className="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800 text-xs">
                         <span className="font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                          {isRtl ? "استكشاف" : "Explore"}
+                          {t("header.nav.explore", { defaultValue: isRtl ? "الكورسات" : "Courses" })}
                           <ChevronRight className="h-3 w-3 rtl:rotate-180" />
                         </span>
                         {c.price != null && (

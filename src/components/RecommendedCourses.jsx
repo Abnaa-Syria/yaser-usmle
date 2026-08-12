@@ -24,11 +24,6 @@ function formatLearnerCount(n) {
   return String(count);
 }
 
-function formatPrice(price) {
-  const value = Math.round(Number(price) || 0);
-  return `${value} USD`;
-}
-
 function CourseCardSkeleton() {
   return (
     <div className="flex flex-col overflow-hidden rounded-[1.75rem] border border-slate-200/70 bg-white shadow-sm">
@@ -151,9 +146,12 @@ function RecommendedCourseCard({ course, isRtl, index }) {
           </span>
         </div>
 
-        <h3 className="line-clamp-2 min-h-[3.5rem] text-lg font-black leading-7 tracking-tight text-slate-950">
+        <Link
+          to={`/courses/${course.id}`}
+          className="line-clamp-2 min-h-[3.5rem] text-lg font-black leading-7 tracking-tight text-slate-950 transition hover:text-blue-700"
+        >
           {course.title}
-        </h3>
+        </Link>
 
         <p className="mt-2 text-xs font-semibold text-slate-500">
           {t("recommendedCourses.withInstructor", { defaultValue: isRtl ? "مع" : "With" })}{" "}
@@ -166,11 +164,7 @@ function RecommendedCourseCard({ course, isRtl, index }) {
           <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5 text-blue-600" aria-hidden />{isRtl ? "وصول مرن" : "Flexible access"}</span>
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-4 pt-5">
-          <div>
-            <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{isRtl ? "سعر الدورة" : "Course price"}</p>
-            <p className="mt-1 text-2xl font-black tracking-tight text-blue-800">{formatPrice(course.price, isRtl)}</p>
-          </div>
+        <div className="mt-auto flex items-end justify-end gap-4 pt-5">
           <Link
             to={`/courses/${course.id}`}
             className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-white shadow-lg transition duration-300 hover:scale-105 hover:bg-blue-700"

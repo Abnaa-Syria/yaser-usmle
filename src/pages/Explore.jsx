@@ -65,11 +65,6 @@ function coursePrice(course) {
   return Number.isNaN(n) ? null : n;
 }
 
-function formatPrice(price) {
-  const value = Math.round(Number(price) || 0);
-  return `${value} USD`;
-}
-
 function formatLearnerCount(n) {
   const count = Number(n) || 0;
   if (count >= 1000) return `${(count / 1000).toFixed(1).replace(/\.0$/, "")}K`;
@@ -98,7 +93,6 @@ function CourseCardSkeleton() {
 
 function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlist }) {
   const { t } = useTranslation();
-  const price = coursePrice(course);
   const purchaseCount = Number(course._count?.purchases ?? 0);
   const Arrow = isRtl ? ArrowLeft : ArrowRight;
 
@@ -184,19 +178,7 @@ function CourseCard({ course, isRtl, isWishlisted, onToggleWishlist, showWishlis
           </span>
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-4 pt-5">
-          <div>
-            <span className="block text-[9px] font-black uppercase tracking-[.16em] text-slate-400">{isRtl ? "سعر الدورة" : "COURSE PRICE"}</span>
-            <p className="mt-1 text-xl font-black text-blue-700">
-              {price == null ? (
-                <span className="text-sm font-bold text-slate-500">{t("explore.pricing.contact")}</span>
-              ) : price === 0 ? (
-                <span className="text-emerald-600">{t("explore.free")}</span>
-              ) : (
-                formatPrice(price)
-              )}
-            </p>
-          </div>
+        <div className="mt-auto flex items-end justify-end gap-4 pt-5">
           <Link to={`/courses/${course.id}`} aria-label={t("explore.enroll")} className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#071a38] text-white transition group-hover:bg-blue-700">
             <Arrow className="h-4 w-4" />
           </Link>

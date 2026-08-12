@@ -15,7 +15,7 @@ function isAuthEscapePath(pathname) {
 
 /**
  * Blocks the public/student/instructor UI while MAINTENANCE_MODE is on.
- * Staff with settings:manage (or SUPER_ADMIN) can still use /admin and auth pages.
+ * Staff with settings:manage can still open /admin and auth pages to turn it off.
  */
 export default function MaintenanceGate({ children }) {
   const location = useLocation();
@@ -33,7 +33,8 @@ export default function MaintenanceGate({ children }) {
   }
 
   const staffBypass = hasPermission(user, "settings:manage");
-  if (staffBypass) {
+  const onAdminArea = location.pathname.startsWith("/admin");
+  if (staffBypass && (onAdminArea || isAuthEscapePath(location.pathname))) {
     return children;
   }
 

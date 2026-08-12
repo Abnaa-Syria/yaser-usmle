@@ -57,6 +57,7 @@ const endpoints = {
     instructorApplication: (id) => `/admin/instructor-applications/${id}`,
     paymentApprove: (id) => `/admin/financials/payments/${id}/approve`,
     paymentReject: (id) => `/admin/financials/payments/${id}/reject`,
+    paymentProof: (id) => `/admin/financials/payments/${id}/proof`,
     gamificationStats: "/admin/gamification/stats",
     gamificationChallenges: "/admin/gamification/challenges",
     gamificationSeedBadges: "/admin/gamification/seed-badges",

@@ -36,6 +36,8 @@ import {
   useUpdateAdminPaymentStatus,
   useAdminPayouts,
 } from "../../features/admin/finance/hooks";
+import { openAdminPaymentProof } from "../../features/admin/finance/api";
+import { getErrorMessage } from "../../api/error";
 
 function InvoiceCell({ value }) {
   const { t } = useTranslation();
@@ -59,6 +61,7 @@ function Finance() {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
+  const [openingProofId, setOpeningProofId] = useState(null);
 
   const {
     data: payments = [],
@@ -701,14 +704,35 @@ function Finance() {
                 return (
                   <div className="flex flex-wrap gap-2">
                     {row.receiptUrl ? (
-                      <a
-                        href={`${import.meta.env.VITE_API_URL || "/api/v1"}/admin/financials/payments/${row.id}/proof`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold text-slate-650 hover:border-[var(--yu-blue-700)] hover:text-[var(--yu-blue-700)]"
+                      <button
+                        type="button"
+                        disabled={openingProofId === row.id}
+                        onClick={async () => {
+                          const receipt = String(row.receiptUrl || "");
+                          if (/^https?:\/\//i.test(receipt) && !receipt.includes("/uploads/payment-proofs/")) {
+                            window.open(receipt, "_blank", "noopener,noreferrer");
+                            return;
+                          }
+                          setOpeningProofId(row.id);
+                          try {
+                            await openAdminPaymentProof(row.id);
+                          } catch (err) {
+                            toast.error(
+                              getErrorMessage(
+                                err,
+                                t("adminPages.finance.proofOpenError", {
+                                  defaultValue: isRtl ? "تعذر فتح إثبات الدفع" : "Could not open payment proof",
+                                })
+                              )
+                            );
+                          } finally {
+                            setOpeningProofId(null);
+                          }
+                        }}
+                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs font-semibold text-slate-650 hover:border-[var(--yu-blue-700)] hover:text-[var(--yu-blue-700)] disabled:opacity-60"
                       >
                         <Download className="h-3.5 w-3.5" /> {t("adminPages.finance.proof")}
-                      </a>
+                      </button>
                     ) : null}
                     {pending ? (
                       <>

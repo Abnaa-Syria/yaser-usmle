@@ -73,7 +73,7 @@ export default function SettingsTrial() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   const { data, isLoading } = useAdminTrial();
-  const { data: coursesData } = useAdminCourses({ page: 1, limit: 100 });
+  const { data: coursesData } = useAdminCourses({ page: 1, limit: 500 });
   const updateSettings = useUpdateAdminTrialSettings();
   const replaceCourses = useReplaceAdminTrialCourses();
   const revokeSession = useRevokeAdminTrialSession();
@@ -98,12 +98,25 @@ export default function SettingsTrial() {
     setForm({ ...data.settings });
     setSelectedIds(
       (data.courses || [])
-        .map((c) => c.course?.id || c.courseId)
-        .filter(Boolean)
+        .filter((c) => c.course && !c.course.deletedAt)
+        .map((c) => c.course.id)
     );
   }, [data]);
 
   const allCourses = coursesData?.courses || [];
+  const catalogCourseIds = useMemo(() => new Set(allCourses.map((c) => c.id)), [allCourses]);
+  const visibleSelectedIds = useMemo(
+    () => [...new Set(selectedIds.filter((id) => catalogCourseIds.has(id)))],
+    [selectedIds, catalogCourseIds]
+  );
+  useEffect(() => {
+    if (!allCourses.length) return;
+    setSelectedIds((prev) => {
+      const next = prev.filter((id) => catalogCourseIds.has(id));
+      return next.length === prev.length ? prev : next;
+    });
+  }, [allCourses, catalogCourseIds]);
+
   const filteredCourses = useMemo(() => {
     const q = courseSearch.trim().toLowerCase();
     if (!q) return allCourses;
@@ -134,14 +147,16 @@ export default function SettingsTrial() {
   };
 
   const saveCourses = async () => {
+    const idsToSave = visibleSelectedIds;
     try {
       await replaceCourses.mutateAsync(
-        selectedIds.map((courseId, index) => ({
+        idsToSave.map((courseId, index) => ({
           courseId,
           displayOrder: index,
           isActive: true,
         }))
       );
+      setSelectedIds(idsToSave);
       toast.success(t("adminPages.trial.coursesSaved", { defaultValue: isRtl ? "تم حفظ كورسات التجربة" : "Trial courses saved" }));
     } catch (err) {
       toast.error(getErrorMessage(err, t("adminPages.trial.saveFailed", { defaultValue: "Save failed" })));
@@ -296,8 +311,8 @@ export default function SettingsTrial() {
               <p className="text-xs text-slate-500">
                 {t("adminPages.trial.coursesHint", {
                   defaultValue: isRtl
-                    ? `${selectedIds.length} كورس محدد`
-                    : `${selectedIds.length} course(s) selected`,
+                    ? `${visibleSelectedIds.length} كورس محدد`
+                    : `${visibleSelectedIds.length} course(s) selected`,
                 })}
               </p>
             </div>
@@ -324,7 +339,7 @@ export default function SettingsTrial() {
 
           <div className="max-h-[28rem] space-y-2 overflow-y-auto pe-1">
             {filteredCourses.map((course) => {
-              const checked = selectedIds.includes(course.id);
+              const checked = visibleSelectedIds.includes(course.id);
               return (
                 <label
                   key={course.id}

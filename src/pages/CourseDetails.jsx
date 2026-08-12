@@ -54,6 +54,21 @@ function initials(name) {
   return name.slice(0, 2).toUpperCase();
 }
 
+function youtubeVideoId(url) {
+  if (!url) return "";
+  const cleaned = String(url).replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\u061c]/g, "").trim();
+  const match = cleaned.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/
+  );
+  return match?.[1] || "";
+}
+
+function isDirectVideoUrl(url) {
+  if (!url) return false;
+  const u = String(url).trim().toLowerCase();
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(u) || u.startsWith("/uploads/");
+}
+
 function formatPrice(price) {
   const value = Math.round(Number(price) || 0);
   return `${value} USD`;
@@ -75,6 +90,7 @@ export default function CourseDetails() {
 
   const [selectedTierId, setSelectedTierId] = useState("");
   const [enrollingFree, setEnrollingFree] = useState(false);
+  const [playingIntro, setPlayingIntro] = useState(false);
   const queryClient = useQueryClient();
 
   const { data: course, isLoading, isError, refetch } = usePublicCourse(id);
@@ -217,6 +233,18 @@ export default function CourseDetails() {
   const reviewCount = reviewStats.count;
   const purchaseCount = course?._count?.purchases ?? 0;
 
+  const introVideoUrl = course?.introVideoUrl || "";
+  const introYtId = youtubeVideoId(introVideoUrl);
+  const introDirectUrl = isDirectVideoUrl(introVideoUrl) ? resolveMediaUrl(introVideoUrl) : "";
+  const canPlayIntro = Boolean(introYtId || introDirectUrl);
+  const posterUrl =
+    resolveMediaUrl(course?.thumbnail || course?.coverImage) ||
+    (introYtId ? `https://i.ytimg.com/vi/${introYtId}/hqdefault.jpg` : "");
+
+  useEffect(() => {
+    setPlayingIntro(false);
+  }, [course?.id, introVideoUrl]);
+
   const inclusionItems = useMemo(() => {
     const fromDb = isRtl ? course?.includesAr : course?.includesEn;
     if (Array.isArray(fromDb) && fromDb.length) {
@@ -318,23 +346,56 @@ export default function CourseDetails() {
 
             <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 shadow-[var(--shadow-brand)] backdrop-blur-md">
               <div className="relative" style={{ paddingTop: "56.25%" }}>
-                {resolveMediaUrl(course.thumbnail || course.coverImage) ? (
-                  <img
-                    src={resolveMediaUrl(course.thumbnail || course.coverImage)}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover"
+                {playingIntro && introYtId ? (
+                  <iframe
+                    title={displayTitle || "Course intro"}
+                    className="absolute inset-0 h-full w-full"
+                    src={`https://www.youtube.com/embed/${introYtId}?autoplay=1&rel=0&modestbranding=1`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : playingIntro && introDirectUrl ? (
+                  <video
+                    className="absolute inset-0 h-full w-full bg-black object-contain"
+                    src={introDirectUrl}
+                    controls
+                    autoPlay
+                    playsInline
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--yu-blue-900)] to-[var(--yu-blue-600)]" />
+                  <>
+                    {posterUrl ? (
+                      <img
+                        src={posterUrl}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[var(--yu-blue-900)] to-[var(--yu-blue-600)]" />
+                    )}
+                    {canPlayIntro ? (
+                      <button
+                        type="button"
+                        onClick={() => setPlayingIntro(true)}
+                        className="absolute inset-0 flex items-center justify-center bg-black/25 transition hover:bg-black/35"
+                        aria-label={t("courseDetails.card.previewVideo")}
+                      >
+                        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[var(--yu-blue-800)] shadow-lg">
+                          <Play className="h-6 w-6 fill-current" />
+                        </span>
+                      </button>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/15">
+                        <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/80 text-[var(--yu-blue-800)]/70 shadow-lg">
+                          <Play className="h-6 w-6 fill-current" />
+                        </span>
+                      </div>
+                    )}
+                    <span className="pointer-events-none absolute end-3 top-3 rounded-lg bg-black/50 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
+                      {t("courseDetails.card.previewVideo")}
+                    </span>
+                  </>
                 )}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/25">
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[var(--yu-blue-800)] shadow-lg">
-                    <Play className="h-6 w-6 fill-current" />
-                  </span>
-                </div>
-                <span className="absolute end-3 top-3 rounded-lg bg-black/50 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
-                  {t("courseDetails.card.previewVideo")}
-                </span>
               </div>
             </div>
           </div>

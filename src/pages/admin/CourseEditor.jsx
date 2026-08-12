@@ -724,7 +724,8 @@ function DetailEditor({ node, onClose }) {
           body: { 
             title: formData.title, 
             description: formData.description || undefined, 
-            thumbnail: formData.thumbnail.trim() || undefined,
+            thumbnail: formData.thumbnail.trim() || null,
+            coverImage: formData.thumbnail.trim() || null,
             introVideoUrl: formData.introVideoUrl.trim() || null,
             price: price != null && !Number.isNaN(price) ? price : undefined,
             type: formData.type,

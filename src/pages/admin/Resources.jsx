@@ -1,18 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import PageHeader from "../../components/ui/PageHeader";
 import PermissionGate from "../../components/ui/PermissionGate";
 import client from "../../api/client";
-import endpoints from "../../api/endpoints";
 import { getErrorMessage } from "../../api/error";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 import { useAdminCourses } from "../../features/admin/courses/hooks";
+import {
+  deleteAdminLessonResource,
+  fetchAdminLessonResources,
+  uploadAdminLessonResource,
+} from "../../features/admin/resources/api";
+
+const ACCEPT =
+  ".pdf,.doc,.docx,.ppt,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation";
 
 export default function AdminResources() {
   const { i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   const { data: coursesData } = useAdminCourses({ page: 1, limit: 200 });
   const courses = coursesData?.courses || [];
+  const fileRef = useRef(null);
 
   const [courseId, setCourseId] = useState("");
   const [unitId, setUnitId] = useState("");
@@ -21,9 +30,9 @@ export default function AdminResources() {
   const [lessons, setLessons] = useState([]);
   const [items, setItems] = useState([]);
   const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const loadUnits = async (cid) => {
     setCourseId(cid);
@@ -36,7 +45,7 @@ export default function AdminResources() {
       return;
     }
     try {
-      const res = await client.get(`${endpoints.admin.courses}/${cid}/units`);
+      const res = await client.get(`/admin/courses/${cid}/units`);
       setUnits(res?.data?.data || res?.data?.data?.units || []);
     } catch {
       try {
@@ -70,15 +79,10 @@ export default function AdminResources() {
     if (!lid) return;
     setLoading(true);
     try {
-      const res = await client.get(`/admin/lessons/${lid}/resources`);
-      setItems(res?.data?.data || []);
+      setItems(await fetchAdminLessonResources(lid));
     } catch (err) {
-      try {
-        const res = await client.get(endpoints.admin.resources, { params: { lessonId: lid } });
-        setItems(res?.data?.data || []);
-      } catch (e2) {
-        setMessage(getErrorMessage(e2, "Failed to load resources"));
-      }
+      setMessage(getErrorMessage(err, "Failed to load resources"));
+      setItems([]);
     } finally {
       setLoading(false);
     }
@@ -90,38 +94,34 @@ export default function AdminResources() {
     else setItems([]);
   };
 
-  const create = async () => {
+  const onUpload = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
     if (!lessonId) {
       toast.error(isRtl ? "اختر محاضرة أولاً" : "Select a lecture first");
       return;
     }
-    if (!title.trim() || !url.trim()) {
-      toast.error(isRtl ? "العنوان والرابط مطلوبان" : "Title and URL are required");
-      return;
-    }
+    if (!file) return;
+    setUploading(true);
     try {
-      await client.post(`/admin/lessons/${lessonId}/resources`, { title, url, type: "FILE" });
+      await uploadAdminLessonResource(lessonId, file, title);
       setTitle("");
-      setUrl("");
-      toast.success(isRtl ? "تمت الإضافة" : "Resource added");
+      toast.success(isRtl ? "تم رفع الملف" : "File uploaded");
       await load();
     } catch (err) {
-      setMessage(getErrorMessage(err, "Failed to create resource"));
+      setMessage(getErrorMessage(err, isRtl ? "فشل رفع الملف" : "Upload failed"));
+    } finally {
+      setUploading(false);
     }
   };
 
   const remove = async (id) => {
     if (!window.confirm(isRtl ? "حذف هذا المورد؟" : "Delete this resource?")) return;
     try {
-      await client.delete(`/admin/resources/${id}`);
+      await deleteAdminLessonResource(id);
       await load();
     } catch (err) {
-      try {
-        await client.delete(`/admin/lessons/${lessonId}/resources/${id}`);
-        await load();
-      } catch (e2) {
-        toast.error(getErrorMessage(e2, "Failed to delete"));
-      }
+      toast.error(getErrorMessage(err, "Failed to delete"));
     }
   };
 
@@ -133,7 +133,7 @@ export default function AdminResources() {
       <section className="space-y-6">
         <PageHeader
           title={isRtl ? "موارد الدروس" : "Lesson Resources"}
-          subtitle={isRtl ? "إدارة ملفات ومرفقات المحاضرات" : "Manage lecture attachments"}
+          subtitle={isRtl ? "إدارة ملفات ومرفقات المحاضرات (PDF / Word / PowerPoint)" : "Manage lecture attachments (PDF / Word / PowerPoint)"}
         />
 
         <div className="grid gap-2 rounded-xl border bg-white p-4 dark:border-white/10 dark:bg-[#1A1A22] md:grid-cols-3">
@@ -179,48 +179,52 @@ export default function AdminResources() {
 
         {message ? <p className="text-sm text-red-500">{message}</p> : null}
 
-        <div className="grid gap-2 rounded-xl border bg-white p-4 dark:border-white/10 dark:bg-[#1A1A22] md:grid-cols-3">
+        <div className="grid gap-2 rounded-xl border bg-white p-4 dark:border-white/10 dark:bg-[#1A1A22] md:grid-cols-[1fr_auto]">
           <input
             className="h-10 rounded-lg border px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13]"
-            placeholder={isRtl ? "العنوان" : "Title"}
+            placeholder={isRtl ? "عنوان الملف (اختياري)" : "File title (optional)"}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            disabled={!lessonId}
           />
-          <input
-            className="h-10 rounded-lg border px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13]"
-            placeholder="URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-          <button type="button" onClick={create} className="rounded-lg border px-3 text-sm font-semibold dark:border-white/10">
-            {isRtl ? "إضافة مورد" : "Add resource"}
+          <button
+            type="button"
+            disabled={!lessonId || uploading}
+            onClick={() => fileRef.current?.click()}
+            className="h-10 rounded-lg bg-[var(--yu-blue-700)] px-4 text-sm font-semibold text-white disabled:opacity-50"
+          >
+            {uploading ? (isRtl ? "جاري الرفع..." : "Uploading...") : isRtl ? "رفع ملف" : "Upload file"}
           </button>
+          <input ref={fileRef} type="file" accept={ACCEPT} className="hidden" onChange={onUpload} />
         </div>
 
         {loading ? <p className="text-sm text-slate-500">{isRtl ? "جاري التحميل..." : "Loading..."}</p> : null}
 
         <ul className="space-y-2">
-          {items.map((item) => (
-            <li
-              key={item.id}
-              className="flex items-center justify-between gap-3 rounded-lg border bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-[#1A1A22]"
-            >
-              <div className="min-w-0">
-                <p className="font-semibold">{item.title || item.name}</p>
-                <a
-                  className="truncate text-[var(--yu-blue-700)] underline"
-                  href={item.url || item.fileUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {item.url || item.fileUrl}
-                </a>
-              </div>
-              <button type="button" onClick={() => remove(item.id)} className="text-xs font-semibold text-red-600 hover:underline">
-                {isRtl ? "حذف" : "Delete"}
-              </button>
-            </li>
-          ))}
+          {items.map((item) => {
+            const href = resolveMediaUrl(item.fileUrl || item.externalUrl);
+            return (
+              <li
+                key={item.id}
+                className="flex items-center justify-between gap-3 rounded-lg border bg-white px-4 py-3 text-sm dark:border-white/10 dark:bg-[#1A1A22]"
+              >
+                <div className="min-w-0">
+                  <p className="font-semibold">{item.title || item.name}</p>
+                  <a
+                    className="truncate text-[var(--yu-blue-700)] underline"
+                    href={href || "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {item.fileType || item.resourceType || href}
+                  </a>
+                </div>
+                <button type="button" onClick={() => remove(item.id)} className="text-xs font-semibold text-red-600 hover:underline">
+                  {isRtl ? "حذف" : "Delete"}
+                </button>
+              </li>
+            );
+          })}
           {!loading && lessonId && !items.length ? (
             <li className="rounded-lg border border-dashed px-4 py-8 text-center text-sm text-slate-500 dark:border-white/10">
               {isRtl ? "لا توجد موارد لهذه المحاضرة" : "No resources for this lecture"}

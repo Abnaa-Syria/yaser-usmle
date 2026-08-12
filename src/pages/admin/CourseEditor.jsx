@@ -31,6 +31,7 @@ import toast from "react-hot-toast";
 import ImageField from "../../components/ui/ImageField";
 import { ExamQuestionBankDrawer } from "../../components/exams/ExamQuestionBank";
 import VdoCipherVideoPicker from "../../components/admin/VdoCipherVideoPicker";
+import LessonResourcesPanel from "../../components/admin/LessonResourcesPanel";
 
 /* â”€â”€â”€ Exam Editor Drawer â”€â”€â”€ */
 function ExamEditorDrawer({ examId, onClose }) {
@@ -1235,6 +1236,7 @@ function DetailEditor({ node, onClose }) {
                   />
                 </div>
               </label>
+              <LessonResourcesPanel lessonId={node.id} />
             </>
           )}
         </div>

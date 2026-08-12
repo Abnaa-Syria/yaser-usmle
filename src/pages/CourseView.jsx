@@ -38,6 +38,7 @@ import { useClaimCertificate, useDownloadStudentCertificate, useMyCertificates }
 import { getErrorMessage } from "../api/error";
 import { downloadBlob } from "../utils/certificate";
 import { sanitizeRichHtml } from "../utils/htmlContent";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 import toast from "react-hot-toast";
 
 function ProgressRing({ value, size = 56, stroke = 5 }) {
@@ -794,7 +795,7 @@ export default function CourseView() {
                           <span className="truncate text-sm font-bold text-slate-800 dark:text-slate-100">{r.title}</span>
                         </div>
                         <a
-                          href={r.fileUrl || r.externalUrl}
+                          href={resolveMediaUrl(r.fileUrl || r.externalUrl) || "#"}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-bold text-[var(--yu-blue-700)] transition hover:bg-[var(--yu-blue-50)] dark:border-white/10"

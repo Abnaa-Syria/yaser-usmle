@@ -3419,7 +3419,7 @@
       "pickFirst": "اختر دفعة للمتابعة."
     },
     "instructor": {
-      "title": "المدرب",
+      "title": "الدكتور",
       "noBio": "السيرة الذاتية قريبًا.",
       "viewProfile": "عرض الملف",
       "bookSession": "طلب جلسة فردية"
@@ -3442,10 +3442,10 @@
       "enrollWithPrice": "تسجيل مع السعر"
     },
     "inclusions": {
-      "liveSession": "جلسات مباشرة مع مدرب معتمد",
+      "liveSession": "جلسات مباشرة مع الدكتور",
       "videoHours": "50+ ساعة فيديو عند الطلب",
       "downloadable": "أوراق عمل وملفات PDF قابلة للتنزيل",
-      "instructorSupport": "دعم المحاضر وملاحظات على تقدمك",
+      "instructorSupport": "دعم الدكتور وملاحظات على تقدمك",
       "fullLifetime": "وصول كامل مدى الحياة",
       "guarantee": "ضمان استرداد المال خلال 30 يوماً"
     }

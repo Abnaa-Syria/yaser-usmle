@@ -38,6 +38,8 @@ const endpoints = {
     categories: "/admin/categories",
     resources: "/admin/resources",
     reviews: "/admin/reviews",
+    instructorReviews: "/admin/instructor-reviews",
+    instructorReview: (id) => `/admin/instructor-reviews/${id}`,
     vdocipherStatus: "/admin/vdocipher/status",
     vdocipherVideos: "/admin/vdocipher/videos",
     courseStaff: (courseId) => `/admin/courses/${courseId}/staff`,

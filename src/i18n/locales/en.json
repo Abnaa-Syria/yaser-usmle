@@ -3420,7 +3420,7 @@
       "pickFirst": "Select a cohort to continue."
     },
     "instructor": {
-      "title": "Your Instructor",
+      "title": "The Doctor",
       "noBio": "Bio coming soon.",
       "viewProfile": "View profile",
       "bookSession": "Request a private session"
@@ -3446,7 +3446,7 @@
       "liveSession": "Live sessions with a certified teacher",
       "videoHours": "50+ hours of on-demand video",
       "downloadable": "Downloadable worksheets & PDFs",
-      "instructorSupport": "Instructor feedback and support",
+      "instructorSupport": "Doctor feedback and support",
       "fullLifetime": "Full lifetime access",
       "guarantee": "30-day money-back guarantee"
     }

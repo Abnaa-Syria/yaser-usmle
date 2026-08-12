@@ -676,9 +676,18 @@ function DetailEditor({ node, onClose }) {
     categoryId: "",
     instructorId: "",
     pricingTiers: [],
+    includesEn: "",
+    includesAr: "",
   });
   const [isPending, setIsPending] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  const includesToText = (value) => (Array.isArray(value) ? value.join("\n") : "");
+  const textToIncludes = (text) =>
+    String(text || "")
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter(Boolean);
 
   useEffect(() => {
     if (node?.data) {
@@ -696,6 +705,8 @@ function DetailEditor({ node, onClose }) {
         categoryId: node.data.categoryId || node.data.category?.id || "",
         instructorId: node.data.instructorId || node.data.instructor?.id || "",
         pricingTiers: node.data.pricingTiers || [],
+        includesEn: includesToText(node.data.includesEn),
+        includesAr: includesToText(node.data.includesAr),
       });
     }
     setSaved(false);
@@ -723,6 +734,8 @@ function DetailEditor({ node, onClose }) {
               ? { instructorId: formData.instructorId === "" ? null : (formData.instructorId || undefined) }
               : {}),
             pricingTiers: formData.pricingTiers,
+            includesEn: textToIncludes(formData.includesEn),
+            includesAr: textToIncludes(formData.includesAr),
           } 
         });
       } else if (node.type === "unit") {
@@ -827,6 +840,34 @@ function DetailEditor({ node, onClose }) {
                 value={formData.thumbnail}
                 onChange={(url) => setFormData({ ...formData, thumbnail: url })}
               />
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="block space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    {t("adminPages.addCourse.includesEn", { defaultValue: "Course includes (English)" })}
+                  </span>
+                  <textarea
+                    value={formData.includesEn}
+                    onChange={(e) => setFormData({ ...formData, includesEn: e.target.value })}
+                    rows={5}
+                    placeholder="One item per line"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                  />
+                </label>
+                <label className="block space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    {t("adminPages.addCourse.includesAr", { defaultValue: "مضمون الكورس (عربي)" })}
+                  </span>
+                  <textarea
+                    value={formData.includesAr}
+                    onChange={(e) => setFormData({ ...formData, includesAr: e.target.value })}
+                    rows={5}
+                    dir="rtl"
+                    placeholder="بند في كل سطر"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)] focus:ring-1 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                  />
+                </label>
+              </div>
 
               <label className="block space-y-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">

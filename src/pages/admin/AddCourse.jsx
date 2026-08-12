@@ -35,12 +35,19 @@ function AddCourse() {
     price: "",
     isLifetimePurchasable: true,
     isActive: false,
+    includesEn: "",
+    includesAr: "",
   });
   const [pricingTiers, setPricingTiers] = useState([]);
   const isRtl = i18n.language?.startsWith("ar");
 
   const [submitError, setSubmitError] = useState("");
   const set = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+  const linesToArray = (text) =>
+    String(text || "")
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter(Boolean);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +63,9 @@ function AddCourse() {
         throw new Error(t("adminPages.addCourse.priceInvalid", { defaultValue: "Enter a valid price." }));
       }
 
+      const includesEn = linesToArray(form.includesEn);
+      const includesAr = linesToArray(form.includesAr);
+
       const course = await createCourseMutation.mutateAsync({
         title: form.title.trim(),
         description: form.description.trim() || undefined,
@@ -68,6 +78,8 @@ function AddCourse() {
         isLifetimePurchasable: form.isLifetimePurchasable,
         isActive: form.isActive,
         pricingTiers,
+        ...(includesEn.length ? { includesEn } : {}),
+        ...(includesAr.length ? { includesAr } : {}),
       });
       if (!course?.id) throw new Error(t("adminPages.addCourse.missingId"));
       navigate(`/admin/courses/${course.id}/edit`);
@@ -128,6 +140,41 @@ function AddCourse() {
               className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)]/50 focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
             />
           </label>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="block space-y-1.5">
+              <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                {t("adminPages.addCourse.includesEn", { defaultValue: "Course includes (English)" })}
+              </span>
+              <textarea
+                value={form.includesEn}
+                onChange={(e) => set("includesEn", e.target.value)}
+                placeholder={t("adminPages.addCourse.includesPlaceholder", {
+                  defaultValue: "One item per line\n50+ hours on-demand video\nDownloadable PDFs",
+                })}
+                rows={5}
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)]/50 focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+              />
+            </label>
+            <label className="block space-y-1.5">
+              <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                {t("adminPages.addCourse.includesAr", { defaultValue: "مضمون الكورس (عربي)" })}
+              </span>
+              <textarea
+                value={form.includesAr}
+                onChange={(e) => set("includesAr", e.target.value)}
+                placeholder={"بند في كل سطر\n+50 ساعة فيديو عند الطلب\nملفات PDF قابلة للتنزيل"}
+                rows={5}
+                dir="rtl"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-[var(--yu-blue-700)]/50 focus:ring-2 focus:ring-[var(--yu-blue-700)]/20 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+              />
+            </label>
+          </div>
+          <p className="text-xs text-slate-500">
+            {t("adminPages.addCourse.includesHint", {
+              defaultValue: "These bullets appear on the public course page under “This course includes”.",
+            })}
+          </p>
 
           <div className="grid gap-5 sm:grid-cols-2">
             {multiInstructor ? (

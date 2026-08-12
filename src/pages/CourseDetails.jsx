@@ -133,10 +133,25 @@ export default function CourseDetails() {
 
   const selectedTier = useMemo(() => pricingTiers.find((tier) => tier.id === selectedTierId), [pricingTiers, selectedTierId]);
 
+  const hasPricingTiers = pricingTiers.length > 0;
+
+  // Base course.price is always sellable when there are no tiers.
+  // With tiers, base price only applies if lifetime purchase is enabled.
   const displayPrice = useMemo(() => {
     if (selectedTier) return Number(selectedTier.price);
-    return course?.isLifetimePurchasable ? Number(course.price) : null;
-  }, [course, selectedTier]);
+    if (!course) return null;
+    const base = Number(course.price);
+    if (!Number.isFinite(base)) return null;
+    if (!hasPricingTiers) return base;
+    if (course.isLifetimePurchasable) return base;
+    return null;
+  }, [course, selectedTier, hasPricingTiers]);
+
+  const canBuyWithBasePrice = Boolean(
+    course && !hasPricingTiers
+      ? Number.isFinite(Number(course.price))
+      : course?.isLifetimePurchasable && Number.isFinite(Number(course.price))
+  );
 
   useSeo({
     title: seoTitle,
@@ -461,7 +476,7 @@ export default function CourseDetails() {
                     <BookOpen className="h-4 w-4" />
                     {enrollingFree ? t("dashboard.common.loading") : isRtl ? "سجل مجاناً الآن" : "Enroll Instantly for Free"}
                   </button>
-                ) : course.isLifetimePurchasable || selectedTierId ? (
+                ) : canBuyWithBasePrice || selectedTierId ? (
                   <Link
                     to={checkoutHref}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--yu-blue-700)] py-3.5 text-sm font-bold text-white transition hover:bg-[var(--yu-blue-600)]"

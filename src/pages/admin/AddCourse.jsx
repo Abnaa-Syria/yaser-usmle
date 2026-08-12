@@ -75,7 +75,7 @@ function AddCourse() {
         categoryId: form.categoryId || undefined,
         type: form.type,
         price,
-        isLifetimePurchasable: form.isLifetimePurchasable,
+        isLifetimePurchasable: pricingTiers.length === 0 ? true : form.isLifetimePurchasable,
         isActive: form.isActive,
         pricingTiers,
         ...(includesEn.length ? { includesEn } : {}),
@@ -246,14 +246,26 @@ function AddCourse() {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
-            <label className="flex items-center gap-2 pt-2 text-sm text-slate-700 dark:text-slate-300">
+            <label className="flex items-start gap-2 pt-2 text-sm text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
-                checked={form.isLifetimePurchasable}
+                className="mt-1 rounded"
+                checked={form.isLifetimePurchasable || pricingTiers.length === 0}
+                disabled={pricingTiers.length === 0}
                 onChange={(e) => set("isLifetimePurchasable", e.target.checked)}
-                className="rounded"
               />
-              {t("adminPages.addCourse.lifetimePurchasable", { defaultValue: "Allow lifetime purchase" })}
+              <span>
+                {t("adminPages.addCourse.lifetimePurchasable", { defaultValue: "Allow lifetime purchase" })}
+                <span className="mt-0.5 block text-[11px] font-normal text-slate-400">
+                  {pricingTiers.length === 0
+                    ? isRtl
+                      ? "عند عدم وجود خيارات اشتراك، يُعرض سعر الكورس العادي تلقائياً كشراء مدى الحياة."
+                      : "With no subscription tiers, the base course price is shown automatically as a lifetime purchase."
+                    : isRtl
+                      ? "فعّل هذا الخيار لعرض سعر الكورس العادي بجانب خيارات الاشتراك."
+                      : "Enable this to show the base course price alongside subscription tiers."}
+                </span>
+              </span>
             </label>
           </div>
 
@@ -394,8 +406,8 @@ function AddCourse() {
               {pricingTiers.length === 0 && (
                 <p className="text-[11px] italic text-slate-400 text-center py-2">
                   {isRtl
-                    ? "لا يوجد خيارات تسعير إضافية محددة. سيتم اعتماد خيار الشراء مدى الحياة فقط كخيار افتراضي."
-                    : "No additional pricing tiers defined. Lifetime purchase will be the default option."}
+                    ? "اختياري — يمكنك ترك هذا فارغاً والاعتماد على حقل السعر فقط؛ سيظهر السعر في صفحة الكورس كشراء عادي."
+                    : "Optional — leave empty and use the Price field only; it will show on the course page as a normal purchase."}
                 </p>
               )}
             </div>

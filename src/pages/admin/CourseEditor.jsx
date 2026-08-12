@@ -727,7 +727,8 @@ function DetailEditor({ node, onClose }) {
             introVideoUrl: formData.introVideoUrl.trim() || null,
             price: price != null && !Number.isNaN(price) ? price : undefined,
             type: formData.type,
-            isLifetimePurchasable: formData.isLifetimePurchasable,
+            isLifetimePurchasable:
+              (formData.pricingTiers || []).length === 0 ? true : formData.isLifetimePurchasable,
             isActive: formData.isActive,
             categoryId: formData.categoryId === "" ? null : (formData.categoryId || undefined),
             ...(multiInstructor
@@ -909,14 +910,23 @@ function DetailEditor({ node, onClose }) {
                 </label>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="flex items-center gap-2 pt-6 text-sm text-slate-700 dark:text-slate-200">
+              <div className="grid gap-2 sm:grid-cols-2">
+                <label className="flex items-start gap-2 pt-2 text-sm text-slate-700 dark:text-slate-200">
                   <input
                     type="checkbox"
-                    checked={formData.isLifetimePurchasable}
+                    className="mt-1"
+                    checked={formData.isLifetimePurchasable || (formData.pricingTiers || []).length === 0}
+                    disabled={(formData.pricingTiers || []).length === 0}
                     onChange={(e) => setFormData({ ...formData, isLifetimePurchasable: e.target.checked })}
                   />
-                  {t("adminPages.addCourse.lifetimePurchasable", { defaultValue: "Allow lifetime purchase" })}
+                  <span>
+                    {t("adminPages.addCourse.lifetimePurchasable", { defaultValue: "Allow lifetime purchase" })}
+                    <span className="mt-0.5 block text-[11px] font-normal text-slate-400">
+                      {(formData.pricingTiers || []).length === 0
+                        ? "عند عدم وجود خيارات اشتراك، يُعرض سعر الكورس العادي تلقائياً كشراء مدى الحياة."
+                        : "فعّل هذا الخيار لعرض سعر الكورس العادي بجانب خيارات الاشتراك."}
+                    </span>
+                  </span>
                 </label>
               </div>
 
@@ -1056,7 +1066,7 @@ function DetailEditor({ node, onClose }) {
                   ))}
                   {(formData.pricingTiers || []).length === 0 && (
                     <p className="text-xs italic text-slate-400 text-center py-2">
-                      لا يوجد خيارات تسعير إضافية محددة. سيتم اعتماد خيار الشراء مدى الحياة فقط كخيار افتراضي.
+                      اختياري — يمكنك ترك هذا فارغاً والاعتماد على حقل السعر فقط؛ سيظهر السعر في صفحة الكورس كشراء عادي.
                     </p>
                   )}
                 </div>

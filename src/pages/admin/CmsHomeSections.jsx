@@ -80,6 +80,7 @@ function emptyTestimonial() {
     textEn: "",
     textAr: "",
     imageUrl: "",
+    screenshotUrl: "",
     rating: 5,
   };
 }
@@ -130,6 +131,7 @@ function contentToForm(key, content) {
           textEn: loc(item.text).en,
           textAr: loc(item.text).ar,
           imageUrl: item.imageUrl || "",
+          screenshotUrl: item.screenshotUrl || "",
           rating: Number(item.rating) || 5,
         }))
       : [];
@@ -209,6 +211,7 @@ function formToContent(key, form) {
         role: L(item.roleEn, item.roleAr),
         text: L(item.textEn, item.textAr),
         imageUrl: item.imageUrl || "",
+        screenshotUrl: item.screenshotUrl || "",
         rating: Number(item.rating) || 5,
       })),
     };
@@ -547,11 +550,37 @@ export default function CmsHomeSections() {
                         </div>
                       </>
                     )}
-                    <ImageField
-                      label="Image"
-                      value={item.imageUrl || ""}
-                      onChange={(url) => setItem(item.id, { imageUrl: url })}
-                    />
+                    {tab === "TESTIMONIALS" ? (
+                      <>
+                        <ImageField
+                          label="Review screenshot (shown on card — click opens full review)"
+                          value={item.screenshotUrl || ""}
+                          onChange={(url) => setItem(item.id, { screenshotUrl: url })}
+                        />
+                        <ImageField
+                          label="Avatar (optional)"
+                          value={item.imageUrl || ""}
+                          onChange={(url) => setItem(item.id, { imageUrl: url })}
+                        />
+                        <div>
+                          <label className={labelCls}>Rating (1–5)</label>
+                          <input
+                            type="number"
+                            min={1}
+                            max={5}
+                            className={field}
+                            value={item.rating ?? 5}
+                            onChange={(e) => setItem(item.id, { rating: Number(e.target.value) || 5 })}
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <ImageField
+                        label="Image"
+                        value={item.imageUrl || ""}
+                        onChange={(url) => setItem(item.id, { imageUrl: url })}
+                      />
+                    )}
                     {tab === "FEATURES" ? (
                       <div>
                         <label className={labelCls}>Video URL (mp4 / webm / YouTube — optional)</label>

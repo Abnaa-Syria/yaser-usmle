@@ -1,4 +1,4 @@
-import client from "../../api/client";
+import client from "../../../api/client";
 
 export async function fetchAdminLessonResources(lessonId) {
   const response = await client.get(`/admin/lessons/${lessonId}/resources`);

@@ -11,6 +11,7 @@ import {
   fetchFaqs,
   fetchPosts,
   fetchSections,
+  importDefaultFaqs,
   updateAboutUs,
   updateHero,
   updateBanner,
@@ -171,6 +172,14 @@ export function useDeleteFaqItem() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteFaqItem,
+    onSuccess: () => invalidateCms(queryClient),
+  });
+}
+
+export function useImportDefaultFaqs() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: importDefaultFaqs,
     onSuccess: () => invalidateCms(queryClient),
   });
 }

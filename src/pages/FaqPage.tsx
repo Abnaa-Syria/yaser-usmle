@@ -10,8 +10,12 @@ import { useSeo } from "../utils/seo";
 type FaqItem = { id?: string; question?: unknown; answer?: unknown };
 
 function normalizeFaqContent(raw: unknown, lang: string): { id: string; question: string; answer: string }[] {
-  if (!Array.isArray(raw)) return [];
-  return raw
+  const list = Array.isArray(raw)
+    ? raw
+    : raw && typeof raw === "object" && Array.isArray((raw as { items?: unknown }).items)
+      ? (raw as { items: unknown[] }).items
+      : [];
+  return list
     .map((item) => {
       if (!item || typeof item !== "object") return null;
       const o = item as Record<string, unknown>;
@@ -52,8 +56,9 @@ export default function FaqPage() {
     const sections = data?.sections ?? [];
     const faq = sections.find((s) => s.key === "FAQ");
     const parsed = normalizeFaqContent(faq?.content, lang);
-    const questions = new Set(parsed.map((item) => item.question));
-    return [...parsed, ...fallbackItems.filter((item) => !questions.has(item.question))].slice(0, 10);
+    // CMS is the only editable source — never append hardcoded translation fallbacks on top.
+    if (parsed.length > 0) return parsed.slice(0, 20);
+    return fallbackItems;
   }, [data?.sections, fallbackItems, lang]);
 
   const filteredItems = useMemo(() => {

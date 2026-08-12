@@ -6,8 +6,8 @@ export async function fetchFaqs() {
   return response?.data?.data || [];
 }
 
-export async function addFaqItem(body) {
-  const response = await client.post(`${endpoints.admin.cms}/faq`, body);
+export async function importDefaultFaqs() {
+  const response = await client.post(`${endpoints.admin.cms}/faq/import-defaults`);
   return response?.data?.data;
 }
 

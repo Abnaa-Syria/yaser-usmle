@@ -7,8 +7,12 @@ import { ChevronDown, ArrowRight, ArrowLeft, HelpCircle, MessageCircle, Sparkles
 import { pickLocalized } from "../utils/cmsLocale";
 
 function normalizeFaqContent(raw, lang) {
-  if (!Array.isArray(raw)) return [];
-  return raw
+  const list = Array.isArray(raw)
+    ? raw
+    : raw && typeof raw === "object" && Array.isArray(raw.items)
+      ? raw.items
+      : [];
+  return list
     .map((item) => {
       if (!item || typeof item !== "object") return null;
       const question = pickLocalized(item.question, lang);
@@ -55,9 +59,9 @@ export default function FaqSection({ rawContent }) {
 
   const faqItems = useMemo(() => {
     const parsed = normalizeFaqContent(rawContent, i18n.language);
-    if (parsed.length >= 3) return parsed;
-    const parsedQuestions = new Set(parsed.map((item) => item.question));
-    return [...parsed, ...fallbackItems.filter((item) => !parsedQuestions.has(item.question))].slice(0, 4);
+    // CMS entries are the source of truth — do not mix in hardcoded i18n fallbacks.
+    if (parsed.length > 0) return parsed.slice(0, 8);
+    return fallbackItems.slice(0, 4);
   }, [rawContent, fallbackItems, i18n.language]);
 
   const schemaMarkup = useMemo(

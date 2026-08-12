@@ -23,6 +23,7 @@ import {
   useAdminFaqs,
   useAdminSections,
   useDeleteFaqItem,
+  useImportDefaultFaqs,
   useUpdateAboutUs,
   useUpdateFaqItem,
   useUpdateHero,
@@ -111,6 +112,7 @@ function Cms() {
   const addFaqMutation = useAddFaqItem();
   const updateFaqMutation = useUpdateFaqItem();
   const deleteFaqMutation = useDeleteFaqItem();
+  const importDefaultsMutation = useImportDefaultFaqs();
 
   useEffect(() => {
     const c = heroSection?.content;
@@ -452,13 +454,33 @@ function Cms() {
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t("dashboard.admin.pages.cms.faqTitle")}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   {t("dashboard.admin.pages.cms.faqHint", {
-                    defaultValue: "Questions appear on /faq. Save each entry after editing.",
+                    defaultValue: "Questions appear on /faq and the homepage. Only items saved here are shown publicly.",
                   })}
                 </p>
               </div>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600 dark:bg-white/10 dark:text-slate-300">
-                {faqCount} {t("dashboard.admin.pages.cms.faqCount", { defaultValue: "entries" })}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  disabled={importDefaultsMutation.isPending}
+                  onClick={() =>
+                    run(
+                      () => importDefaultsMutation.mutateAsync(),
+                      t("dashboard.admin.pages.cms.faqImported", {
+                        defaultValue: "Default questions imported (duplicates skipped)",
+                      })
+                    )
+                  }
+                  className="inline-flex h-9 items-center gap-2 rounded-xl border border-slate-200 px-3 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5"
+                >
+                  {importDefaultsMutation.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}
+                  {t("dashboard.admin.pages.cms.importDefaultFaqs", {
+                    defaultValue: "استيراد الأسئلة الافتراضية",
+                  })}
+                </button>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600 dark:bg-white/10 dark:text-slate-300">
+                  {faqCount} {t("dashboard.admin.pages.cms.faqCount", { defaultValue: "entries" })}
+                </span>
+              </div>
             </div>
 
             <LangToggle />

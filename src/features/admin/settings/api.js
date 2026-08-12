@@ -15,7 +15,9 @@ export async function updateAdminSettings(body) {
 export async function uploadAdminLogo(file) {
   const formData = new FormData();
   formData.append("logo", file);
-  const response = await client.post(`${endpoints.admin.settings}/logo`, formData);
+  const response = await client.post(`${endpoints.admin.settings}/logo`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response?.data?.data || null;
 }
 

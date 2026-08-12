@@ -6,7 +6,7 @@ import { Award, Download, Loader2, ShieldCheck } from "lucide-react";
 import client from "../api/client";
 import endpoints from "../api/endpoints";
 import { getErrorMessage } from "../api/error";
-import { getStaticCertificateUrl, openCertificateDownloadUrl } from "../utils/certificate";
+import { openCertificateDownloadUrl } from "../utils/certificate";
 
 async function fetchVerifiedCertificate(serial) {
   const res = await client.get(endpoints.public.verifyCertificate(serial), { skip403Redirect: true });
@@ -25,7 +25,7 @@ export default function VerifyCertificate() {
     retry: false,
   });
 
-  const staticPdfUrl = getStaticCertificateUrl(data?.links?.pdfUrl);
+  const downloadPath = data?.links?.publicDownloadPath;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">
@@ -81,20 +81,10 @@ export default function VerifyCertificate() {
               </div>
             </dl>
             <div className="flex flex-wrap gap-3 pt-2">
-              {staticPdfUrl ? (
-                <a
-                  href={staticPdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-yu-blue-700 px-4 py-2 text-sm font-bold text-white hover:bg-yu-blue-600"
-                >
-                  <Download className="h-4 w-4" />
-                  {t("verifyCertificate.download", { defaultValue: "Download PDF" })}
-                </a>
-              ) : data.links?.publicDownloadPath ? (
+              {downloadPath ? (
                 <button
                   type="button"
-                  onClick={() => openCertificateDownloadUrl(data.links.publicDownloadPath)}
+                  onClick={() => openCertificateDownloadUrl(downloadPath)}
                   className="inline-flex items-center gap-2 rounded-xl bg-yu-blue-700 px-4 py-2 text-sm font-bold text-white hover:bg-yu-blue-600"
                 >
                   <Download className="h-4 w-4" />

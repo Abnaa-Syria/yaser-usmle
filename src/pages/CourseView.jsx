@@ -17,7 +17,7 @@ import LessonVideoPlayer, { lessonHasPlayableVideo } from "../components/student
 import { useStudentExams } from "../features/student/exams/hooks";
 import { useClaimCertificate, useDownloadStudentCertificate, useMyCertificates } from "../features/student/certificates/hooks";
 import { getErrorMessage } from "../api/error";
-import { downloadBlob, getStaticCertificateUrl } from "../utils/certificate";
+import { downloadBlob } from "../utils/certificate";
 import { sanitizeRichHtml } from "../utils/htmlContent";
 import toast from "react-hot-toast";
 
@@ -223,11 +223,6 @@ export default function CourseView() {
     setCertClaimErr("");
     setDownloadingCert(true);
     try {
-      const staticUrl = getStaticCertificateUrl(existingCert.links?.pdfUrl || existingCert.pdfUrl);
-      if (staticUrl) {
-        window.open(staticUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
       const blob = await downloadCertificate.mutateAsync(existingCert.id);
       downloadBlob(blob, `certificate-${existingCert.serialNumber}.pdf`);
     } catch (e) {

@@ -24,7 +24,8 @@ function Home() {
   const seoSection = findLandingSection(sections, "SEO");
 
   const showHero = sections.length === 0 || !heroSection || heroSection.isVisible !== false;
-  const isVisible = (section) => !section || section.isVisible !== false;
+  /** Missing section → show defaults. Explicitly hidden → hide entirely (do not fall back). */
+  const showSection = (section) => !section || section.isVisible !== false;
 
   const seoTitle =
     pickLocalized(seoSection?.content?.title, i18n.language) || "USMLE Step 1 Preparation";
@@ -43,13 +44,13 @@ function Home() {
   return (
     <div className="overflow-hidden">
       {showHero ? <Hero cmsContent={heroSection?.content} stats={data?.stats} /> : null}
-      {isVisible(featuresSection) ? <Features cmsContent={featuresSection?.content} /> : null}
+      {showSection(featuresSection) ? <Features cmsContent={featuresSection?.content} /> : null}
       <RecommendedCourses />
-      {isVisible(howSection) ? <HowItWorks cmsContent={howSection?.content} /> : null}
+      {showSection(howSection) ? <HowItWorks cmsContent={howSection?.content} /> : null}
       <HomeNewsBoard />
-      {isVisible(testimonialsSection) ? <Testimonials cmsContent={testimonialsSection?.content} /> : null}
-      {isVisible(faqSection) ? <FaqSection rawContent={faqSection?.content} /> : null}
-      {isVisible(ctaSection) ? <CTA cmsContent={ctaSection?.content} /> : null}
+      {showSection(testimonialsSection) ? <Testimonials cmsContent={testimonialsSection?.content} /> : null}
+      {showSection(faqSection) ? <FaqSection rawContent={faqSection?.content} /> : null}
+      {showSection(ctaSection) ? <CTA cmsContent={ctaSection?.content} /> : null}
     </div>
   );
 }

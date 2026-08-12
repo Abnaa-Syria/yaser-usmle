@@ -15,6 +15,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { useRecommendedCourses } from "../features/public/hooks";
+import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 
 function formatLearnerCount(n) {
   const count = Number(n) || 0;
@@ -50,6 +51,28 @@ const COVER_STYLES = [
 
 function CourseCover({ course, index, typeLabel }) {
   const CoverIcon = index % 2 === 0 ? HeartPulse : Brain;
+  const [broken, setBroken] = useState(false);
+  const thumb = !broken ? resolveMediaUrl(course.thumbnail || course.coverImage || "") : "";
+
+  if (thumb) {
+    return (
+      <div className="relative h-full overflow-hidden bg-slate-200">
+        <img
+          src={thumb}
+          alt=""
+          className="h-full w-full object-cover"
+          loading="lazy"
+          onError={() => setBroken(true)}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06152f]/75 via-transparent to-[#06152f]/20" />
+        <span className="absolute start-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3 py-1.5 text-[10px] font-extrabold text-white backdrop-blur-md">
+          <GraduationCap className="h-3.5 w-3.5" aria-hidden />
+          {typeLabel}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className={`relative h-full overflow-hidden bg-gradient-to-br ${COVER_STYLES[index % COVER_STYLES.length]}`}>
       <div className="absolute -end-14 -top-16 h-52 w-52 rounded-full border-[32px] border-white/[0.06]" aria-hidden />

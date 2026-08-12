@@ -9,7 +9,7 @@ import { useAdminUsers } from "../../features/admin/users/hooks";
 import { useAdminCourses } from "../../features/admin/courses/hooks";
 import { useAdminExams } from "../../features/admin/exams/hooks";
 import { getErrorMessage } from "../../api/error";
-import { downloadBlob, getStaticCertificateUrl, openCertificateDownloadUrl } from "../../utils/certificate";
+import { downloadBlob, openCertificateDownloadUrl } from "../../utils/certificate";
 
 function Certificates() {
   const { t, i18n } = useTranslation();
@@ -37,11 +37,6 @@ function Certificates() {
   const handleDownload = async (cert) => {
     setDownloadingId(cert.id);
     try {
-      const staticUrl = getStaticCertificateUrl(cert.links?.pdfUrl || cert.pdfUrl);
-      if (staticUrl) {
-        window.open(staticUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
       const blob = await downloadMutation.mutateAsync(cert.id);
       downloadBlob(blob, `certificate-${cert.serialNumber}.pdf`);
     } catch (err) {

@@ -66,6 +66,7 @@ function emptyItem() {
     descriptionAr: "",
     to: "",
     imageUrl: "",
+    videoUrl: "",
   };
 }
 
@@ -142,6 +143,7 @@ function contentToForm(key, content) {
       descriptionAr: loc(item.description || item.body).ar,
       to: item.to || item.href || "",
       imageUrl: item.imageUrl || "",
+      videoUrl: item.videoUrl || "",
       number: item.number || "",
       tone: item.tone || "",
       icon: item.icon || "",
@@ -242,6 +244,7 @@ function formToContent(key, form) {
         description: L(item.descriptionEn, item.descriptionAr),
         to: item.to || "",
         imageUrl: item.imageUrl || "",
+        videoUrl: item.videoUrl || "",
         number: item.number || "",
         tone: item.tone || "",
         icon: item.icon || "",
@@ -261,6 +264,7 @@ function formToContent(key, form) {
       body: L(item.descriptionEn, item.descriptionAr),
       icon: item.icon || "",
       imageUrl: item.imageUrl || "",
+      videoUrl: item.videoUrl || "",
     })),
   };
 }
@@ -276,10 +280,12 @@ export default function CmsHomeSections() {
   const upsert = useUpsertSectionByKey();
   const current = useMemo(() => sections.find((s) => s.key === tab), [sections, tab]);
 
+  // Reset form only when the saved section identity/version changes — not on every
+  // React Query object identity churn (that was wiping unsaved image/video uploads).
   useEffect(() => {
     setForm(contentToForm(tab, current?.content));
     setIsVisible(current?.isVisible !== false);
-  }, [tab, current?.id, current?.updatedAt, current?.isVisible, current?.content]);
+  }, [tab, current?.id, current?.updatedAt]);
 
   const meta = SECTION_TABS.find((s) => s.id === tab);
 
@@ -536,8 +542,8 @@ export default function CmsHomeSections() {
                         <LPair labelEn="Title EN" labelAr="Title AR" en={item.titleEn} ar={item.titleAr} onEn={(v) => setItem(item.id, { titleEn: v })} onAr={(v) => setItem(item.id, { titleAr: v })} />
                         <LPair labelEn="Body EN" labelAr="Body AR" en={item.descriptionEn} ar={item.descriptionAr} onEn={(v) => setItem(item.id, { descriptionEn: v })} onAr={(v) => setItem(item.id, { descriptionAr: v })} multiline />
                         <div>
-                          <label className={labelCls}>Link</label>
-                          <input className={field} value={item.to || ""} onChange={(e) => setItem(item.id, { to: e.target.value })} dir="ltr" />
+                          <label className={labelCls}>Link (optional — leave empty for no navigation)</label>
+                          <input className={field} value={item.to || ""} onChange={(e) => setItem(item.id, { to: e.target.value })} dir="ltr" placeholder="/explore" />
                         </div>
                       </>
                     )}
@@ -546,6 +552,21 @@ export default function CmsHomeSections() {
                       value={item.imageUrl || ""}
                       onChange={(url) => setItem(item.id, { imageUrl: url })}
                     />
+                    {tab === "FEATURES" ? (
+                      <div>
+                        <label className={labelCls}>Video URL (mp4 / webm / YouTube — optional)</label>
+                        <input
+                          className={field}
+                          value={item.videoUrl || ""}
+                          onChange={(e) => setItem(item.id, { videoUrl: e.target.value })}
+                          dir="ltr"
+                          placeholder="https://youtube.com/watch?v=… or https://…/clip.mp4"
+                        />
+                        <p className="mt-1.5 text-[11px] text-slate-400">
+                          YouTube or direct mp4/webm. Image is used as poster/fallback when present.
+                        </p>
+                      </div>
+                    ) : null}
                   </div>
                 ))}
               </div>

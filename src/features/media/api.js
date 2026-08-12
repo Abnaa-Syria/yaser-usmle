@@ -9,9 +9,8 @@ export async function fetchMediaLibrary(params = {}) {
 export async function uploadMediaFile(file) {
   const form = new FormData();
   form.append("file", file);
-  const response = await client.post(endpoints.media.upload, form, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  // Do not set Content-Type manually — browser must include multipart boundary.
+  const response = await client.post(endpoints.media.upload, form);
   return response?.data?.data;
 }
 

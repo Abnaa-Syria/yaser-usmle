@@ -12,6 +12,18 @@ const api = axios.create({
 
 /* Attach access token to every request */
 api.interceptors.request.use((config) => {
+  // Let the browser set multipart boundary — default application/json breaks file uploads.
+  if (typeof FormData !== "undefined" && config.data instanceof FormData) {
+    if (config.headers) {
+      if (typeof config.headers.delete === "function") {
+        config.headers.delete("Content-Type");
+      } else {
+        delete config.headers["Content-Type"];
+        delete config.headers["content-type"];
+      }
+    }
+  }
+
   const url = String(config.url || "");
   const isTrialProtected =
     url.includes("/trial/me") ||

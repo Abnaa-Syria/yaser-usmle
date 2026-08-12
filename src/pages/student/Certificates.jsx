@@ -12,7 +12,7 @@ import {
 import { useClaimCertificate, useDownloadStudentCertificate, useMyCertificates } from "../../features/student/certificates/hooks";
 import { useMyCourses } from "../../features/student/courses/hooks";
 import { getErrorMessage } from "../../api/error";
-import { downloadBlob, getStaticCertificateUrl, openCertificateDownloadUrl } from "../../utils/certificate";
+import { downloadBlob, openCertificateDownloadUrl } from "../../utils/certificate";
 
 export default function Certificates() {
   const { t } = useTranslation();
@@ -46,11 +46,6 @@ export default function Certificates() {
     setDownloadErr("");
     setDownloadingId(cert.id);
     try {
-      const staticUrl = getStaticCertificateUrl(cert.links?.pdfUrl || cert.pdfUrl);
-      if (staticUrl) {
-        window.open(staticUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
       const blob = await download.mutateAsync(cert.id);
       downloadBlob(blob, `certificate-${cert.serialNumber}.pdf`);
     } catch (e) {

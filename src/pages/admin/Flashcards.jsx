@@ -4,7 +4,6 @@ import { Plus, Trash2, Upload } from "lucide-react";
 import { useAdminFlashcards, useCreateAdminFlashcard, useDeleteAdminFlashcard, useUpdateAdminFlashcard } from "../../features/admin/flashcards/hooks";
 import { useAdminCourses } from "../../features/admin/courses/hooks";
 import client from "../../api/client";
-import endpoints from "../../api/endpoints";
 import { getErrorMessage } from "../../api/error";
 
 const emptyForm = {
@@ -30,6 +29,13 @@ export default function AdminFlashcards() {
 
   const courses = coursesData?.courses || [];
 
+  const asArray = (value) => {
+    if (Array.isArray(value)) return value;
+    if (Array.isArray(value?.units)) return value.units;
+    if (Array.isArray(value?.lessons)) return value.lessons;
+    return [];
+  };
+
   const loadUnits = async (cid) => {
     setCourseId(cid);
     setUnitId("");
@@ -40,15 +46,12 @@ export default function AdminFlashcards() {
       return;
     }
     try {
-      const res = await client.get(`${endpoints.admin.courses}/${cid}/units`);
-      setUnits(res?.data?.data || res?.data?.data?.units || []);
+      // Admin units live at GET /admin/units?courseId=… (not /admin/courses/:id/units)
+      const res = await client.get(`/admin/units`, { params: { courseId: cid } });
+      setUnits(asArray(res?.data?.data));
     } catch {
-      try {
-        const res = await client.get(`/admin/units`, { params: { courseId: cid } });
-        setUnits(res?.data?.data || []);
-      } catch {
-        setUnits([]);
-      }
+      setUnits([]);
+      toast.error(getErrorMessage(null, "Could not load units for this course."));
     }
   };
 
@@ -61,10 +64,10 @@ export default function AdminFlashcards() {
     }
     try {
       const res = await client.get(`/admin/lessons`, { params: { unitId: uid } });
-      const payload = res?.data?.data;
-      setLessons(payload?.lessons || (Array.isArray(payload) ? payload : []));
+      setLessons(asArray(res?.data?.data));
     } catch {
       setLessons([]);
+      toast.error(getErrorMessage(null, "Could not load lectures for this unit."));
     }
   };
 

@@ -17,6 +17,7 @@ import StudentRoutes from "./routes/studentRoutes";
 import useAuthStore from "./store/authStore";
 import { platformFeatures } from "./config/features";
 import TrialOfferModal from "./components/trial/TrialOfferModal";
+import MaintenanceGate from "./components/MaintenanceGate";
 
 const Explore = lazy(() => import("./pages/Explore"));
 const Instructors = lazy(() => import("./pages/Instructors"));
@@ -83,6 +84,7 @@ function App() {
     <BrowserRouter>
       <ThemeHtmlSync />
       <RouterNavigationBridge />
+      <MaintenanceGate>
       <Routes>
         {/* Auth pages — standalone (no Header/Footer) */}
         <Route path="/login" element={<Login />} />
@@ -163,6 +165,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <TrialOfferModal />
+      </MaintenanceGate>
     </BrowserRouter>
   );
 }

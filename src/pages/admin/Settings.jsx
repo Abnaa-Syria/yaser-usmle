@@ -106,7 +106,8 @@ function LogoUploadField({ label, description, value, fallback, dark = false, co
 }
 
 function Settings() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === "rtl";
   const { data, isLoading, isError, error, refetch } = useAdminSettings();
   const updateMutation = useUpdateAdminSettings();
   const [hydrated, setHydrated] = useState(false);
@@ -169,7 +170,52 @@ function Settings() {
   }, [data]);
 
   const handleToggle = (key) => {
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+    setSettings((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      if (key === "maintenanceMode") {
+        const payload = {
+          SITE_NAME: next.siteName,
+          CONTACT_EMAIL: next.siteEmail,
+          PHONE_NUMBER: next.phoneNumber,
+          SUPPORT_PHONE: next.phoneNumber,
+          SOCIAL_FACEBOOK_URL: next.socialFacebook,
+          SOCIAL_TWITTER_URL: next.socialTwitter,
+          SOCIAL_INSTAGRAM_URL: next.socialInstagram,
+          SOCIAL_LINKEDIN_URL: next.socialLinkedin,
+          LOGO_PRIMARY_URL: next.logoPrimaryUrl,
+          LOGO_LIGHT_URL: next.logoLightUrl,
+          LOGO_MARK_URL: next.logoMarkUrl,
+          FOOTER_TAGLINE_EN: next.footerTaglineEn,
+          FOOTER_TAGLINE_AR: next.footerTaglineAr,
+          FOOTER_LOCATION_EN: next.footerLocationEn,
+          FOOTER_LOCATION_AR: next.footerLocationAr,
+          ENABLE_REGISTRATION: next.enableRegistration,
+          MAINTENANCE_MODE: next.maintenanceMode,
+          DEFAULT_THEME: next.theme,
+          NOTIFICATIONS_ENABLED: next.notifications,
+        };
+        queueMicrotask(() => {
+          updateMutation.mutate(payload, {
+            onSuccess: () =>
+              toast.success(
+                next.maintenanceMode
+                  ? t(`${SK}.maintenanceEnabled`, {
+                      defaultValue: isRtl
+                        ? "تم تفعيل وضع الصيانة"
+                        : "Maintenance mode enabled",
+                    })
+                  : t(`${SK}.maintenanceDisabled`, {
+                      defaultValue: isRtl
+                        ? "تم إيقاف وضع الصيانة"
+                        : "Maintenance mode disabled",
+                    })
+              ),
+            onError: (e) => toast.error(getErrorMessage(e, t(`${SK}.saveFailed`))),
+          });
+        });
+      }
+      return next;
+    });
   };
 
   const savePayload = () => ({
@@ -368,7 +414,11 @@ function Settings() {
           <div className="space-y-6">
             <SettingsToggle
               label={t(`${SK}.maintenanceMode`)}
-              description={t(`${SK}.maintenanceModeDesc`)}
+              description={t(`${SK}.maintenanceModeDesc`, {
+                defaultValue: isRtl
+                  ? "يحجب الموقع عن الزوار والطلاب فوراً. الأدمن يبقى قادراً على الدخول وإيقافه."
+                  : "Immediately blocks the site for visitors and students. Admins can still sign in and turn it off.",
+              })}
               enabled={settings.maintenanceMode}
               onChange={() => handleToggle("maintenanceMode")}
             />

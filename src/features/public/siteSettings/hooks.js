@@ -15,6 +15,7 @@ function mergeWithFallback(data) {
     footerTaglineAr: base.footerTaglineAr || "",
     footerLocationEn: base.footerLocationEn || "",
     footerLocationAr: base.footerLocationAr || "",
+    maintenanceMode: Boolean(base.maintenanceMode),
     social: {
       ...SITE_SETTINGS_FALLBACK.social,
       ...(base.social && typeof base.social === "object" ? base.social : {}),
@@ -26,7 +27,8 @@ export function useSiteSettings() {
   const query = useQuery({
     queryKey: ["public", "site-settings"],
     queryFn: fetchPublicSiteSettings,
-    staleTime: 60 * 1000,
+    staleTime: 15 * 1000,
+    refetchOnWindowFocus: true,
     retry: 1,
   });
 

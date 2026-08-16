@@ -458,8 +458,8 @@ function Settings() {
               label={t(`${SK}.maintenanceMode`)}
               description={t(`${SK}.maintenanceModeDesc`, {
                 defaultValue: isRtl
-                  ? "يحجب الموقع عن الزوار والطلاب فوراً. الأدمن يبقى قادراً على الدخول وإيقافه."
-                  : "Immediately blocks the site for visitors and students. Admins can still sign in and turn it off.",
+                  ? "يحجب الموقع عن الزوار والطلاب. الأدمن بعد تسجيل الدخول يرى المنصة كاملة ويمكنه إيقاف الصيانة."
+                  : "Blocks visitors and students. Logged-in admins still see the full platform and can turn maintenance off.",
               })}
               enabled={settings.maintenanceMode}
               onChange={() => handleToggle("maintenanceMode")}

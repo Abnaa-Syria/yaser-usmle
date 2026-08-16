@@ -13,9 +13,16 @@ function isAuthEscapePath(pathname) {
   );
 }
 
+function canBypassMaintenance(user) {
+  if (!user) return false;
+  const roleName = String(user.role?.name || user.role || "").toUpperCase();
+  if (roleName === "ADMIN" || roleName === "SUPER_ADMIN") return true;
+  return hasPermission(user, "settings:manage") || hasPermission(user, "*");
+}
+
 /**
- * Blocks the public/student/instructor UI while MAINTENANCE_MODE is on.
- * Staff with settings:manage can still open /admin and auth pages to turn it off.
+ * Blocks visitors/students while MAINTENANCE_MODE is on.
+ * Logged-in admins/staff with settings access keep full platform access.
  */
 export default function MaintenanceGate({ children }) {
   const location = useLocation();
@@ -32,9 +39,8 @@ export default function MaintenanceGate({ children }) {
     return children;
   }
 
-  const staffBypass = hasPermission(user, "settings:manage");
-  const onAdminArea = location.pathname.startsWith("/admin");
-  if (staffBypass && (onAdminArea || isAuthEscapePath(location.pathname))) {
+  // Staff may browse the whole site (preview) while visitors see maintenance.
+  if (canBypassMaintenance(user)) {
     return children;
   }
 

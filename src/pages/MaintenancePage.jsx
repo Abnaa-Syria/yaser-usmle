@@ -25,9 +25,9 @@ export default function MaintenancePage() {
         ? {
             eyebrow: "تحديث المنصة",
             title: "نجهّز تجربة أفضل لكم",
-            body: "المنصة الجديدة قيد التجهيز والصيانة حالياً. شكراً لصبركم — سنعود قريباً بمحتوى وتنظيم أوضح.",
+            body: "المنصة الجديدة قيد التجهيز حالياً. شكراً لصبركم — سنعود قريباً.",
             legacyTitle: "طالب في المنصة السابقة؟",
-            legacyBody: "يمكنك الدخول للمنصة القديمة لمتابعة دراستك حتى اكتمال التحديث.",
+            legacyBody: "ادخل للمنصة القديمة لمتابعة دراستك حتى اكتمال التحديث.",
             legacyCta: "فتح المنصة السابقة",
             staff: "دخول الإدارة",
             langAr: "عربي",
@@ -36,9 +36,9 @@ export default function MaintenancePage() {
         : {
             eyebrow: "Platform update",
             title: "We're preparing a better experience",
-            body: "The new platform is currently under maintenance. Thank you for your patience — we'll be back shortly with a clearer learning experience.",
+            body: "The new platform is under maintenance. Thanks for your patience — we'll be back shortly.",
             legacyTitle: "Already a student on the previous platform?",
-            legacyBody: "You can open the legacy platform to continue studying until the update is complete.",
+            legacyBody: "Open the legacy platform to continue studying until the update is complete.",
             legacyCta: "Open previous platform",
             staff: "Admin sign in",
             langAr: "عربي",
@@ -58,7 +58,7 @@ export default function MaintenancePage() {
 
   return (
     <div
-      className="relative min-h-screen overflow-hidden bg-[#06122a] text-white"
+      className="relative h-dvh max-h-dvh overflow-hidden bg-[#06122a] text-white"
       dir={isRtl ? "rtl" : "ltr"}
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -74,17 +74,9 @@ export default function MaintenancePage() {
         />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-8 sm:px-10">
-        <header className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <BrandLogo variant="light" alt={siteName} className="h-10 w-auto sm:h-11" />
-            <div className="hidden sm:block">
-              <p className="text-sm font-black tracking-wide">{siteName}</p>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-200/70">
-                {copy.eyebrow}
-              </p>
-            </div>
-          </div>
+      <div className="relative mx-auto flex h-full w-full max-w-5xl flex-col px-5 py-4 sm:px-8 sm:py-5">
+        <header className="flex shrink-0 items-center justify-between gap-4">
+          <BrandLogo variant="light" alt={siteName} className="h-9 w-auto sm:h-10" />
 
           <div
             className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md"
@@ -113,37 +105,36 @@ export default function MaintenancePage() {
           </div>
         </header>
 
-        <main className="flex flex-1 flex-col items-center justify-center py-16 text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-100">
+        <main className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 py-2 text-center sm:gap-5">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-100 sm:text-[11px]">
             <Sparkles className="h-3.5 w-3.5" aria-hidden />
             {copy.eyebrow}
           </div>
 
-          <h1 className="max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-[clamp(1.75rem,4.5vw,3.25rem)] font-black leading-tight tracking-tight text-white">
             {copy.title}
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">{copy.body}</p>
+          <p className="max-w-xl text-[clamp(0.875rem,1.6vw,1.05rem)] leading-relaxed text-slate-300">
+            {copy.body}
+          </p>
 
-          <section className="mt-12 w-full max-w-2xl rounded-[1.75rem] border border-white/12 bg-white/[0.06] p-6 text-start shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8">
-            <p className="text-lg font-black text-white">{copy.legacyTitle}</p>
-            <p className="mt-2 text-sm leading-7 text-slate-300 sm:text-base">{copy.legacyBody}</p>
+          <section className="w-full max-w-xl rounded-2xl border border-white/12 bg-white/[0.06] p-4 text-start shadow-[0_24px_60px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:p-5">
+            <p className="text-base font-black text-white sm:text-lg">{copy.legacyTitle}</p>
+            <p className="mt-1.5 text-sm leading-6 text-slate-300">{copy.legacyBody}</p>
             <a
               href={LEGACY_PLATFORM_URL}
               target="_blank"
               rel="noreferrer"
-              className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[var(--yu-blue-600,#2563eb)] px-5 text-sm font-bold text-white transition hover:bg-[var(--yu-blue-500,#3b82f6)]"
+              className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[var(--yu-blue-600,#2563eb)] px-4 text-sm font-bold text-white transition hover:bg-[var(--yu-blue-500,#3b82f6)]"
             >
               {copy.legacyCta}
               <ArrowUpRight className="h-4 w-4" aria-hidden />
             </a>
-            <p className="mt-3 text-xs font-medium text-slate-400" dir="ltr">
-              {LEGACY_PLATFORM_URL}
-            </p>
           </section>
 
           <Link
             to="/login"
-            className="mt-8 inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-5 text-sm font-bold text-white/90 backdrop-blur-md transition hover:bg-white/10"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 text-sm font-bold text-white/90 backdrop-blur-md transition hover:bg-white/10"
           >
             <LogIn className="h-4 w-4" aria-hidden />
             {copy.staff}

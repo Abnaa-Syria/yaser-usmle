@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowUpRight, Languages, LogIn, Sparkles } from "lucide-react";
+import { ArrowUpRight, Languages, Sparkles } from "lucide-react";
 import { useSiteSettings } from "../features/public/siteSettings/hooks";
 import BrandLogo from "../components/BrandLogo";
 
@@ -29,7 +28,6 @@ export default function MaintenancePage() {
             legacyTitle: "طالب في المنصة السابقة؟",
             legacyBody: "ادخل للمنصة القديمة لمتابعة دراستك حتى اكتمال التحديث.",
             legacyCta: "فتح المنصة السابقة",
-            staff: "دخول الإدارة",
             langAr: "عربي",
             langEn: "English",
           }
@@ -40,7 +38,6 @@ export default function MaintenancePage() {
             legacyTitle: "Already a student on the previous platform?",
             legacyBody: "Open the legacy platform to continue studying until the update is complete.",
             legacyCta: "Open previous platform",
-            staff: "Admin sign in",
             langAr: "عربي",
             langEn: "English",
           },
@@ -131,14 +128,6 @@ export default function MaintenancePage() {
               <ArrowUpRight className="h-4 w-4" aria-hidden />
             </a>
           </section>
-
-          <Link
-            to="/login"
-            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 text-sm font-bold text-white/90 backdrop-blur-md transition hover:bg-white/10"
-          >
-            <LogIn className="h-4 w-4" aria-hidden />
-            {copy.staff}
-          </Link>
         </main>
       </div>
     </div>

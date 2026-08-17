@@ -5,6 +5,9 @@ import AdminLayout from "../layouts/AdminLayout";
 import { AdminSuspense } from "../components/admin/AdminSuspense";
 import RequirePermission from "../components/admin/RequirePermission";
 import { platformFeatures } from "../config/features";
+import useAuthStore from "../store/authStore";
+import { hasPermission } from "../config/permissions";
+import { getFirstAllowedAdminPath } from "../config/navigation";
 
 const AdminOverview = lazy(() => import("../pages/admin/Overview"));
 const AdminUsers = lazy(() => import("../pages/admin/Users"));
@@ -72,12 +75,24 @@ function wrap(node, permission, anyOf) {
   );
 }
 
+function AdminHome() {
+  const user = useAuthStore((s) => s.user);
+  if (hasPermission(user, "dashboard:read")) {
+    return wrap(<AdminOverview />, "dashboard:read");
+  }
+  const next = getFirstAllowedAdminPath((perm) => hasPermission(user, perm));
+  if (next && next !== "/admin" && next !== "/admin/dashboard") {
+    return <Navigate to={next} replace />;
+  }
+  return <Navigate to="/access-denied" replace />;
+}
+
 function AdminRoutes() {
   return (
     <Route element={<AdminGuard />}>
       <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={wrap(<AdminOverview />, "dashboard:read")} />
-        <Route path="dashboard" element={wrap(<AdminOverview />, "dashboard:read")} />
+        <Route index element={<AdminHome />} />
+        <Route path="dashboard" element={<AdminHome />} />
         <Route path="finance" element={wrap(<AdminFinance />, "finance:manage")} />
         <Route path="performance" element={wrap(<AdminPerformance />, "dashboard:read")} />
         <Route path="coupons" element={wrap(<AdminCoupons />, "finance:manage")} />

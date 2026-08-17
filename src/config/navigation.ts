@@ -101,6 +101,22 @@ export function filterNavByPermission(
     .filter(Boolean) as NavSection[];
 }
 
+/** First admin screen the user is allowed to open (avoids /access-denied after login). */
+export function getFirstAllowedAdminPath(hasPermission: (p: string) => boolean): string {
+  const sections = filterNavByPermission(getAdminNavigation(), hasPermission);
+  for (const section of sections) {
+    for (const item of section.items) {
+      if (isNavGroup(item)) {
+        const child = item.children[0];
+        if (child?.path) return child.path;
+      } else if (item.path) {
+        return item.path;
+      }
+    }
+  }
+  return "/admin/dashboard";
+}
+
 export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
   return [
     {

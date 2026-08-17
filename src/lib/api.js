@@ -81,6 +81,14 @@ api.interceptors.response.use(
       if (cfg.skip403Redirect) {
         return Promise.reject(error);
       }
+      const isAuthRequest403 =
+        requestUrl.includes("/auth/login") ||
+        requestUrl.includes("/auth/register") ||
+        requestUrl.includes("/auth/refresh") ||
+        requestUrl.includes("/auth/logout");
+      if (isAuthRequest403) {
+        return Promise.reject(error);
+      }
       const code = error.response?.data?.code;
       if (code === "SUBSCRIPTION_QUOTA") {
         window.dispatchEvent(

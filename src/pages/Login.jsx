@@ -10,7 +10,8 @@ import useAuthStore from "../store/authStore";
 import { getErrorMessage } from "../api/error";
 import { getEnrollmentCheckoutPath, getPostLoginRedirectPath } from "../utils/enrollmentIntent";
 import { getDeviceFingerprint, getDeviceMetadata } from "../utils/deviceFingerprint";
-import { hasAdminAccess } from "../config/permissions";
+import { hasAdminAccess, hasPermission } from "../config/permissions";
+import { getFirstAllowedAdminPath } from "../config/navigation";
 import TrialAuthCta from "../components/trial/TrialAuthCta";
 
 const loginSchema = z.object({
@@ -67,7 +68,7 @@ export default function Login() {
       const roleName = String(user?.role?.name || user?.role || "").trim().toUpperCase();
 
       if (hasAdminAccess(user)) {
-        navigate("/admin/dashboard", { replace: true });
+        navigate(getFirstAllowedAdminPath((perm) => hasPermission(user, perm)), { replace: true });
         return;
       }
       if (roleName === "INSTRUCTOR") {

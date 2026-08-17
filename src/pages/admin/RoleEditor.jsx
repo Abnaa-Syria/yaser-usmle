@@ -95,6 +95,7 @@ export default function RoleEditor() {
   const [description, setDescription] = useState("");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(new Set());
+  const isSuperAdminRole = String(role?.name || name).toUpperCase() === "SUPER_ADMIN";
 
   const groups = useMemo(() => groupPermissionsFromBackend(permissionsCatalog), [permissionsCatalog]);
 
@@ -106,6 +107,7 @@ export default function RoleEditor() {
   }, [isEdit, role?.id, role?.name, role?.description, role?.permissions]);
 
   const toggle = (key) => {
+    if (isSuperAdminRole) return;
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
@@ -115,6 +117,7 @@ export default function RoleEditor() {
   };
 
   const selectGroup = (keys, add) => {
+    if (isSuperAdminRole) return;
     setSelected((prev) => {
       const next = new Set(prev);
       keys.forEach((key) => (add ? next.add(key) : next.delete(key)));
@@ -128,6 +131,16 @@ export default function RoleEditor() {
       toast.error(tx("adminPages.settingsRoles.roleNameRequired", "Role name is required"));
       return;
     }
+    if (isSuperAdminRole) {
+      toast.error(
+        tx(
+          "adminPages.settingsRoles.superAdminLocked",
+          "SUPER_ADMIN always has full access. Permissions for this role cannot be changed."
+        )
+      );
+      return;
+    }
+
     if (selected.size === 0) {
       toast.error(tx("adminPages.settingsRoles.permissionsRequired", "Select at least one permission"));
       return;
@@ -190,6 +203,15 @@ export default function RoleEditor() {
           />
         </div>
 
+        {isSuperAdminRole ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-100">
+            {tx(
+              "adminPages.settingsRoles.superAdminLocked",
+              "SUPER_ADMIN always has full access. Permissions for this role cannot be changed."
+            )}
+          </div>
+        ) : null}
+
         <form onSubmit={handleSubmit} className="grid gap-6 xl:grid-cols-[320px_1fr]">
           <aside className="space-y-4 xl:sticky xl:top-6 xl:self-start">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#14141C]">
@@ -236,7 +258,7 @@ export default function RoleEditor() {
               <div className="mt-5 flex flex-col gap-2">
                 <button
                   type="submit"
-                  disabled={saving}
+                  disabled={saving || isSuperAdminRole}
                   className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-yu-blue-700 text-sm font-black text-white disabled:opacity-60"
                 >
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}

@@ -1962,24 +1962,27 @@
   "features": {
     "titlePrefix": "Everything you need",
     "titleBrand": "Yaser USMLE",
+    "eyebrow": "A complete learning system",
+    "titleStart": "Everything you need",
+    "titleAccent": "to pass USMLE",
     "subtitle": "An integrated platform combining medical content, quizzes, flashcards, and review plans in one place.",
     "learnMore": "Learn more",
     "items": {
       "structuredCourses": {
         "title": "Systems-Based Courses",
-        "description": "Follow a structured curriculum organized by organ systems — from cardiovascular to renal — designed specifically for USMLE Step 1 success."
+        "description": "A structured curriculum for every organ system — from cardiovascular to renal — with clear teaching and a logical sequence for USMLE Step 1."
       },
       "flashcards": {
-        "title": "Smart Flashcards",
-        "description": "Review high-yield facts with organized flashcard decks grouped by system and topic, built to reinforce your learning and improve retention."
+        "title": "Flashcards",
+        "description": "Smart review cards powered by spaced repetition to lock in high-yield concepts and strengthen long-term recall."
       },
       "quizzes": {
         "title": "Practice Quizzes",
-        "description": "Test your understanding with system-specific quizzes, get immediate feedback, and track your performance across every topic area."
+        "description": "System-specific questions with instant feedback — measure your understanding and spot gaps before exam day."
       },
       "studyPlan": {
-        "title": "Study Planning",
-        "description": "Organize your preparation with a personalized study plan — set daily targets, track progress, and stay on schedule for exam day."
+        "title": "Study Plan",
+        "description": "Organize your days with a personal plan, set daily targets, and track progress step by step until USMLE."
       },
       "liveClasses": {
         "title": "Systems-Based Courses",

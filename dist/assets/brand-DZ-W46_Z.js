@@ -1,1 +1,0 @@
-var e={name:`Yaser USMLE`,siteUrl:`https://alienparts.online`,contactEmail:`info@yaser-usmle.com`,logoPath:`/assets/brand/logo-primary.svg`,logoLightPath:`/assets/brand/logo-light.svg`,logoMarkPath:`/assets/brand/logo-mark.svg`,faviconPath:`/assets/brand/favicon.svg`};export{e as t};

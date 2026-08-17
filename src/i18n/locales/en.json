@@ -2854,6 +2854,56 @@
       "notFoundBody": "This plan is no longer available. Return to plans and pick another.",
       "backPlans": "Back to plans"
     },
+    "regional": {
+      "countryLabel": "Your country",
+      "countryHint": "Choose where you are paying from — available methods update automatically.",
+      "methodsTitle": "Payment method",
+      "instructionsTitle": "How to pay",
+      "courseNoteTitle": "Course-specific note",
+      "proofReminder": "After paying, upload your receipt or proof below so our team can confirm your enrollment.",
+      "countries": {
+        "EG": "Egypt",
+        "IQ": "Iraq",
+        "SY": "Syria",
+        "OTHER": "Other countries"
+      },
+      "methods": {
+        "VODAFONE_CASH": {
+          "title": "Vodafone Cash",
+          "short": "Mobile wallet transfer",
+          "instructions": "Send the exact course amount via Vodafone Cash to our official number.\nInclude your full name and the course title in the transfer note.\nKeep the SMS or screenshot — you will upload it as proof below."
+        },
+        "INSTAPAY": {
+          "title": "InstaPay",
+          "short": "Instant bank transfer",
+          "instructions": "Open InstaPay and send the payment to our registered InstaPay address.\nUse the exact amount shown above and mention your registered email on the platform.\nSave the confirmation screen or receipt to upload below."
+        },
+        "CARD": {
+          "title": "Bank card",
+          "short": "Visa / Mastercard",
+          "instructions": "Pay using your bank card through our official payment link or gateway.\nIf you pay manually, include your name and course title in the reference.\nUpload the bank confirmation or gateway receipt below."
+        },
+        "SARAFA": {
+          "title": "Sarafa shops",
+          "short": "Local exchange offices",
+          "instructions": "Visit an authorized Sarafa office and request a transfer to our account details.\nGive the agent the exact USD amount and your full name.\nCollect the stamped receipt and upload a clear photo below."
+        },
+        "AL_HARAM": {
+          "title": "Al-Haram",
+          "short": "Al-Haram transfer",
+          "instructions": "Send the payment through Al-Haram using our official receiver details.\nWrite your platform email and course name on the transfer form.\nKeep the receipt — upload it as proof below."
+        },
+        "FAWATEER": {
+          "title": "Fawateer",
+          "short": "Fawateer Al-Haram bills",
+          "instructions": "Pay through Fawateer / Fawateer Al-Haram using the billing reference we provide.\nEnter the exact amount and confirm the payment.\nUpload the paid bill or confirmation screenshot below."
+        }
+      }
+    },
+    "proofUpload": "Or upload proof file",
+    "proofUploadHint": "PDF, JPG, PNG, or WEBP up to 8 MB.",
+    "studentNote": "Note for reviewer",
+    "openPaymentDestination": "Open payment destination",
     "invalid": {
       "title": "Invalid checkout link",
       "body": "This link is incomplete. Open a course and choose a cohort, or pick a plan from Subscriptions."

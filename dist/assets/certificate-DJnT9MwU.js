@@ -1,0 +1,1 @@
+function e(){return`https://api.yaser-usmle.com/api/v1`}function t(e,t){let n=URL.createObjectURL(e),r=document.createElement(`a`);r.href=n,r.download=t,r.click(),URL.revokeObjectURL(n)}function n(t){let n=e().replace(/\/$/,``),r=t.startsWith(`http`)?t:`${n}${t.startsWith(`/`)?t:`/${t}`}`;window.open(r,`_blank`,`noopener,noreferrer`)}export{n,t};

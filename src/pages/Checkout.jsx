@@ -11,14 +11,15 @@ import {
   studentBtnGhost,
   studentBtnPrimary,
   studentFieldClass,
-  studentSelectClass,
 } from "../components/student/ui";
 import useAuthStore from "../store/authStore";
 import { APP_ROLES, normalizeRole } from "../config/permissions";
 import { usePublicCourse, usePublicPackage } from "../features/public/hooks";
 import { getErrorMessage } from "../api/error";
+import CheckoutPaymentSection from "../components/checkout/CheckoutPaymentSection";
 import { postStudentCourseCheckout, postStudentPackageCheckout, validateStudentCoupon, uploadPaymentProof } from "../features/student/financials/api";
 import { applyCouponDiscount, couponDiscountLabel } from "../features/student/financials/coupon";
+import { DEFAULT_PAYMENT_COUNTRY, getDefaultMethodForCountry } from "../features/student/financials/paymentMethods";
 
 function formatPrice(price) {
   const value = Math.round(Number(price) || 0);
@@ -62,7 +63,8 @@ export default function Checkout() {
   const [couponValidating, setCouponValidating] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
 
-  const [paymentMethod, setPaymentMethod] = useState("BANK_TRANSFER");
+  const [paymentCountry, setPaymentCountry] = useState(DEFAULT_PAYMENT_COUNTRY);
+  const [paymentMethod, setPaymentMethod] = useState(() => getDefaultMethodForCountry(DEFAULT_PAYMENT_COUNTRY));
   const [receiptUrl, setReceiptUrl] = useState("");
   const [proofFile, setProofFile] = useState(null);
   const [studentNote, setStudentNote] = useState("");
@@ -214,6 +216,7 @@ export default function Checkout() {
       }
       const payload = {
         paymentMethod,
+        paymentCountry,
         receiptUrl: url || "INSTANT_FREE_ENROLLMENT",
         amount: finalAmount,
         studentNote: studentNote.trim() || undefined,
@@ -274,7 +277,7 @@ export default function Checkout() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto max-w-3xl space-y-6">
       <nav className="text-sm font-medium text-slate-500">
         <Link to="/explore" className="font-bold text-[var(--yu-blue-700)] hover:underline dark:text-[var(--yu-blue-400)]">
           {t("checkout.breadcrumbExplore")}
@@ -404,32 +407,13 @@ export default function Checkout() {
                 </StudentSurface>
               ) : null}
 
-              <div>
-                {(course?.paymentInstructions || coursePackage?.paymentInstructions) ? (
-                  <StudentSurface className="mb-4 border-[var(--yu-blue-200)]/80 bg-[var(--yu-blue-50)]/40 text-sm text-slate-700 dark:border-[var(--yu-blue-800)]/40 dark:bg-[var(--yu-blue-700)]/8 dark:text-slate-200">
-                    <p className="font-black">{(course?.paymentInstructions || coursePackage?.paymentInstructions).methodLabel || t("checkout.package.paymentMethod")}</p>
-                    <p className="mt-1 font-medium">{(course?.paymentInstructions || coursePackage?.paymentInstructions).instructions}</p>
-                    {(course?.paymentInstructions || coursePackage?.paymentInstructions).destinationUrl ? (
-                      <a href={(course?.paymentInstructions || coursePackage?.paymentInstructions).destinationUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block font-bold text-[var(--yu-blue-700)] hover:underline dark:text-[var(--yu-blue-400)]">
-                        {t("checkout.openPaymentDestination", { defaultValue: "Open payment destination" })}
-                      </a>
-                    ) : null}
-                  </StudentSurface>
-                ) : null}
-                <label htmlFor="pay-method" className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  {t("checkout.package.paymentMethod")}
-                </label>
-                <select
-                  id="pay-method"
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  className={`${studentSelectClass} mt-1`}
-                >
-                  <option value="BANK_TRANSFER">{t("checkout.package.methodBank")}</option>
-                  <option value="CARD">{t("checkout.package.methodCard")}</option>
-                  <option value="OTHER">{t("checkout.package.methodOther")}</option>
-                </select>
-              </div>
+              <CheckoutPaymentSection
+                paymentCountry={paymentCountry}
+                onPaymentCountryChange={setPaymentCountry}
+                paymentMethod={paymentMethod}
+                onPaymentMethodChange={setPaymentMethod}
+                courseInstructions={course?.paymentInstructions || coursePackage?.paymentInstructions}
+              />
 
               <div>
                 <label htmlFor="receipt-url" className="text-xs font-bold uppercase tracking-wide text-slate-500">

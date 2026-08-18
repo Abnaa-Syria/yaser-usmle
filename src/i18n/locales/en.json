@@ -1346,7 +1346,7 @@
       "drawerTitle": "Edit post",
       "slug": "URL slug",
       "thumbnailUrl": "Thumbnail URL (optional)",
-      "body": "Body (Markdown)",
+      "body": "Article content",
       "publishedLabel": "Published on site",
       "saveChanges": "Save changes",
       "fieldTitle": "Title",
@@ -1355,7 +1355,17 @@
       "category": "Category",
       "catInvestigation": "Investigation",
       "catNews": "News",
-      "fieldTitleAr": "Title (Arabic)"
+      "fieldTitleAr": "Title (Arabic)",
+      "editor": {
+        "size": "Size",
+        "font": "Font",
+        "linkPrompt": "Enter URL",
+        "videoPlaceholder": "YouTube, Vimeo, or video file URL",
+        "insertVideo": "Insert video",
+        "videoInvalid": "Invalid video URL.",
+        "placeholderAr": "Write the Arabic article. Use the toolbar to add images, video, and formatting.",
+        "placeholderEn": "Write the article. Use the toolbar to add images, video, and formatting."
+      }
     },
     "cmsBanners": {
       "title": "Banners",
@@ -2553,12 +2563,18 @@
     "latestEyebrow": "More from the library",
     "latestTitle": "Latest articles and resources",
     "clearSearch": "Clear search",
+    "allCategories": "All",
+    "minutes": "{{count}} min read",
+    "backToList": "Back to blog",
+    "relatedTitle": "Related articles",
     "defaultExcerpt": "A focused educational resource to help you build clearer understanding and prepare with a more organized approach.",
     "categories": {
       "step1_guide": "Step 1 Guide",
       "study_strategy": "Study Strategy",
       "news": "Platform News",
-      "education": "Medical Education"
+      "education": "Medical Education",
+      "blog": "Blog",
+      "investigation": "Investigation"
     },
     "loadError": "Could not load articles.",
     "empty": "No matching articles were found.",

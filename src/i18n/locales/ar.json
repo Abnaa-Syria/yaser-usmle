@@ -1346,7 +1346,7 @@
       "drawerTitle": "تعديل المقالة",
       "slug": "المسار (slug)",
       "thumbnailUrl": "رابط الصورة (اختياري)",
-      "body": "المتن (Markdown)",
+      "body": "محتوى المقالة",
       "publishedLabel": "منشور للعامة",
       "saveChanges": "حفظ التغييرات",
       "fieldTitle": "العنوان",
@@ -1355,7 +1355,17 @@
       "category": "التصنيف",
       "catInvestigation": "تحقيق",
       "catNews": "أخبار",
-      "fieldTitleAr": "العنوان (عربي)"
+      "fieldTitleAr": "العنوان (عربي)",
+      "editor": {
+        "size": "الحجم",
+        "font": "الخط",
+        "linkPrompt": "أدخل الرابط",
+        "videoPlaceholder": "رابط يوتيوب أو فيميو أو ملف فيديو",
+        "insertVideo": "إدراج الفيديو",
+        "videoInvalid": "رابط الفيديو غير صالح.",
+        "placeholderAr": "اكتب محتوى المقالة، وأضف صورًا أو فيديو من شريط الأدوات.",
+        "placeholderEn": "Write the article. Use the toolbar to add images, video, and formatting."
+      }
     },
     "cmsBanners": {
       "title": "اللافتات",
@@ -2553,12 +2563,18 @@
     "latestEyebrow": "المزيد من المكتبة",
     "latestTitle": "أحدث المقالات والموارد",
     "clearSearch": "مسح البحث",
+    "allCategories": "الكل",
+    "minutes": "{{count}} دقائق قراءة",
+    "backToList": "العودة إلى المدونة",
+    "relatedTitle": "مقالات ذات صلة",
     "defaultExcerpt": "محتوى تعليمي مختصر يساعدك على بناء فهم أوضح والاستعداد بصورة أكثر تنظيماً.",
     "categories": {
       "step1_guide": "دليل Step 1",
       "study_strategy": "استراتيجية مذاكرة",
       "news": "أخبار المنصة",
-      "education": "تعليم طبي"
+      "education": "تعليم طبي",
+      "blog": "مدونة",
+      "investigation": "تحقيق"
     },
     "loadError": "تعذر تحميل المقالات.",
     "empty": "لم نعثر على مقالات مطابقة.",

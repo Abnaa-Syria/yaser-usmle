@@ -46,6 +46,8 @@ function invalidateCms(queryClient) {
   queryClient.invalidateQueries({ queryKey: ["admin", "cms", "pages"] });
   queryClient.invalidateQueries({ queryKey: ["public", "landing-page"] });
   queryClient.invalidateQueries({ queryKey: ["public", "cms-page"] });
+  queryClient.invalidateQueries({ queryKey: ["public", "posts"] });
+  queryClient.invalidateQueries({ queryKey: ["public", "post"] });
 }
 
 export function useAddFaqItem() {

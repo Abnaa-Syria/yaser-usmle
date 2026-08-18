@@ -121,9 +121,12 @@ export type PublicPostAuthor = {
 export type PublicPostListItem = {
   id: string;
   title: string;
+  titleAr?: string | null;
   slug: string;
   thumbnail: string | null;
   excerpt: string | null;
+  excerptAr?: string | null;
+  category?: string | null;
   createdAt: string;
   updatedAt: string;
   author: PublicPostAuthor;
@@ -137,9 +140,12 @@ export type PublicPostsListResult = {
 export type PublicPostDetail = {
   id: string;
   title: string;
+  titleAr?: string | null;
   slug: string;
   thumbnail: string | null;
+  category?: string | null;
   content: unknown;
+  contentAr?: unknown;
   published: boolean;
   createdAt: string;
   updatedAt: string;

@@ -649,3 +649,81 @@
   border-radius: 0.85rem;
 }
 
+/* Public blog article + admin editor */
+.yu-article,
+.yu-editor {
+  word-break: break-word;
+}
+.yu-article p,
+.yu-editor p {
+  margin: 0 0 1.1em;
+  line-height: 1.9;
+  font-size: 1.05rem;
+  color: inherit;
+}
+.yu-article h1, .yu-editor h1 { margin: 1.4em 0 .6em; font-size: 2rem; font-weight: 900; line-height: 1.25; }
+.yu-article h2, .yu-editor h2 { margin: 1.35em 0 .55em; font-size: 1.55rem; font-weight: 800; line-height: 1.3; }
+.yu-article h3, .yu-editor h3 { margin: 1.2em 0 .45em; font-size: 1.25rem; font-weight: 800; line-height: 1.35; }
+.yu-article ul, .yu-article ol,
+.yu-editor ul, .yu-editor ol { margin: 0 0 1.2em; padding-inline-start: 1.4rem; }
+.yu-article li, .yu-editor li { margin: .35em 0; line-height: 1.8; }
+.yu-article a { color: var(--yu-blue-700); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.yu-article blockquote,
+.yu-editor blockquote {
+  margin: 1.4em 0;
+  padding: .2em 1.1em;
+  border-inline-start: 4px solid var(--yu-blue-500);
+  color: #475569;
+  font-weight: 600;
+}
+.yu-article img,
+.yu-editor img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.5em 0;
+  border-radius: 1.15rem;
+  background: #e2e8f0;
+}
+.yu-article hr, .yu-editor hr { margin: 2em 0; border: 0; border-top: 1px solid #e2e8f0; }
+.yu-article .yu-embed,
+.yu-editor .yu-embed {
+  position: relative;
+  margin: 1.6em 0;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  padding-top: 56.25%;
+  background: #0f172a;
+}
+.yu-article .yu-embed iframe,
+.yu-editor .yu-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.yu-article iframe,
+.yu-editor iframe {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 1.15rem;
+}
+.yu-article video,
+.yu-editor video,
+.yu-article .yu-video,
+.yu-editor .yu-video {
+  display: block;
+  width: 100%;
+  margin: 1.5em 0;
+  border-radius: 1.15rem;
+  background: #0f172a;
+}
+.yu-editor:empty:before,
+.yu-editor p:only-child:empty:before {
+  color: #94a3b8;
+}
+

@@ -1,13 +1,14 @@
-import { ExternalLink, Loader2, Pencil, Trash2 } from "lucide-react";
+import { ExternalLink, Loader2, Pencil, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageHeader from "../../components/ui/PageHeader";
-import SlideOver from "../../components/ui/SlideOver";
 import StatusBadge from "../../components/ui/StatusBadge";
 import { useAdminPosts, useCreatePost, useDeletePost, useUpdatePost } from "../../features/admin/cms/hooks";
 import { getErrorMessage } from "../../api/error";
 import ImageField from "../../components/ui/ImageField";
+import RichTextEditor from "../../components/editor/RichTextEditor";
 import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import { contentToHtml } from "../../utils/postContent";
 
 function slugFromTitle(title) {
   const base = String(title || "")
@@ -21,12 +22,6 @@ function slugFromTitle(title) {
   return `post-${Date.now().toString(36)}`;
 }
 
-function markdownBodyFromContent(content) {
-  if (!content || typeof content !== "object") return "";
-  if (content.format === "markdown" && typeof content.body === "string") return content.body;
-  return "";
-}
-
 function CmsPosts() {
   const { t } = useTranslation();
   const { data, isLoading, isError, error, refetch } = useAdminPosts({ page: 1, limit: 48 });
@@ -38,6 +33,7 @@ function CmsPosts() {
   const [thumbNew, setThumbNew] = useState("");
   const [categoryNew, setCategoryNew] = useState("BLOG");
   const [editing, setEditing] = useState(null);
+  const [bodyLang, setBodyLang] = useState("ar");
   const [form, setForm] = useState({
     title: "",
     titleAr: "",
@@ -45,14 +41,15 @@ function CmsPosts() {
     thumbnail: "",
     published: false,
     category: "BLOG",
-    bodyMd: "",
-    bodyMdAr: "",
+    bodyHtml: "",
+    bodyHtmlAr: "",
   });
 
   const posts = Array.isArray(data) ? data : [];
 
   useEffect(() => {
     if (!editing) return;
+    setBodyLang("ar");
     setForm({
       title: editing.title || "",
       titleAr: editing.titleAr || "",
@@ -60,8 +57,8 @@ function CmsPosts() {
       thumbnail: editing.thumbnail || "",
       published: Boolean(editing.published),
       category: editing.category || "BLOG",
-      bodyMd: markdownBodyFromContent(editing.content),
-      bodyMdAr: markdownBodyFromContent(editing.contentAr),
+      bodyHtml: contentToHtml(editing.content),
+      bodyHtmlAr: contentToHtml(editing.contentAr),
     });
   }, [editing]);
 
@@ -92,7 +89,7 @@ function CmsPosts() {
           <select
             value={categoryNew}
             onChange={(e) => setCategoryNew(e.target.value)}
-            className="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white outline-none"
+            className="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
           >
             <option value="BLOG">✍️ {t("adminPages.cmsPosts.catBlog", { defaultValue: "Blog" })}</option>
             <option value="NEWS">📰 {t("adminPages.cmsPosts.catNews", { defaultValue: "News" })}</option>
@@ -107,7 +104,7 @@ function CmsPosts() {
                 {
                   title: title.trim(),
                   slug,
-                  content: { format: "markdown", body: "" },
+                  content: { format: "html", body: "" },
                   published: false,
                   category: categoryNew,
                   ...(thumbNew.trim() ? { thumbnail: thumbNew.trim() } : {}),
@@ -173,10 +170,10 @@ function CmsPosts() {
                 <StatusBadge label={p.published ? "Published" : "Draft"} tone={p.published ? "success" : "warning"} />
                 <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold ${
                   p.category === "NEWS"
-                    ? "bg-blue-50 text-blue-700 dark:bg-blue-955/40 dark:text-blue-300"
+                    ? "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300"
                     : p.category === "INVESTIGATION"
-                    ? "bg-purple-50 text-purple-700 dark:bg-purple-955/40 dark:text-purple-300"
-                    : "bg-amber-50 text-amber-700 dark:bg-amber-955/40 dark:text-amber-300"
+                    ? "bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300"
+                    : "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300"
                 }`}>
                   {p.category === "NEWS" ? "📰 أخبار" : p.category === "INVESTIGATION" ? "🔍 تحقيق" : "✍️ مدونة"}
                 </span>
@@ -212,7 +209,7 @@ function CmsPosts() {
                     if (!window.confirm(t("adminPages.cmsPosts.confirmDelete"))) return;
                     deleteMutation.mutate(p.id);
                   }}
-                  className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2 py-1 text-xs font-semibold text-red-600 hover:bg-[var(--yu-blue-700)]/10 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-950/40"
+                  className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-950/40"
                 >
                   <Trash2 className="h-3 w-3" />
                   {t("adminPages.common.delete")}
@@ -223,43 +220,66 @@ function CmsPosts() {
         ))}
       </div>
 
-      <SlideOver open={Boolean(editing)} onClose={() => setEditing(null)} title={t("adminPages.cmsPosts.drawerTitle")}>
-        {editing ? (
-          <div className="space-y-4">
-            <div>
-              <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.fieldTitle")} (EN)</label>
-              <input
-                value={form.title}
-                onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-                className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
-                dir="ltr"
-              />
+      {editing ? (
+        <div className="fixed inset-0 z-50 flex items-stretch justify-center bg-black/45 p-3 sm:p-6">
+          <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-[#1A1A22]">
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-white/10">
+              <h3 className="text-lg font-black text-slate-900 dark:text-white">{t("adminPages.cmsPosts.drawerTitle")}</h3>
+              <button type="button" onClick={() => setEditing(null)} className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10">
+                <X className="h-5 w-5" />
+              </button>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                {t("adminPages.cmsPosts.fieldTitleAr", { defaultValue: "Title (Arabic)" })}
-              </label>
-              <input
-                value={form.titleAr}
-                onChange={(e) => setForm((f) => ({ ...f, titleAr: e.target.value }))}
-                className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
-                dir="rtl"
+            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.fieldTitle")} (EN)</label>
+                  <input
+                    value={form.title}
+                    onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+                    className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
+                    {t("adminPages.cmsPosts.fieldTitleAr", { defaultValue: "Title (Arabic)" })}
+                  </label>
+                  <input
+                    value={form.titleAr}
+                    onChange={(e) => setForm((f) => ({ ...f, titleAr: e.target.value }))}
+                    className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                    dir="rtl"
+                  />
+                </div>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.slug")}</label>
+                  <input
+                    value={form.slug}
+                    onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
+                    className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.category", { defaultValue: "Category" })}</label>
+                  <select
+                    value={form.category}
+                    onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                    className="h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm outline-none dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                  >
+                    <option value="BLOG">✍️ {t("adminPages.cmsPosts.catBlog", { defaultValue: "Blog" })}</option>
+                    <option value="NEWS">📰 {t("adminPages.cmsPosts.catNews", { defaultValue: "News" })}</option>
+                    <option value="INVESTIGATION">🔍 {t("adminPages.cmsPosts.catInvestigation", { defaultValue: "Investigation" })}</option>
+                  </select>
+                </div>
+              </div>
+              <ImageField
+                label={t("adminPages.cmsPosts.thumbnailUrl")}
+                value={form.thumbnail}
+                onChange={(url) => setForm((f) => ({ ...f, thumbnail: url }))}
               />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.slug")}</label>
-              <input
-                value={form.slug}
-                onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
-                className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
-              />
-            </div>
-            <ImageField
-              label={t("adminPages.cmsPosts.thumbnailUrl")}
-              value={form.thumbnail}
-              onChange={(url) => setForm((f) => ({ ...f, thumbnail: url }))}
-            />
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <label className="flex items-center gap-2 text-sm text-slate-800 dark:text-slate-200">
                 <input
                   type="checkbox"
@@ -269,80 +289,90 @@ function CmsPosts() {
                 {t("adminPages.cmsPosts.publishedLabel")}
               </label>
 
-              <div className="flex-1 w-full">
-                <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.category", { defaultValue: "Category" })}</label>
-                <select
-                  value={form.category}
-                  onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                  className="h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-white outline-none"
-                >
-                  <option value="BLOG">✍️ {t("adminPages.cmsPosts.catBlog", { defaultValue: "Blog" })}</option>
-                  <option value="NEWS">📰 {t("adminPages.cmsPosts.catNews", { defaultValue: "News" })}</option>
-                  <option value="INVESTIGATION">🔍 {t("adminPages.cmsPosts.catInvestigation", { defaultValue: "Investigation" })}</option>
-                </select>
+              <div>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <label className="text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.body")}</label>
+                  <div className="inline-flex rounded-lg border border-slate-200 p-0.5 dark:border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => setBodyLang("ar")}
+                      className={`rounded-md px-3 py-1 text-xs font-black ${bodyLang === "ar" ? "bg-[var(--yu-blue-700)] text-white" : "text-slate-600"}`}
+                    >
+                      عربي
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBodyLang("en")}
+                      className={`rounded-md px-3 py-1 text-xs font-black ${bodyLang === "en" ? "bg-[var(--yu-blue-700)] text-white" : "text-slate-600"}`}
+                    >
+                      EN
+                    </button>
+                  </div>
+                </div>
+                {bodyLang === "ar" ? (
+                  <RichTextEditor
+                    key={`${editing.id}-ar`}
+                    value={form.bodyHtmlAr}
+                    onChange={(html) => setForm((f) => ({ ...f, bodyHtmlAr: html }))}
+                    dir="rtl"
+                    placeholder={t("adminPages.cmsPosts.editor.placeholderAr", { defaultValue: "اكتب محتوى المقالة، وأضف صورًا أو فيديو من شريط الأدوات." })}
+                  />
+                ) : (
+                  <RichTextEditor
+                    key={`${editing.id}-en`}
+                    value={form.bodyHtml}
+                    onChange={(html) => setForm((f) => ({ ...f, bodyHtml: html }))}
+                    dir="ltr"
+                    placeholder={t("adminPages.cmsPosts.editor.placeholderEn", { defaultValue: "Write the article. Use the toolbar to add images, video, and formatting." })}
+                  />
+                )}
               </div>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-bold uppercase text-slate-500">{t("adminPages.cmsPosts.body")} (EN)</label>
-              <textarea
-                value={form.bodyMd}
-                onChange={(e) => setForm((f) => ({ ...f, bodyMd: e.target.value }))}
-                className="min-h-40 w-full rounded-lg border border-slate-200 p-3 font-mono text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-slate-200"
-                dir="ltr"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                {t("adminPages.cmsPosts.bodyAr", { defaultValue: "Body (Arabic)" })}
-              </label>
-              <textarea
-                value={form.bodyMdAr}
-                onChange={(e) => setForm((f) => ({ ...f, bodyMdAr: e.target.value }))}
-                className="min-h-40 w-full rounded-lg border border-slate-200 p-3 font-mono text-sm dark:border-white/10 dark:bg-[#0F0F13] dark:text-slate-200"
-                dir="rtl"
-              />
-            </div>
-            <div className="flex gap-2 pt-2">
-              <button
-                type="button"
-                disabled={updateMutation.isPending}
-                onClick={() => {
-                  const slug = form.slug.trim().length >= 3 ? form.slug.trim() : slugFromTitle(form.title);
-                  updateMutation.mutate(
-                    {
-                      id: editing.id,
-                      body: {
-                        title: form.title.trim(),
-                        titleAr: form.titleAr.trim() || null,
-                        slug,
-                        published: form.published,
-                        category: form.category,
-                        content: { format: "markdown", body: form.bodyMd },
-                        contentAr: form.bodyMdAr.trim()
-                          ? { format: "markdown", body: form.bodyMdAr }
-                          : null,
-                        ...(form.thumbnail.trim() ? { thumbnail: form.thumbnail.trim() } : { thumbnail: "" }),
+            <div className="flex items-center justify-between gap-3 border-t border-slate-200 px-5 py-4 dark:border-white/10">
+              <div>
+                {updateMutation.isError ? (
+                  <p className="text-sm text-red-600 dark:text-red-400">{getErrorMessage(updateMutation.error)}</p>
+                ) : null}
+              </div>
+              <div className="flex gap-2">
+                <button type="button" onClick={() => setEditing(null)} className="rounded-lg border border-slate-200 px-4 py-2 text-sm dark:border-white/10">
+                  {t("adminPages.common.cancel")}
+                </button>
+                <button
+                  type="button"
+                  disabled={updateMutation.isPending}
+                  onClick={() => {
+                    const slug = form.slug.trim().length >= 3 ? form.slug.trim() : slugFromTitle(form.title || form.titleAr);
+                    updateMutation.mutate(
+                      {
+                        id: editing.id,
+                        body: {
+                          title: form.title.trim() || form.titleAr.trim(),
+                          titleAr: form.titleAr.trim() || null,
+                          slug,
+                          published: form.published,
+                          category: form.category,
+                          content: { format: "html", body: form.bodyHtml },
+                          contentAr: form.bodyHtmlAr.trim()
+                            ? { format: "html", body: form.bodyHtmlAr }
+                            : null,
+                          ...(form.thumbnail.trim() ? { thumbnail: form.thumbnail.trim() } : { thumbnail: "" }),
+                        },
                       },
-                    },
-                    {
-                      onSuccess: () => setEditing(null),
-                    }
-                  );
-                }}
-                className="rounded-lg bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white disabled:opacity-50"
-              >
-                {updateMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : t("adminPages.cmsPosts.saveChanges")}
-              </button>
-              <button type="button" onClick={() => setEditing(null)} className="rounded-lg border border-slate-200 px-4 py-2 text-sm dark:border-white/10">
-                {t("adminPages.common.cancel")}
-              </button>
+                      {
+                        onSuccess: () => setEditing(null),
+                      }
+                    );
+                  }}
+                  className="rounded-lg bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white disabled:opacity-50"
+                >
+                  {updateMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : t("adminPages.cmsPosts.saveChanges")}
+                </button>
+              </div>
             </div>
-            {updateMutation.isError ? (
-              <p className="text-sm text-red-600 dark:text-red-400">{getErrorMessage(updateMutation.error)}</p>
-            ) : null}
           </div>
-        ) : null}
-      </SlideOver>
+        </div>
+      ) : null}
     </section>
   );
 }

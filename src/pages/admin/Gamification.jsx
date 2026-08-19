@@ -80,7 +80,7 @@ export default function AdminGamification() {
   return (
     <div className="space-y-8">
       <PageHeader
-        title={t("admin.gamification.title", { defaultValue: "Step Momentum" })}
+        title={t("admin.gamification.title", { defaultValue: "Platform Points" })}
         subtitle={t("admin.gamification.subtitle", {
           defaultValue: "Weekly challenges, badge seed, and active learner stats.",
         })}

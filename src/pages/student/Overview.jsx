@@ -312,8 +312,8 @@ export default function StudentOverview() {
             <p className="text-sm font-medium leading-relaxed text-blue-100/90 sm:text-[15px]">
               {t("student.overview.heroSubtitle", {
                 defaultValue: isAr
-                  ? "تابع تقدمك في الكورسات، راجع الاختبارات القادمة، وابنِ زخم مذاكرتك خطوة بخطوة."
-                  : "Track course progress, stay ahead of upcoming exams, and keep your study momentum strong.",
+                  ? "تابع تقدمك في الكورسات، راجع الاختبارات القادمة، واجمع نقاط المنصة أثناء مذاكرتك."
+                  : "Track course progress, stay ahead of upcoming exams, and earn platform points along the way.",
               })}
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
@@ -374,7 +374,7 @@ export default function StudentOverview() {
         </div>
       </motion.section>
 
-      {/* Step Momentum */}
+      {/* Platform Points */}
       {gami?.profile ? (
         <motion.section
           initial="hidden"
@@ -390,7 +390,7 @@ export default function StudentOverview() {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  {t("student.gamification.brand", { defaultValue: "Step Momentum" })}
+                  {t("student.gamification.brand", { defaultValue: "Platform Points" })}
                 </p>
                 <p className="mt-0.5 text-lg font-black text-slate-900 dark:text-white">
                   {t("student.gamification.level", { defaultValue: "Level" })} {gami.profile.level}
@@ -427,7 +427,7 @@ export default function StudentOverview() {
                 to="/student/momentum"
                 className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--yu-blue-700)] px-3.5 py-2 text-xs font-bold text-white hover:bg-[var(--yu-blue-600)]"
               >
-                {t("student.gamification.openMomentum", { defaultValue: isAr ? "فتح الزخم" : "Open Momentum" })}
+                {t("student.gamification.openMomentum", { defaultValue: isAr ? "عرض نقاط المنصة" : "View Platform Points" })}
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
             </div>

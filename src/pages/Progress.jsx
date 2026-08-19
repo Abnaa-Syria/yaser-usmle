@@ -362,8 +362,8 @@ export default function Progress() {
             <p className="text-sm font-medium leading-relaxed text-blue-100/90">
               {t("progress.subtitleRich", {
                 defaultValue: isAr
-                  ? "تابع تقدمك عبر الكورسات، البطاقات، خطة المذاكرة، الاختبارات، والزخم في مكان واحد."
-                  : "Track courses, flashcards, study plan, exams, and momentum — all in one place.",
+                  ? "تابع تقدمك عبر الكورسات، البطاقات، خطة المذاكرة، الاختبارات، ونقاط المنصة في مكان واحد."
+                  : "Track courses, flashcards, study plan, exams, and platform points — all in one place.",
               })}
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
@@ -386,7 +386,7 @@ export default function Progress() {
                 className="inline-flex items-center gap-1.5 rounded-xl bg-white px-3.5 py-2 text-xs font-bold text-[var(--yu-blue-900)] hover:bg-blue-50"
               >
                 <Zap className="h-3.5 w-3.5" />
-                {t("progress.cta.momentum", { defaultValue: isAr ? "الزخم" : "Momentum" })}
+                {t("progress.cta.momentum", { defaultValue: isAr ? "نقاط المنصة" : "Platform Points" })}
               </Link>
             </div>
           </div>
@@ -504,7 +504,7 @@ export default function Progress() {
             />
             <DomainCard
               icon={Zap}
-              title={t("progress.domains.momentum", { defaultValue: isAr ? "الزخم" : "Momentum" })}
+              title={t("progress.domains.momentum", { defaultValue: isAr ? "نقاط المنصة" : "Platform Points" })}
               value={gami?.profile ? `Lv ${gami.profile.level}` : "—"}
               hint={
                 gami?.profile
@@ -533,7 +533,7 @@ export default function Progress() {
                   </div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      {t("student.gamification.brand", { defaultValue: "Step Momentum" })}
+                      {t("student.gamification.brand", { defaultValue: "Platform Points" })}
                     </p>
                     <p className="mt-0.5 text-lg font-black text-slate-900 dark:text-white">
                       {t("student.gamification.level", { defaultValue: "Level" })} {gami.profile.level}

@@ -192,7 +192,7 @@ export default function ExamResult() {
                     <span className="rounded-md bg-[var(--yu-blue-700)] px-1.5 py-0.5 text-[10px] text-white">XP</span>
                     {t("student.gamification.examXpToast", {
                       amount: result.xp.amount,
-                      defaultValue: "Momentum bonus: +{{amount}} XP (not your exam score)",
+                      defaultValue: "Platform points bonus: +{{amount}} XP (not your exam score)",
                     })}
                   </p>
                 ) : null}

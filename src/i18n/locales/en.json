@@ -99,7 +99,7 @@
       "emailTemplates": "Email Templates",
       "integrations": "Integrations",
       "freeTrial": "Free trial",
-      "gamification": "Step Momentum",
+      "gamification": "Platform Points",
       "myClasses": "My Classes",
       "myCohorts": "My Cohorts",
       "myCourses": "My Courses",
@@ -128,7 +128,7 @@
       "payments": "Payments",
       "wishlist": "Wishlist",
       "progress": "Progress",
-      "momentum": "Momentum",
+      "momentum": "Platform Points",
       "studentAssignment": "Assignment",
       "websiteHome": "Homepage",
       "websiteExplore": "Browse courses",
@@ -151,7 +151,7 @@
         "afternoon": "Good afternoon",
         "evening": "Good evening"
       },
-      "heroSubtitle": "Track course progress, stay ahead of upcoming exams, and keep your study momentum strong.",
+      "heroSubtitle": "Track course progress, stay ahead of upcoming exams, and earn platform points along the way.",
       "resumeLearning": "Resume learning",
       "viewExams": "View exams",
       "overallProgress": "Overall progress",
@@ -252,8 +252,8 @@
       "downloadError": "Could not download certificate."
     },
     "gamification": {
-      "brand": "Step Momentum",
-      "title": "Preparation Momentum",
+      "brand": "Platform Points",
+      "title": "Platform Points",
       "subtitle": "Track mastery XP, streaks, badges, and competitive rankings.",
       "level": "Level",
       "xpToNext": "{{count}} XP to next level",
@@ -284,10 +284,10 @@
       "noXpYet": "Complete lessons and exams to earn XP.",
       "privacyLink": "Leaderboard privacy settings",
       "badgeUnlocked": "Badge unlocked: {{title}}",
-      "openMomentum": "Open Momentum",
+      "openMomentum": "View Platform Points",
       "lessonXpHint": "+15 XP when you complete this lesson",
       "lessonXpToast": "+{{amount}} XP for completing this lesson",
-      "examXpToast": "Momentum bonus: +{{amount}} XP (not your exam score)"
+      "examXpToast": "Platform points bonus: +{{amount}} XP (not your exam score)"
     },
     "tickets": {
       "title": "Support",
@@ -2051,7 +2051,7 @@
         "features": {
           "affordable": "Structured pricing by program",
           "peerInteractions": "Learn alongside motivated peers",
-          "community": "Build momentum with your cohort"
+          "community": "Earn platform points with your cohort"
         },
         "button": "Browse cohort courses"
       },
@@ -3255,7 +3255,7 @@
     "titlePrefix": "My",
     "titleAccent": "Progress",
     "subtitle": "Track your learning journey and achievements",
-    "subtitleRich": "Track courses, flashcards, study plan, exams, and momentum — all in one place.",
+    "subtitleRich": "Track courses, flashcards, study plan, exams, and platform points — all in one place.",
     "overallLabel": "Overall progress",
     "overallHint": "Average across your active tracks",
     "completed": "Completed",
@@ -3275,7 +3275,7 @@
     "cta": {
       "flashcards": "Review flashcards",
       "studyPlan": "Study plan",
-      "momentum": "Momentum"
+      "momentum": "Platform Points"
     },
     "domains": {
       "courses": "Courses",
@@ -3288,7 +3288,7 @@
       "examsHint": "Submissions & scores",
       "certificates": "Certificates",
       "certificatesHint": "Earned certificates",
-      "momentum": "Momentum",
+      "momentum": "Platform Points",
       "momentumEmpty": "Start studying to earn XP"
     },
     "sections": {
@@ -4660,7 +4660,7 @@
       "adminFallback": "Admin"
     },
     "gamification": {
-      "title": "Step Momentum",
+      "title": "Platform Points",
       "subtitle": "Weekly challenges, badge seed, and active learner stats.",
       "activePlayers": "Active players (XP > 0)",
       "topXp": "Highest total XP",

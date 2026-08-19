@@ -66,8 +66,8 @@ export default function Momentum() {
   return (
     <div className="space-y-8 pb-6">
       <PageHeader
-        eyebrow={t("student.gamification.brand", { defaultValue: "Step Momentum" })}
-        title={t("student.gamification.title", { defaultValue: isAr ? "زخم التحضير" : "Preparation Momentum" })}
+        eyebrow={t("student.gamification.brand", { defaultValue: "Platform Points" })}
+        title={t("student.gamification.title", { defaultValue: isAr ? "نقاط المنصة" : "Platform Points" })}
         subtitle={t("student.gamification.subtitle", {
           defaultValue: isAr
             ? "تتبع نقاط الإتقان، السلسلة، الشارات، والترتيب التنافسي."

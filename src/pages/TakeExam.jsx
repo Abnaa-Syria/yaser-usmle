@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, ArrowLeft, ArrowRight, CheckCircle2, Clock3, Flag } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useStartStudentExam, useStudentExam, useSubmitStudentExam } from "../features/student/exams/hooks";
 import { useStartTrialExam, useSubmitTrialExam, useTrialExam } from "../features/trial/hooks";
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
@@ -91,6 +91,8 @@ function OptionRow({ label, selected, onPick }) {
 export default function TakeExam() {
   const { t } = useTranslation();
   const { id: examId } = useParams();
+  const [searchParams] = useSearchParams();
+  const autostart = searchParams.get("autostart") === "1";
   const { isTrial, examsBase } = useLearningPanelMode();
   const studentExamQuery = useStudentExam(examId, { enabled: !isTrial });
   const trialExamQuery = useTrialExam(examId, { enabled: isTrial });
@@ -115,6 +117,8 @@ export default function TakeExam() {
   const examRef = useRef(exam);
   const submissionRef = useRef(submission);
   const submitOnceRef = useRef(false);
+  const beginOnceRef = useRef(false);
+  const bootstrappedRef = useRef(false);
   const timeUpHandledRef = useRef(false);
   useEffect(() => {
     answersRef.current = answers;
@@ -180,9 +184,42 @@ export default function TakeExam() {
   }, [examId, submitExam, t]);
 
   useEffect(() => {
-    if (isLoading) setPhase("loading");
-    else if (isError) setPhase("error");
-    else if (exam) setPhase("intro");
+    bootstrappedRef.current = false;
+    beginOnceRef.current = false;
+    submitOnceRef.current = false;
+    timeUpHandledRef.current = false;
+    setPhase("loading");
+    setSubmission(null);
+    setAnswers({});
+    setFlagged({});
+    setResult(null);
+    setLocalErr("");
+    setCurrentIdx(0);
+  }, [examId]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setPhase("loading");
+      return;
+    }
+    if (isError) {
+      setPhase("error");
+      bootstrappedRef.current = false;
+      return;
+    }
+    if (!exam) return;
+
+    // Keep active/review/done phases when exam query refetches after start/submit.
+    if (bootstrappedRef.current) return;
+    bootstrappedRef.current = true;
+
+    if (exam.mySubmission?.submittedAt) {
+      setResult(exam.mySubmission);
+      setPhase("done");
+      return;
+    }
+
+    setPhase("intro");
   }, [isLoading, isError, exam]);
 
   useEffect(() => {
@@ -215,13 +252,12 @@ export default function TakeExam() {
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [phase]);
 
-  const begin = async () => {
-    if (!examId) return;
+  const begin = useCallback(async () => {
+    if (!examId || beginOnceRef.current) return;
+    beginOnceRef.current = true;
     submitOnceRef.current = false;
     timeUpHandledRef.current = false;
     setLocalErr("");
-    setFlagged({});
-    setAnswers({});
     try {
       const sub = await startExam.mutateAsync(examId);
       setSubmission(sub);
@@ -233,9 +269,18 @@ export default function TakeExam() {
       setPhase("active");
       setCurrentIdx(0);
     } catch (e) {
+      beginOnceRef.current = false;
       setLocalErr(getErrorMessage(e, t("takeExam.errors.start")));
     }
-  };
+  }, [examId, startExam, t]);
+
+  useEffect(() => {
+    if (phase !== "intro" || !exam || startExam.isPending) return;
+    const inProgress = Boolean(exam.mySubmission?.startedAt && !exam.mySubmission?.submittedAt);
+    if ((autostart || inProgress) && exam.status === "AVAILABLE") {
+      void begin();
+    }
+  }, [phase, exam, autostart, startExam.isPending, begin]);
 
   const toggleFlag = (questionId) => {
     setFlagged((prev) => ({ ...prev, [questionId]: !prev[questionId] }));
@@ -360,35 +405,56 @@ export default function TakeExam() {
 
   if (phase === "intro") {
     const canStart = exam.status === "AVAILABLE";
+    if (startExam.isPending || (autostart && canStart)) {
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-slate-50 text-slate-600">
+          <Clock3 className="h-8 w-8 animate-pulse text-yu-blue-700" />
+          <p>{t("takeExam.starting", { defaultValue: "Starting exam…" })}</p>
+        </div>
+      );
+    }
     return (
-      <div className="min-h-screen bg-slate-50 py-16">
-        <div className="mx-auto max-w-lg px-4">
-          <h1 className="text-2xl font-bold text-slate-900">{exam.title}</h1>
-          <p className="mt-2 text-sm text-slate-600">{exam.description || ""}</p>
-          <ul className="mt-6 space-y-2 text-sm text-slate-600">
-            <li>
-              {t("takeExam.meta.duration")}: {exam.durationMinutes} {t("takeExam.meta.minutes")}
-            </li>
-            <li>
-              {t("takeExam.meta.passing")}: {exam.passingScore} / {exam.totalPoints}
-            </li>
-            <li>
-              {t("takeExam.meta.questions")}: {total}
-            </li>
-          </ul>
-          {localErr ? <p className="mt-4 text-sm text-red-600">{localErr}</p> : null}
-          {!canStart ? <p className="mt-4 text-sm text-amber-700">{t("takeExam.notAvailable", { status: exam.status })}</p> : null}
-          <button
-            type="button"
-            disabled={!canStart || startExam.isPending}
-            onClick={() => void begin()}
-            className="mt-8 w-full rounded-xl bg-yu-blue-700 py-3 text-sm font-bold text-white hover:bg-yu-blue-600 disabled:opacity-50"
-          >
-            {startExam.isPending ? t("takeExam.starting") : t("takeExam.begin")}
-          </button>
-          <Link to={`${examsBase}/${examId}`} className="mt-4 block text-center text-sm text-slate-500 hover:text-yu-blue-700">
-            {t("takeExam.backDetail")}
-          </Link>
+      <div className="min-h-screen bg-gradient-to-b from-[var(--yu-blue-50)]/40 to-slate-50 py-12 md:py-16">
+        <div className="mx-auto max-w-2xl px-4">
+          <div className="overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-[var(--shadow-md)]">
+            <div className="border-b border-slate-100 bg-gradient-to-r from-[var(--yu-blue-700)] to-[var(--yu-blue-500)] px-6 py-8 text-white md:px-8">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/80">{t("takeExam.intro.eyebrow", { defaultValue: "Exam ready" })}</p>
+              <h1 className="mt-2 text-2xl font-black md:text-3xl">{exam.title}</h1>
+              {exam.description ? <p className="mt-3 text-sm leading-relaxed text-white/90">{exam.description}</p> : null}
+            </div>
+            <div className="grid gap-4 px-6 py-6 sm:grid-cols-3 md:px-8">
+              <div className="rounded-2xl bg-slate-50 px-4 py-4 text-center">
+                <p className="text-2xl font-black text-slate-900">{exam.durationMinutes}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-500">{t("takeExam.meta.minutes")}</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 px-4 py-4 text-center">
+                <p className="text-2xl font-black text-slate-900">{total}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-500">{t("takeExam.meta.questions")}</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 px-4 py-4 text-center">
+                <p className="text-2xl font-black text-slate-900">{exam.passingScore}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-500">{t("takeExam.meta.passing")}</p>
+              </div>
+            </div>
+            <div className="border-t border-slate-100 px-6 py-6 md:px-8">
+              {localErr ? <p className="mb-4 text-sm text-red-600">{localErr}</p> : null}
+              {!canStart ? <p className="mb-4 text-sm text-amber-700">{t("takeExam.notAvailable", { status: exam.status })}</p> : null}
+              <button
+                type="button"
+                disabled={!canStart || startExam.isPending}
+                onClick={() => {
+                  beginOnceRef.current = false;
+                  void begin();
+                }}
+                className="w-full rounded-xl bg-yu-blue-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-yu-blue-700/20 hover:bg-yu-blue-600 disabled:opacity-50"
+              >
+                {startExam.isPending ? t("takeExam.starting") : t("takeExam.begin")}
+              </button>
+              <Link to={`${examsBase}/${examId}`} className="mt-4 block text-center text-sm text-slate-500 hover:text-yu-blue-700">
+                {t("takeExam.backDetail")}
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -399,50 +465,56 @@ export default function TakeExam() {
     const scoreVal = result.totalScore ?? 0;
     const maxPts = exam.totalPoints || 1;
     const pct = Math.round((scoreVal / maxPts) * 100);
+    const submissionId = result.id || exam.mySubmission?.id;
     return (
-      <div className="min-h-screen bg-slate-50 py-16">
-        <div className="mx-auto max-w-lg px-4 text-center">
-          <div className={`mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full ${passed ? "bg-green-100" : "bg-[var(--yu-blue-700)]/10"}`}>
-            {passed ? <CheckCircle2 className="h-10 w-10 text-green-500" /> : <AlertCircle className="h-10 w-10 text-yu-blue-700" />}
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900">{passed ? t("takeExam.result.passed") : t("takeExam.result.failed")}</h1>
-          <p className="mt-2 text-slate-500">{exam.title}</p>
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            <div className="rounded-2xl border border-slate-100 bg-white py-4 shadow-sm">
-              <p className="text-2xl font-extrabold text-slate-900">
-                {scoreVal}/{maxPts}
-              </p>
-              <p className="mt-0.5 text-xs text-slate-500">{t("takeExam.result.score")}</p>
+      <div className="min-h-screen bg-gradient-to-b from-[var(--yu-blue-50)]/30 to-slate-50 py-12 md:py-16">
+        <div className="mx-auto max-w-2xl px-4 text-center">
+          <div className="overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-[var(--shadow-md)]">
+            <div className={`px-6 py-10 md:px-8 ${passed ? "bg-gradient-to-br from-emerald-500 to-emerald-600" : "bg-gradient-to-br from-[var(--yu-blue-700)] to-[var(--yu-blue-500)]"}`}>
+              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white/15 backdrop-blur">
+                {passed ? <CheckCircle2 className="h-10 w-10 text-white" /> : <AlertCircle className="h-10 w-10 text-white" />}
+              </div>
+              <h1 className="text-2xl font-black text-white">{passed ? t("takeExam.result.passed") : t("takeExam.result.failed")}</h1>
+              <p className="mt-2 text-sm text-white/90">{exam.title}</p>
             </div>
-            <div className="rounded-2xl border border-slate-100 bg-white py-4 shadow-sm">
-              <p className="text-2xl font-extrabold text-slate-900">{pct}%</p>
-              <p className="mt-0.5 text-xs text-slate-500">{t("takeExam.result.percent")}</p>
+            <div className="grid grid-cols-3 gap-0 divide-x divide-slate-100 border-b border-slate-100">
+              <div className="py-6">
+                <p className="text-2xl font-extrabold text-slate-900">{scoreVal}/{maxPts}</p>
+                <p className="mt-1 text-xs text-slate-500">{t("takeExam.result.score")}</p>
+              </div>
+              <div className="py-6">
+                <p className="text-2xl font-extrabold text-slate-900">{pct}%</p>
+                <p className="mt-1 text-xs text-slate-500">{t("takeExam.result.percent")}</p>
+              </div>
+              <div className="py-6">
+                <p className="text-2xl font-extrabold text-slate-900">{exam.passingScore}</p>
+                <p className="mt-1 text-xs text-slate-500">{t("takeExam.result.passing")}</p>
+              </div>
             </div>
-            <div className="rounded-2xl border border-slate-100 bg-white py-4 shadow-sm">
-              <p className="text-2xl font-extrabold text-slate-900">{exam.passingScore}</p>
-              <p className="mt-0.5 text-xs text-slate-500">{t("takeExam.result.passing")}</p>
-            </div>
-          </div>
-          {result.xp?.amount ? (
-            <p className="mt-4 text-sm font-bold text-[var(--yu-blue-700)]">
-              {t("student.gamification.examXpToast", {
-                amount: result.xp.amount,
-                defaultValue: "You earned {{amount}} XP for this exam",
-              })}
-            </p>
-          ) : null}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            {result.id ? (
+            <div className="space-y-3 px-6 py-8 md:px-8">
+              {result.xp?.amount ? (
+                <p className="text-sm font-bold text-[var(--yu-blue-700)]">
+                  {t("student.gamification.examXpToast", {
+                    amount: result.xp.amount,
+                    defaultValue: "You earned {{amount}} XP for this exam",
+                  })}
+                </p>
+              ) : null}
+              {submissionId ? (
+                <Link
+                  to={`${examsBase}/${examId}/results/${submissionId}`}
+                  className="block w-full rounded-xl bg-yu-blue-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-yu-blue-700/20 hover:bg-yu-blue-600"
+                >
+                  {t("takeExam.result.viewDetails", { defaultValue: "View detailed results & explanations" })}
+                </Link>
+              ) : null}
               <Link
-                to={`${examsBase}/${examId}/results/${result.id}`}
-                className="rounded-xl bg-yu-blue-700 px-6 py-3 text-sm font-semibold text-white hover:bg-yu-blue-600"
+                to={examsBase}
+                className="block w-full rounded-xl border border-slate-200 py-3 text-sm font-semibold text-slate-600 transition hover:border-yu-blue-700 hover:text-yu-blue-700"
               >
-                {t("takeExam.result.viewDetails", { defaultValue: "View detailed results" })}
+                {t("takeExam.result.backToExams")}
               </Link>
-            ) : null}
-            <Link to={examsBase} className="rounded-xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-yu-blue-700 hover:text-yu-blue-700">
-              {t("takeExam.result.backToExams")}
-            </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -588,7 +660,7 @@ export default function TakeExam() {
               {current.imageUrl ? (
                 <img src={resolveMediaUrl(current.imageUrl)} alt="" className="mb-4 max-h-72 w-full rounded-xl object-contain" />
               ) : null}
-              <p className="text-sm leading-relaxed text-slate-600">{current.questionText}</p>
+              <p className="text-base font-semibold leading-relaxed text-slate-800 md:text-lg">{current.questionText}</p>
 
               {(current.type === "MULTIPLE_CHOICE" || current.type === "TRUE_FALSE") && (
                 <div className="mt-6 space-y-3">

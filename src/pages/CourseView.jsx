@@ -363,6 +363,11 @@ export default function CourseView() {
     unitId: activeLesson?.unitId,
     lessonId: activeLesson?.id,
   });
+  const lessonQuizLink = useMemo(() => {
+    if (!activeLesson?.id || lessonExams.length === 0) return null;
+    if (lessonExams.length === 1) return `/student/exams/${lessonExams[0].id}`;
+    return `/student/exams?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`;
+  }, [activeLesson?.id, courseId, lessonExams]);
   const lessonFlashcardCount = activeLesson?.flashcards?.length || 0;
   const { data: certificates = [] } = useMyCertificates();
   const claimCertificate = useClaimCertificate();
@@ -745,7 +750,7 @@ export default function CourseView() {
                     }
                   />
                   <ToolTile
-                    to={`/student/exams?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`}
+                    to={lessonQuizLink || "#"}
                     icon={ClipboardList}
                     tone="amber"
                     title={t("courseView.lessonQuiz", { defaultValue: "Lecture quiz" })}
@@ -754,7 +759,7 @@ export default function CourseView() {
                         ? t("courseView.lessonQuizCount", { count: lessonExams.length, defaultValue: "{{count}} available" })
                         : t("courseView.lessonQuizEmpty", { defaultValue: "No quiz linked yet" })
                     }
-                    disabled={lessonExams.length === 0}
+                    disabled={!lessonQuizLink}
                   />
                   <ToolTile
                     to="/student/study-plan"

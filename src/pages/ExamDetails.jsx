@@ -127,7 +127,7 @@ export default function ExamDetails() {
               </Link>
             </div>
           ) : exam.status === "AVAILABLE" ? (
-            <Link to={`${examsBase}/${exam.id}/take`} className={studentBtnPrimary}>
+            <Link to={`${examsBase}/${exam.id}/take?autostart=1`} className={studentBtnPrimary}>
               <BookOpen className="h-4 w-4" />
               {sub && !sub.submittedAt ? t("exams.continue", { defaultValue: "Continue exam" }) : t("examDetails.startExam", { defaultValue: "Start exam" })}
             </Link>

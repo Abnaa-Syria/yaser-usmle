@@ -202,7 +202,7 @@ export default function LessonVideoPlayer({
       title={title}
       src={embedUrl}
       className={`absolute inset-0 h-full w-full border-0 ${className}`}
-      allow="encrypted-media; autoplay; fullscreen; picture-in-picture"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
       allowFullScreen
     />
   );

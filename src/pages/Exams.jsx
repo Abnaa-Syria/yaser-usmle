@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CalendarDays, Clock3, FileText, Search } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -26,10 +26,18 @@ function examTypeLabelKey(type) {
 
 export default function Exams() {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const [q, setQ] = useState("");
   const { isTrial, examsBase } = useLearningPanelMode();
-  const studentQuery = useStudentExams({}, { enabled: !isTrial });
-  const trialQuery = useTrialExams({}, { enabled: isTrial });
+  const courseId = searchParams.get("courseId") || undefined;
+  const lessonId = searchParams.get("lessonId") || undefined;
+  const unitId = searchParams.get("unitId") || undefined;
+  const examFilters = useMemo(
+    () => ({ ...(courseId ? { courseId } : {}), ...(lessonId ? { lessonId } : {}), ...(unitId ? { unitId } : {}) }),
+    [courseId, lessonId, unitId]
+  );
+  const studentQuery = useStudentExams(examFilters, { enabled: !isTrial });
+  const trialQuery = useTrialExams(examFilters, { enabled: isTrial });
   const { data: exams = [], isLoading, isError, refetch } = isTrial ? trialQuery : studentQuery;
 
   const filtered = useMemo(() => {
@@ -55,6 +63,19 @@ export default function Exams() {
           ? t("trial.examsHint", { defaultValue: "Exams included in your free trial courses on this device." })
           : t("exams.enrolledOnlyHint")}
       </p>
+
+      {lessonId || courseId ? (
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--yu-blue-100)] bg-[var(--yu-blue-50)]/60 px-4 py-3 text-sm text-[var(--yu-blue-900)]">
+          <span>
+            {lessonId
+              ? t("exams.filteredByLesson", { defaultValue: "Showing quizzes for this lecture." })
+              : t("exams.filteredByCourse", { defaultValue: "Showing quizzes for this course." })}
+          </span>
+          <Link to={examsBase} className="font-bold underline-offset-2 hover:underline">
+            {t("exams.clearFilters", { defaultValue: "Show all exams" })}
+          </Link>
+        </div>
+      ) : null}
 
       <div className="relative max-w-xl">
         <Search className="pointer-events-none absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -161,7 +182,7 @@ export default function Exams() {
                       ) : null}
                       {exam.status === "AVAILABLE" && !studentFinished ? (
                         <Link
-                          to={`${examsBase}/${exam.id}/take`}
+                          to={`${examsBase}/${exam.id}/take?autostart=1`}
                           className="rounded-xl bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white transition hover:bg-[var(--yu-blue-600)]"
                         >
                           {inProgress ? t("exams.continue", { defaultValue: "Continue exam" }) : t("exams.start", { defaultValue: "Start" })}

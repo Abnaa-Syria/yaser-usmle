@@ -493,10 +493,11 @@ export default function TakeExam() {
             </div>
             <div className="space-y-3 px-6 py-8 md:px-8">
               {result.xp?.amount ? (
-                <p className="text-sm font-bold text-[var(--yu-blue-700)]">
+                <p className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-4 py-2 text-xs font-bold text-[var(--yu-blue-800)]">
+                  <span className="rounded-md bg-[var(--yu-blue-700)] px-1.5 py-0.5 text-[10px] text-white">XP</span>
                   {t("student.gamification.examXpToast", {
                     amount: result.xp.amount,
-                    defaultValue: "You earned {{amount}} XP for this exam",
+                    defaultValue: "Momentum bonus: +{{amount}} XP (not your exam score)",
                   })}
                 </p>
               ) : null}

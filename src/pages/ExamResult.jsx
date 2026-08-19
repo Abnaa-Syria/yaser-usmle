@@ -188,16 +188,17 @@ export default function ExamResult() {
                   })}
                 </p>
                 {result.xp?.amount ? (
-                  <p className="mt-2 text-sm font-bold text-[var(--yu-blue-700)]">
+                  <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3 py-1.5 text-xs font-bold text-[var(--yu-blue-800)]">
+                    <span className="rounded-md bg-[var(--yu-blue-700)] px-1.5 py-0.5 text-[10px] text-white">XP</span>
                     {t("student.gamification.examXpToast", {
                       amount: result.xp.amount,
-                      defaultValue: "You earned {{amount}} XP for this exam",
+                      defaultValue: "Momentum bonus: +{{amount}} XP (not your exam score)",
                     })}
                   </p>
                 ) : null}
               </div>
             </div>
-            <div className="h-3 w-full overflow-hidden rounded-full bg-slate-100 md:max-w-xs dark:bg-white/10">
+            <div className="h-3 w-full overflow-hidden rounded-full bg-slate-100 md:max-w-xs dark:bg-white/10" dir="ltr">
               <div
                 className={`h-full rounded-full transition-all ${passed ? "bg-emerald-500" : "bg-[var(--yu-blue-700)]"}`}
                 style={{ width: `${Math.min(100, pct)}%` }}

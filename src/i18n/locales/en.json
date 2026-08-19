@@ -287,7 +287,7 @@
       "openMomentum": "Open Momentum",
       "lessonXpHint": "+15 XP when you complete this lesson",
       "lessonXpToast": "+{{amount}} XP for completing this lesson",
-      "examXpToast": "You earned {{amount}} XP for this exam"
+      "examXpToast": "Momentum bonus: +{{amount}} XP (not your exam score)"
     },
     "tickets": {
       "title": "Support",
@@ -3729,7 +3729,10 @@
     "pts": "pts",
     "passed": "Passed",
     "failed": "Failed",
-    "explanation": "Explanation"
+    "explanation": "Explanation",
+    "breakdown": "{{correct}} of {{total}} questions correct",
+    "reviewTitle": "Question review",
+    "questionLabel": "Question {{n}}"
   },
   "myCohorts": {
     "titlePrefix": "My",

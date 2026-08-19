@@ -287,7 +287,7 @@
       "openMomentum": "فتح الزخم",
       "lessonXpHint": "+15 نقطة عند إكمال هذا الدرس",
       "lessonXpToast": "+{{amount}} نقطة لإكمال الدرس",
-      "examXpToast": "حصلت على {{amount}} نقطة من هذا الامتحان"
+      "examXpToast": "مكافأة زخم الخطوة: +{{amount}} XP (ليست درجة الامتحان)"
     },
     "tickets": {
       "title": "الدعم",
@@ -3728,7 +3728,10 @@
     "pts": "نقطة",
     "passed": "ناجح",
     "failed": "راسب",
-    "explanation": "الشرح"
+    "explanation": "الشرح",
+    "breakdown": "{{correct}} من {{total}} أسئلة صحيحة",
+    "reviewTitle": "مراجعة الأسئلة",
+    "questionLabel": "السؤال {{n}}"
   },
   "myCohorts": {
     "titlePrefix": "كورساتي",

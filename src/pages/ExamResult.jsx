@@ -9,10 +9,62 @@ import { useExamResult } from "../features/student/exams/hooks";
 import { useTrialExamResult } from "../features/trial/hooks";
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
+import { choiceIsCorrect, choiceMatchesStored, normalizeMcqChoices, resolveChoiceLabel } from "../utils/examChoices";
 
 function pickLocalized(primary, ar, isAr) {
   if (isAr && ar?.trim()) return ar.trim();
   return primary || "";
+}
+
+function ChoiceReviewList({ choices, studentAnswer, correctAnswer }) {
+  return (
+    <div className="space-y-2">
+      {choices.map((choice, idx) => {
+        const letter = String.fromCharCode(65 + idx);
+        const isCorrect = choiceIsCorrect(correctAnswer, choice);
+        const isSelected = choiceMatchesStored(studentAnswer, choice);
+        const isWrongSelected = isSelected && !isCorrect;
+
+        return (
+          <div
+            key={`${choice.id}-${idx}`}
+            className={`flex items-center gap-3 rounded-xl border px-4 py-3 transition ${
+              isCorrect
+                ? "border-emerald-500/70 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-500/10"
+                : isWrongSelected
+                  ? "border-red-500/70 bg-red-50 dark:border-red-500/40 dark:bg-red-500/10"
+                  : "border-slate-200/80 bg-white/80 dark:border-white/10 dark:bg-[#0C1829]"
+            }`}
+          >
+            <span
+              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
+                isCorrect
+                  ? "bg-emerald-600 text-white"
+                  : isWrongSelected
+                    ? "bg-red-600 text-white"
+                    : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+              }`}
+            >
+              {letter}
+            </span>
+            <p
+              className={`min-w-0 flex-1 text-sm font-medium leading-relaxed ${
+                isCorrect
+                  ? "text-emerald-900 dark:text-emerald-100"
+                  : isWrongSelected
+                    ? "text-red-900 dark:text-red-100"
+                    : "text-slate-800 dark:text-slate-200"
+              }`}
+            >
+              {choice.label}
+            </p>
+            {isCorrect ? <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" aria-hidden /> : null}
+            {isWrongSelected ? <XCircle className="h-5 w-5 shrink-0 text-red-600" aria-hidden /> : null}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 function QuestionReviewCard({ answer, index, isAr, t }) {
@@ -21,6 +73,21 @@ function QuestionReviewCard({ answer, index, isAr, t }) {
   const questionText = pickLocalized(q.questionText, q.questionTextAr, isAr);
   const explanation = pickLocalized(q.explanation, q.explanationAr, isAr);
   const correct = !!answer.isCorrect;
+  const isChoiceQuestion = q.type === "MULTIPLE_CHOICE" || q.type === "TRUE_FALSE";
+  const choices = useMemo(() => {
+    const parsed = normalizeMcqChoices(q.options, { isAr });
+    if (parsed.length > 0) return parsed;
+    if (q.type === "TRUE_FALSE") {
+      return [
+        { value: "true", label: t("takeExam.true", { defaultValue: "True" }), id: "true" },
+        { value: "false", label: t("takeExam.false", { defaultValue: "False" }), id: "false" },
+      ];
+    }
+    return [];
+  }, [q.options, q.type, isAr, t]);
+  const showChoiceList = isChoiceQuestion && choices.length > 0;
+  const resolvedYourAnswer = showChoiceList ? resolveChoiceLabel(answer.answerText, choices) : answer.answerText || "—";
+  const resolvedCorrectAnswer = showChoiceList ? resolveChoiceLabel(q.correctAnswer, choices) : q.correctAnswer;
 
   return (
     <article
@@ -62,18 +129,26 @@ function QuestionReviewCard({ answer, index, isAr, t }) {
           {q.imageUrl ? (
             <img src={resolveMediaUrl(q.imageUrl)} alt="" className="max-h-56 w-full rounded-xl object-contain" />
           ) : null}
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-xl bg-white/80 px-4 py-3 dark:bg-[#0C1829]">
-              <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">{t("examResult.yourAnswer")}</p>
-              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{answer.answerText || "—"}</p>
-            </div>
-            {q.correctAnswer != null && String(q.correctAnswer).length > 0 ? (
+          {showChoiceList ? (
+            <ChoiceReviewList
+              choices={choices}
+              studentAnswer={answer.answerText}
+              correctAnswer={q.correctAnswer}
+            />
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-xl bg-white/80 px-4 py-3 dark:bg-[#0C1829]">
-                <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">{t("examResult.correctAnswer")}</p>
-                <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{q.correctAnswer}</p>
+                <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">{t("examResult.yourAnswer")}</p>
+                <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{resolvedYourAnswer}</p>
               </div>
-            ) : null}
-          </div>
+              {q.correctAnswer != null && String(q.correctAnswer).length > 0 ? (
+                <div className="rounded-xl bg-white/80 px-4 py-3 dark:bg-[#0C1829]">
+                  <p className="text-[11px] font-bold uppercase tracking-wide text-slate-400">{t("examResult.correctAnswer")}</p>
+                  <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">{resolvedCorrectAnswer}</p>
+                </div>
+              ) : null}
+            </div>
+          )}
           {explanation ? (
             <div className="rounded-xl border border-amber-200/80 bg-amber-50/80 px-4 py-3 dark:border-amber-500/20 dark:bg-amber-500/10">
               <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">

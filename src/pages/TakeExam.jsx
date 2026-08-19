@@ -8,6 +8,7 @@ import { useStartTrialExam, useSubmitTrialExam, useTrialExam } from "../features
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
 import { getErrorMessage } from "../api/error";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
+import { normalizeMcqChoices } from "../utils/examChoices";
 
 function formatTime(secs) {
   const m = Math.floor(secs / 60)
@@ -15,40 +16,6 @@ function formatTime(secs) {
     .padStart(2, "0");
   const s = (secs % 60).toString().padStart(2, "0");
   return `${m}:${s}`;
-}
-
-function normalizeMcqChoices(raw) {
-  if (raw == null) return [];
-  let v = raw;
-  if (typeof raw === "string") {
-    try {
-      v = JSON.parse(raw);
-    } catch {
-      return [];
-    }
-  }
-  if (Array.isArray(v)) {
-    if (v.length === 0) return [];
-    if (typeof v[0] === "string") {
-      return v.map((s) => ({ value: String(s), label: String(s) }));
-    }
-    return v.map((o, i) => {
-      if (o != null && typeof o === "object") {
-        const label =
-          o.text != null ? String(o.text) : o.label != null ? String(o.label) : String(o.id ?? `${i + 1}`);
-        const value = o.text != null ? String(o.text) : o.id != null ? String(o.id) : label;
-        return { value, label };
-      }
-      return { value: String(o), label: String(o) };
-    });
-  }
-  if (typeof v === "object") {
-    return Object.entries(v).map(([, val]) => ({
-      value: String(val),
-      label: String(val),
-    }));
-  }
-  return [];
 }
 
 function isQuestionAnswered(q, answers) {

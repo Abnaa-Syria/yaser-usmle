@@ -179,7 +179,7 @@ function StudyDeck({
       <div className="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-[var(--shadow-sm)] dark:border-white/8 dark:bg-[#0F1E38]">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 dark:border-white/8">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--yu-blue-700)]">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--yu-blue-700)] dark:text-[var(--yu-blue-300)]">
               {t("student.flashcards.studyMode", { defaultValue: isRtl ? "وضع المراجعة" : "Study session" })}
             </p>
             <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
@@ -189,9 +189,9 @@ function StudyDeck({
           <div className="text-end">
             <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">
               {index + 1}
-              <span className="text-sm font-semibold text-slate-400"> / {shuffled.length}</span>
+              <span className="text-sm font-semibold text-slate-400 dark:text-slate-400"> / {shuffled.length}</span>
             </p>
-            <p className="text-[11px] font-medium text-slate-400">
+            <p className="text-[11px] font-medium text-slate-400 dark:text-slate-400">
               {t("student.flashcards.due", { defaultValue: isRtl ? "مستحق" : "due" })}
             </p>
           </div>
@@ -215,8 +215,8 @@ function StudyDeck({
             <span
               className={`absolute start-4 top-4 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wide ${
                 showBack
-                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200"
-                  : "bg-[var(--yu-blue-100)] text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/30 dark:text-[var(--yu-blue-100)]"
+                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-600 dark:text-white"
+                  : "bg-[var(--yu-blue-100)] text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)] dark:text-white"
               }`}
             >
               {showBack
@@ -227,9 +227,9 @@ function StudyDeck({
               {showBack ? backText : frontText}
             </p>
             {showBack && explText ? (
-              <p className="mt-5 max-w-lg text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">{explText}</p>
+              <p className="mt-5 max-w-lg text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-300">{explText}</p>
             ) : null}
-            <p className="mt-8 text-[11px] font-semibold text-slate-400 group-hover:text-[var(--yu-blue-600)]">
+            <p className="mt-8 text-[11px] font-semibold text-slate-500 group-hover:text-[var(--yu-blue-600)] dark:text-slate-300 dark:group-hover:text-[var(--yu-blue-300)]">
               {t("student.flashcards.tapToFlip", {
                 defaultValue: isRtl ? "اضغط للقلب · Space / Enter" : "Tap to flip · Space / Enter",
               })}
@@ -240,7 +240,7 @@ function StudyDeck({
 
       {!isTrial ? (
         <div className="rounded-[1.35rem] border border-slate-200/80 bg-white p-5 shadow-[var(--shadow-sm)] dark:border-white/8 dark:bg-[#0F1E38]">
-          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-500">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-300">
             {t("student.flashcards.ratePrompt", {
               defaultValue: isRtl ? "قيّم صعوبة البطاقة" : "How hard was this card?",
             })}

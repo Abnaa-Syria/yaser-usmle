@@ -45,10 +45,10 @@ function Home() {
     <div className="overflow-hidden">
       {showHero ? <Hero cmsContent={heroSection?.content} stats={data?.stats} /> : null}
       {showSection(featuresSection) ? <Features cmsContent={featuresSection?.content} /> : null}
+      {showSection(testimonialsSection) ? <Testimonials cmsContent={testimonialsSection?.content} /> : null}
       <RecommendedCourses />
       {showSection(howSection) ? <HowItWorks cmsContent={howSection?.content} /> : null}
       <HomeNewsBoard />
-      {showSection(testimonialsSection) ? <Testimonials cmsContent={testimonialsSection?.content} /> : null}
       {showSection(faqSection) ? <FaqSection rawContent={faqSection?.content} /> : null}
       {showSection(ctaSection) ? <CTA cmsContent={ctaSection?.content} /> : null}
     </div>

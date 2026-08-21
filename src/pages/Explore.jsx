@@ -5,14 +5,11 @@ import {
   Search,
   Users,
   ChevronDown,
-  SlidersHorizontal,
   Star,
   Sparkles,
   Heart,
   BookOpen,
   Brain,
-  ClipboardCheck,
-  RotateCcw,
   Folder,
   Layers,
   Atom,
@@ -22,6 +19,7 @@ import {
   Pill,
   Microscope,
   Bone,
+  RotateCcw,
 } from "lucide-react";
 import { usePublicCategories, usePublicCourses } from "../features/public/hooks";
 import useAuthStore from "../store/authStore";
@@ -49,7 +47,6 @@ const CATEGORY_ICON_MAP = {
   Pill,
   Microscope,
   Bone,
-  ClipboardCheck,
   Sparkles,
 };
 
@@ -212,11 +209,6 @@ export default function Explore() {
       titleAccent: t("explore.titleAccent"),
       subtitle: t("explore.subtitle"),
       searchPlaceholder: t("explore.searchPlaceholder"),
-      pillars: [
-        { title: isRtl ? "فهم مترابط" : "Connected understanding", body: isRtl ? "شرح يربط العلوم الأساسية بالتطبيق السريري." : "Teaching that connects basic science to clinical reasoning." },
-        { title: isRtl ? "مسارات منظمة" : "Structured paths", body: isRtl ? "محتوى مرتب حسب الأنظمة ومستوى التحضير." : "Content organized by systems and preparation stage." },
-        { title: isRtl ? "تدريب عملي" : "Practice built in", body: isRtl ? "أسئلة وتمارين تدعم الاحتفاظ بالمعلومة." : "Questions and drills that reinforce retention." },
-      ],
     },
     i18n.language
   );
@@ -312,69 +304,48 @@ export default function Explore() {
 
   return (
     <div className="min-h-screen bg-[#f4f8fd] pb-20">
-      <section className="relative overflow-hidden bg-[#071a38] pb-24 pt-16 text-white md:pb-28 md:pt-20">
-        <div className="pointer-events-none absolute -start-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-blue-500/20 blur-[120px]" aria-hidden />
-        <div className="pointer-events-none absolute -end-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-cyan-400/10 blur-[110px]" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 opacity-[.08]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px)", backgroundSize: "64px 64px" }} aria-hidden />
+      <section className="relative overflow-hidden bg-[#071a38] py-12 text-white md:py-14">
+        <div className="pointer-events-none absolute -start-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-blue-500/20 blur-[120px]" aria-hidden />
+        <div className="pointer-events-none absolute -end-40 bottom-0 h-[24rem] w-[24rem] rounded-full bg-cyan-400/10 blur-[110px]" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+          aria-hidden
+        />
 
-        <div className="relative mx-auto max-w-[1320px] px-4 md:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-2 text-[10px] font-black text-cyan-200 backdrop-blur-md">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                {hero.eyebrow}
-              </span>
-              <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[1.12] tracking-[-0.045em] sm:text-5xl lg:text-[3.7rem]">
-                {hero.titlePrefix}{" "}
-                <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{hero.titleAccent}</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-sm font-medium leading-8 text-slate-300 sm:text-base">
-                {hero.subtitle}
-              </p>
-
-              <div className="mt-8 max-w-2xl rounded-2xl border border-white/10 bg-white/[.08] p-2 shadow-2xl backdrop-blur-md">
-                <div className="relative">
-                  <Search className="pointer-events-none absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 text-blue-600" aria-hidden />
-                  <input
-                    type="search"
-                    value={searchInput}
-                    onChange={(event) => setSearchInput(event.target.value)}
-                    placeholder={hero.searchPlaceholder || t("explore.searchPlaceholder")}
-                    className="h-14 w-full rounded-xl border-0 bg-white pe-5 ps-12 text-sm font-semibold text-slate-900 outline-none ring-0 placeholder:text-slate-400 focus:ring-2 focus:ring-cyan-300"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-              {hero.pillars.slice(0, 3).map((pillar, i) => {
-                const Icon = [Brain, BookOpen, ClipboardCheck][i % 3];
-                return (
-                  <div key={pillar.key || pillar.title || i} className="flex items-center gap-4 rounded-[1.35rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-sm">
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 to-cyan-300 text-[#071a38]"><Icon className="h-5 w-5" aria-hidden /></span>
-                    <div><p className="text-sm font-black">{pillar.title}</p><p className="mt-1 text-[11px] font-medium leading-5 text-slate-400">{pillar.body}</p></div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <div className="relative mx-auto max-w-3xl px-4 text-center md:px-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.07] px-3.5 py-1.5 text-[10px] font-black text-cyan-200 backdrop-blur-md">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden />
+            {hero.eyebrow}
+          </span>
+          <h1 className="mt-4 text-3xl font-black leading-[1.15] tracking-[-0.04em] sm:text-4xl md:text-[2.75rem]">
+            {hero.titlePrefix}{" "}
+            <span className="bg-gradient-to-l from-cyan-300 to-blue-300 bg-clip-text text-transparent">{hero.titleAccent}</span>
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-7 text-slate-300 sm:text-[15px] sm:leading-8">
+            {hero.subtitle}
+          </p>
         </div>
       </section>
 
-      <main className="relative mx-auto -mt-10 max-w-[1320px] px-4 md:px-6 lg:px-8">
+      <main className="relative mx-auto -mt-8 max-w-[1320px] px-4 md:px-6 lg:px-8">
         <div className="rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-[0_20px_55px_rgba(15,23,42,.10)] sm:p-5">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[.18em] text-blue-700">
-                {t("explore.filterByCategory", { defaultValue: isRtl ? "تصفية حسب التصنيف" : "Filter by category" })}
-              </p>
-              <p className="mt-1 text-xs font-medium text-slate-500">
-                {t("explore.filterHint", {
-                  defaultValue: isRtl ? "اختر تصنيفاً لعرض الدورات الخاصة به." : "Pick a category to see its courses.",
-                })}
-              </p>
+          <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden />
+              <input
+                type="search"
+                value={searchInput}
+                onChange={(event) => setSearchInput(event.target.value)}
+                placeholder={hero.searchPlaceholder || t("explore.searchPlaceholder")}
+                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pe-4 ps-10 text-sm font-semibold text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
+              />
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {searchInput ? (
                 <button
                   type="button"
@@ -402,6 +373,17 @@ export default function Explore() {
                 <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden />
               </div>
             </div>
+          </div>
+
+          <div className="mb-3">
+            <p className="text-[10px] font-black uppercase tracking-[.18em] text-blue-700">
+              {t("explore.filterByCategory", { defaultValue: isRtl ? "تصفية حسب التصنيف" : "Filter by category" })}
+            </p>
+            <p className="mt-1 text-xs font-medium text-slate-500">
+              {t("explore.filterHint", {
+                defaultValue: isRtl ? "اختر تصنيفاً لعرض الدورات الخاصة به." : "Pick a category to see its courses.",
+              })}
+            </p>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">

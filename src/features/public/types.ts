@@ -42,6 +42,8 @@ export type RecommendedCourseItem = {
   rating: number | null;
   reviewCount: number;
   isBestSeller: boolean;
+  isFeatured?: boolean;
+  displayOrder?: number;
 };
 
 export type RecommendedCoursesResult = {

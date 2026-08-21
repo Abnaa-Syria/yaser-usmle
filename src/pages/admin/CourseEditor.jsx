@@ -674,6 +674,8 @@ function DetailEditor({ node, onClose }) {
     type: "RECORDED",
     isLifetimePurchasable: true,
     isActive: false,
+    isFeatured: false,
+    displayOrder: "0",
     categoryId: "",
     instructorId: "",
     pricingTiers: [],
@@ -703,6 +705,8 @@ function DetailEditor({ node, onClose }) {
         type: node.data.type || "RECORDED",
         isLifetimePurchasable: node.data.isLifetimePurchasable !== false,
         isActive: node.data.isActive === true,
+        isFeatured: node.data.isFeatured === true,
+        displayOrder: node.data.displayOrder != null ? String(node.data.displayOrder) : "0",
         categoryId: node.data.categoryId || node.data.category?.id || "",
         instructorId: node.data.instructorId || node.data.instructor?.id || "",
         pricingTiers: node.data.pricingTiers || [],
@@ -732,6 +736,8 @@ function DetailEditor({ node, onClose }) {
             isLifetimePurchasable:
               (formData.pricingTiers || []).length === 0 ? true : formData.isLifetimePurchasable,
             isActive: formData.isActive,
+            isFeatured: formData.isFeatured === true,
+            displayOrder: Math.max(0, Number(formData.displayOrder) || 0),
             categoryId: formData.categoryId === "" ? null : (formData.categoryId || undefined),
             ...(multiInstructor
               ? { instructorId: formData.instructorId === "" ? null : (formData.instructorId || undefined) }
@@ -1117,6 +1123,44 @@ function DetailEditor({ node, onClose }) {
                 />
                 {t("adminPages.addCourse.publishNow", { defaultValue: "Published (active)" })}
               </label>
+
+              <div className="grid gap-3 rounded-xl border border-amber-200/70 bg-amber-50/40 p-4 dark:border-amber-900/40 dark:bg-amber-500/5 sm:grid-cols-2">
+                <label className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-200 sm:col-span-2">
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={formData.isFeatured === true}
+                    onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
+                  />
+                  <span>
+                    {t("adminPages.courseEditor.bestSeller", {
+                      defaultValue: "Show in Best Sellers (أكثر مبيعاً)",
+                    })}
+                    <span className="mt-0.5 block text-[11px] font-normal text-slate-500">
+                      {t("adminPages.courseEditor.bestSellerHint", {
+                        defaultValue:
+                          "When at least one course is marked, the homepage Best Sellers tab shows only those courses.",
+                      })}
+                    </span>
+                  </span>
+                </label>
+                <label className="block space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    {t("adminPages.courseEditor.displayOrder", {
+                      defaultValue: "Best Sellers order (lower = first)",
+                    })}
+                  </span>
+                  <input
+                    type="number"
+                    min={0}
+                    step={1}
+                    value={formData.displayOrder}
+                    onChange={(e) => setFormData({ ...formData, displayOrder: e.target.value })}
+                    disabled={!formData.isFeatured}
+                    className="h-11 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm disabled:opacity-50 dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                  />
+                </label>
+              </div>
 
               {multiInstructor ? (
               <div className="rounded-xl border border-slate-200 p-3 dark:border-white/10">

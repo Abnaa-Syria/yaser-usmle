@@ -6,6 +6,7 @@ import { usePublicCmsPage } from "../features/public/hooks";
 import { useSiteSettings } from "../features/public/siteSettings/hooks";
 import { parseCmsSections } from "../utils/cmsLocale";
 import ContactForm from "../components/ContactForm";
+import TelegramJoinButtons from "../components/TelegramJoinButtons";
 import BecomeInstructorModal from "../components/BecomeInstructorModal";
 import { useSeo } from "../utils/seo";
 import { resolveBrandAssetUrl } from "../components/BrandLogo";
@@ -167,7 +168,24 @@ export default function StaticContentPage({ slug, showContactInfo = false, extra
         ) : null}
 
         {slug === "contact" ? (
-          <div className="mt-10">
+          <div className="mt-10 space-y-6">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,.07)] md:p-8">
+              <h2 className="text-lg font-black text-slate-950">
+                {t("publicContact.telegramTitle", {
+                  defaultValue: isRtl ? "تواصل عبر التليجرام" : "Reach us on Telegram",
+                })}
+              </h2>
+              <p className="mt-1 text-sm font-medium text-slate-500">
+                {t("publicContact.telegramSubtitle", {
+                  defaultValue: isRtl
+                    ? "انضم للقناة أو المجموعة لمتابعة التحديثات وطرح الأسئلة."
+                    : "Join the channel or community group for updates and questions.",
+                })}
+              </p>
+              <div className="mt-4">
+                <TelegramJoinButtons />
+              </div>
+            </div>
             <ContactForm />
           </div>
         ) : null}

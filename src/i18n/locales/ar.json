@@ -2148,6 +2148,10 @@
       "phone": "الهاتف",
       "location": "الموقع"
     },
+    "telegramTitle": "تواصل عبر التليجرام",
+    "telegramSubtitle": "انضم للقناة أو المجموعة لمتابعة التحديثات وطرح الأسئلة.",
+    "joinGroup": "انضم لمجموعتنا",
+    "joinChannel": "انضم لقناتنا",
     "beforeTitle": "قبل أن ترسل",
     "prepareTitle": "ساعدنا على خدمتك بشكل أسرع",
     "prepare": {

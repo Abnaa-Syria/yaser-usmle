@@ -19,6 +19,12 @@ export const SITE_SETTINGS_FALLBACK = {
   },
 };
 
+/** Official Telegram community links */
+export const TELEGRAM_LINKS = {
+  channel: "https://t.me/yaser_usmle",
+  group: "https://t.me/DrYaserUsmleCommunity",
+};
+
 /** @deprecated Use useSiteSettings().settings.social */
 export const SOCIAL_URLS = SITE_SETTINGS_FALLBACK.social;
 

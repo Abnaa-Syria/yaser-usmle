@@ -27,6 +27,7 @@ import { useStudentFlashcards } from "../../features/student/flashcards/hooks";
 import { useStudyPlans } from "../../features/student/studyPlans/hooks";
 import { useMyCertificates } from "../../features/student/certificates/hooks";
 import { useMyGamification } from "../../features/student/gamification/hooks";
+import TelegramJoinButtons from "../../components/TelegramJoinButtons";
 
 function courseKey(course) {
   return course.courseId ?? course.id;
@@ -340,6 +341,14 @@ export default function StudentOverview() {
                 <ClipboardList className="h-4 w-4" />
                 {t("student.overview.viewExams", { defaultValue: isAr ? "الاختبارات" : "View exams" })}
               </Link>
+            </div>
+            <div className="pt-1">
+              <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-blue-100/80">
+                {t("telegram.communityHint", {
+                  defaultValue: isAr ? "مجتمع التليجرام" : "Telegram community",
+                })}
+              </p>
+              <TelegramJoinButtons />
             </div>
           </div>
 

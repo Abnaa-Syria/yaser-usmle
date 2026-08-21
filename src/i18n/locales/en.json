@@ -2148,6 +2148,10 @@
       "phone": "Phone",
       "location": "Location"
     },
+    "telegramTitle": "Reach us on Telegram",
+    "telegramSubtitle": "Join the channel or community group for updates and questions.",
+    "joinGroup": "Join our group",
+    "joinChannel": "Join our channel",
     "beforeTitle": "Before you send",
     "prepareTitle": "Help us assist you faster",
     "prepare": {

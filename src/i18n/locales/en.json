@@ -358,7 +358,10 @@
       "flip": "Flip",
       "shuffle": "Shuffle",
       "empty": "No flashcards for this filter yet.",
-      "retry": "Could not load flashcards"
+      "retry": "Could not load flashcards",
+      "platform": "Platform cards",
+      "myFlashcards": "My Flashcards",
+      "myDeck": "My Flashcards"
     },
     "studyPlan": {
       "title": "My Study Plan",

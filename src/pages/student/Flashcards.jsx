@@ -183,7 +183,7 @@ function StudyDeck({
               {t("student.flashcards.studyMode", { defaultValue: isRtl ? "وضع المراجعة" : "Study session" })}
             </p>
             <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
-              {titleFor(card, isRtl) || t("student.flashcards.myDeck", { defaultValue: "My Flashcards" })}
+              {titleFor(card, isRtl) || t("student.flashcards.myDeck", { defaultValue: isRtl ? "بطاقاتي" : "My Flashcards" })}
             </p>
           </div>
           <div className="text-end">
@@ -612,7 +612,7 @@ export default function StudentFlashcards() {
             {t("student.flashcards.platform", { defaultValue: isRtl ? "بطاقات المنصة" : "Platform cards" })}
           </button>
           <button type="button" onClick={() => setTab("mine")} className={tab === "mine" ? studentBtnPrimary : studentBtnGhost}>
-            {t("student.flashcards.myFlashcards", { defaultValue: "My Flashcards" })}
+            {t("student.flashcards.myFlashcards", { defaultValue: isRtl ? "بطاقاتي" : "My Flashcards" })}
           </button>
         </div>
       ) : null}

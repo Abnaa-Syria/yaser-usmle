@@ -96,7 +96,7 @@ function LessonRow({ lesson, active, done, onSelect, index }) {
       </span>
       <span className="min-w-0 flex-1">
         <span className={`block truncate text-xs font-bold ${active ? "text-white" : "text-slate-800 dark:text-slate-100"}`}>{lesson.title}</span>
-        <span className={`mt-0.5 block text-[10px] font-medium ${active ? "text-white/70" : "text-slate-400"}`}>
+        <span className={`mt-0.5 block text-[10px] font-medium ${active ? "text-white/70" : "text-slate-400 dark:text-slate-400"}`}>
           {hasVideo ? "Video" : "Lesson"}
         </span>
       </span>
@@ -109,7 +109,7 @@ function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false, les
   const lessons = unit.lessons || [];
   const sections = (unit.sections || []).filter((s) => (s.lessons || []).length > 0);
   const hasSections = sections.length > 0;
-  const containsActive = lessons.some((l) => l.id === activeId) || sections.some((s) => (s.lessons || []).some((l) => l.id === activeId));
+  const containsActive = lessons.some((l) => String(l.id) === String(activeId)) || sections.some((s) => (s.lessons || []).some((l) => String(l.id) === String(activeId)));
   const [open, setOpen] = useState(defaultOpen || containsActive);
   const doneInUnit = lessons.filter((l) => doneSet.has(l.id)).length;
 
@@ -121,8 +121,8 @@ function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false, les
     <LessonRow
       key={lesson.id}
       lesson={lesson}
-      index={(lessonIndexMap?.get(lesson.id) ?? 0) + 1}
-      active={lesson.id === activeId}
+      index={(lessonIndexMap?.get(String(lesson.id)) ?? 0) + 1}
+      active={String(lesson.id) === String(activeId)}
       done={doneSet.has(lesson.id)}
       onSelect={onSelect}
     />
@@ -167,9 +167,9 @@ function UnitBlock({ unit, activeId, doneSet, onSelect, defaultOpen = false, les
 
 function ToolTile({ to, icon: Icon, title, hint, tone = "blue", disabled }) {
   const tones = {
-    blue: "from-[var(--yu-blue-700)]/12 via-[var(--yu-blue-500)]/5 to-transparent text-[var(--yu-blue-700)]",
-    amber: "from-amber-500/15 via-amber-400/5 to-transparent text-amber-700",
-    emerald: "from-emerald-500/12 via-emerald-400/5 to-transparent text-emerald-700",
+    blue: "from-[var(--yu-blue-700)]/12 via-[var(--yu-blue-500)]/5 to-transparent text-[var(--yu-blue-700)] dark:text-[var(--yu-blue-300)]",
+    amber: "from-amber-500/15 via-amber-400/5 to-transparent text-amber-700 dark:text-amber-300",
+    emerald: "from-emerald-500/12 via-emerald-400/5 to-transparent text-emerald-700 dark:text-emerald-300",
   };
   const className = [
     "group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 p-4 text-start shadow-[var(--shadow-sm)] transition duration-300",
@@ -185,8 +185,8 @@ function ToolTile({ to, icon: Icon, title, hint, tone = "blue", disabled }) {
         <Icon className="h-5 w-5" />
       </div>
       <p className="relative text-sm font-black text-slate-900 dark:text-white">{title}</p>
-      <p className="relative mt-1 text-xs font-medium leading-5 text-slate-500">{hint}</p>
-      <span className="relative mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[var(--yu-blue-700)] opacity-0 transition group-hover:opacity-100">
+      <p className="relative mt-1 text-xs font-medium leading-5 text-slate-500 dark:text-slate-300">{hint}</p>
+      <span className="relative mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[var(--yu-blue-700)] opacity-0 transition group-hover:opacity-100 dark:text-[var(--yu-blue-300)]">
         Open <ChevronRight className="h-3.5 w-3.5 rtl:rotate-180" />
       </span>
     </>
@@ -217,7 +217,7 @@ function CertificatePanel({
           <Award className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-black text-[var(--yu-blue-800)] dark:text-[var(--yu-blue-200)]">
+          <p className="text-sm font-black text-[var(--yu-blue-800)] dark:text-[var(--yu-blue-300)]">
             {t("courseView.certificate.completeTitle", { defaultValue: "Course completed!" })}
           </p>
           {hasCertificate ? (
@@ -297,22 +297,29 @@ export default function CourseView() {
 
   const flatLessons = useMemo(
     () =>
-      (units || []).flatMap((u) =>
-        (u.sections || []).flatMap((section) =>
+      (units || []).flatMap((u) => {
+        const fromSections = (u.sections || []).flatMap((section) =>
           (section.lessons || []).map((l) => ({
             ...l,
             unitTitle: u.title,
             unitId: u.id,
             sectionTitle: section.title || null,
           }))
-        )
-      ),
+        );
+        if (fromSections.length > 0) return fromSections;
+        return (u.lessons || []).map((l) => ({
+          ...l,
+          unitTitle: u.title,
+          unitId: u.id,
+          sectionTitle: l.sectionTitle || null,
+        }));
+      }),
     [units]
   );
 
   const lessonIndexMap = useMemo(() => {
     const map = new Map();
-    flatLessons.forEach((l, i) => map.set(l.id, i));
+    flatLessons.forEach((l, i) => map.set(String(l.id), i));
     return map;
   }, [flatLessons]);
 
@@ -321,9 +328,23 @@ export default function CourseView() {
   const [activeLesson, setActiveLesson] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const selectLesson = (lesson) => {
+    if (!lesson?.id) return;
+    setActiveLesson(lesson);
+    setSearchParams(
+      (prev) => {
+        if (String(prev.get("lessonId")) === String(lesson.id)) return prev;
+        const next = new URLSearchParams(prev);
+        next.set("lessonId", String(lesson.id));
+        return next;
+      },
+      { replace: true }
+    );
+  };
+
   const lessonNav = useMemo(() => {
     if (!activeLesson?.id || flatLessons.length === 0) return { prev: null, next: null, index: 0 };
-    const idx = flatLessons.findIndex((l) => l.id === activeLesson.id);
+    const idx = flatLessons.findIndex((l) => String(l.id) === String(activeLesson.id));
     if (idx < 0) return { prev: null, next: null, index: 0 };
     return {
       prev: idx > 0 ? flatLessons[idx - 1] : null,
@@ -332,28 +353,34 @@ export default function CourseView() {
     };
   }, [activeLesson?.id, flatLessons]);
 
+  // Sync from URL / resume only — do not depend on activeLesson or we race URL updates and snap back.
   useEffect(() => {
     if (!courseId || flatLessons.length === 0) return;
-    if (activeLesson && flatLessons.some((l) => l.id === activeLesson.id)) {
-      if (lessonIdFromUrl && lessonIdFromUrl !== activeLesson.id) {
-        const fromUrl = flatLessons.find((l) => l.id === lessonIdFromUrl);
-        if (fromUrl) setActiveLesson(fromUrl);
+
+    if (lessonIdFromUrl) {
+      const fromUrl = flatLessons.find((l) => String(l.id) === String(lessonIdFromUrl));
+      if (fromUrl) {
+        setActiveLesson((prev) => (prev && String(prev.id) === String(fromUrl.id) ? prev : fromUrl));
+        return;
       }
-      return;
     }
-    const fromUrl = lessonIdFromUrl ? flatLessons.find((l) => l.id === lessonIdFromUrl) : null;
-    const rid = resume?.lessonId;
-    const pick = fromUrl || (rid ? flatLessons.find((l) => l.id === rid) : null) || flatLessons[0];
-    if (pick) setActiveLesson(pick);
-  }, [courseId, flatLessons, resume, activeLesson, lessonIdFromUrl]);
+
+    setActiveLesson((prev) => {
+      if (prev && flatLessons.some((l) => String(l.id) === String(prev.id))) {
+        return flatLessons.find((l) => String(l.id) === String(prev.id)) || prev;
+      }
+      const rid = resume?.lessonId;
+      return (rid ? flatLessons.find((l) => String(l.id) === String(rid)) : null) || flatLessons[0];
+    });
+  }, [courseId, flatLessons, resume?.lessonId, lessonIdFromUrl]);
 
   useEffect(() => {
     if (!activeLesson?.id) return;
     setSearchParams(
       (prev) => {
-        if (prev.get("lessonId") === activeLesson.id) return prev;
+        if (String(prev.get("lessonId")) === String(activeLesson.id)) return prev;
         const next = new URLSearchParams(prev);
-        next.set("lessonId", activeLesson.id);
+        next.set("lessonId", String(activeLesson.id));
         return next;
       },
       { replace: true }
@@ -501,7 +528,7 @@ export default function CourseView() {
             doneSet={doneSet}
             defaultOpen={idx === 0}
             lessonIndexMap={lessonIndexMap}
-            onSelect={(l) => setActiveLesson(l)}
+            onSelect={(l) => selectLesson(l)}
           />
         ))}
       </div>
@@ -642,7 +669,7 @@ export default function CourseView() {
                       defaultOpen={idx === 0}
                       lessonIndexMap={lessonIndexMap}
                       onSelect={(l) => {
-                        setActiveLesson(l);
+                        selectLesson(l);
                         setSidebarOpen(false);
                       }}
                     />
@@ -708,17 +735,17 @@ export default function CourseView() {
                             {t("courseView.markedDone")}
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--yu-blue-50)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/20 dark:text-[var(--yu-blue-200)]">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--yu-blue-50)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)] dark:text-white">
                             <Sparkles className="h-3 w-3" />
                             {t("courseView.inProgress", { defaultValue: isRtl ? "قيد الدراسة" : "In progress" })}
                           </span>
                         )}
-                        <span className="text-[11px] font-semibold text-slate-400">
+                        <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-300">
                           {lessonNav.index + 1} / {flatLessons.length}
                         </span>
                       </div>
                       <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">{activeLesson.title}</h1>
-                      <p className="mt-1.5 text-sm font-medium text-slate-500">
+                      <p className="mt-1.5 text-sm font-medium text-slate-500 dark:text-slate-300">
                         {[activeLesson.unitTitle, activeLesson.sectionTitle].filter(Boolean).join(" · ")}
                       </p>
                     </div>
@@ -727,8 +754,8 @@ export default function CourseView() {
                       {lessonNav.prev ? (
                         <button
                           type="button"
-                          onClick={() => setActiveLesson(lessonNav.prev)}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-[var(--yu-blue-200)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+                          onClick={() => selectLesson(lessonNav.prev)}
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-[var(--yu-blue-200)] hover:text-[var(--yu-blue-700)] dark:border-white/15 dark:bg-white/10 dark:text-slate-100 dark:hover:border-[var(--yu-blue-400)] dark:hover:text-white"
                         >
                           <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
                           {t("courseView.prev")}
@@ -753,8 +780,8 @@ export default function CourseView() {
                       {lessonNav.next ? (
                         <button
                           type="button"
-                          onClick={() => setActiveLesson(lessonNav.next)}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3.5 py-2.5 text-sm font-bold text-[var(--yu-blue-800)] transition hover:bg-[var(--yu-blue-100)] dark:border-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/20 dark:text-[var(--yu-blue-200)]"
+                          onClick={() => selectLesson(lessonNav.next)}
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3.5 py-2.5 text-sm font-bold text-[var(--yu-blue-800)] transition hover:bg-[var(--yu-blue-100)] dark:border-transparent dark:bg-[var(--yu-blue-700)] dark:text-white dark:hover:bg-[var(--yu-blue-600)]"
                         >
                           {t("courseView.next")}
                           <ChevronRight className="h-4 w-4 rtl:rotate-180" />
@@ -765,7 +792,7 @@ export default function CourseView() {
                     </div>
                   </div>
                   {!lessonDone ? (
-                    <p className="mt-3 text-[11px] font-semibold text-slate-400">
+                    <p className="mt-3 text-[11px] font-semibold text-slate-500 dark:text-slate-300">
                       {t("student.gamification.lessonXpHint", { defaultValue: "+15 XP when you complete this lesson" })}
                     </p>
                   ) : null}

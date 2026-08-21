@@ -16,11 +16,20 @@ import {
 const ACCEPT =
   ".pdf,.doc,.docx,.ppt,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation";
 
+function asArray(value) {
+  if (Array.isArray(value)) return value;
+  if (Array.isArray(value?.units)) return value.units;
+  if (Array.isArray(value?.lessons)) return value.lessons;
+  if (Array.isArray(value?.items)) return value.items;
+  if (Array.isArray(value?.data)) return value.data;
+  return [];
+}
+
 export default function AdminResources() {
   const { i18n } = useTranslation();
   const isRtl = i18n.dir() === "rtl";
   const { data: coursesData } = useAdminCourses({ page: 1, limit: 200 });
-  const courses = coursesData?.courses || [];
+  const courses = Array.isArray(coursesData?.courses) ? coursesData.courses : [];
   const fileRef = useRef(null);
 
   const [courseId, setCourseId] = useState("");
@@ -45,15 +54,13 @@ export default function AdminResources() {
       return;
     }
     try {
-      const res = await client.get(`/admin/courses/${cid}/units`);
-      setUnits(res?.data?.data || res?.data?.data?.units || []);
-    } catch {
-      try {
-        const res = await client.get(`/admin/units`, { params: { courseId: cid } });
-        setUnits(res?.data?.data || []);
-      } catch {
-        setUnits([]);
-      }
+      // Correct endpoint: GET /admin/units?courseId=… (not /admin/courses/:id/units)
+      const res = await client.get(`/admin/units`, { params: { courseId: cid, limit: 500 } });
+      setUnits(asArray(res?.data?.data));
+      setMessage("");
+    } catch (err) {
+      setUnits([]);
+      setMessage(getErrorMessage(err, isRtl ? "تعذّر تحميل وحدات هذا الكورس" : "Could not load units for this course"));
     }
   };
 
@@ -66,11 +73,11 @@ export default function AdminResources() {
       return;
     }
     try {
-      const res = await client.get(`/admin/lessons`, { params: { unitId: uid } });
-      const payload = res?.data?.data;
-      setLessons(payload?.lessons || (Array.isArray(payload) ? payload : []));
-    } catch {
+      const res = await client.get(`/admin/lessons`, { params: { unitId: uid, limit: 500 } });
+      setLessons(asArray(res?.data?.data));
+    } catch (err) {
       setLessons([]);
+      setMessage(getErrorMessage(err, isRtl ? "تعذّر تحميل المحاضرات" : "Could not load lectures"));
     }
   };
 
@@ -79,7 +86,8 @@ export default function AdminResources() {
     if (!lid) return;
     setLoading(true);
     try {
-      setItems(await fetchAdminLessonResources(lid));
+      const list = await fetchAdminLessonResources(lid);
+      setItems(asArray(list));
     } catch (err) {
       setMessage(getErrorMessage(err, "Failed to load resources"));
       setItems([]);

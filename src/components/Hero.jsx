@@ -155,16 +155,15 @@ export default function Hero({ cmsContent, stats }) {
                 {t("hero.actions.startLearning")}
                 <Arrow className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" aria-hidden />
               </Link>
-              <button
-                type="button"
-                onClick={() => window.open("https://www.youtube.com/@YaserUSMLE", "_blank", "noopener,noreferrer")}
+              <Link
+                to="/login"
                 className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl border border-white/15 bg-white/[0.06] px-6 text-sm font-bold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
               >
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/30">
                   <Play className="h-3.5 w-3.5 fill-current" aria-hidden />
                 </span>
                 {t("hero.actions.watchNow")}
-              </button>
+              </Link>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-slate-300">

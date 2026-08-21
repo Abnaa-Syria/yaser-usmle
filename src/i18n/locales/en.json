@@ -130,6 +130,7 @@
       "payments": "Payments",
       "wishlist": "Wishlist",
       "progress": "Progress",
+      "coursologyQbank": "Coursology Qbanks",
       "momentum": "Platform Points",
       "studentAssignment": "Assignment",
       "websiteHome": "Homepage",
@@ -144,6 +145,14 @@
   "student": {
     "shell": {
       "tagline": "Your focused path to Step 1"
+    },
+    "coursology": {
+      "eyebrow": "Practice partner",
+      "title": "Coursology Qbanks",
+      "subtitle": "An external question bank that complements your USMLE Step 1 prep — open it directly from here.",
+      "heroTitle": "Ready to practice with the Qbank?",
+      "heroBody": "Coursology Qbanks is a standalone practice tool for drills and review. Tap the button to open the official site.",
+      "cta": "Visit Qbank"
     },
     "overview": {
       "title": "Overview",

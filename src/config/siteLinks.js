@@ -25,6 +25,9 @@ export const TELEGRAM_LINKS = {
   group: "https://t.me/DrYaserUsmleCommunity",
 };
 
+/** External Coursology Qbank */
+export const COURSOLOGY_QBANK_URL = "https://coursology-qbank.com/";
+
 /** @deprecated Use useSiteSettings().settings.social */
 export const SOCIAL_URLS = SITE_SETTINGS_FALLBACK.social;
 

@@ -44,6 +44,7 @@ const TrialQnaPage = lazy(() => import("./pages/trial/TrialMockPages").then((m) 
 const TrialProgressPage = lazy(() =>
   import("./pages/trial/TrialMockPages").then((m) => ({ default: m.TrialProgressPage }))
 );
+const CoursologyQbank = lazy(() => import("./pages/student/CoursologyQbank"));
 const TrialCertificatesPage = lazy(() =>
   import("./pages/trial/TrialMockPages").then((m) => ({ default: m.TrialCertificatesPage }))
 );
@@ -155,6 +156,7 @@ function App() {
           <Route path="study-plan" element={wrap(<TrialStudyPlanPage />)} />
           <Route path="qna" element={wrap(<TrialQnaPage />)} />
           <Route path="progress" element={wrap(<TrialProgressPage />)} />
+          <Route path="coursology-qbank" element={wrap(<CoursologyQbank />)} />
           <Route path="certificates" element={wrap(<TrialCertificatesPage />)} />
           <Route path="tickets" element={wrap(<TrialTicketsPage />)} />
           <Route path="settings" element={wrap(<TrialSettingsPage />)} />

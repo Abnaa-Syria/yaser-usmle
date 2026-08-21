@@ -27,6 +27,7 @@ const CourseView = lazy(() => import("../pages/CourseView"));
 const StudentQna = lazy(() => import("../pages/student/Qna"));
 const StudentFlashcards = lazy(() => import("../pages/student/Flashcards"));
 const StudentStudyPlan = lazy(() => import("../pages/student/StudyPlan"));
+const CoursologyQbank = lazy(() => import("../pages/student/CoursologyQbank"));
 
 function wrap(node) {
   return <RouteSuspense>{node}</RouteSuspense>;
@@ -71,6 +72,7 @@ function StudentRoutes() {
           <Route path="flashcards" element={wrap(<StudentFlashcards />)} />
           <Route path="study-plan" element={wrap(<StudentStudyPlan />)} />
           <Route path="progress" element={wrap(<Progress />)} />
+          <Route path="coursology-qbank" element={wrap(<CoursologyQbank />)} />
           <Route path="attendance" element={<Navigate to="/student/classes" replace />} />
           <Route
             path="book-session"

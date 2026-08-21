@@ -19,6 +19,7 @@ import {
   Image,
   LayoutDashboard,
   MessageSquare,
+  Library,
   Settings2,
   Shield,
   Smartphone,
@@ -476,6 +477,7 @@ export function getStudentNavigation(): NavSection[] {
         { labelKey: "sidebarNav.items.recordings", path: "/student/recordings", icon: Search },
         { labelKey: "sidebarNav.items.qna", path: "/student/qna", icon: MessageSquare },
         { labelKey: "sidebarNav.items.progress", path: "/student/progress", icon: BarChart2 },
+        { labelKey: "sidebarNav.items.coursologyQbank", path: "/student/coursology-qbank", icon: Library },
       ] as NavItem[],
     },
     {
@@ -512,6 +514,7 @@ export function getTrialNavigation(): NavSection[] {
         { labelKey: "sidebarNav.items.recordings", path: "/trial/recordings", icon: Search },
         { labelKey: "sidebarNav.items.qna", path: "/trial/qna", icon: MessageSquare },
         { labelKey: "sidebarNav.items.progress", path: "/trial/progress", icon: BarChart2 },
+        { labelKey: "sidebarNav.items.coursologyQbank", path: "/trial/coursology-qbank", icon: Library },
       ],
     },
     {

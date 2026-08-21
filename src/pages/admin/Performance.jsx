@@ -34,9 +34,11 @@ import { useAdminEnrollments } from "../../features/admin/enrollments/hooks";
 import { useAdminCourses } from "../../features/admin/courses/hooks";
 
 function Stars({ rating, max = 5 }) {
+  const value = Number(rating);
+  const safe = Number.isFinite(value) ? value : 0;
   const starsList = [];
   for (let i = 0; i < max; i++) {
-    const isFull = i < Math.floor(rating);
+    const isFull = i < Math.floor(safe);
     starsList.push(
       <Star
         key={i}
@@ -167,11 +169,16 @@ function Performance() {
         id: i.id,
         fullName: i.fullName || i.name || "-",
         email: i.email || "-",
-        rating: Number(i.rating || i.averageRating || 0) || null,
+        rating: (() => {
+          const n = Number(i.rating ?? i.averageRating);
+          return Number.isFinite(n) && n > 0 ? n : null;
+        })(),
         students: studentCount,
       };
     });
-    return list.sort((a, b) => b.rating - a.rating).slice(0, 5);
+    return list
+      .sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0))
+      .slice(0, 5);
   }, [instructors, courses, enrollments]);
 
   const weeklyEngagementTrend = useMemo(() => {
@@ -583,7 +590,9 @@ function Performance() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex flex-col items-center justify-center">
-                          <span className="font-extrabold text-amber-500">{ins.rating.toFixed(1)}</span>
+                          <span className="font-extrabold text-amber-500">
+                            {ins.rating == null ? "—" : Number(ins.rating).toFixed(1)}
+                          </span>
                           <Stars rating={ins.rating} />
                         </div>
                       </td>

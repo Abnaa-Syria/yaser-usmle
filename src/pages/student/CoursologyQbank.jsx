@@ -57,8 +57,8 @@ export default function CoursologyQbank() {
         />
         <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3 py-1 text-[11px] font-bold text-[var(--yu-blue-800)] dark:border-[var(--yu-blue-700)] dark:bg-[var(--yu-blue-700)]/25 dark:text-white">
-              <Library className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--yu-blue-200)] bg-[var(--yu-blue-50)] px-3 py-1 text-[11px] font-bold text-[var(--yu-blue-800)] dark:border-[var(--yu-blue-400)]/35 dark:bg-[#163056] dark:text-[#93C5FD]">
+              <Library className="h-3.5 w-3.5 shrink-0" />
               Coursology
             </div>
             <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">

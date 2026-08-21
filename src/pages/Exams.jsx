@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { CalendarDays, Clock3, FileText, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import PageHeader from "../components/dashboard/PageHeader";
+import BackToLessonBanner from "../components/student/BackToLessonBanner";
 import { useStudentExams } from "../features/student/exams/hooks";
 import { useTrialExams } from "../features/trial/hooks";
 import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
@@ -39,6 +40,19 @@ export default function Exams() {
   const studentQuery = useStudentExams(examFilters, { enabled: !isTrial });
   const trialQuery = useTrialExams(examFilters, { enabled: isTrial });
   const { data: exams = [], isLoading, isError, refetch } = isTrial ? trialQuery : studentQuery;
+  const lessonReturnQs = useMemo(() => {
+    const p = new URLSearchParams();
+    if (courseId) p.set("courseId", courseId);
+    if (lessonId) p.set("lessonId", lessonId);
+    const s = p.toString();
+    return s ? `?${s}` : "";
+  }, [courseId, lessonId]);
+  const lessonReturnQsWithAutostart = useMemo(() => {
+    const p = new URLSearchParams({ autostart: "1" });
+    if (courseId) p.set("courseId", courseId);
+    if (lessonId) p.set("lessonId", lessonId);
+    return `?${p.toString()}`;
+  }, [courseId, lessonId]);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -65,15 +79,18 @@ export default function Exams() {
       </p>
 
       {lessonId || courseId ? (
-        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--yu-blue-100)] bg-[var(--yu-blue-50)]/60 px-4 py-3 text-sm text-[var(--yu-blue-900)]">
-          <span>
-            {lessonId
-              ? t("exams.filteredByLesson", { defaultValue: "Showing quizzes for this lecture." })
-              : t("exams.filteredByCourse", { defaultValue: "Showing quizzes for this course." })}
-          </span>
-          <Link to={examsBase} className="font-bold underline-offset-2 hover:underline">
-            {t("exams.clearFilters", { defaultValue: "Show all exams" })}
-          </Link>
+        <div className="space-y-3">
+          <BackToLessonBanner courseId={courseId} lessonId={lessonId} />
+          <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--yu-blue-100)] bg-[var(--yu-blue-50)]/60 px-4 py-3 text-sm text-[var(--yu-blue-900)] dark:border-white/10 dark:bg-white/5 dark:text-slate-200">
+            <span>
+              {lessonId
+                ? t("exams.filteredByLesson", { defaultValue: "Showing quizzes for this lecture." })
+                : t("exams.filteredByCourse", { defaultValue: "Showing quizzes for this course." })}
+            </span>
+            <Link to={examsBase} className="font-bold underline-offset-2 hover:underline">
+              {t("exams.clearFilters", { defaultValue: "Show all exams" })}
+            </Link>
+          </div>
         </div>
       ) : null}
 
@@ -167,14 +184,14 @@ export default function Exams() {
                     ) : null}
                     <div className="mt-4 flex flex-wrap gap-2">
                       <Link
-                        to={`${examsBase}/${exam.id}`}
+                        to={`${examsBase}/${exam.id}${lessonReturnQs}`}
                         className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 transition hover:border-[var(--yu-blue-300)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:text-slate-200"
                       >
                         {t("exams.actions.viewDetails", { defaultValue: "View Exam Details" })}
                       </Link>
                       {studentFinished && sub?.id ? (
                         <Link
-                          to={`${examsBase}/${exam.id}/results/${sub.id}`}
+                          to={`${examsBase}/${exam.id}/results/${sub.id}${lessonReturnQs}`}
                           className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 transition hover:border-[var(--yu-blue-300)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:text-slate-200"
                         >
                           {t("exams.actions.viewResults", { defaultValue: "View Results" })}
@@ -182,7 +199,7 @@ export default function Exams() {
                       ) : null}
                       {exam.status === "AVAILABLE" && !studentFinished ? (
                         <Link
-                          to={`${examsBase}/${exam.id}/take?autostart=1`}
+                          to={`${examsBase}/${exam.id}/take${lessonReturnQsWithAutostart}`}
                           className="rounded-xl bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white transition hover:bg-[var(--yu-blue-600)]"
                         >
                           {inProgress ? t("exams.continue", { defaultValue: "Continue exam" }) : t("exams.start", { defaultValue: "Start" })}

@@ -2,9 +2,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Layers, Pencil, Plus, RotateCcw, Shuffle, StepBack, StepForward, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import PageHeader from "../../components/dashboard/PageHeader";
 import EmptyState from "../../components/dashboard/EmptyState";
+import BackToLessonBanner from "../../components/student/BackToLessonBanner";
 import {
   StudentSurface,
   StudentToolbar,
@@ -135,6 +136,25 @@ function StudyDeck({
     void flashXp.mutateAsync(`review-${bucket}`).catch(() => {});
   };
 
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target?.tagName === "INPUT" || e.target?.tagName === "TEXTAREA" || e.target?.tagName === "SELECT") return;
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        setShowBack((v) => !v);
+        awardFlashXpIfNeeded();
+      } else if (e.key === "ArrowRight") {
+        setIndex((v) => Math.min(Math.max(shuffled.length - 1, 0), v + 1));
+        setShowBack(false);
+      } else if (e.key === "ArrowLeft") {
+        setIndex((v) => Math.max(0, v - 1));
+        setShowBack(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [shuffled.length, isTrial]);
+
   if (!card) {
     return (
       <EmptyState
@@ -149,32 +169,77 @@ function StudyDeck({
     );
   }
 
+  const progressPct = shuffled.length ? Math.round(((index + 1) / shuffled.length) * 100) : 0;
+  const frontText = isRtl ? card.frontAr || card.front : card.front;
+  const backText = isRtl ? card.backAr || card.back : card.back;
+  const explText = isRtl ? card.explanationAr || card.explanation : card.explanation;
+
   return (
-    <div className="space-y-4">
-      <StudentSurface>
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm font-medium text-slate-500">
-          <span>{titleFor(card, isRtl) || t("student.flashcards.myDeck", { defaultValue: "My Flashcards" })}</span>
-          <span className="tabular-nums">
-            {index + 1} / {shuffled.length} · {t("student.flashcards.due", { defaultValue: isRtl ? "مستحق" : "due" })}
-          </span>
+    <div className="space-y-5">
+      <div className="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-[var(--shadow-sm)] dark:border-white/8 dark:bg-[#0F1E38]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 dark:border-white/8">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[var(--yu-blue-700)]">
+              {t("student.flashcards.studyMode", { defaultValue: isRtl ? "وضع المراجعة" : "Study session" })}
+            </p>
+            <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
+              {titleFor(card, isRtl) || t("student.flashcards.myDeck", { defaultValue: "My Flashcards" })}
+            </p>
+          </div>
+          <div className="text-end">
+            <p className="text-lg font-black tabular-nums text-slate-900 dark:text-white">
+              {index + 1}
+              <span className="text-sm font-semibold text-slate-400"> / {shuffled.length}</span>
+            </p>
+            <p className="text-[11px] font-medium text-slate-400">
+              {t("student.flashcards.due", { defaultValue: isRtl ? "مستحق" : "due" })}
+            </p>
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={() => {
-            setShowBack((v) => !v);
-            awardFlashXpIfNeeded();
-          }}
-          className="mt-6 min-h-64 w-full rounded-[1.15rem] border border-slate-200/80 bg-slate-50/80 p-8 text-center text-xl font-bold text-slate-900 transition hover:border-[var(--yu-blue-400)] hover:shadow-[var(--shadow-sm)] dark:border-white/10 dark:bg-[#0C1829] dark:text-white"
-        >
-          {showBack ? (isRtl ? card.backAr || card.back : card.back) : isRtl ? card.frontAr || card.front : card.front}
-          {showBack && card.explanation ? (
-            <p className="mt-4 text-sm font-normal text-slate-500">{isRtl ? card.explanationAr || card.explanation : card.explanation}</p>
-          ) : null}
-        </button>
-      </StudentSurface>
+        <div className="h-1.5 w-full bg-slate-100 dark:bg-white/10">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-[var(--yu-blue-700)] to-[var(--yu-blue-400)] transition-all duration-500"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+
+        <div className="px-4 py-6 md:px-8">
+          <button
+            type="button"
+            onClick={() => {
+              setShowBack((v) => !v);
+              awardFlashXpIfNeeded();
+            }}
+            className="group relative mx-auto flex min-h-[280px] w-full max-w-2xl flex-col items-center justify-center overflow-hidden rounded-[1.35rem] border border-slate-200/90 bg-[linear-gradient(160deg,#F8FBFF_0%,#EEF4FC_55%,#F7FAFC_100%)] p-8 text-center shadow-inner transition hover:border-[var(--yu-blue-300)] dark:border-white/10 dark:bg-[linear-gradient(160deg,#0C1829_0%,#12233F_100%)]"
+          >
+            <span
+              className={`absolute start-4 top-4 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wide ${
+                showBack
+                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200"
+                  : "bg-[var(--yu-blue-100)] text-[var(--yu-blue-800)] dark:bg-[var(--yu-blue-700)]/30 dark:text-[var(--yu-blue-100)]"
+              }`}
+            >
+              {showBack
+                ? t("student.flashcards.answer", { defaultValue: isRtl ? "الجواب" : "Answer" })
+                : t("student.flashcards.question", { defaultValue: isRtl ? "السؤال" : "Question" })}
+            </span>
+            <p className="text-xl font-black leading-relaxed text-slate-900 md:text-2xl dark:text-white">
+              {showBack ? backText : frontText}
+            </p>
+            {showBack && explText ? (
+              <p className="mt-5 max-w-lg text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">{explText}</p>
+            ) : null}
+            <p className="mt-8 text-[11px] font-semibold text-slate-400 group-hover:text-[var(--yu-blue-600)]">
+              {t("student.flashcards.tapToFlip", {
+                defaultValue: isRtl ? "اضغط للقلب · Space / Enter" : "Tap to flip · Space / Enter",
+              })}
+            </p>
+          </button>
+        </div>
+      </div>
 
       {!isTrial ? (
-        <StudentSurface>
+        <div className="rounded-[1.35rem] border border-slate-200/80 bg-white p-5 shadow-[var(--shadow-sm)] dark:border-white/8 dark:bg-[#0F1E38]">
           <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-500">
             {t("student.flashcards.ratePrompt", {
               defaultValue: isRtl ? "قيّم صعوبة البطاقة" : "How hard was this card?",
@@ -195,11 +260,18 @@ function StudyDeck({
             t={t}
             isRtl={isRtl}
           />
-        </StudentSurface>
+        </div>
       ) : null}
 
-      <div className="flex flex-wrap justify-center gap-2">
-        <button type="button" onClick={() => setIndex((v) => Math.max(0, v - 1))} className={studentBtnGhost}>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => {
+            setIndex((v) => Math.max(0, v - 1));
+            setShowBack(false);
+          }}
+          className={studentBtnGhost}
+        >
           <StepBack className="h-4 w-4" /> {t("common.previous", { defaultValue: "Previous" })}
         </button>
         <button
@@ -215,7 +287,14 @@ function StudyDeck({
         <button type="button" onClick={() => setShuffleSeed(Date.now())} className={studentBtnGhost}>
           <Shuffle className="h-4 w-4" /> {t("student.flashcards.shuffle", { defaultValue: "Shuffle" })}
         </button>
-        <button type="button" onClick={() => setIndex((v) => Math.min(shuffled.length - 1, v + 1))} className={studentBtnPrimary}>
+        <button
+          type="button"
+          onClick={() => {
+            setIndex((v) => Math.min(shuffled.length - 1, v + 1));
+            setShowBack(false);
+          }}
+          className={studentBtnPrimary}
+        >
           {t("common.next", { defaultValue: "Next" })} <StepForward className="h-4 w-4" />
         </button>
       </div>
@@ -524,6 +603,8 @@ export default function StudentFlashcards() {
               })
         }
       />
+
+      <BackToLessonBanner courseId={courseId} lessonId={lessonId} />
 
       {!isTrial ? (
         <div className="flex flex-wrap gap-2">

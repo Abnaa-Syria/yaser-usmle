@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { AlertCircle, ArrowLeft, BookOpen, CalendarDays, CheckCircle2, ClipboardList, Clock3, FileText, Target } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import PageHeader from "../components/dashboard/PageHeader";
 import EmptyState from "../components/dashboard/EmptyState";
+import BackToLessonBanner from "../components/student/BackToLessonBanner";
 import { StudentSurface, StudentBadge, studentBtnPrimary, studentBtnGhost } from "../components/student/ui";
 import { useStudentExam } from "../features/student/exams/hooks";
 import { useTrialExam } from "../features/trial/hooks";
@@ -31,6 +32,9 @@ function MetaItem({ icon: Icon, label, value }) {
 export default function ExamDetails() {
   const { t } = useTranslation();
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const returnCourseId = searchParams.get("courseId");
+  const returnLessonId = searchParams.get("lessonId");
   const { isTrial, examsBase } = useLearningPanelMode();
   const studentQuery = useStudentExam(id, { enabled: !isTrial });
   const trialQuery = useTrialExam(id, { enabled: isTrial });
@@ -71,8 +75,16 @@ export default function ExamDetails() {
 
   return (
     <div className="space-y-6">
+      <BackToLessonBanner courseId={returnCourseId} lessonId={returnLessonId} />
       <Link
-        to={examsBase}
+        to={
+          returnCourseId || returnLessonId
+            ? `${examsBase}?${new URLSearchParams({
+                ...(returnCourseId ? { courseId: returnCourseId } : {}),
+                ...(returnLessonId ? { lessonId: returnLessonId } : {}),
+              }).toString()}`
+            : examsBase
+        }
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 transition hover:text-[var(--yu-blue-700)]"
       >
         <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
@@ -127,7 +139,14 @@ export default function ExamDetails() {
               </Link>
             </div>
           ) : exam.status === "AVAILABLE" ? (
-            <Link to={`${examsBase}/${exam.id}/take?autostart=1`} className={studentBtnPrimary}>
+            <Link
+              to={`${examsBase}/${exam.id}/take?${new URLSearchParams({
+                autostart: "1",
+                ...(returnCourseId ? { courseId: returnCourseId } : {}),
+                ...(returnLessonId ? { lessonId: returnLessonId } : {}),
+              }).toString()}`}
+              className={studentBtnPrimary}
+            >
               <BookOpen className="h-4 w-4" />
               {sub && !sub.submittedAt ? t("exams.continue", { defaultValue: "Continue exam" }) : t("examDetails.startExam", { defaultValue: "Start exam" })}
             </Link>

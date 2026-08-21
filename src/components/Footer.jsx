@@ -4,6 +4,7 @@ import { Mail, MapPin } from "lucide-react";
 import { useSiteSettings } from "../features/public/siteSettings/hooks";
 import BrandLogo from "./BrandLogo";
 import { platformFeatures } from "../config/features";
+import { normalizePageVisibility, pathToVisibilityKey } from "../utils/publicPageVisibility";
 
 const FbIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden>
@@ -68,6 +69,13 @@ export default function Footer() {
     (isRtl ? site.footerLocationAr || site.footerLocationEn : site.footerLocationEn || site.footerLocationAr) ||
     t("footer.brand.location", { defaultValue: isRtl ? "القاهرة، مصر" : "Cairo, Egypt" });
 
+  const pageVisibility = normalizePageVisibility(site.pageVisibility);
+  const linkVisible = (to) => {
+    const key = pathToVisibilityKey(to);
+    if (!key) return true;
+    return pageVisibility[key] !== false;
+  };
+
   const cols = [
     {
       title: t("footer.company.title"),
@@ -76,7 +84,7 @@ export default function Footer() {
         { to: "/contact", label: t("footer.company.contact") },
         { to: "/blogs", label: t("footer.company.news") },
         { to: "/library", label: t("footer.company.library") },
-      ],
+      ].filter((l) => linkVisible(l.to)),
     },
     {
       title: t("footer.community.title"),
@@ -86,7 +94,7 @@ export default function Footer() {
         { to: "/explore", label: t("footer.community.courses", { defaultValue: isRtl ? "تصفح الدورات" : "Browse courses" }) },
         { to: "/packages", label: t("header.nav.packages", { defaultValue: isRtl ? "الباقات" : "Packages" }) },
         platformFeatures.publicInstructorCatalog ? { to: "/instructors", label: t("footer.community.instructors", { defaultValue: isRtl ? "المدرّسون" : "Instructors" }) } : null,
-      ].filter(Boolean),
+      ].filter(Boolean).filter((l) => linkVisible(l.to)),
     },
     {
       title: t("footer.teaching.title"),
@@ -96,7 +104,7 @@ export default function Footer() {
         { to: "/terms", label: t("footer.teaching.terms") },
         { to: "/privacy", label: t("footer.legal.privacy", { defaultValue: isRtl ? "سياسة الخصوصية" : "Privacy Policy" }) },
         { to: "/refund-policy", label: t("footer.legal.refund", { defaultValue: isRtl ? "سياسة الاسترداد" : "Refund Policy" }) },
-      ],
+      ].filter((l) => linkVisible(l.to)),
     },
   ];
 

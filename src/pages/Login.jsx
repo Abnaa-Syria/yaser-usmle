@@ -3,11 +3,13 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { AtSign, ArrowLeft, ArrowRight, Eye, EyeOff, Loader2, Lock, ShieldCheck } from "lucide-react";
+import { AtSign, ArrowLeft, ArrowRight, Eye, EyeOff, Loader2, Lock, ShieldCheck, Smartphone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import AuthShell from "../components/auth/AuthShell";
 import useAuthStore from "../store/authStore";
-import { getErrorMessage } from "../api/error";
+import client from "../api/client";
+import endpoints from "../api/endpoints";
+import { getErrorCode, getErrorDetails, getErrorMessage, unwrapResponse } from "../api/error";
 import { getEnrollmentCheckoutPath, getPostLoginRedirectPath } from "../utils/enrollmentIntent";
 import { getDeviceFingerprint, getDeviceMetadata } from "../utils/deviceFingerprint";
 import { hasAdminAccess, hasPermission } from "../config/permissions";
@@ -35,6 +37,7 @@ function Field({ label, error, children }) {
 
 export default function Login() {
   const { t, i18n } = useTranslation();
+  const isAr = i18n.language?.startsWith("ar");
   const Arrow = i18n.dir() === "rtl" ? ArrowLeft : ArrowRight;
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,18 +45,48 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [deviceLimit, setDeviceLimit] = useState(null);
+  const [selectedOldDeviceId, setSelectedOldDeviceId] = useState("");
+  const [replaceBusy, setReplaceBusy] = useState(false);
+  const [replaceMsg, setReplaceMsg] = useState("");
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: { identifier: "", password: "", remember: false },
   });
 
+  const finishLogin = (user) => {
+    const roleName = String(user?.role?.name || user?.role || "").trim().toUpperCase();
+    if (hasAdminAccess(user)) {
+      navigate(getFirstAllowedAdminPath((perm) => hasPermission(user, perm)), { replace: true });
+      return;
+    }
+    if (roleName === "INSTRUCTOR") {
+      navigate("/instructor", { replace: true });
+      return;
+    }
+    const enrollmentCheckout = getEnrollmentCheckoutPath(location.search);
+    if (enrollmentCheckout) {
+      navigate(enrollmentCheckout, { replace: true });
+      return;
+    }
+    const redirectPath = getPostLoginRedirectPath(location.search);
+    if (redirectPath) {
+      navigate(redirectPath, { replace: true });
+      return;
+    }
+    navigate("/student", { replace: true });
+  };
+
   const onSubmit = async ({ identifier, password }) => {
     setServerError("");
+    setDeviceLimit(null);
+    setReplaceMsg("");
     try {
       const deviceFingerprint = await getDeviceFingerprint();
       const meta = getDeviceMetadata();
@@ -65,31 +98,58 @@ export default function Login() {
         os: meta.os,
         userAgent: meta.userAgent,
       });
-      const roleName = String(user?.role?.name || user?.role || "").trim().toUpperCase();
-
-      if (hasAdminAccess(user)) {
-        navigate(getFirstAllowedAdminPath((perm) => hasPermission(user, perm)), { replace: true });
-        return;
-      }
-      if (roleName === "INSTRUCTOR") {
-        navigate("/instructor", { replace: true });
-        return;
-      }
-
-      const enrollmentCheckout = getEnrollmentCheckoutPath(location.search);
-      if (enrollmentCheckout) {
-        navigate(enrollmentCheckout, { replace: true });
-        return;
-      }
-      const redirectPath = getPostLoginRedirectPath(location.search);
-      if (redirectPath) {
-        navigate(redirectPath, { replace: true });
-        return;
-      }
-
-      navigate("/student", { replace: true });
+      finishLogin(user);
     } catch (err) {
+      const code = getErrorCode(err);
+      const details = getErrorDetails(err);
+      if (code === "DEVICE_LIMIT" && details) {
+        setDeviceLimit(details);
+        setSelectedOldDeviceId(details.devices?.[0]?.id || "");
+        setServerError(
+          t("auth.login.deviceLimit", {
+            defaultValue: isAr
+              ? "وصلت لحد جهازين موثوقين. اختر جهازاً لإزالته واطلب موافقة الإدارة."
+              : "You reached the 2-device limit. Choose a device to replace and request admin approval.",
+          })
+        );
+        return;
+      }
       setServerError(getErrorMessage(err, t("auth.errors.loginFailed")));
+    }
+  };
+
+  const submitReplacement = async () => {
+    if (!selectedOldDeviceId) return;
+    setReplaceBusy(true);
+    setReplaceMsg("");
+    try {
+      const { identifier, password } = getValues();
+      const deviceFingerprint = await getDeviceFingerprint();
+      const meta = getDeviceMetadata();
+      const res = await client.post(endpoints.auth.deviceReplacementRequest, {
+        identifier,
+        password,
+        oldDeviceId: selectedOldDeviceId,
+        deviceFingerprint,
+        deviceName: meta.deviceName,
+        os: meta.os,
+      });
+      const data = unwrapResponse(res);
+      setReplaceMsg(
+        data?.alreadyPending
+          ? t("auth.login.replacePending", {
+              defaultValue: isAr ? "لديك طلب قيد المراجعة بالفعل." : "You already have a pending request.",
+            })
+          : t("auth.login.replaceSubmitted", {
+              defaultValue: isAr
+                ? "تم إرسال الطلب. سجّل الدخول بعد موافقة الإدارة."
+                : "Request submitted. Log in again after admin approval.",
+            })
+      );
+    } catch (err) {
+      setReplaceMsg(getErrorMessage(err, t("auth.errors.loginFailed")));
+    } finally {
+      setReplaceBusy(false);
     }
   };
 
@@ -114,9 +174,63 @@ export default function Login() {
           </div>
         ) : null}
 
+        {deviceLimit?.devices?.length ? (
+          <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50/80 p-4">
+            <p className="flex items-center gap-2 text-xs font-black text-amber-900">
+              <Smartphone className="h-4 w-4" />
+              {t("auth.login.trustedDevices", { defaultValue: isAr ? "الأجهزة الموثوقة" : "Trusted devices" })}
+            </p>
+            <div className="space-y-2">
+              {deviceLimit.devices.map((d) => (
+                <label
+                  key={d.id}
+                  className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2 text-xs ${
+                    selectedOldDeviceId === d.id ? "border-blue-500 bg-white" : "border-amber-100 bg-white/70"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="oldDevice"
+                    checked={selectedOldDeviceId === d.id}
+                    onChange={() => setSelectedOldDeviceId(d.id)}
+                    className="mt-0.5"
+                  />
+                  <span>
+                    <span className="block font-bold text-slate-900">{d.deviceName || d.os || d.fingerprintShort}</span>
+                    <span className="text-slate-500">
+                      {d.os ? `${d.os} · ` : ""}
+                      {d.lastSeenAt ? new Date(d.lastSeenAt).toLocaleString() : ""}
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+            <button
+              type="button"
+              disabled={replaceBusy || !selectedOldDeviceId}
+              onClick={() => void submitReplacement()}
+              className="flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-amber-700 text-xs font-black text-white disabled:opacity-60"
+            >
+              {replaceBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {t("auth.login.requestReplace", {
+                defaultValue: isAr ? "اطلب استبدال الجهاز المحدد بهذا الجهاز" : "Request replacing selected device with this one",
+              })}
+            </button>
+            {replaceMsg ? <p className="text-[11px] font-bold text-amber-900">{replaceMsg}</p> : null}
+            {deviceLimit.pendingRequestId ? (
+              <p className="text-[11px] font-semibold text-slate-600">
+                {t("auth.login.pendingId", {
+                  defaultValue: isAr ? `طلب معلّق: ${deviceLimit.pendingRequestId}` : `Pending request: ${deviceLimit.pendingRequestId}`,
+                  id: deviceLimit.pendingRequestId,
+                })}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
         <Field
-          label={t("auth.login.identifierLabel", { defaultValue: i18n.language?.startsWith("ar") ? "البريد أو اسم المستخدم" : "Email or username" })}
-          error={errors.identifier ? t("auth.login.identifierRequired", { defaultValue: i18n.language?.startsWith("ar") ? "البريد أو اسم المستخدم مطلوب" : "Email or username is required" }) : ""}
+          label={t("auth.login.identifierLabel", { defaultValue: isAr ? "البريد أو اسم المستخدم" : "Email or username" })}
+          error={errors.identifier ? t("auth.login.identifierRequired", { defaultValue: isAr ? "البريد أو اسم المستخدم مطلوب" : "Email or username is required" }) : ""}
         >
           <div className="relative">
             <AtSign className="pointer-events-none absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -124,7 +238,7 @@ export default function Login() {
               type="text"
               autoComplete="username"
               placeholder={t("auth.login.identifierPlaceholder", {
-                defaultValue: i18n.language?.startsWith("ar") ? "email@example.com أو username" : "email@example.com or username",
+                defaultValue: isAr ? "email@example.com أو username" : "email@example.com or username",
               })}
               className={`${inputClass} ${errors.identifier ? "border-red-400" : ""}`}
               {...register("identifier")}
@@ -173,7 +287,10 @@ export default function Login() {
           {t("auth.login.submit")}
           {!isSubmitting ? <Arrow className="h-4 w-4" /> : null}
         </button>
-        <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400"><ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />{t("auth.login.securityNote")}</p>
+        <p className="flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400">
+          <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+          {t("auth.login.securityNote")}
+        </p>
       </form>
     </AuthShell>
   );

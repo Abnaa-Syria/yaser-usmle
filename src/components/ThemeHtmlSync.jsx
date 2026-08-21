@@ -2,10 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
 
-function isCourseLearnPath(pathname) {
-  return /^\/student\/courses\/[^/]+\/learn/.test(pathname);
-}
-
 function isDashboardPath(pathname) {
   return (
     pathname.startsWith("/admin") ||
@@ -16,7 +12,8 @@ function isDashboardPath(pathname) {
 
 /**
  * Applies `dark` on <html> for dashboard shells (/admin, /instructor, /student)
- * using the user's stored preference. Public marketing routes stay in light mode.
+ * using the user's stored preference — including course learn. Public marketing
+ * routes stay in light mode.
  */
 export default function ThemeHtmlSync() {
   const { pathname } = useLocation();
@@ -24,11 +21,6 @@ export default function ThemeHtmlSync() {
 
   useEffect(() => {
     const root = document.documentElement;
-    // Course player stays in light mode for readable lesson content.
-    if (isCourseLearnPath(pathname)) {
-      root.classList.remove("dark");
-      return;
-    }
     if (!isDashboardPath(pathname)) {
       root.classList.remove("dark");
       return;

@@ -21,6 +21,7 @@ import {
   MessageSquare,
   Settings2,
   Shield,
+  Smartphone,
   UserCog,
   Users,
   UserCheck,
@@ -174,6 +175,12 @@ export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
           labelKey: "sidebarNav.items.allUsers",
           path: "/admin/users",
           icon: UserCog,
+          permission: "user:manage",
+        },
+        {
+          labelKey: "sidebarNav.items.deviceReplacements",
+          path: "/admin/device-replacements",
+          icon: Smartphone,
           permission: "user:manage",
         },
         {

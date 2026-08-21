@@ -5,6 +5,7 @@ import PageHeader from "../components/dashboard/PageHeader";
 import EmptyState from "../components/dashboard/EmptyState";
 import { useMyCourses } from "../features/student/courses/hooks";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
+import { accessBadgeClass, formatAccessRemaining } from "../utils/accessRemaining";
 
 export default function MyClasses() {
   const { t, i18n } = useTranslation();
@@ -78,6 +79,7 @@ export default function MyClasses() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {rows.map((c) => {
             const progress = Math.round(Number(c.progressPercentage || 0));
+            const access = formatAccessRemaining(c.expiresAt, { isAr });
             return (
               <article
                 key={c.id}
@@ -109,6 +111,9 @@ export default function MyClasses() {
                     <span className="flex items-center gap-1">
                       <User className="h-3.5 w-3.5" />
                       {c.instructor?.fullName || "—"}
+                    </span>
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${accessBadgeClass(access.tone)}`}>
+                      {access.label}
                     </span>
                   </div>
                   <div className="mt-4 space-y-2">

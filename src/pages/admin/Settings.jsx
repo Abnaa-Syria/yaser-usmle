@@ -7,6 +7,7 @@ import { useAdminSettings, useUpdateAdminSettings } from "../../features/admin/s
 import { uploadAdminLogo } from "../../features/admin/settings/api";
 import { getErrorMessage } from "../../api/error";
 import { APP_BRAND } from "../../config/brand";
+import { DEFAULT_PUBLIC_PAGE_VISIBILITY, normalizePageVisibility } from "../../utils/publicPageVisibility";
 import { resolveBrandAssetUrl } from "../../components/BrandLogo";
 
 const SK = "dashboard.admin.pages.settings";
@@ -133,6 +134,7 @@ function Settings() {
     flashcardEasyDays: "30",
     flashcardMediumDays: "7",
     flashcardHardDays: "3",
+    pageVisibility: { ...DEFAULT_PUBLIC_PAGE_VISIBILITY },
   });
   const [uploadingLogo, setUploadingLogo] = useState("");
 
@@ -171,6 +173,7 @@ function Settings() {
       flashcardEasyDays: g("FLASHCARD_INTERVAL_EASY_DAYS", prev.flashcardEasyDays) || prev.flashcardEasyDays,
       flashcardMediumDays: g("FLASHCARD_INTERVAL_MEDIUM_DAYS", prev.flashcardMediumDays) || prev.flashcardMediumDays,
       flashcardHardDays: g("FLASHCARD_INTERVAL_HARD_DAYS", prev.flashcardHardDays) || prev.flashcardHardDays,
+      pageVisibility: normalizePageVisibility(rows.find((s) => s.key === "PUBLIC_PAGE_VISIBILITY")?.value),
     }));
     setHydrated(true);
   }, [data]);
@@ -247,6 +250,7 @@ function Settings() {
     FLASHCARD_INTERVAL_EASY_DAYS: Number(settings.flashcardEasyDays) || 30,
     FLASHCARD_INTERVAL_MEDIUM_DAYS: Number(settings.flashcardMediumDays) || 7,
     FLASHCARD_INTERVAL_HARD_DAYS: Number(settings.flashcardHardDays) || 3,
+    PUBLIC_PAGE_VISIBILITY: normalizePageVisibility(settings.pageVisibility),
   });
 
   const handleSave = () => {
@@ -392,6 +396,38 @@ function Settings() {
             enabled={settings.enableRegistration}
             onChange={() => handleToggle("enableRegistration")}
           />
+        </SettingsSection>
+
+        <SettingsSection
+          title={t(`${SK}.publicPages`, { defaultValue: isRtl ? "ظهور صفحات الموقع" : "Public page visibility" })}
+          icon={Globe}
+        >
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {t(`${SK}.publicPagesHint`, {
+              defaultValue: isRtl
+                ? "أخفِ أو أظهر صفحات الموقع العامة. لوحة الأدمن لا تتأثر. الباقات مخفية افتراضياً."
+                : "Show or hide public marketing pages. Admin panel is unaffected. Packages are hidden by default.",
+            })}
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {Object.entries(settings.pageVisibility || DEFAULT_PUBLIC_PAGE_VISIBILITY).map(([key, enabled]) => (
+              <SettingsToggle
+                key={key}
+                label={key}
+                description={t(`${SK}.pageToggle.${key}`, { defaultValue: `Toggle /${key}` })}
+                enabled={Boolean(enabled)}
+                onChange={() =>
+                  setSettings((prev) => ({
+                    ...prev,
+                    pageVisibility: {
+                      ...prev.pageVisibility,
+                      [key]: !prev.pageVisibility?.[key],
+                    },
+                  }))
+                }
+              />
+            ))}
+          </div>
         </SettingsSection>
 
         <SettingsSection title={t(`${SK}.interfaceExperience`)} icon={Palette}>

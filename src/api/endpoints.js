@@ -10,6 +10,7 @@ const endpoints = {
     otpVerify: "/auth/otp/verify",
     resetPassword: "/auth/reset-password",
     forgotPassword: "/auth/forgot-password",
+    deviceReplacementRequest: "/auth/device-replacement-request",
   },
   admin: {
     stats: "/admin/dashboard/stats",
@@ -27,6 +28,9 @@ const endpoints = {
     payouts: "/admin/payouts",
     cms: "/admin/cms",
     settings: "/admin/settings",
+    deviceReplacements: "/admin/device-replacements",
+    deviceReplacementApprove: (id) => `/admin/device-replacements/${id}/approve`,
+    deviceReplacementReject: (id) => `/admin/device-replacements/${id}/reject`,
     sections: "/admin/sections",
     auditLogs: "/admin/audit-logs",
     roles: "/admin/roles",

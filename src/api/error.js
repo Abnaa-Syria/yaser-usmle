@@ -15,6 +15,14 @@ export function getErrorMessage(error, fallback = "Something went wrong") {
   return message || fallback;
 }
 
+export function getErrorCode(error) {
+  return error?.response?.data?.code || error?.code || null;
+}
+
+export function getErrorDetails(error) {
+  return error?.response?.data?.details ?? null;
+}
+
 export function unwrapResponse(response) {
   return response?.data?.data ?? response?.data ?? null;
 }

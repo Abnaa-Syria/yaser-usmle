@@ -15,13 +15,23 @@ const emptyForm = {
 };
 
 export default function AdminFlashcards() {
-  const [filters, setFilters] = useState({ status: "PUBLISHED" });
+  const [filters, setFilters] = useState({ status: "PUBLISHED", courseId: "", unitId: "", lessonId: "", q: "" });
+  const [searchInput, setSearchInput] = useState("");
   const [form, setForm] = useState(emptyForm);
   const [courseId, setCourseId] = useState("");
   const [unitId, setUnitId] = useState("");
   const [units, setUnits] = useState([]);
   const [lessons, setLessons] = useState([]);
-  const { data: flashcards = [], isLoading, isError, refetch } = useAdminFlashcards(filters);
+  const listParams = useMemo(() => {
+    const p = {};
+    if (filters.status) p.status = filters.status;
+    if (filters.courseId) p.courseId = filters.courseId;
+    if (filters.unitId) p.unitId = filters.unitId;
+    if (filters.lessonId) p.lessonId = filters.lessonId;
+    if (filters.q?.trim()) p.q = filters.q.trim();
+    return p;
+  }, [filters]);
+  const { data: flashcards = [], isLoading, isError, refetch } = useAdminFlashcards(listParams);
   const { data: coursesData } = useAdminCourses({ page: 1, limit: 200 });
   const createFlashcard = useCreateAdminFlashcard();
   const updateFlashcard = useUpdateAdminFlashcard();
@@ -143,6 +153,84 @@ export default function AdminFlashcards() {
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
+        <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">List filters &amp; search</p>
+        <div className="grid gap-3 md:grid-cols-4">
+          <select
+            value={filters.courseId}
+            onChange={(e) => {
+              const cid = e.target.value;
+              setFilters((f) => ({ ...f, courseId: cid, unitId: "", lessonId: "" }));
+              void loadUnits(cid);
+            }}
+            className="rounded-xl border px-3 py-2 text-sm"
+          >
+            <option value="">All courses</option>
+            {courses.map((c) => (
+              <option key={c.id} value={c.id}>{c.title}</option>
+            ))}
+          </select>
+          <select
+            value={filters.unitId}
+            onChange={(e) => {
+              const uid = e.target.value;
+              setFilters((f) => ({ ...f, unitId: uid, lessonId: "" }));
+              void loadLessons(uid);
+            }}
+            className="rounded-xl border px-3 py-2 text-sm"
+            disabled={!filters.courseId}
+          >
+            <option value="">All units</option>
+            {units.map((u) => (
+              <option key={u.id} value={u.id}>{u.title || u.name}</option>
+            ))}
+          </select>
+          <select
+            value={filters.lessonId}
+            onChange={(e) => setFilters((f) => ({ ...f, lessonId: e.target.value }))}
+            className="rounded-xl border px-3 py-2 text-sm"
+            disabled={!filters.unitId}
+          >
+            <option value="">All lectures</option>
+            {lessonOptions.map((l) => (
+              <option key={l.id} value={l.id}>{l.title || l.name}</option>
+            ))}
+          </select>
+          <select
+            value={filters.status}
+            onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value }))}
+            className="rounded-xl border px-3 py-2 text-sm"
+          >
+            <option value="PUBLISHED">Published</option>
+            <option value="DRAFT">Draft</option>
+            <option value="ARCHIVED">Archived</option>
+            <option value="">All statuses</option>
+          </select>
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <input
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") setFilters((f) => ({ ...f, q: searchInput }));
+            }}
+            placeholder="Search front / back…"
+            className="min-w-[220px] flex-1 rounded-xl border px-3 py-2 text-sm"
+          />
+          <button
+            type="button"
+            onClick={() => setFilters((f) => ({ ...f, q: searchInput }))}
+            className="rounded-xl bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white"
+          >
+            Search
+          </button>
+          <button type="button" onClick={() => refetch()} className="rounded-xl border px-3 py-2 text-sm font-semibold">
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
+        <p className="mb-3 text-xs font-bold uppercase tracking-wide text-slate-400">Create / import</p>
         <div className="grid gap-3 md:grid-cols-3">
           <select value={courseId} onChange={(e) => loadUnits(e.target.value)} className="rounded-xl border px-3 py-2 text-sm">
             <option value="">Course</option>
@@ -193,15 +281,6 @@ export default function AdminFlashcards() {
         <button type="button" disabled={createFlashcard.isPending} onClick={save} className="mt-3 rounded-xl bg-yu-blue-700 px-4 py-2 text-sm font-bold text-white disabled:opacity-50">
           <Plus className="me-1 inline h-4 w-4" /> Create flashcard
         </button>
-      </div>
-
-      <div className="flex justify-between gap-3">
-        <select value={filters.status} onChange={(e) => setFilters({ status: e.target.value })} className="rounded-xl border px-3 py-2 text-sm">
-          <option value="PUBLISHED">Published</option>
-          <option value="DRAFT">Draft</option>
-          <option value="ARCHIVED">Archived</option>
-        </select>
-        <button type="button" onClick={() => refetch()} className="rounded-xl border px-3 py-2 text-sm font-semibold">Refresh</button>
       </div>
 
       {isLoading ? <p className="text-sm text-slate-500">Loading…</p> : null}

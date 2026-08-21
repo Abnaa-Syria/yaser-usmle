@@ -511,6 +511,32 @@ function StudentDetail() {
                       },
                       { key: "enrolledDate", title: t("adminPages.studentDetail.enrolledDate", { defaultValue: "Enrolled Date" }) },
                       {
+                        key: "expiresAt",
+                        title: t("adminPages.studentDetail.expires", { defaultValue: "Access ends" }),
+                        render: (v, row) => {
+                          if (!v) {
+                            return (
+                              <span className="text-xs font-semibold text-slate-500">
+                                {t("adminPages.studentDetail.lifetime", { defaultValue: "Lifetime" })}
+                              </span>
+                            );
+                          }
+                          const end = new Date(v);
+                          const days = Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+                          const expired = days <= 0;
+                          return (
+                            <div className="space-y-0.5">
+                              <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{end.toLocaleDateString()}</p>
+                              <p className={`text-[10px] font-semibold ${expired ? "text-rose-600" : days <= 7 ? "text-amber-600" : "text-emerald-600"}`}>
+                                {expired
+                                  ? t("adminPages.studentDetail.expired", { defaultValue: "Expired" })
+                                  : t("adminPages.studentDetail.daysLeft", { defaultValue: "{{n}} days left", n: days })}
+                              </p>
+                            </div>
+                          );
+                        },
+                      },
+                      {
                         key: "id",
                         title: t("common.actions", { defaultValue: "Actions" }),
                         render: (_v, row) => (
@@ -519,23 +545,48 @@ function StudentDetail() {
                               type="button"
                               className="rounded border px-2 py-1 text-xs font-semibold"
                               onClick={async () => {
-                                const next = window.prompt(
-                                  "New expiry (YYYY-MM-DD) or empty for lifetime",
-                                  row.expiresAt ? String(row.expiresAt).slice(0, 10) : ""
+                                const months = window.prompt(
+                                  t("adminPages.studentDetail.extendMonths", {
+                                    defaultValue: "Extend by months (e.g. 1, 3, 6). Leave empty to set an exact date instead.",
+                                  }),
+                                  "3"
                                 );
-                                if (next === null) return;
+                                if (months === null) return;
                                 try {
-                                  await updateExpiry.mutateAsync({
-                                    id: row.id,
-                                    expiresAt: next ? new Date(`${next}T23:59:59.000Z`).toISOString() : null,
-                                  });
-                                  toast.success("Expiry updated");
+                                  if (months.trim()) {
+                                    const n = Number(months);
+                                    if (!Number.isFinite(n) || n <= 0) {
+                                      toast.error("Enter a positive number of months");
+                                      return;
+                                    }
+                                    const base = row.expiresAt && new Date(row.expiresAt).getTime() > Date.now()
+                                      ? new Date(row.expiresAt)
+                                      : new Date();
+                                    base.setMonth(base.getMonth() + n);
+                                    await updateExpiry.mutateAsync({
+                                      id: row.id,
+                                      expiresAt: base.toISOString(),
+                                    });
+                                  } else {
+                                    const next = window.prompt(
+                                      t("adminPages.studentDetail.setExpiry", {
+                                        defaultValue: "New expiry (YYYY-MM-DD) or empty for lifetime",
+                                      }),
+                                      row.expiresAt ? String(row.expiresAt).slice(0, 10) : ""
+                                    );
+                                    if (next === null) return;
+                                    await updateExpiry.mutateAsync({
+                                      id: row.id,
+                                      expiresAt: next ? new Date(`${next}T23:59:59.000Z`).toISOString() : null,
+                                    });
+                                  }
+                                  toast.success(t("adminPages.studentDetail.expiryUpdated", { defaultValue: "Expiry updated" }));
                                 } catch {
-                                  toast.error("Failed to update expiry");
+                                  toast.error(t("adminPages.studentDetail.expiryFailed", { defaultValue: "Failed to update expiry" }));
                                 }
                               }}
                             >
-                              Expiry
+                              {t("adminPages.studentDetail.manageAccess", { defaultValue: "Access" })}
                             </button>
                             <button
                               type="button"

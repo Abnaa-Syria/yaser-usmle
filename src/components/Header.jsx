@@ -21,6 +21,7 @@ import { APP_ROLES, hasAdminAccess, normalizeRole } from "../config/permissions"
 import { useSiteSettings } from "../features/public/siteSettings/hooks";
 import BrandLogo from "./BrandLogo";
 import { platformFeatures } from "../config/features";
+import { normalizePageVisibility } from "../utils/publicPageVisibility";
 import { useMarkAllNotificationsRead, useMarkNotificationRead, useNotifications } from "../features/student/notifications/hooks";
 
 /* ── Helpers ── */
@@ -413,14 +414,14 @@ export default function Header() {
   const isRtl = i18n.language?.startsWith("ar");
 
   const navItems = [
-    { to: "/", label: t("header.nav.home") },
-    { to: "/explore", label: t("header.nav.explore") },
-    { to: "/packages", label: t("header.nav.packages", { defaultValue: isRtl ? "الباقات" : "Packages" }) },
+    { to: "/", label: t("header.nav.home"), visibilityKey: "home" },
+    { to: "/explore", label: t("header.nav.explore"), visibilityKey: "explore" },
+    { to: "/packages", label: t("header.nav.packages", { defaultValue: isRtl ? "الباقات" : "Packages" }), visibilityKey: "packages" },
     platformFeatures.publicInstructorCatalog
-      ? { to: "/instructors", label: t("header.nav.instructors", { defaultValue: "Instructors" }) }
+      ? { to: "/instructors", label: t("header.nav.instructors", { defaultValue: "Instructors" }), visibilityKey: "instructors" }
       : null,
     platformFeatures.communityEvents
-      ? { to: "/events", label: t("header.nav.events", { defaultValue: isRtl ? "الفعاليات والأخبار" : "Events & News" }) }
+      ? { to: "/events", label: t("header.nav.events", { defaultValue: isRtl ? "الفعاليات والأخبار" : "Events & News" }), visibilityKey: "events" }
       : null,
     ...(isAuthenticated && isAdminUser
       ? [{ to: "/admin", label: t("header.dashboardMenu.adminPanel") }]
@@ -436,6 +437,12 @@ export default function Header() {
       : []),
   ].filter(Boolean);
 
+  const pageVisibility = normalizePageVisibility(site.pageVisibility);
+  const visibleNavItems = navItems.filter((item) => {
+    if (!item.visibilityKey) return true;
+    return pageVisibility[item.visibilityKey] !== false;
+  });
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
       {/* ── Main Navbar ── */}
@@ -448,7 +455,7 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-8 lg:flex">
-            {navItems.map((item) => (
+            {visibleNavItems.map((item) => (
               <NavLink key={`${item.to}-${item.label}`} to={item.to} className={navLinkClass} end={item.to === "/"}>
                 {item.label}
               </NavLink>
@@ -507,7 +514,7 @@ export default function Header() {
             className="overflow-hidden border-t border-slate-100 bg-white lg:hidden"
           >
             <div className="mx-auto max-w-7xl space-y-1 px-4 py-3 md:px-6">
-              {navItems.map((item) => (
+              {visibleNavItems.map((item) => (
                 <NavLink
                   key={`${item.to}-${item.label}`}
                   to={item.to}

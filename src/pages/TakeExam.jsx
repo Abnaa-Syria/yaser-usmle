@@ -9,6 +9,7 @@ import { useLearningPanelMode } from "../hooks/useLearningPanelMode";
 import { getErrorMessage } from "../api/error";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
 import { normalizeMcqChoices } from "../utils/examChoices";
+import BackToLessonBanner from "../components/student/BackToLessonBanner";
 
 function formatTime(secs) {
   const m = Math.floor(secs / 60)
@@ -60,6 +61,8 @@ export default function TakeExam() {
   const { id: examId } = useParams();
   const [searchParams] = useSearchParams();
   const autostart = searchParams.get("autostart") === "1";
+  const returnCourseId = searchParams.get("courseId");
+  const returnLessonId = searchParams.get("lessonId");
   const { isTrial, examsBase } = useLearningPanelMode();
   const studentExamQuery = useStudentExam(examId, { enabled: !isTrial });
   const trialExamQuery = useTrialExam(examId, { enabled: isTrial });
@@ -381,9 +384,10 @@ export default function TakeExam() {
       );
     }
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[var(--yu-blue-50)]/40 to-slate-50 py-12 md:py-16">
-        <div className="mx-auto max-w-2xl px-4">
-          <div className="overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-[var(--shadow-md)]">
+      <div className="min-h-screen bg-gradient-to-b from-[var(--yu-blue-50)]/40 to-slate-50 py-12 md:py-16 dark:from-[#07111F] dark:to-[#0A1424]">
+        <div className="mx-auto max-w-2xl space-y-4 px-4">
+          <BackToLessonBanner courseId={returnCourseId} lessonId={returnLessonId} />
+          <div className="overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-[var(--shadow-md)] dark:border-white/10 dark:bg-[#0F1E38]">
             <div className="border-b border-slate-100 bg-gradient-to-r from-[var(--yu-blue-700)] to-[var(--yu-blue-500)] px-6 py-8 text-white md:px-8">
               <p className="text-xs font-bold uppercase tracking-wider text-white/80">{t("takeExam.intro.eyebrow", { defaultValue: "Exam ready" })}</p>
               <h1 className="mt-2 text-2xl font-black md:text-3xl">{exam.title}</h1>

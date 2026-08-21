@@ -16,6 +16,7 @@ function mergeWithFallback(data) {
     footerLocationEn: base.footerLocationEn || "",
     footerLocationAr: base.footerLocationAr || "",
     maintenanceMode: Boolean(base.maintenanceMode),
+    pageVisibility: base.pageVisibility && typeof base.pageVisibility === "object" ? base.pageVisibility : undefined,
     social: {
       ...SITE_SETTINGS_FALLBACK.social,
       ...(base.social && typeof base.social === "object" ? base.social : {}),

@@ -17,12 +17,16 @@ import {
   Layers,
   Loader2,
   Menu,
+  Moon,
   Play,
   Sparkles,
+  Sun,
   X,
 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
-import { useCourseUnits } from "../features/student/courses/hooks";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
+import { useCourseUnits, useMyCourses } from "../features/student/courses/hooks";
+import { accessBadgeClass, formatAccessRemaining } from "../utils/accessRemaining";
 import {
   useCompletedLessonIds,
   useCourseProgressStats,
@@ -268,6 +272,9 @@ export default function CourseView() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.language?.startsWith("ar");
   const { id: courseId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { theme, toggleTheme } = useTheme();
+  const lessonIdFromUrl = searchParams.get("lessonId");
 
   const {
     data: units = [],
@@ -275,6 +282,11 @@ export default function CourseView() {
     isError: unitsError,
     refetch: refetchUnits,
   } = useCourseUnits(courseId);
+  const { data: myCourses = [] } = useMyCourses();
+  const courseAccess = useMemo(() => {
+    const row = myCourses.find((c) => String(c.id) === String(courseId) || String(c.courseId) === String(courseId));
+    return formatAccessRemaining(row?.expiresAt, { isAr: isRtl });
+  }, [myCourses, courseId, isRtl]);
   const { data: stats } = useCourseProgressStats(courseId || undefined);
   const { data: resume } = useCourseResume(courseId || undefined);
   const { data: completedIds = [], refetch: refetchCompleted } = useCompletedLessonIds(courseId || undefined);
@@ -322,11 +334,31 @@ export default function CourseView() {
 
   useEffect(() => {
     if (!courseId || flatLessons.length === 0) return;
-    if (activeLesson && flatLessons.some((l) => l.id === activeLesson.id)) return;
+    if (activeLesson && flatLessons.some((l) => l.id === activeLesson.id)) {
+      if (lessonIdFromUrl && lessonIdFromUrl !== activeLesson.id) {
+        const fromUrl = flatLessons.find((l) => l.id === lessonIdFromUrl);
+        if (fromUrl) setActiveLesson(fromUrl);
+      }
+      return;
+    }
+    const fromUrl = lessonIdFromUrl ? flatLessons.find((l) => l.id === lessonIdFromUrl) : null;
     const rid = resume?.lessonId;
-    const pick = rid ? flatLessons.find((l) => l.id === rid) : flatLessons[0];
+    const pick = fromUrl || (rid ? flatLessons.find((l) => l.id === rid) : null) || flatLessons[0];
     if (pick) setActiveLesson(pick);
-  }, [courseId, flatLessons, resume, activeLesson]);
+  }, [courseId, flatLessons, resume, activeLesson, lessonIdFromUrl]);
+
+  useEffect(() => {
+    if (!activeLesson?.id) return;
+    setSearchParams(
+      (prev) => {
+        if (prev.get("lessonId") === activeLesson.id) return prev;
+        const next = new URLSearchParams(prev);
+        next.set("lessonId", activeLesson.id);
+        return next;
+      },
+      { replace: true }
+    );
+  }, [activeLesson?.id, setSearchParams]);
 
   useEffect(() => {
     if (!courseId || !activeLesson?.id) return;
@@ -365,8 +397,9 @@ export default function CourseView() {
   });
   const lessonQuizLink = useMemo(() => {
     if (!activeLesson?.id || lessonExams.length === 0) return null;
-    if (lessonExams.length === 1) return `/student/exams/${lessonExams[0].id}`;
-    return `/student/exams?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`;
+    const qs = `courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(activeLesson.id)}`;
+    if (lessonExams.length === 1) return `/student/exams/${lessonExams[0].id}?${qs}`;
+    return `/student/exams?${qs}`;
   }, [activeLesson?.id, courseId, lessonExams]);
   const lessonFlashcardCount = activeLesson?.flashcards?.length || 0;
   const { data: certificates = [] } = useMyCertificates();
@@ -541,18 +574,31 @@ export default function CourseView() {
             <ArrowLeft className="h-3.5 w-3.5 rtl:rotate-180" />
             {t("courseView.backToClasses")}
           </Link>
-          <div className="hidden items-center gap-2 text-xs font-semibold text-slate-500 sm:flex">
+          <div className="hidden items-center gap-2 text-xs font-semibold text-slate-500 sm:flex dark:text-slate-400">
             <Sparkles className="h-3.5 w-3.5 text-[var(--yu-blue-600)]" />
             {lessonNav.index + 1} / {flatLessons.length}
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${accessBadgeClass(courseAccess.tone)}`}>
+              {courseAccess.label}
+            </span>
           </div>
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm md:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu className="h-4 w-4" />
-            {t("courseView.sidebarTitle")}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[var(--yu-blue-200)] hover:text-[var(--yu-blue-700)] dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+              aria-label={t("common.toggleTheme", { defaultValue: "Toggle theme" })}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm md:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="h-4 w-4" />
+              {t("courseView.sidebarTitle")}
+            </button>
+          </div>
         </div>
       </header>
 

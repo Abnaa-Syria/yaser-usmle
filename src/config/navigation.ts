@@ -7,7 +7,7 @@ import {
   Calendar,
   ClipboardCheck,
   ClipboardList,
-  Headphones,
+  Search,
   Ticket,
   Award,
   DollarSign,
@@ -470,10 +470,10 @@ export function getStudentNavigation(): NavSection[] {
     {
       labelKey: "sidebarNav.sections.studentLearning",
       items: [
-        { labelKey: "sidebarNav.items.recordings", path: "/student/recordings", icon: Headphones },
         { labelKey: "sidebarNav.items.exams", path: "/student/exams", icon: ClipboardList },
         { labelKey: "sidebarNav.items.flashcards", path: "/student/flashcards", icon: ClipboardCheck },
         { labelKey: "sidebarNav.items.studyPlan", path: "/student/study-plan", icon: Calendar },
+        { labelKey: "sidebarNav.items.recordings", path: "/student/recordings", icon: Search },
         { labelKey: "sidebarNav.items.qna", path: "/student/qna", icon: MessageSquare },
         { labelKey: "sidebarNav.items.progress", path: "/student/progress", icon: BarChart2 },
       ] as NavItem[],
@@ -506,10 +506,10 @@ export function getTrialNavigation(): NavSection[] {
     {
       labelKey: "sidebarNav.sections.studentLearning",
       items: [
-        { labelKey: "sidebarNav.items.recordings", path: "/trial/recordings", icon: Headphones },
         { labelKey: "sidebarNav.items.exams", path: "/trial/exams", icon: ClipboardList },
         { labelKey: "sidebarNav.items.flashcards", path: "/trial/flashcards", icon: ClipboardCheck },
         { labelKey: "sidebarNav.items.studyPlan", path: "/trial/study-plan", icon: Calendar },
+        { labelKey: "sidebarNav.items.recordings", path: "/trial/recordings", icon: Search },
         { labelKey: "sidebarNav.items.qna", path: "/trial/qna", icon: MessageSquare },
         { labelKey: "sidebarNav.items.progress", path: "/trial/progress", icon: BarChart2 },
       ],

@@ -6,7 +6,8 @@ function isDashboardPath(pathname) {
   return (
     pathname.startsWith("/admin") ||
     pathname.startsWith("/instructor") ||
-    pathname.startsWith("/student")
+    pathname.startsWith("/student") ||
+    pathname.startsWith("/trial")
   );
 }
 

@@ -41,6 +41,7 @@ const AdminSettingsRoles = lazy(() => import("../pages/admin/SettingsRoles"));
 const AdminRoleEditor = lazy(() => import("../pages/admin/RoleEditor"));
 const AdminSettingsEmails = lazy(() => import("../pages/admin/SettingsEmails"));
 const AdminSettingsIntegrations = lazy(() => import("../pages/admin/SettingsIntegrations"));
+const AdminSettingsPaymentMethods = lazy(() => import("../pages/admin/SettingsPaymentMethods"));
 const AdminSettingsTrial = lazy(() => import("../pages/admin/SettingsTrial"));
 const AdminDeviceReplacements = lazy(() => import("../pages/admin/DeviceReplacements"));
 const AdminGamification = lazy(() => import("../pages/admin/Gamification"));
@@ -185,6 +186,7 @@ function AdminRoutes() {
         <Route path="settings/roles" element={wrap(<AdminSettingsRoles />, "role:manage")} />
         <Route path="settings/emails" element={wrap(<AdminSettingsEmails />, "settings:manage")} />
         <Route path="settings/integrations" element={wrap(<AdminSettingsIntegrations />, "settings:manage")} />
+        <Route path="settings/payment-methods" element={wrap(<AdminSettingsPaymentMethods />, "settings:manage")} />
         <Route path="settings/trial" element={wrap(<AdminSettingsTrial />, "settings:manage")} />
         <Route path="device-replacements" element={wrap(<AdminDeviceReplacements />, "user:manage")} />
         <Route path="gamification" element={wrap(<AdminGamification />, "settings:manage")} />

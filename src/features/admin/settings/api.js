@@ -21,6 +21,15 @@ export async function uploadAdminLogo(file) {
   return response?.data?.data || null;
 }
 
+export async function uploadPaymentMethodAsset(file) {
+  const formData = new FormData();
+  formData.append("asset", file);
+  const response = await client.post(`${endpoints.admin.settings}/payment-method-asset`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response?.data?.data || null;
+}
+
 export async function fetchAdminEmailTemplates() {
   const response = await client.get(`${endpoints.admin.settings}/emails`);
   return response?.data?.data || [];

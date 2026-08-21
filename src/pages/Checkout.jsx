@@ -19,7 +19,12 @@ import { getErrorMessage } from "../api/error";
 import CheckoutPaymentSection from "../components/checkout/CheckoutPaymentSection";
 import { postStudentCourseCheckout, postStudentPackageCheckout, validateStudentCoupon, uploadPaymentProof } from "../features/student/financials/api";
 import { applyCouponDiscount, couponDiscountLabel } from "../features/student/financials/coupon";
-import { DEFAULT_PAYMENT_COUNTRY, getDefaultMethodForCountry } from "../features/student/financials/paymentMethods";
+import {
+  DEFAULT_PAYMENT_COUNTRY,
+  DEFAULT_PAYMENT_METHODS_CONFIG,
+  getDefaultMethodForCountry,
+  isExternalMethod,
+} from "../features/student/financials/paymentMethods";
 
 function formatPrice(price) {
   const value = Math.round(Number(price) || 0);
@@ -64,10 +69,23 @@ export default function Checkout() {
   const [appliedCoupon, setAppliedCoupon] = useState(null);
 
   const [paymentCountry, setPaymentCountry] = useState(DEFAULT_PAYMENT_COUNTRY);
-  const [paymentMethod, setPaymentMethod] = useState(() => getDefaultMethodForCountry(DEFAULT_PAYMENT_COUNTRY));
+  const [paymentMethod, setPaymentMethod] = useState(
+    () => getDefaultMethodForCountry(DEFAULT_PAYMENT_METHODS_CONFIG, DEFAULT_PAYMENT_COUNTRY)?.id || "VODAFONE_CASH"
+  );
+  const [selectedMethodMeta, setSelectedMethodMeta] = useState(null);
   const [receiptUrl, setReceiptUrl] = useState("");
   const [proofFile, setProofFile] = useState(null);
   const [studentNote, setStudentNote] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  useEffect(() => {
+    if (!user) return;
+    setFullName((prev) => prev || user.fullName || user.name || "");
+    setContactPhone((prev) => prev || user.phone || user.phoneNumber || "");
+  }, [user]);
+
+  const isCardCheckout = isExternalMethod(selectedMethodMeta);
 
   const {
     data: course,
@@ -194,7 +212,27 @@ export default function Checkout() {
 
   const handlePurchase = async () => {
     if (!courseId && !packageId) return;
+    if (isCardCheckout) {
+      setLocalError(
+        t("checkout.regional.useCardButton", {
+          defaultValue: isRtl
+            ? "للدفع بالبطاقة استخدم زر الدفع بالبطاقة البنكية أعلاه."
+            : "For card payment, use the bank card button above.",
+        })
+      );
+      return;
+    }
     setLocalError("");
+    const name = fullName.trim();
+    const phone = contactPhone.trim();
+    if (!name) {
+      setLocalError(t("checkout.regional.fullNameRequired", { defaultValue: isRtl ? "الاسم الكامل مطلوب." : "Full name is required." }));
+      return;
+    }
+    if (!phone) {
+      setLocalError(t("checkout.regional.phoneRequired", { defaultValue: isRtl ? "رقم الهاتف مطلوب." : "Phone number is required." }));
+      return;
+    }
     let url = receiptUrl.trim();
     if (finalAmount > 0 && !url && !proofFile) {
       setLocalError(t("checkout.package.receiptRequired"));
@@ -214,12 +252,18 @@ export default function Checkout() {
         const uploaded = await uploadPaymentProof(proofFile);
         url = uploaded?.receiptUrl || url;
       }
+      const noteParts = [
+        `Full name: ${name}`,
+        `Phone: ${phone}`,
+        `Email: ${user?.email || ""}`,
+        studentNote.trim(),
+      ].filter(Boolean);
       const payload = {
         paymentMethod,
         paymentCountry,
         receiptUrl: url || "INSTANT_FREE_ENROLLMENT",
         amount: finalAmount,
-        studentNote: studentNote.trim() || undefined,
+        studentNote: noteParts.join("\n") || undefined,
       };
       if (packageId) {
         if (pricingTierId) {
@@ -297,11 +341,13 @@ export default function Checkout() {
               <div className="flex justify-center">
                 <CheckCircle2 className="h-14 w-14 text-emerald-600" aria-hidden />
               </div>
-              <p className="text-center text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              <p className="whitespace-pre-line text-center text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                 {orderMeta.reusedPending
                   ? t("checkout.cohort.successPendingNote")
-                  : t("checkout.cohort.successBody", {
-                      defaultValue: "Your payment is pending review. You will get access once approved.",
+                  : t("checkout.regional.successBody", {
+                      defaultValue: isRtl
+                        ? "تم استلام طلبك بنجاح.\nسيتم التحقق من عملية الدفع وتفعيل حسابك في أقرب وقت ممكن."
+                        : "Your request was received successfully.\nWe will verify the payment and activate your account as soon as possible.",
                     })}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -412,48 +458,96 @@ export default function Checkout() {
                 onPaymentCountryChange={setPaymentCountry}
                 paymentMethod={paymentMethod}
                 onPaymentMethodChange={setPaymentMethod}
+                onSelectedMethodChange={setSelectedMethodMeta}
                 courseInstructions={course?.paymentInstructions || coursePackage?.paymentInstructions}
               />
 
-              <div>
-                <label htmlFor="receipt-url" className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  {t("checkout.package.receiptUrl", { defaultValue: "Payment proof link" })}
-                </label>
-                <input
-                  id="receipt-url"
-                  type="url"
-                  value={receiptUrl}
-                  onChange={(e) => setReceiptUrl(e.target.value)}
-                  placeholder="https://"
-                  className={`${studentFieldClass} mt-1`}
-                />
-                <p className="mt-1 text-xs font-medium text-slate-500">{t("checkout.package.receiptHint")}</p>
-              </div>
-              <div>
-                <label htmlFor="receipt-file" className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  {t("checkout.proofUpload", { defaultValue: "Or upload proof file" })}
-                </label>
-                <input
-                  id="receipt-file"
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp,application/pdf"
-                  onChange={(e) => setProofFile(e.target.files?.[0] || null)}
-                  className={`${studentFieldClass} mt-1 file:me-3 file:rounded-lg file:border-0 file:bg-[var(--yu-blue-700)] file:px-3 file:py-1 file:text-xs file:font-bold file:text-white`}
-                />
-                <p className="mt-1 text-xs font-medium text-slate-500">{proofFile ? `${proofFile.name} · ${Math.round(proofFile.size / 1024)} KB` : t("checkout.proofUploadHint", { defaultValue: "PDF, JPG, PNG, or WEBP up to 8 MB." })}</p>
-              </div>
-              <div>
-                <label htmlFor="student-note" className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  {t("checkout.studentNote", { defaultValue: "Note for reviewer" })}
-                </label>
-                <textarea
-                  id="student-note"
-                  value={studentNote}
-                  onChange={(e) => setStudentNote(e.target.value)}
-                  rows={3}
-                  className={`${studentFieldClass} mt-1`}
-                />
-              </div>
+              {!isCardCheckout ? (
+                <>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="checkout-full-name" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                        {t("checkout.regional.fullName", { defaultValue: isRtl ? "الاسم الكامل" : "Full name" })}
+                      </label>
+                      <input
+                        id="checkout-full-name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        className={`${studentFieldClass} mt-1`}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="checkout-email" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                        {t("checkout.regional.email", { defaultValue: isRtl ? "البريد الإلكتروني" : "Email" })}
+                      </label>
+                      <input
+                        id="checkout-email"
+                        type="email"
+                        value={user?.email || ""}
+                        readOnly
+                        className={`${studentFieldClass} mt-1 opacity-80`}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="checkout-phone" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                        {t("checkout.regional.phone", { defaultValue: isRtl ? "رقم الهاتف" : "Phone number" })}
+                      </label>
+                      <input
+                        id="checkout-phone"
+                        value={contactPhone}
+                        onChange={(e) => setContactPhone(e.target.value)}
+                        className={`${studentFieldClass} mt-1`}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                        {t("checkout.regional.amount", { defaultValue: isRtl ? "المبلغ المحوّل" : "Transferred amount" })}
+                      </label>
+                      <p className="mt-2 text-base font-black text-slate-900 dark:text-white">{priceLabel}</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="receipt-url" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                      {t("checkout.package.receiptUrl", { defaultValue: "Payment proof link" })}
+                    </label>
+                    <input
+                      id="receipt-url"
+                      type="url"
+                      value={receiptUrl}
+                      onChange={(e) => setReceiptUrl(e.target.value)}
+                      placeholder="https://"
+                      className={`${studentFieldClass} mt-1`}
+                    />
+                    <p className="mt-1 text-xs font-medium text-slate-500">{t("checkout.package.receiptHint")}</p>
+                  </div>
+                  <div>
+                    <label htmlFor="receipt-file" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                      {t("checkout.proofUpload", { defaultValue: "Or upload proof file" })}
+                    </label>
+                    <input
+                      id="receipt-file"
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,application/pdf"
+                      onChange={(e) => setProofFile(e.target.files?.[0] || null)}
+                      className={`${studentFieldClass} mt-1 file:me-3 file:rounded-lg file:border-0 file:bg-[var(--yu-blue-700)] file:px-3 file:py-1 file:text-xs file:font-bold file:text-white`}
+                    />
+                    <p className="mt-1 text-xs font-medium text-slate-500">{proofFile ? `${proofFile.name} · ${Math.round(proofFile.size / 1024)} KB` : t("checkout.proofUploadHint", { defaultValue: "PDF, JPG, PNG, or WEBP up to 8 MB." })}</p>
+                  </div>
+                  <div>
+                    <label htmlFor="student-note" className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                      {t("checkout.studentNote", { defaultValue: "Note for reviewer" })}
+                    </label>
+                    <textarea
+                      id="student-note"
+                      value={studentNote}
+                      onChange={(e) => setStudentNote(e.target.value)}
+                      rows={3}
+                      className={`${studentFieldClass} mt-1`}
+                    />
+                  </div>
+                </>
+              ) : null}
             </>
           ) : null}
 
@@ -464,7 +558,7 @@ export default function Checkout() {
             </div>
           ) : null}
 
-          {flow !== "success" && (((course && course.isLifetimePurchasable) || coursePackage)) ? (
+          {flow !== "success" && (((course && course.isLifetimePurchasable) || coursePackage)) && !isCardCheckout ? (
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
               <Link
                 to={packageId ? "/subscription" : `/courses/${courseId}`}
@@ -479,8 +573,20 @@ export default function Checkout() {
                 className={studentBtnPrimary}
               >
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                {t("checkout.cohort.payCohort", { price: priceLabel })}
+                {t("checkout.regional.submitActivation", {
+                  defaultValue: isRtl ? "إرسال طلب التفعيل" : "Submit activation request",
+                })}
               </button>
+            </div>
+          ) : null}
+          {flow !== "success" && (((course && course.isLifetimePurchasable) || coursePackage)) && isCardCheckout ? (
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <Link
+                to={packageId ? "/subscription" : `/courses/${courseId}`}
+                className={studentBtnGhost}
+              >
+                {t("checkout.cancel")}
+              </Link>
             </div>
           ) : null}
       </StudentSurface>

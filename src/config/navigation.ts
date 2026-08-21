@@ -433,6 +433,12 @@ export function getAdminNavigation(openTicketsCount = 0): NavSection[] {
               permission: "settings:manage",
             },
             {
+              labelKey: "sidebarNav.items.paymentMethods",
+              path: "/admin/settings/payment-methods",
+              icon: Settings2,
+              permission: "settings:manage",
+            },
+            {
               labelKey: "sidebarNav.items.freeTrial",
               path: "/admin/settings/trial",
               icon: Settings2,

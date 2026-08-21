@@ -18,9 +18,9 @@ export default function SettingsIntegrations() {
     },
     {
       name: t("adminPages.integrations.manualName", { defaultValue: "Manual payments" }),
-      env: "MANUAL_PAYMENT_*",
+      env: "Admin → Settings → Payment methods",
       note: t("adminPages.integrations.manualNote", {
-        defaultValue: "Bank-transfer instructions shown at checkout — no card gateway in current scope",
+        defaultValue: "Country payment methods, Stripe links, and QR images are edited in Payment methods settings (not env vars).",
       }),
     },
     {

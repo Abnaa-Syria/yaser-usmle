@@ -99,6 +99,7 @@
       "rolesPerms": "Roles & Perms",
       "emailTemplates": "Email Templates",
       "integrations": "Integrations",
+      "paymentMethods": "Payment methods",
       "freeTrial": "Free trial",
       "gamification": "Platform Points",
       "myClasses": "My Classes",
@@ -2885,6 +2886,7 @@
         "EG": "Egypt",
         "IQ": "Iraq",
         "SY": "Syria",
+        "JO": "Jordan",
         "OTHER": "Other countries"
       },
       "methods": {

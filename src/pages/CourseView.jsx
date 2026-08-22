@@ -619,7 +619,7 @@ export default function CourseView() {
             </button>
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm md:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="h-4 w-4" />

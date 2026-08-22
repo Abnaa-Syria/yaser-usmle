@@ -2880,8 +2880,8 @@
       "methodCard": "Card / online",
       "methodOther": "Other",
       "receiptUrl": "Payment proof URL",
-      "receiptHint": "Paste a link to your receipt or transfer confirmation (must be a valid https URL).",
-      "receiptRequired": "Please enter a receipt or proof URL.",
+      "receiptHint": "Upload a receipt or transfer confirmation image.",
+      "receiptRequired": "Please upload a payment proof image.",
       "receiptUrlInvalid": "Enter a valid URL (e.g. https://…).",
       "amountInvalid": "Could not determine plan price.",
       "submit": "Submit payment request",
@@ -2898,6 +2898,11 @@
       "instructionsTitle": "How to pay",
       "courseNoteTitle": "Course-specific note",
       "proofReminder": "After paying, upload your receipt or proof below so our team can confirm your enrollment.",
+      "cardProofReminder": "After paying via the link, enter your details and Stripe email, upload the invoice, then submit activation.",
+      "stripeEmail": "Email used for Stripe payment",
+      "stripeEmailHint": "Enter the same email you used to complete the card payment link.",
+      "stripeEmailRequired": "Enter the email you used to pay on Stripe.",
+      "stripeEmailInvalid": "Stripe email is invalid.",
       "countries": {
         "EG": "Egypt",
         "IQ": "Iraq",
@@ -2938,8 +2943,10 @@
         }
       }
     },
-    "proofUpload": "Or upload proof file",
-    "proofUploadHint": "PDF, JPG, PNG, or WEBP up to 8 MB.",
+    "proofUpload": "Payment proof image",
+    "proofUploadHint": "Upload receipt image (JPG / PNG / WEBP / PDF up to 8 MB).",
+    "stripeInvoiceUpload": "Stripe payment invoice",
+    "stripeInvoiceHint": "Upload your Stripe invoice or receipt (JPG / PNG / WEBP / PDF up to 8 MB).",
     "studentNote": "Note for reviewer",
     "openPaymentDestination": "Open payment destination",
     "invalid": {

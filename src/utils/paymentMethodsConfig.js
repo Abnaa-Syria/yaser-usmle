@@ -91,9 +91,9 @@ export const DEFAULT_PAYMENT_METHODS_CONFIG = {
           shortAr: "Mastercard",
           shortEn: "Mastercard",
           instructionsAr:
-            "يمكن الدفع مباشرة باستخدام بطاقة Mastercard بشرط أن تدعم البطاقة الدفع بالدولار. لا حاجة لرفع إيصال داخل المنصة.",
+            "يمكن الدفع مباشرة باستخدام بطاقة Mastercard بشرط أن تدعم البطاقة الدفع بالدولار. بعد الدفع أدخل بياناتك وبريد Stripe وارفع فاتورة الدفع لإرسال طلب التفعيل.",
           instructionsEn:
-            "Pay directly with a Mastercard that supports USD. No receipt upload is required on the platform.",
+            "Pay directly with a Mastercard that supports USD. After payment, enter your details and Stripe email, then upload the invoice to submit activation.",
           details: [],
           warningsAr: [],
           warningsEn: [],
@@ -169,8 +169,10 @@ export const DEFAULT_PAYMENT_METHODS_CONFIG = {
           titleEn: "Bank card payment",
           shortAr: "Stripe",
           shortEn: "Stripe",
-          instructionsAr: "ادفع بالبطاقة البنكية مباشرة من خلال رابط الدفع. لا حاجة لرفع إيصال يدوي داخل المنصة.",
-          instructionsEn: "Pay by card via the payment link. No manual receipt upload is required.",
+          instructionsAr:
+            "ادفع بالبطاقة البنكية مباشرة من خلال رابط الدفع. بعد الدفع أدخل بياناتك وبريد Stripe وارفع فاتورة الدفع لإرسال طلب التفعيل.",
+          instructionsEn:
+            "Pay by card via the payment link. After payment, enter your details and Stripe email, then upload the invoice to submit activation.",
           details: [],
           warningsAr: [],
           warningsEn: [],
@@ -265,8 +267,10 @@ export const DEFAULT_PAYMENT_METHODS_CONFIG = {
           titleEn: "Bank card payment",
           shortAr: "Stripe",
           shortEn: "Stripe",
-          instructionsAr: "يتم الدفع بالبطاقة البنكية مباشرة من خلال رابط Stripe. لا حاجة لرفع إيصال يدوي داخل المنصة.",
-          instructionsEn: "Pay by bank card via the Stripe link. No manual receipt upload is required.",
+          instructionsAr:
+            "يتم الدفع بالبطاقة البنكية مباشرة من خلال رابط Stripe. بعد الدفع أدخل بياناتك وبريد Stripe وارفع فاتورة الدفع لإرسال طلب التفعيل.",
+          instructionsEn:
+            "Pay by bank card via the Stripe link. After payment, enter your details and Stripe email, then upload the invoice to submit activation.",
           details: [],
           warningsAr: [],
           warningsEn: [],

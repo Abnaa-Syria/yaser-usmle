@@ -17,9 +17,10 @@ import {
 } from "lucide-react";
 import PageHeader from "../../components/ui/PageHeader";
 import { getErrorMessage } from "../../api/error";
-import { useCreateAdminEnrollment } from "../../features/admin/enrollments/hooks";
+import { createAdminEnrollment } from "../../features/admin/enrollments/api";
 import { useAdminUsersAll } from "../../features/admin/users/hooks";
 import { useAdminCourse, useAdminCourses } from "../../features/admin/courses/hooks";
+import { useQueryClient } from "@tanstack/react-query";
 
 const MONTH_OPTIONS = Array.from({ length: 36 }, (_, i) => i + 1);
 
@@ -78,10 +79,12 @@ function AccessCard({ active, icon: Icon, title, hint, onClick }) {
 function EnrollStudent() {
   const { t, i18n } = useTranslation();
   const isAr = i18n.language?.startsWith("ar");
+  const queryClient = useQueryClient();
 
   const [step, setStep] = useState(1);
   const [courseId, setCourseId] = useState("");
-  const [studentId, setStudentId] = useState("");
+  /** @type {[Record<string, {id: string, fullName?: string, name?: string, email?: string}>, Function]} */
+  const [selectedById, setSelectedById] = useState({});
   const [studentQuery, setStudentQuery] = useState("");
   const [courseQuery, setCourseQuery] = useState("");
   const [accessMode, setAccessMode] = useState("lifetime");
@@ -90,10 +93,10 @@ function EnrollStudent() {
   const [amountPaid, setAmountPaid] = useState("");
   const [notes, setNotes] = useState("");
   const [renewIfExists, setRenewIfExists] = useState(true);
+  const [bulkSubmitting, setBulkSubmitting] = useState(false);
 
   const debouncedStudentQuery = useDebouncedValue(studentQuery, 300);
 
-  const createMutation = useCreateAdminEnrollment();
   const { data: usersData, isLoading: studentsLoading, isFetching: studentsFetching } = useAdminUsersAll({
     role: "STUDENT",
     limit: 200,
@@ -115,10 +118,33 @@ function EnrollStudent() {
 
   const filteredStudents = students;
 
-  const selectedStudent = useMemo(
-    () => students.find((s) => s.id === studentId) || null,
-    [students, studentId]
-  );
+  const selectedStudents = useMemo(() => Object.values(selectedById), [selectedById]);
+  const selectedCount = selectedStudents.length;
+
+  const toggleStudent = (s) => {
+    setSelectedById((prev) => {
+      const next = { ...prev };
+      if (next[s.id]) {
+        delete next[s.id];
+      } else {
+        next[s.id] = {
+          id: s.id,
+          fullName: s.fullName,
+          name: s.name,
+          email: s.email,
+        };
+      }
+      return next;
+    });
+  };
+
+  const removeSelected = (id) => {
+    setSelectedById((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  };
 
   useEffect(() => {
     if (!courseId) return;
@@ -161,17 +187,17 @@ function EnrollStudent() {
   }, [accessMode, durationMonths, selectedTier, isAr]);
 
   const canGoStep2 = Boolean(courseId);
-  const canGoStep3 = Boolean(courseId && studentId);
+  const canGoStep3 = Boolean(courseId && selectedCount > 0);
   const canSubmit =
-    Boolean(courseId && studentId) &&
+    Boolean(courseId && selectedCount > 0) &&
     (accessMode !== "months" || durationMonths > 0) &&
     (accessMode !== "tier" || Boolean(pricingTierId));
+  const isSubmitting = bulkSubmitting;
 
   const resetWizard = () => {
-    createMutation.reset();
     setStep(1);
     setCourseId("");
-    setStudentId("");
+    setSelectedById({});
     setStudentQuery("");
     setCourseQuery("");
     setAccessMode("lifetime");
@@ -180,40 +206,81 @@ function EnrollStudent() {
     setAmountPaid("");
     setNotes("");
     setRenewIfExists(true);
+    setBulkSubmitting(false);
   };
 
-  const onSubmit = () => {
-    if (!canSubmit) return;
+  const onSubmit = async () => {
+    if (!canSubmit || isSubmitting) return;
     const amount = amountPaid.trim() === "" ? null : Number(amountPaid);
     if (amount != null && (Number.isNaN(amount) || amount < 0)) {
       toast.error(isAr ? "المبلغ غير صالح" : "Invalid amount");
       return;
     }
-    createMutation.mutate(
-      {
-        studentId,
-        courseId,
-        accessMode,
-        pricingTierId: accessMode === "tier" ? pricingTierId : null,
-        durationMonths: accessMode === "months" ? Number(durationMonths) : null,
-        amountPaid: amount,
-        notes: notes.trim() || null,
-        renewIfExists,
-      },
-      {
-        onSuccess: (data) => {
-          toast.success(
-            data?.renewed
-              ? t("adminPages.enrollStudent.renewed", { defaultValue: isAr ? "تم تجديد/تحديث التسجيل بنجاح." : "Enrollment renewed successfully." })
-              : t("adminPages.enrollStudent.success")
-          );
-          resetWizard();
-        },
-        onError: (e) => {
-          toast.error(getErrorMessage(e, t("adminPages.enrollStudent.error", { defaultValue: "Enrollment failed." })));
-        },
+    const basePayload = {
+      courseId,
+      accessMode,
+      pricingTierId: accessMode === "tier" ? pricingTierId : null,
+      durationMonths: accessMode === "months" ? Number(durationMonths) : null,
+      amountPaid: amount,
+      notes: notes.trim() || null,
+      renewIfExists,
+    };
+
+    setBulkSubmitting(true);
+    let ok = 0;
+    let renewed = 0;
+    const failed = [];
+    try {
+      for (const student of selectedStudents) {
+        try {
+          const data = await createAdminEnrollment({
+            ...basePayload,
+            studentId: student.id,
+          });
+          ok += 1;
+          if (data?.renewed) renewed += 1;
+        } catch (e) {
+          failed.push({
+            name: student.fullName || student.name || student.email || student.id,
+            message: getErrorMessage(e, t("adminPages.enrollStudent.error", { defaultValue: "Enrollment failed." })),
+          });
+        }
       }
-    );
+      void queryClient.invalidateQueries({ queryKey: ["admin", "enrollments"] });
+      if (ok > 0 && failed.length === 0) {
+        toast.success(
+          selectedCount === 1
+            ? renewed
+              ? t("adminPages.enrollStudent.renewed", {
+                  defaultValue: isAr ? "تم تجديد/تحديث التسجيل بنجاح." : "Enrollment renewed successfully.",
+                })
+              : t("adminPages.enrollStudent.success")
+            : isAr
+              ? `تم تسجيل ${ok} طلاب بنجاح.`
+              : `Successfully enrolled ${ok} students.`
+        );
+        resetWizard();
+      } else if (ok > 0) {
+        toast.success(
+          isAr
+            ? `تم تسجيل ${ok} طلاب. فشل ${failed.length}.`
+            : `Enrolled ${ok} students. Failed ${failed.length}.`
+        );
+        toast.error(
+          failed
+            .slice(0, 3)
+            .map((f) => `${f.name}: ${f.message}`)
+            .join(" · ")
+        );
+      } else {
+        toast.error(
+          failed[0]?.message ||
+            t("adminPages.enrollStudent.error", { defaultValue: "Enrollment failed." })
+        );
+      }
+    } finally {
+      setBulkSubmitting(false);
+    }
   };
 
   const fieldClass =
@@ -225,8 +292,8 @@ function EnrollStudent() {
         title={t("adminPages.enrollStudent.title")}
         subtitle={t("adminPages.enrollStudent.subtitleRich", {
           defaultValue: isAr
-            ? "سجّل طالباً يدوياً مع اختيار الملكية أو المدة أو باقة السعر، وسجّل المبلغ إن وُجد."
-            : "Manually enroll a student with lifetime, months, or pricing-tier access — and optionally record payment.",
+            ? "سجّل طالباً أو أكثر يدوياً مع اختيار الملكية أو المدة أو باقة السعر، وسجّل المبلغ إن وُجد."
+            : "Manually enroll one or more students with lifetime, months, or pricing-tier access — and optionally record payment.",
         })}
       />
 
@@ -246,12 +313,15 @@ function EnrollStudent() {
           <div className="border-b border-slate-100 px-5 py-4 dark:border-white/8">
             <h2 className="text-base font-black text-slate-900 dark:text-white">
               {step === 1 && (isAr ? "1) اختر الكورس" : "1) Choose course")}
-              {step === 2 && (isAr ? "2) اختر الطالب" : "2) Choose student")}
+              {step === 2 && (isAr ? "2) اختر الطلاب" : "2) Choose students")}
               {step === 3 && (isAr ? "3) نوع الوصول والدفع" : "3) Access type & payment")}
             </h2>
             <p className="mt-1 text-xs text-slate-500">
               {step === 1 && (isAr ? "ابحث واختر الكورس الذي سيحصل عليه الطالب." : "Search and select the course to grant.")}
-              {step === 2 && (isAr ? "ابحث بالطالب بالاسم أو الإيميل." : "Search the student by name or email.")}
+              {step === 2 &&
+                (isAr
+                  ? "حدّد طالباً أو أكثر. البحث لا يلغي التحديد السابق."
+                  : "Select one or more students. Searching keeps your previous selections.")}
               {step === 3 && (isAr ? "حدّد الملكية أو عدد الشهور أو باقة السعر، ثم أكّد." : "Pick lifetime, months, or a pricing tier, then confirm.")}
             </p>
           </div>
@@ -317,6 +387,38 @@ function EnrollStudent() {
                     placeholder={isAr ? "ابحث عن طالب بالاسم أو الإيميل…" : "Search student by name or email…"}
                   />
                 </label>
+
+                {selectedCount > 0 ? (
+                  <div className="rounded-2xl border border-[var(--yu-blue-200)] bg-[var(--yu-blue-700)]/5 p-3 dark:border-[var(--yu-blue-500)]/30">
+                    <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-xs font-bold text-[var(--yu-blue-700)] dark:text-blue-300">
+                        {isAr ? `المحدّدون: ${selectedCount}` : `Selected: ${selectedCount}`}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedById({})}
+                        className="text-xs font-bold text-slate-500 underline-offset-2 hover:underline"
+                      >
+                        {isAr ? "مسح التحديد" : "Clear selection"}
+                      </button>
+                    </div>
+                    <div className="flex max-h-28 flex-wrap gap-1.5 overflow-y-auto">
+                      {selectedStudents.map((s) => (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => removeSelected(s.id)}
+                          title={isAr ? "إزالة" : "Remove"}
+                          className="inline-flex max-w-full items-center gap-1 rounded-full border border-[var(--yu-blue-300)] bg-white px-2.5 py-1 text-[11px] font-bold text-slate-800 dark:border-white/15 dark:bg-[#0F0F13] dark:text-white"
+                        >
+                          <span className="truncate">{s.fullName || s.name || s.email}</span>
+                          <span className="text-slate-400">×</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
                 <p className="text-xs font-semibold text-slate-500">
                   {studentsLoading || studentsFetching
                     ? t("dashboard.common.loading")
@@ -329,12 +431,12 @@ function EnrollStudent() {
                 ) : (
                   <div className="max-h-[420px] space-y-2 overflow-y-auto pe-1">
                     {filteredStudents.map((s) => {
-                      const active = studentId === s.id;
+                      const active = Boolean(selectedById[s.id]);
                       return (
                         <button
                           key={s.id}
                           type="button"
-                          onClick={() => setStudentId(s.id)}
+                          onClick={() => toggleStudent(s)}
                           className={`flex w-full items-start gap-3 rounded-2xl border px-4 py-3 text-start transition ${
                             active
                               ? "border-[var(--yu-blue-700)] bg-[var(--yu-blue-700)]/5"
@@ -486,12 +588,6 @@ function EnrollStudent() {
               </>
             ) : null}
 
-            {createMutation.isError ? (
-              <p className="text-sm text-red-600 dark:text-red-300">
-                {getErrorMessage(createMutation.error, "Failed to enroll student.")}
-              </p>
-            ) : null}
-
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 dark:border-white/8">
               <button
                 type="button"
@@ -524,14 +620,18 @@ function EnrollStudent() {
                 ) : (
                   <button
                     type="button"
-                    disabled={!canSubmit || createMutation.isPending}
-                    onClick={onSubmit}
+                    disabled={!canSubmit || isSubmitting}
+                    onClick={() => void onSubmit()}
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--yu-blue-700)] px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50"
                   >
-                    {createMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                    {createMutation.isPending
+                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+                    {isSubmitting
                       ? t("dashboard.common.loading", { defaultValue: "Submitting…" })
-                      : t("adminPages.enrollStudent.submit")}
+                      : selectedCount > 1
+                        ? isAr
+                          ? `تسجيل ${selectedCount} طلاب`
+                          : `Enroll ${selectedCount} students`
+                        : t("adminPages.enrollStudent.submit")}
                   </button>
                 )}
               </div>
@@ -550,9 +650,34 @@ function EnrollStudent() {
                 <p className="font-bold">{selectedCourse?.title || courses.find((c) => c.id === courseId)?.title || "—"}</p>
               </div>
               <div>
-                <p className="text-xs text-blue-100/70">{isAr ? "الطالب" : "Student"}</p>
-                <p className="font-bold">{selectedStudent?.fullName || selectedStudent?.name || "—"}</p>
-                <p className="text-xs text-blue-100/70">{selectedStudent?.email || ""}</p>
+                <p className="text-xs text-blue-100/70">
+                  {isAr
+                    ? selectedCount > 1
+                      ? `الطلاب (${selectedCount})`
+                      : "الطالب"
+                    : selectedCount > 1
+                      ? `Students (${selectedCount})`
+                      : "Student"}
+                </p>
+                {selectedCount === 0 ? (
+                  <p className="font-bold">—</p>
+                ) : selectedCount === 1 ? (
+                  <>
+                    <p className="font-bold">
+                      {selectedStudents[0].fullName || selectedStudents[0].name || "—"}
+                    </p>
+                    <p className="text-xs text-blue-100/70">{selectedStudents[0].email || ""}</p>
+                  </>
+                ) : (
+                  <ul className="mt-1 max-h-36 space-y-1 overflow-y-auto pe-1 text-xs">
+                    {selectedStudents.map((s) => (
+                      <li key={s.id} className="rounded-lg bg-white/10 px-2 py-1.5">
+                        <p className="truncate font-bold">{s.fullName || s.name || "—"}</p>
+                        <p className="truncate text-blue-100/70">{s.email || ""}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div>
                 <p className="text-xs text-blue-100/70">{isAr ? "نوع الوصول" : "Access"}</p>

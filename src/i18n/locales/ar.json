@@ -2880,8 +2880,8 @@
       "methodCard": "بطاقة / أونلاين",
       "methodOther": "أخرى",
       "receiptUrl": "رابط إثبات الدفع",
-      "receiptHint": "الصق رابطًا لإيصالك أو تأكيد التحويل (يجب أن يكون https صالحًا).",
-      "receiptRequired": "يرجى إدخال رابط الإيصال أو الإثبات.",
+      "receiptHint": "ارفع صورة الإيصال أو تأكيد التحويل.",
+      "receiptRequired": "يرجى رفع صورة إثبات الدفع.",
       "receiptUrlInvalid": "أدخل رابطًا صالحًا (مثل https://…).",
       "amountInvalid": "تعذّر تحديد سعر الخطة.",
       "submit": "إرسال طلب الدفع",
@@ -2898,6 +2898,11 @@
       "instructionsTitle": "كيفية الدفع",
       "courseNoteTitle": "ملاحظة خاصة بالكورس",
       "proofReminder": "بعد الدفع، ارفع الإيصال أو إثبات التحويل أدناه حتى يؤكد فريقنا تسجيلك.",
+      "cardProofReminder": "بعد الدفع عبر الرابط، أدخل بياناتك وبريد Stripe وارفع فاتورة الدفع ثم أرسل طلب التفعيل.",
+      "stripeEmail": "البريد المستخدم للدفع على Stripe",
+      "stripeEmailHint": "أدخل نفس البريد الذي أكملت به الدفع عبر رابط البطاقة.",
+      "stripeEmailRequired": "أدخل البريد الإلكتروني الذي دفعت به عبر Stripe.",
+      "stripeEmailInvalid": "بريد Stripe غير صالح.",
       "countries": {
         "EG": "مصر",
         "IQ": "العراق",
@@ -2938,8 +2943,10 @@
         }
       }
     },
-    "proofUpload": "أو ارفع ملف الإثبات",
-    "proofUploadHint": "PDF أو JPG أو PNG أو WEBP حتى 8 ميجابايت.",
+    "proofUpload": "صورة إثبات الدفع",
+    "proofUploadHint": "ارفع صورة الإيصال أو التحويل (JPG / PNG / WEBP / PDF حتى 8 ميجابايت).",
+    "stripeInvoiceUpload": "فاتورة الدفع (Stripe)",
+    "stripeInvoiceHint": "ارفع فاتورة أو إيصال الدفع من Stripe (JPG / PNG / WEBP / PDF حتى 8 ميجابايت).",
     "studentNote": "ملاحظة للمراجع",
     "openPaymentDestination": "فتح وجهة الدفع",
     "invalid": {

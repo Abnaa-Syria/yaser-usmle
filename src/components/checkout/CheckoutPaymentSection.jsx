@@ -6,7 +6,6 @@ import {
   Check,
   CreditCard,
   ExternalLink,
-  Globe2,
   QrCode,
   Receipt,
   Smartphone,
@@ -70,7 +69,6 @@ export default function CheckoutPaymentSection({
   onPaymentCountryChange,
   paymentMethod,
   onPaymentMethodChange,
-  courseInstructions,
   onSelectedMethodChange,
 }) {
   const { t, i18n } = useTranslation();
@@ -291,41 +289,15 @@ export default function CheckoutPaymentSection({
             </a>
           ) : null}
 
-          {courseInstructions?.instructions ? (
-            <div className="rounded-xl border border-amber-200/80 bg-amber-50/70 px-4 py-3 dark:border-amber-900/40 dark:bg-amber-500/10">
-              <p className="text-xs font-bold uppercase tracking-wide text-amber-800 dark:text-amber-300">
-                {courseInstructions.methodLabel || t("checkout.regional.courseNoteTitle")}
-              </p>
-              <p className="mt-1 text-sm font-medium text-amber-900 dark:text-amber-200">
-                {courseInstructions.instructions}
-              </p>
-              {courseInstructions.destinationUrl ? (
-                <a
-                  href={courseInstructions.destinationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-[var(--yu-blue-700)] hover:underline dark:text-[var(--yu-blue-400)]"
-                >
-                  <Globe2 className="h-4 w-4" />
-                  {t("checkout.openPaymentDestination", { defaultValue: "Open payment destination" })}
-                </a>
-              ) : null}
-            </div>
-          ) : null}
-
-          {!isExternalMethod(selectedMethod) ? (
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-              {t("checkout.regional.proofReminder")}
-            </p>
-          ) : (
-            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-              {t("checkout.regional.cardNoReceipt", {
-                defaultValue: isRtl
-                  ? "الدفع بالبطاقة يتم عبر الرابط مباشرة ولا يتطلب رفع إيصال داخل المنصة."
-                  : "Card payment opens the Stripe link directly and does not require a receipt upload.",
-              })}
-            </p>
-          )}
+          <p className="text-base font-semibold leading-relaxed text-slate-800 dark:text-slate-100">
+            {isExternalMethod(selectedMethod)
+              ? t("checkout.regional.cardProofReminder", {
+                  defaultValue: isRtl
+                    ? "بعد الدفع عبر الرابط، أدخل بياناتك وبريد Stripe وارفع فاتورة الدفع ثم أرسل طلب التفعيل."
+                    : "After paying via the link, enter your details and Stripe email, upload the invoice, then submit activation.",
+                })
+              : t("checkout.regional.proofReminder")}
+          </p>
         </div>
       </StudentSurface>
     </div>

@@ -25,8 +25,13 @@ export const TELEGRAM_LINKS = {
   group: "https://t.me/DrYaserUsmleCommunity",
 };
 
-/** External Coursology Qbank */
-export const COURSOLOGY_QBANK_URL = "https://coursology-qbank.com/";
+/** Build a wa.me link from a phone number (any format). */
+export function buildWhatsAppUrl(phone, text = "") {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (!digits) return null;
+  const q = text ? `?text=${encodeURIComponent(text)}` : "";
+  return `https://wa.me/${digits}${q}`;
+}
 
 /** @deprecated Use useSiteSettings().settings.social */
 export const SOCIAL_URLS = SITE_SETTINGS_FALLBACK.social;

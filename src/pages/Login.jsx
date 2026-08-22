@@ -3,17 +3,24 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { AtSign, ArrowLeft, ArrowRight, Eye, EyeOff, Loader2, Lock, ShieldCheck, Smartphone } from "lucide-react";
+import { AtSign, ArrowLeft, ArrowRight, Eye, EyeOff, Loader2, Lock, MessageCircle, ShieldCheck, Smartphone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import AuthShell from "../components/auth/AuthShell";
 import useAuthStore from "../store/authStore";
 import client from "../api/client";
 import endpoints from "../api/endpoints";
-import { getErrorCode, getErrorDetails, getErrorMessage, unwrapResponse } from "../api/error";
+import {
+  getErrorDetails,
+  getErrorMessage,
+  isDeviceAccessError,
+  unwrapResponse,
+} from "../api/error";
 import { getEnrollmentCheckoutPath, getPostLoginRedirectPath } from "../utils/enrollmentIntent";
 import { getDeviceFingerprint, getDeviceMetadata } from "../utils/deviceFingerprint";
 import { hasAdminAccess, hasPermission } from "../config/permissions";
 import { getFirstAllowedAdminPath } from "../config/navigation";
+import { buildWhatsAppUrl } from "../config/siteLinks";
+import { useSiteSettings } from "../features/public/siteSettings/hooks";
 import TrialAuthCta from "../components/trial/TrialAuthCta";
 
 const loginSchema = z.object({
@@ -42,6 +49,7 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const login = useAuthStore((s) => s.login);
+  const { settings } = useSiteSettings();
 
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -59,6 +67,13 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
     defaultValues: { identifier: "", password: "", remember: false },
   });
+
+  const whatsappUrl = buildWhatsAppUrl(
+    settings.phoneNumber,
+    isAr
+      ? "مرحباً، أحتاج مساعدة في استبدال جهاز الدخول على حسابي في Yaser USMLE (وصلت لحد الجهازين الموثوقين)."
+      : "Hello, I need help replacing a trusted login device on my Yaser USMLE account (I reached the 2-device limit)."
+  );
 
   const finishLogin = (user) => {
     const roleName = String(user?.role?.name || user?.role || "").trim().toUpperCase();
@@ -100,16 +115,19 @@ export default function Login() {
       });
       finishLogin(user);
     } catch (err) {
-      const code = getErrorCode(err);
       const details = getErrorDetails(err);
-      if (code === "DEVICE_LIMIT" && details) {
-        setDeviceLimit(details);
-        setSelectedOldDeviceId(details.devices?.[0]?.id || "");
+      if (isDeviceAccessError(err)) {
+        const devices = Array.isArray(details?.devices) ? details.devices : [];
+        setDeviceLimit({
+          ...(details && typeof details === "object" ? details : {}),
+          devices,
+        });
+        setSelectedOldDeviceId(devices[0]?.id || "");
         setServerError(
           t("auth.login.deviceLimit", {
             defaultValue: isAr
-              ? "وصلت لحد جهازين موثوقين. اختر جهازاً لإزالته واطلب موافقة الإدارة."
-              : "You reached the 2-device limit. Choose a device to replace and request admin approval.",
+              ? "وصلت لحد جهازين موثوقين. اختر جهازاً لإزالته واطلب إضافة هذا الجهاز، أو تواصل معنا عبر واتساب."
+              : "You reached the 2-device limit. Choose a device to remove and request adding this one, or contact us on WhatsApp.",
           })
         );
         return;
@@ -142,10 +160,13 @@ export default function Login() {
             })
           : t("auth.login.replaceSubmitted", {
               defaultValue: isAr
-                ? "تم إرسال الطلب. سجّل الدخول بعد موافقة الإدارة."
-                : "Request submitted. Log in again after admin approval.",
+                ? "تم إرسال الطلب. سجّل الدخول بعد موافقة الإدارة، أو تواصل معنا عبر واتساب لتسريع الحل."
+                : "Request submitted. Log in again after admin approval, or contact us on WhatsApp to speed things up.",
             })
       );
+      if (data?.id) {
+        setDeviceLimit((prev) => (prev ? { ...prev, pendingRequestId: data.id } : prev));
+      }
     } catch (err) {
       setReplaceMsg(getErrorMessage(err, t("auth.errors.loginFailed")));
     } finally {
@@ -174,53 +195,101 @@ export default function Login() {
           </div>
         ) : null}
 
-        {deviceLimit?.devices?.length ? (
-          <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50/80 p-4">
-            <p className="flex items-center gap-2 text-xs font-black text-amber-900">
-              <Smartphone className="h-4 w-4" />
-              {t("auth.login.trustedDevices", { defaultValue: isAr ? "الأجهزة الموثوقة" : "Trusted devices" })}
-            </p>
-            <div className="space-y-2">
-              {deviceLimit.devices.map((d) => (
-                <label
-                  key={d.id}
-                  className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2 text-xs ${
-                    selectedOldDeviceId === d.id ? "border-blue-500 bg-white" : "border-amber-100 bg-white/70"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="oldDevice"
-                    checked={selectedOldDeviceId === d.id}
-                    onChange={() => setSelectedOldDeviceId(d.id)}
-                    className="mt-0.5"
-                  />
-                  <span>
-                    <span className="block font-bold text-slate-900">{d.deviceName || d.os || d.fingerprintShort}</span>
-                    <span className="text-slate-500">
-                      {d.os ? `${d.os} · ` : ""}
-                      {d.lastSeenAt ? new Date(d.lastSeenAt).toLocaleString() : ""}
-                    </span>
-                  </span>
-                </label>
-              ))}
+        {deviceLimit ? (
+          <div className="space-y-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 shadow-sm dark:border-amber-500/30 dark:bg-amber-500/10">
+            <div>
+              <p className="flex items-center gap-2 text-sm font-black text-amber-950 dark:text-amber-100">
+                <Smartphone className="h-4 w-4 shrink-0" />
+                {t("auth.login.trustedDevices", {
+                  defaultValue: isAr ? "استبدال جهاز موثوق" : "Replace a trusted device",
+                })}
+              </p>
+              <p className="mt-1 text-[11px] font-medium leading-relaxed text-amber-900/80 dark:text-amber-100/80">
+                {isAr
+                  ? "اختر الجهاز الذي تريد حذفه من الحساب، ثم اطلب إضافة الجهاز الحالي. بعد موافقة الإدارة يمكنك تسجيل الدخول."
+                  : "Pick the device to remove from your account, then request adding this device. After admin approval you can sign in."}
+              </p>
             </div>
+
+            {deviceLimit.devices?.length ? (
+              <div className="space-y-2">
+                {deviceLimit.devices.map((d) => (
+                  <label
+                    key={d.id}
+                    className={`flex cursor-pointer items-start gap-3 rounded-xl border px-3 py-2.5 text-xs transition ${
+                      selectedOldDeviceId === d.id
+                        ? "border-blue-500 bg-white shadow-sm dark:border-blue-400 dark:bg-[#0F0F13]"
+                        : "border-amber-200/80 bg-white/80 dark:border-white/10 dark:bg-white/5"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="oldDevice"
+                      checked={selectedOldDeviceId === d.id}
+                      onChange={() => setSelectedOldDeviceId(d.id)}
+                      className="mt-0.5"
+                    />
+                    <span>
+                      <span className="block font-bold text-slate-900 dark:text-white">
+                        {d.deviceName || d.os || d.fingerprintShort}
+                      </span>
+                      <span className="text-slate-500 dark:text-slate-400">
+                        {d.os ? `${d.os} · ` : ""}
+                        {d.lastSeenAt ? new Date(d.lastSeenAt).toLocaleString() : ""}
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <p className="rounded-xl border border-dashed border-amber-300 px-3 py-3 text-[11px] font-semibold text-amber-900 dark:border-amber-500/40 dark:text-amber-100">
+                {isAr
+                  ? "تعذّر تحميل قائمة الأجهزة. استخدم واتساب للتواصل مع الدعم."
+                  : "Could not load trusted devices. Contact support on WhatsApp."}
+              </p>
+            )}
+
             <button
               type="button"
               disabled={replaceBusy || !selectedOldDeviceId}
               onClick={() => void submitReplacement()}
-              className="flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-amber-700 text-xs font-black text-white disabled:opacity-60"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-amber-700 text-xs font-black text-white transition hover:bg-amber-800 disabled:opacity-60"
             >
-              {replaceBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {replaceBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Smartphone className="h-4 w-4" />}
               {t("auth.login.requestReplace", {
-                defaultValue: isAr ? "اطلب استبدال الجهاز المحدد بهذا الجهاز" : "Request replacing selected device with this one",
+                defaultValue: isAr
+                  ? "اطلب حذف الجهاز المحدد وإضافة هذا الجهاز"
+                  : "Request removing selected device and adding this one",
               })}
             </button>
-            {replaceMsg ? <p className="text-[11px] font-bold text-amber-900">{replaceMsg}</p> : null}
+
+            {whatsappUrl ? (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] text-xs font-black text-white transition hover:bg-[#1ebe57]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                {t("auth.login.whatsappHelp", {
+                  defaultValue: isAr ? "تواصل معنا عبر واتساب لحل مشكلتك" : "Contact us on WhatsApp to solve this",
+                })}
+              </a>
+            ) : (
+              <p className="text-center text-[11px] font-semibold text-amber-900/70 dark:text-amber-100/70">
+                {isAr
+                  ? "رقم واتساب الدعم غير مضبوط حالياً — راجع إعدادات الموقع أو صفحة تواصل معنا."
+                  : "Support WhatsApp number is not configured yet — set it in site settings."}
+              </p>
+            )}
+
+            {replaceMsg ? <p className="text-[11px] font-bold text-amber-950 dark:text-amber-100">{replaceMsg}</p> : null}
             {deviceLimit.pendingRequestId ? (
-              <p className="text-[11px] font-semibold text-slate-600">
+              <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">
                 {t("auth.login.pendingId", {
-                  defaultValue: isAr ? `طلب معلّق: ${deviceLimit.pendingRequestId}` : `Pending request: ${deviceLimit.pendingRequestId}`,
+                  defaultValue: isAr
+                    ? `طلب معلّق قيد المراجعة: ${String(deviceLimit.pendingRequestId).slice(0, 8)}…`
+                    : `Pending request under review: ${String(deviceLimit.pendingRequestId).slice(0, 8)}…`,
                   id: deviceLimit.pendingRequestId,
                 })}
               </p>
@@ -230,7 +299,13 @@ export default function Login() {
 
         <Field
           label={t("auth.login.identifierLabel", { defaultValue: isAr ? "البريد أو اسم المستخدم" : "Email or username" })}
-          error={errors.identifier ? t("auth.login.identifierRequired", { defaultValue: isAr ? "البريد أو اسم المستخدم مطلوب" : "Email or username is required" }) : ""}
+          error={
+            errors.identifier
+              ? t("auth.login.identifierRequired", {
+                  defaultValue: isAr ? "البريد أو اسم المستخدم مطلوب" : "Email or username is required",
+                })
+              : ""
+          }
         >
           <div className="relative">
             <AtSign className="pointer-events-none absolute start-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />

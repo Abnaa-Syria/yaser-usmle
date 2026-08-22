@@ -16,11 +16,26 @@ export function getErrorMessage(error, fallback = "Something went wrong") {
 }
 
 export function getErrorCode(error) {
-  return error?.response?.data?.code || error?.code || null;
+  const data = error?.response?.data;
+  return data?.code || data?.error?.code || error?.code || null;
 }
 
 export function getErrorDetails(error) {
-  return error?.response?.data?.details ?? null;
+  const data = error?.response?.data;
+  return data?.details ?? data?.error?.details ?? data?.data?.details ?? null;
+}
+
+/** True when login blocked due to trusted-device policy. */
+export function isDeviceAccessError(error) {
+  const code = String(getErrorCode(error) || "");
+  if (code === "DEVICE_LIMIT" || code === "DEVICE_NOT_TRUSTED") return true;
+  const msg = String(getErrorMessage(error, "") || "").toLowerCase();
+  return (
+    msg.includes("device limit") ||
+    msg.includes("not trusted") ||
+    msg.includes("trusted devices") ||
+    msg.includes("device replacement")
+  );
 }
 
 export function unwrapResponse(response) {

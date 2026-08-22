@@ -3,6 +3,8 @@ import { Loader2, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLessonPlayback } from "../../features/student/playback/hooks";
 import { getErrorMessage } from "../../api/error";
+import { extractYouTubeId } from "../../utils/youtubeEmbed";
+import PlatformYouTubePlayer from "./PlatformYouTubePlayer";
 
 const VDO_API_SCRIPT = "https://player.vdocipher.com/v2/api.js";
 
@@ -35,7 +37,7 @@ function loadVdoPlayerApi() {
 }
 
 /**
- * Secure lesson player with VdoCipher progress events.
+ * Secure lesson player with VdoCipher progress events + platform YouTube facade.
  * @param {{
  *   lessonId: string,
  *   title?: string,
@@ -74,6 +76,11 @@ export default function LessonVideoPlayer({
 
   const embedUrl = data?.embedUrl || null;
   const isVdoCipher = data?.provider === "vdocipher";
+  const youtubeId =
+    data?.provider === "youtube"
+      ? data.videoId || extractYouTubeId(data.embedUrl) || extractYouTubeId(data.url)
+      : extractYouTubeId(embedUrl) || extractYouTubeId(data?.url) || extractYouTubeId(videoUrl);
+  const isYouTube = Boolean(youtubeId) && !isVdoCipher;
   const hasSource = needsAuthPlayback;
 
   useEffect(() => {
@@ -100,7 +107,6 @@ export default function LessonVideoPlayer({
 
           const now = Date.now();
           const elapsedMs = now - (lastSentAtRef.current || now);
-          // Throttle progress pings (~12s) while still tracking seek position.
           if (lastSentAtRef.current && elapsedMs < 12_000) return;
 
           const deltaSec = Math.max(
@@ -140,7 +146,6 @@ export default function LessonVideoPlayer({
       }
     };
 
-    // Allow iframe src to settle before attaching API.
     const timer = window.setTimeout(() => {
       void bind();
     }, 400);
@@ -168,7 +173,7 @@ export default function LessonVideoPlayer({
     );
   }
 
-  if (isLoading || (isFetching && !embedUrl)) {
+  if (isLoading || (isFetching && !embedUrl && !isYouTube)) {
     return (
       <div className={`absolute inset-0 flex flex-col items-center justify-center gap-2 bg-slate-900 text-slate-300 ${className}`}>
         <Loader2 className="h-8 w-8 animate-spin text-white/80" />
@@ -179,7 +184,7 @@ export default function LessonVideoPlayer({
     );
   }
 
-  if (isError || !embedUrl) {
+  if (isError || (!embedUrl && !isYouTube)) {
     return (
       <div className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-slate-900 px-6 text-center ${className}`}>
         <p className="text-sm font-medium text-rose-300">
@@ -193,6 +198,17 @@ export default function LessonVideoPlayer({
           {t("takeExam.retry", { defaultValue: "Retry" })}
         </button>
       </div>
+    );
+  }
+
+  if (isYouTube && youtubeId) {
+    return (
+      <PlatformYouTubePlayer
+        videoId={youtubeId}
+        title={title}
+        posterUrl={data?.posterUrl || null}
+        className={className}
+      />
     );
   }
 

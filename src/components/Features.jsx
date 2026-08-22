@@ -111,7 +111,7 @@ function FeatureVisual({ imageUrl, videoUrl, title, number, reverse }) {
             <iframe
               title={title || "Feature video"}
               className="pointer-events-none absolute inset-0 h-full w-full scale-[1.2] rounded-2xl object-cover [-rotate-2deg] group-hover:rotate-0"
-              src={`https://www.youtube.com/embed/${yt}?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=${yt}&rel=0&modestbranding=1`}
+              src={`https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=${yt}&rel=0&modestbranding=1&iv_load_policy=3`}
               allow="autoplay; encrypted-media; picture-in-picture"
               loading="lazy"
             />

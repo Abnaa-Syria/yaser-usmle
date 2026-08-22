@@ -28,6 +28,7 @@ import { absoluteUrl, useSeo } from "../utils/seo";
 import { platformFeatures } from "../config/features";
 import { sanitizeRichHtml } from "../utils/htmlContent";
 import { resolveMediaUrl } from "../utils/resolveMediaUrl";
+import { buildYouTubeEmbedUrl, extractYouTubeId } from "../utils/youtubeEmbed";
 
 function Stars({ rating, max = 5, size = "h-4 w-4" }) {
   return (
@@ -55,12 +56,7 @@ function initials(name) {
 }
 
 function youtubeVideoId(url) {
-  if (!url) return "";
-  const cleaned = String(url).replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069\u061c]/g, "").trim();
-  const match = cleaned.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/
-  );
-  return match?.[1] || "";
+  return extractYouTubeId(url);
 }
 
 function isDirectVideoUrl(url) {
@@ -350,7 +346,7 @@ export default function CourseDetails() {
                   <iframe
                     title={displayTitle || "Course intro"}
                     className="absolute inset-0 h-full w-full"
-                    src={`https://www.youtube.com/embed/${introYtId}?autoplay=1&rel=0&modestbranding=1`}
+                    src={buildYouTubeEmbedUrl(introYtId, { autoplay: true })}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                   />

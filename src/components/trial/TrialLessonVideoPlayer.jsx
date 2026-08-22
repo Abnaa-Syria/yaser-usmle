@@ -3,6 +3,8 @@ import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTrialLessonPlayback } from "../../features/trial/hooks";
 import { getErrorMessage } from "../../api/error";
+import { extractYouTubeId } from "../../utils/youtubeEmbed";
+import PlatformYouTubePlayer from "../student/PlatformYouTubePlayer";
 
 const VDO_API_SCRIPT = "https://player.vdocipher.com/v2/api.js";
 let vdoScriptPromise = null;
@@ -45,6 +47,11 @@ export default function TrialLessonVideoPlayer({
 
   const embedUrl = data?.embedUrl || null;
   const isVdoCipher = data?.provider === "vdocipher";
+  const youtubeId =
+    data?.provider === "youtube"
+      ? data.videoId || extractYouTubeId(data.embedUrl) || extractYouTubeId(data.url)
+      : extractYouTubeId(embedUrl) || extractYouTubeId(data?.url) || extractYouTubeId(videoUrl);
+  const isYouTube = Boolean(youtubeId) && !isVdoCipher;
 
   useEffect(() => {
     if (!isVdoCipher || !embedUrl || !iframeRef.current) return undefined;
@@ -80,7 +87,7 @@ export default function TrialLessonVideoPlayer({
     );
   }
 
-  if (isError || !embedUrl) {
+  if (isError || (!embedUrl && !isYouTube)) {
     return (
       <div className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-slate-900 px-6 text-center ${className}`}>
         <p className="text-sm font-medium text-rose-300">
@@ -90,6 +97,17 @@ export default function TrialLessonVideoPlayer({
           {t("takeExam.retry", { defaultValue: "Retry" })}
         </button>
       </div>
+    );
+  }
+
+  if (isYouTube && youtubeId) {
+    return (
+      <PlatformYouTubePlayer
+        videoId={youtubeId}
+        title={title}
+        posterUrl={data?.posterUrl || null}
+        className={className}
+      />
     );
   }
 

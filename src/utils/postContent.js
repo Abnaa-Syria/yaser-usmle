@@ -24,7 +24,7 @@ export function vimeoIdFromUrl(url) {
 export function videoEmbedHtml(url) {
   const yt = youtubeIdFromUrl(url);
   if (yt) {
-    return `<div class="yu-embed"><iframe src="https://www.youtube.com/embed/${yt}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
+    return `<div class="yu-embed"><iframe src="https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
   }
   const vimeo = vimeoIdFromUrl(url);
   if (vimeo) {

@@ -4,12 +4,14 @@ import endpoints from "../../../api/endpoints";
 
 /**
  * @typedef {{
- *   provider: 'vdocipher' | 'url';
+ *   provider: 'vdocipher' | 'youtube' | 'url';
  *   lessonId: string;
  *   embedUrl: string;
  *   otp?: string;
  *   playbackInfo?: string;
  *   url?: string;
+ *   videoId?: string;
+ *   posterUrl?: string;
  * }} LessonPlayback
  */
 

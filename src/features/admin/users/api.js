@@ -5,12 +5,40 @@ export async function fetchAdminUsers(params) {
   const q = { ...params };
   if (q.role === "" || q.role == null) delete q.role;
   if (q.isActive === "" || q.isActive == null) delete q.isActive;
+  if (q.search === "" || q.search == null) delete q.search;
   const response = await client.get(endpoints.admin.users, { params: q });
   const users = response?.data?.data;
   const meta = response?.data?.meta;
   return {
     users: Array.isArray(users) ? users : [],
     meta: meta || null,
+  };
+}
+
+/** Load every matching user by walking pagination (picker / typeahead use). */
+export async function fetchAllAdminUsers(params = {}) {
+  const pageSize = Math.min(Math.max(Number(params.limit) || 200, 1), 500);
+  const base = { ...params, limit: pageSize };
+  delete base.page;
+
+  let page = 1;
+  let totalPages = 1;
+  const users = [];
+  let meta = null;
+
+  do {
+    const result = await fetchAdminUsers({ ...base, page });
+    users.push(...result.users);
+    meta = result.meta;
+    totalPages = Math.max(1, Number(meta?.totalPages) || 1);
+    page += 1;
+  } while (page <= totalPages && page <= 100);
+
+  return {
+    users,
+    meta: meta
+      ? { ...meta, total: Number(meta.total) || users.length, page: 1, limit: users.length, totalPages: 1 }
+      : { total: users.length, page: 1, limit: users.length, totalPages: 1 },
   };
 }
 

@@ -18,10 +18,19 @@ import {
 import PageHeader from "../../components/ui/PageHeader";
 import { getErrorMessage } from "../../api/error";
 import { useCreateAdminEnrollment } from "../../features/admin/enrollments/hooks";
-import { useAdminUsers } from "../../features/admin/users/hooks";
+import { useAdminUsersAll } from "../../features/admin/users/hooks";
 import { useAdminCourse, useAdminCourses } from "../../features/admin/courses/hooks";
 
 const MONTH_OPTIONS = [1, 2, 3, 6, 9, 12, 18, 24, 36];
+
+function useDebouncedValue(value, delayMs = 300) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(id);
+  }, [value, delayMs]);
+  return debounced;
+}
 
 function StepPill({ n, label, active, done }) {
   return (
@@ -82,12 +91,19 @@ function EnrollStudent() {
   const [notes, setNotes] = useState("");
   const [renewIfExists, setRenewIfExists] = useState(true);
 
+  const debouncedStudentQuery = useDebouncedValue(studentQuery, 300);
+
   const createMutation = useCreateAdminEnrollment();
-  const { data: usersData, isLoading: studentsLoading } = useAdminUsers({ role: "STUDENT", page: 1, limit: 300 });
+  const { data: usersData, isLoading: studentsLoading, isFetching: studentsFetching } = useAdminUsersAll({
+    role: "STUDENT",
+    limit: 200,
+    search: debouncedStudentQuery.trim() || undefined,
+  });
   const { data: coursesData, isLoading: coursesLoading } = useAdminCourses({ page: 1, limit: 200 });
   const { data: selectedCourse, isLoading: courseDetailLoading } = useAdminCourse(courseId || undefined);
 
   const students = usersData?.users || [];
+  const studentTotal = Number(usersData?.meta?.total) || students.length;
   const courses = coursesData?.courses || [];
   const tiers = (selectedCourse?.pricingTiers || []).filter((tier) => tier.isActive !== false);
 
@@ -97,13 +113,7 @@ function EnrollStudent() {
     return courses.filter((c) => `${c.title || ""} ${c.titleAr || ""}`.toLowerCase().includes(q));
   }, [courses, courseQuery]);
 
-  const filteredStudents = useMemo(() => {
-    const q = studentQuery.trim().toLowerCase();
-    if (!q) return students;
-    return students.filter((s) =>
-      `${s.fullName || s.name || ""} ${s.email || ""} ${s.phone || ""}`.toLowerCase().includes(q)
-    );
-  }, [students, studentQuery]);
+  const filteredStudents = students;
 
   const selectedStudent = useMemo(
     () => students.find((s) => s.id === studentId) || null,
@@ -307,7 +317,14 @@ function EnrollStudent() {
                     placeholder={isAr ? "ابحث عن طالب بالاسم أو الإيميل…" : "Search student by name or email…"}
                   />
                 </label>
-                {studentsLoading ? (
+                <p className="text-xs font-semibold text-slate-500">
+                  {studentsLoading || studentsFetching
+                    ? t("dashboard.common.loading")
+                    : isAr
+                      ? `عرض ${filteredStudents.length} من ${studentTotal} طالب`
+                      : `Showing ${filteredStudents.length} of ${studentTotal} students`}
+                </p>
+                {studentsLoading && !students.length ? (
                   <p className="text-sm text-slate-500">{t("dashboard.common.loading")}</p>
                 ) : (
                   <div className="max-h-[420px] space-y-2 overflow-y-auto pe-1">

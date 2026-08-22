@@ -6,6 +6,7 @@ import {
   fetchAdminStudentPerformance,
   fetchAdminUserById,
   fetchAdminUsers,
+  fetchAllAdminUsers,
   forceLogoutUser,
   fetchUserDevices,
   fetchUserSessions,
@@ -21,6 +22,16 @@ export function useAdminUsers(params) {
     queryKey: ["admin", "users", params],
     queryFn: () => fetchAdminUsers(params),
     retry: false,
+  });
+}
+
+/** All matching users across pages — for enrollment pickers. */
+export function useAdminUsersAll(params, options = {}) {
+  return useQuery({
+    queryKey: ["admin", "users", "all", params],
+    queryFn: () => fetchAllAdminUsers(params),
+    retry: false,
+    ...options,
   });
 }
 

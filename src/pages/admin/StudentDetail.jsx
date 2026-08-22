@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { 
   Lock, MessageSquare, Trash2, UserX, BookOpen, Calendar, Clock, DollarSign, 
   Award, GraduationCap, ChevronRight, CheckCircle2, AlertCircle, ShieldCheck, Mail, Phone,
-  Activity, Inbox, ListChecks, Loader2, X, UserCheck
+  Activity, Inbox, ListChecks, Loader2, X, UserCheck, Infinity
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,7 @@ import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer,
 import StudentPerformanceUI from "../../components/features/student/StudentPerformanceUI";
 
 const COLORS = ["#10B981", "#6366F1", "var(--yu-blue-700)", "#8B5CF6", "#EF4444"];
+const MONTH_OPTIONS = Array.from({ length: 36 }, (_, i) => i + 1);
 
 function StudentDetail() {
   const { t, i18n } = useTranslation();
@@ -40,6 +41,11 @@ function StudentDetail() {
   const [ticketPriority, setTicketPriority] = useState("MEDIUM");
   const [deleteStep, setDeleteStep] = useState(0);
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const [accessModal, setAccessModal] = useState(null); // { id, title, expiresAt }
+  const [accessMode, setAccessMode] = useState("months"); // months | date | lifetime
+  const [accessMonths, setAccessMonths] = useState(3);
+  const [accessDate, setAccessDate] = useState("");
+  const [accessSaving, setAccessSaving] = useState(false);
 
   const toggleActiveMutation = useToggleAdminUserActive();
   const setPasswordMutation = useSetAdminUserPassword();
@@ -47,7 +53,7 @@ function StudentDetail() {
   const createTicketMutation = useCreateAdminTicket();
   
   const { data: user, isLoading, isError, error, refetch } = useAdminUserById(id);
-  const { data: enrollData } = useAdminEnrollments({ studentId: id, page: 1, limit: 50 });
+  const { data: enrollData, refetch: refetchEnrollments } = useAdminEnrollments({ studentId: id, page: 1, limit: 100 });
   const revokeEnrollment = useRevokeAdminEnrollment();
   const updateExpiry = useUpdateAdminEnrollmentExpiry();
   const enrolledRows = enrollData?.enrollments || [];
@@ -78,35 +84,85 @@ function StudentDetail() {
   const overview = perfQuery.data?.overview;
 
   const enrolled = useMemo(() => {
-    const joinByCohort = {};
-    for (const r of enrolledRows || []) {
-      const cid = r.cohortId || r?.cohort?.id;
-      if (cid && r.joinedAt) joinByCohort[cid] = r.joinedAt;
-    }
-    if (overview?.enrollments?.length) {
-      return overview.enrollments.map((e) => {
-        const joined = joinByCohort[e.cohortId];
+    // Prefer enrollments API (has expiresAt). Enrich with overview progress when present.
+    const overviewByCourse = new Map(
+      (overview?.enrollments || []).map((e) => [e.courseId, e])
+    );
+
+    if (enrolledRows.length) {
+      return enrolledRows.map((e) => {
+        const courseId = e.courseId || e?.course?.id;
+        const ov = courseId ? overviewByCourse.get(courseId) : null;
+        const joined = e.joinedAt || e.purchasedAt || e.enrolledAt;
         return {
-          id: e.enrollmentId,
-          title: e.courseTitle || "-",
-          type: e.courseType || "-",
-          progress: Math.round(Number(e.progressPercentage) || 0),
-          status: e.isCompleted ? "COMPLETED" : "ONGOING",
+          id: e.id,
+          title: e?.course?.title || ov?.courseTitle || "-",
+          type: e?.course?.type || ov?.courseType || "-",
+          progress: Math.round(Number(e?.progressPercentage ?? ov?.progressPercentage) || 0),
+          status: e?.isCompleted || ov?.isCompleted ? "COMPLETED" : "ONGOING",
           enrolledDate: joined ? new Date(joined).toLocaleDateString() : "-",
+          expiresAt: e?.expiresAt ?? ov?.expiresAt ?? null,
         };
       });
     }
-    return enrolledRows.map((e) => ({
-      id: e.id,
-      title: e?.course?.title || "-",
-      type: e?.course?.type || "-",
-      progress: Math.round(Number(e?.progressPercentage) || 0),
-      status: e?.isCompleted ? "COMPLETED" : "ONGOING",
-      enrolledDate: e?.joinedAt ? new Date(e.joinedAt).toLocaleDateString() : "-",
-      expiresAt: e?.expiresAt || null,
-      raw: e,
+
+    return (overview?.enrollments || []).map((e) => ({
+      id: e.enrollmentId,
+      title: e.courseTitle || "-",
+      type: e.courseType || "-",
+      progress: Math.round(Number(e.progressPercentage) || 0),
+      status: e.isCompleted ? "COMPLETED" : "ONGOING",
+      enrolledDate: e.purchasedAt ? new Date(e.purchasedAt).toLocaleDateString() : "-",
+      expiresAt: e.expiresAt || null,
     }));
   }, [overview, enrolledRows]);
+
+  const openAccessModal = (row) => {
+    setAccessModal({ id: row.id, title: row.title, expiresAt: row.expiresAt || null });
+    setAccessMode(row.expiresAt ? "months" : "months");
+    setAccessMonths(3);
+    setAccessDate(row.expiresAt ? String(row.expiresAt).slice(0, 10) : "");
+  };
+
+  const saveAccessModal = async () => {
+    if (!accessModal?.id) return;
+    setAccessSaving(true);
+    try {
+      let expiresAt = null;
+      if (accessMode === "lifetime") {
+        expiresAt = null;
+      } else if (accessMode === "date") {
+        if (!accessDate) {
+          toast.error(isRtl ? "اختر تاريخ الانتهاء" : "Pick an expiry date");
+          setAccessSaving(false);
+          return;
+        }
+        expiresAt = new Date(`${accessDate}T23:59:59.000Z`).toISOString();
+      } else {
+        const n = Number(accessMonths);
+        if (!Number.isFinite(n) || n < 1 || n > 36) {
+          toast.error(isRtl ? "اختر عدد شهور صحيح" : "Pick a valid month count");
+          setAccessSaving(false);
+          return;
+        }
+        const base =
+          accessModal.expiresAt && new Date(accessModal.expiresAt).getTime() > Date.now()
+            ? new Date(accessModal.expiresAt)
+            : new Date();
+        base.setMonth(base.getMonth() + n);
+        expiresAt = base.toISOString();
+      }
+
+      await updateExpiry.mutateAsync({ id: accessModal.id, expiresAt });
+      await Promise.all([refetchEnrollments(), perfQuery.refetch?.()]);
+      toast.success(t("adminPages.studentDetail.expiryUpdated", { defaultValue: "Expiry updated" }));
+      setAccessModal(null);
+    } catch (err) {
+      toast.error(getErrorMessage(err) || t("adminPages.studentDetail.expiryFailed", { defaultValue: "Failed to update expiry" }));
+    } finally {
+      setAccessSaving(false);
+    }
+  };
 
   const sidebarStats = useMemo(() => {
     const coursesEnrolled = overview?.coursesEnrolled ?? enrolledRows.length;
@@ -466,152 +522,145 @@ function StudentDetail() {
             </div>
           </div>
 
-          {/* Details & Interactive Grid */}
-          <div className="grid gap-6 lg:grid-cols-5">
-            {/* Left Content (Courses & Activities) */}
-            <div className="space-y-6 lg:col-span-3">
-              {/* Enrolled Courses Table */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/8 dark:bg-[#1A1A22]">
-                <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-400">
+          {/* Enrolled courses — full width */}
+          <div className="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-white/8 dark:bg-[#1A1A22]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 dark:border-white/8">
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">
                   {t("adminPages.studentDetail.tabCourses", { defaultValue: "Enrolled Courses" })}
                 </h3>
-                {enrolled.length === 0 ? (
-                  <p className="py-12 text-center text-sm text-slate-500">
-                    {t("adminPages.studentDetail.noCourses", { defaultValue: "Student is not enrolled in any courses." })}
-                  </p>
-                ) : (
-                  <DataTable
-                    columns={[
-                      { key: "title", title: t("adminPages.studentDetail.course", { defaultValue: "Course" }) },
-                      { 
-                        key: "progress", 
-                        title: t("adminPages.studentDetail.progress", { defaultValue: "Progress" }),
-                        render: (v) => (
-                          <div className="flex items-center gap-3">
-                            <div className="h-2 w-28 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
-                              <div
-                                className="h-2 rounded-full bg-gradient-to-r from-[var(--yu-blue-700)] to-emerald-500 transition-all"
-                                style={{ width: `${Math.min(100, Math.max(0, Number(v) || 0))}%` }}
-                              />
-                            </div>
-                            <span className="text-xs font-black text-slate-700 dark:text-slate-300">{v}%</span>
-                          </div>
-                        )
-                      },
-                      {
-                        key: "status",
-                        title: t("adminPages.studentDetail.status", { defaultValue: "Status" }),
-                        render: (v) => (
-                          <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
-                            v === "COMPLETED" ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300" : "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300"
-                          }`}>
-                            {v}
-                          </span>
-                        ),
-                      },
-                      { key: "enrolledDate", title: t("adminPages.studentDetail.enrolledDate", { defaultValue: "Enrolled Date" }) },
-                      {
-                        key: "expiresAt",
-                        title: t("adminPages.studentDetail.expires", { defaultValue: "Access ends" }),
-                        render: (v, row) => {
-                          if (!v) {
-                            return (
-                              <span className="text-xs font-semibold text-slate-500">
-                                {t("adminPages.studentDetail.lifetime", { defaultValue: "Lifetime" })}
-                              </span>
-                            );
-                          }
-                          const end = new Date(v);
-                          const days = Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-                          const expired = days <= 0;
-                          return (
-                            <div className="space-y-0.5">
-                              <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{end.toLocaleDateString()}</p>
-                              <p className={`text-[10px] font-semibold ${expired ? "text-rose-600" : days <= 7 ? "text-amber-600" : "text-emerald-600"}`}>
-                                {expired
-                                  ? t("adminPages.studentDetail.expired", { defaultValue: "Expired" })
-                                  : t("adminPages.studentDetail.daysLeft", { defaultValue: "{{n}} days left", n: days })}
-                              </p>
-                            </div>
-                          );
-                        },
-                      },
-                      {
-                        key: "id",
-                        title: t("common.actions", { defaultValue: "Actions" }),
-                        render: (_v, row) => (
-                          <div className="flex flex-wrap gap-2">
-                            <button
-                              type="button"
-                              className="rounded border px-2 py-1 text-xs font-semibold"
-                              onClick={async () => {
-                                const months = window.prompt(
-                                  t("adminPages.studentDetail.extendMonths", {
-                                    defaultValue: "Extend by months (e.g. 1, 3, 6). Leave empty to set an exact date instead.",
-                                  }),
-                                  "3"
-                                );
-                                if (months === null) return;
-                                try {
-                                  if (months.trim()) {
-                                    const n = Number(months);
-                                    if (!Number.isFinite(n) || n <= 0) {
-                                      toast.error("Enter a positive number of months");
-                                      return;
-                                    }
-                                    const base = row.expiresAt && new Date(row.expiresAt).getTime() > Date.now()
-                                      ? new Date(row.expiresAt)
-                                      : new Date();
-                                    base.setMonth(base.getMonth() + n);
-                                    await updateExpiry.mutateAsync({
-                                      id: row.id,
-                                      expiresAt: base.toISOString(),
-                                    });
-                                  } else {
-                                    const next = window.prompt(
-                                      t("adminPages.studentDetail.setExpiry", {
-                                        defaultValue: "New expiry (YYYY-MM-DD) or empty for lifetime",
-                                      }),
-                                      row.expiresAt ? String(row.expiresAt).slice(0, 10) : ""
-                                    );
-                                    if (next === null) return;
-                                    await updateExpiry.mutateAsync({
-                                      id: row.id,
-                                      expiresAt: next ? new Date(`${next}T23:59:59.000Z`).toISOString() : null,
-                                    });
-                                  }
-                                  toast.success(t("adminPages.studentDetail.expiryUpdated", { defaultValue: "Expiry updated" }));
-                                } catch {
-                                  toast.error(t("adminPages.studentDetail.expiryFailed", { defaultValue: "Failed to update expiry" }));
-                                }
-                              }}
-                            >
-                              {t("adminPages.studentDetail.manageAccess", { defaultValue: "Access" })}
-                            </button>
-                            <button
-                              type="button"
-                              className="rounded border border-red-200 px-2 py-1 text-xs font-semibold text-red-600"
-                              onClick={async () => {
-                                if (!window.confirm("Revoke this enrollment?")) return;
-                                try {
-                                  await revokeEnrollment.mutateAsync(row.id);
-                                  toast.success("Enrollment revoked");
-                                } catch {
-                                  toast.error("Failed to revoke");
-                                }
-                              }}
-                            >
-                              Revoke
-                            </button>
-                          </div>
-                        ),
-                      },
-                    ]}
-                    rows={enrolled}
-                  />
-                )}
+                <p className="mt-1 text-xs font-medium text-slate-500">
+                  {isRtl
+                    ? `${enrolled.length} كورس — عدّل مدة الوصول من زر الصلاحية`
+                    : `${enrolled.length} course(s) — manage access duration from the Access button`}
+                </p>
               </div>
+            </div>
+            {enrolled.length === 0 ? (
+              <p className="px-5 py-12 text-center text-sm text-slate-500">
+                {t("adminPages.studentDetail.noCourses", { defaultValue: "Student is not enrolled in any courses." })}
+              </p>
+            ) : (
+              <DataTable
+                className="rounded-none border-0 shadow-none dark:bg-transparent"
+                tableClassName="min-w-full"
+                columns={[
+                  {
+                    key: "title",
+                    title: t("adminPages.studentDetail.course", { defaultValue: "Course" }),
+                    render: (v, row) => (
+                      <div className="min-w-[180px]">
+                        <p className="font-bold text-slate-900 dark:text-white">{v}</p>
+                        <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">{row.type}</p>
+                      </div>
+                    ),
+                  },
+                  {
+                    key: "progress",
+                    title: t("adminPages.studentDetail.progress", { defaultValue: "Progress" }),
+                    render: (v) => (
+                      <div className="flex min-w-[140px] items-center gap-3">
+                        <div className="h-2 w-24 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10 sm:w-28">
+                          <div
+                            className="h-2 rounded-full bg-gradient-to-r from-[var(--yu-blue-700)] to-emerald-500 transition-all"
+                            style={{ width: `${Math.min(100, Math.max(0, Number(v) || 0))}%` }}
+                          />
+                        </div>
+                        <span className="text-xs font-black text-slate-700 dark:text-slate-300">{v}%</span>
+                      </div>
+                    ),
+                  },
+                  {
+                    key: "status",
+                    title: t("adminPages.studentDetail.status", { defaultValue: "Status" }),
+                    render: (v) => (
+                      <span
+                        className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                          v === "COMPLETED"
+                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300"
+                            : "bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300"
+                        }`}
+                      >
+                        {v}
+                      </span>
+                    ),
+                  },
+                  {
+                    key: "enrolledDate",
+                    title: t("adminPages.studentDetail.enrolledDate", { defaultValue: "Enrolled Date" }),
+                  },
+                  {
+                    key: "expiresAt",
+                    title: t("adminPages.studentDetail.expires", { defaultValue: "Access ends" }),
+                    render: (v) => {
+                      if (!v) {
+                        return (
+                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
+                            <Infinity className="h-3.5 w-3.5" />
+                            {t("adminPages.studentDetail.lifetime", { defaultValue: "Lifetime" })}
+                          </span>
+                        );
+                      }
+                      const end = new Date(v);
+                      const days = Math.ceil((end.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+                      const expired = days <= 0;
+                      return (
+                        <div className="min-w-[110px] space-y-0.5">
+                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{end.toLocaleDateString()}</p>
+                          <p
+                            className={`text-[10px] font-semibold ${
+                              expired ? "text-rose-600" : days <= 7 ? "text-amber-600" : "text-emerald-600"
+                            }`}
+                          >
+                            {expired
+                              ? t("adminPages.studentDetail.expired", { defaultValue: "Expired" })
+                              : t("adminPages.studentDetail.daysLeft", { defaultValue: "{{n}} days left", n: days })}
+                          </p>
+                        </div>
+                      );
+                    },
+                  },
+                  {
+                    key: "id",
+                    title: t("common.actions", { defaultValue: "Actions" }),
+                    render: (_v, row) => (
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:border-[var(--yu-blue-700)] hover:text-[var(--yu-blue-700)] dark:border-white/15 dark:bg-white/5 dark:text-slate-200"
+                          onClick={() => openAccessModal(row)}
+                        >
+                          {t("adminPages.studentDetail.manageAccess", { defaultValue: isRtl ? "الصلاحية" : "Access" })}
+                        </button>
+                        <button
+                          type="button"
+                          className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-50 dark:border-red-500/30 dark:hover:bg-red-500/10"
+                          onClick={async () => {
+                            if (!window.confirm(isRtl ? "إلغاء تسجيل هذا الكورس؟" : "Revoke this enrollment?")) return;
+                            try {
+                              await revokeEnrollment.mutateAsync(row.id);
+                              await refetchEnrollments();
+                              toast.success(isRtl ? "تم إلغاء التسجيل" : "Enrollment revoked");
+                            } catch {
+                              toast.error(isRtl ? "فشل الإلغاء" : "Failed to revoke");
+                            }
+                          }}
+                        >
+                          {isRtl ? "إلغاء" : "Revoke"}
+                        </button>
+                      </div>
+                    ),
+                  },
+                ]}
+                rows={enrolled}
+              />
+            )}
+          </div>
 
+          {/* Charts + activity */}
+          <div className="grid gap-6 lg:grid-cols-5">
+            {/* Left Content (Activities) */}
+            <div className="space-y-6 lg:col-span-3">
               {/* Activity Timeline */}
               <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/8 dark:bg-[#1A1A22]">
                 <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-400">
@@ -842,6 +891,108 @@ function StudentDetail() {
           )}
         </div>
       )}
+
+      {accessModal ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
+          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-white/10 dark:bg-[#1A1A22]">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                  {isRtl ? "تعديل صلاحية الكورس" : "Manage course access"}
+                </h3>
+                <p className="mt-1 text-sm font-medium text-slate-500">{accessModal.title}</p>
+              </div>
+              <button type="button" onClick={() => setAccessModal(null)} className="text-slate-500" aria-label="Close">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="mb-4 grid grid-cols-3 gap-2">
+              {[
+                { id: "months", label: isRtl ? "تمديد بشهور" : "Extend months" },
+                { id: "date", label: isRtl ? "تاريخ محدد" : "Exact date" },
+                { id: "lifetime", label: isRtl ? "مدى الحياة" : "Lifetime" },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setAccessMode(opt.id)}
+                  className={`rounded-xl border px-2 py-2.5 text-xs font-bold transition ${
+                    accessMode === opt.id
+                      ? "border-[var(--yu-blue-700)] bg-[var(--yu-blue-700)] text-white"
+                      : "border-slate-200 text-slate-600 dark:border-white/10 dark:text-slate-300"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
+            {accessMode === "months" ? (
+              <label className="mb-4 block space-y-1.5">
+                <span className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                  {isRtl ? "عدد الشهور (1–36)" : "Months (1–36)"}
+                </span>
+                <select
+                  value={accessMonths}
+                  onChange={(e) => setAccessMonths(Number(e.target.value))}
+                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                >
+                  {MONTH_OPTIONS.map((m) => (
+                    <option key={m} value={m}>
+                      {m} {isRtl ? "شهر" : m === 1 ? "month" : "months"}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[11px] font-medium text-slate-400">
+                  {isRtl
+                    ? "يُضاف على تاريخ الانتهاء الحالي إن كان ساريًا، وإلا من اليوم."
+                    : "Adds onto the current expiry if still active; otherwise from today."}
+                </p>
+              </label>
+            ) : null}
+
+            {accessMode === "date" ? (
+              <label className="mb-4 block space-y-1.5">
+                <span className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                  {isRtl ? "تاريخ انتهاء الوصول" : "Access end date"}
+                </span>
+                <input
+                  type="date"
+                  value={accessDate}
+                  onChange={(e) => setAccessDate(e.target.value)}
+                  className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold dark:border-white/10 dark:bg-[#0F0F13] dark:text-white"
+                />
+              </label>
+            ) : null}
+
+            {accessMode === "lifetime" ? (
+              <p className="mb-4 rounded-xl border border-emerald-200/60 bg-emerald-50 px-3 py-3 text-sm font-medium text-emerald-800 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-300">
+                {isRtl ? "سيتم إزالة تاريخ الانتهاء — وصول دائم." : "Expiry will be cleared — permanent access."}
+              </p>
+            ) : null}
+
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setAccessModal(null)}
+                className="rounded-xl border px-4 py-2 text-sm font-semibold dark:border-white/10 dark:text-slate-200"
+              >
+                {t("dashboard.common.cancel")}
+              </button>
+              <button
+                type="button"
+                disabled={accessSaving}
+                onClick={() => void saveAccessModal()}
+                className="inline-flex items-center gap-2 rounded-xl bg-[var(--yu-blue-700)] px-4 py-2 text-sm font-bold text-white disabled:opacity-60"
+              >
+                {accessSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                {isRtl ? "حفظ الصلاحية" : "Save access"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {passwordModalOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">

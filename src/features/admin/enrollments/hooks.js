@@ -31,6 +31,7 @@ export function useUpdateAdminEnrollmentExpiry() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "enrollments"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "students"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "users"] });
     },
   });
 }
@@ -42,6 +43,7 @@ export function useRevokeAdminEnrollment() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "enrollments"] });
       queryClient.invalidateQueries({ queryKey: ["admin", "students"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "users"] });
     },
   });
 }

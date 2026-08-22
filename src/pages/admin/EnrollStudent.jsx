@@ -21,7 +21,7 @@ import { useCreateAdminEnrollment } from "../../features/admin/enrollments/hooks
 import { useAdminUsersAll } from "../../features/admin/users/hooks";
 import { useAdminCourse, useAdminCourses } from "../../features/admin/courses/hooks";
 
-const MONTH_OPTIONS = [1, 2, 3, 6, 9, 12, 18, 24, 36];
+const MONTH_OPTIONS = Array.from({ length: 36 }, (_, i) => i + 1);
 
 function useDebouncedValue(value, delayMs = 300) {
   const [debounced, setDebounced] = useState(value);

@@ -1,10 +1,10 @@
-function DataTable({ columns = [], rows = [], pagination = null, className = "", emptyMessage = null }) {
+function DataTable({ columns = [], rows = [], pagination = null, className = "", tableClassName = "", emptyMessage = null }) {
   return (
     <div
       className={`overflow-hidden rounded-[1.35rem] border border-slate-200/90 bg-white/95 shadow-[var(--shadow-sm)] backdrop-blur-sm dark:border-white/8 dark:bg-[#0F1E38]/90 ${className}`}
     >
       <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
-        <table className="w-full min-w-[920px] border-collapse text-start">
+        <table className={`w-full border-collapse text-start ${tableClassName || "min-w-[920px]"}`}>
           <thead className="bg-[linear-gradient(180deg,#F8FAFC_0%,#F1F5F9_100%)] dark:bg-[#0A1424]">
             <tr>
               {columns.map((col) => (
